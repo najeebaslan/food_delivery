@@ -1,0 +1,73 @@
+name: food_delivery
+description: "Food delivery App"
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.3.1 <4.0.0'
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+
+  cupertino_icons: ^1.0.6
+  flutter_bloc: ^8.1.4
+  flutter_screenutil: ^5.9.0
+  flutter_svg: ^2.0.9 
+  flutter_native_splash: ^2.4.0
+  shared_preferences: ^2.2.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: ^0.13.1
+  
+flutter_launcher_icons:
+  image_path: "assets/images/logo.png"
+  adaptive_icon_padding: false
+  android: true # can specify file name here e.g. "ic_launcher"
+  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  remove_alpha_ios: false
+  # adaptive_icon_foreground:  "#ffffff"
+  adaptive_icon_background: "#ffffff"
+
+  flutter_lints: ^3.0.0
+
+
+flutter:
+
+
+  uses-material-design: true
+
+
+  assets:
+    - assets/images/
+    - assets/fonts/
+    - assets/images/splash.png
+    - assets/images/logo.png
+
+  
+  # fonts: 
+  #   - family: IBM Plex Sans Arabic
+  #     fonts: 
+  #       - asset: assets/fonts/IBMPlexSansArabicRegular.ttf
+  #         weight: 400
+  #       - asset: assets/fonts/IBMPlexSansArabicBold.ttf
+  #         weight: 700
+  #   - family: IBM Plex Sans Arabic Medium
+  #     fonts: 
+  #       - asset: assets/fonts/IBMPlexSansArabicMedium.ttf
+  #         weight: 500
+  #   - family: IBM Plex Sans Arabic SemiBold
+  #     fonts: 
+  #       - asset: assets/fonts/IBMPlexSansArabicSemiBold.ttf
+  #         weight: 600
+
+
+  
