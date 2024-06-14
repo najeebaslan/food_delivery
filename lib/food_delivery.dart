@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -15,7 +13,7 @@ class FoodDeliveryApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: Platform.isAndroid ? const Size(414, 896) : const Size(430, 932),
+      designSize: const Size(428, 926),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
@@ -24,7 +22,7 @@ class FoodDeliveryApp extends StatelessWidget {
           initialRoute: AppRoutesConstants.splashView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
-              textScaler: const TextScaler.linear(1.2),
+              textScaler: const TextScaler.linear(1),
             ),
             child: child!,
           ),
@@ -49,14 +47,14 @@ class FoodDeliveryApp extends StatelessWidget {
                 brightness: Brightness.dark,
                 primaryColor: kPrimaryColor,
                 scaffoldBackgroundColor: AppColors.background,
-                textTheme: TextTheme(
-                  bodyLarge: TextStyle(
-                    color: Colors.white,
-                  ),
-                  bodyMedium: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
+                // textTheme: TextTheme(
+                //   bodyLarge: TextStyle(
+                //     color: Colors.white,
+                //   ),
+                //   bodyMedium: TextStyle(
+                //     color: Colors.white,
+                //   ),
+                // ),
               ),
               darkTheme: ThemeData(
                 brightness: Brightness.dark,
@@ -98,7 +96,18 @@ class FoodDeliveryApp extends StatelessWidget {
 - slider
 -navigationBar
 
+ */
 
+
+// Responsive ui 
+/* 
+
+FractionallySizedBox
+LayoutBuilder
+AlignmentDirectional
+Expanded
+Flexible
+FittedBox
 
 
 

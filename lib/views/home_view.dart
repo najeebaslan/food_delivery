@@ -6,6 +6,7 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
     return PlatformScaffold(
       body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
