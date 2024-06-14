@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 
-class HomeView extends StatelessWidget {
-  const HomeView({super.key});
+class OnboardingHomeView extends StatelessWidget {
+  const OnboardingHomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
