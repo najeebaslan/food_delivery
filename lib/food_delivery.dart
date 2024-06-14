@@ -1,12 +1,13 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 
-import 'core/styles/app_text_styles.dart';
-import 'views/home_view.dart';
+import 'core/router/routes_constants.dart';
+import 'core/router/routes_manager.dart';
 
 class FoodDeliveryApp extends StatelessWidget {
   const FoodDeliveryApp({super.key});
@@ -18,7 +19,9 @@ class FoodDeliveryApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return MaterialApp(
+        return PlatformApp(
+          onGenerateRoute: AppRouter.onGenerateRoute,
+          initialRoute: AppRoutesConstants.splashView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaler: const TextScaler.linear(1.2),
@@ -27,121 +30,77 @@ class FoodDeliveryApp extends StatelessWidget {
           ),
           title: 'Food Delivery App',
           debugShowCheckedModeBanner: false,
-          theme: appThemeData(context),
-          home: const HomeView(),
+          cupertino: (_, __) => CupertinoAppData(
+            theme: CupertinoThemeData(
+              brightness: Brightness.light,
+              barBackgroundColor: Colors.black,
+              primaryColor: kPrimaryColor,
+              scaffoldBackgroundColor: AppColors.background,
+              textTheme: CupertinoTextThemeData(
+                textStyle: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ),
+          material: (context, platform) {
+            return MaterialAppData(
+              theme: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: kPrimaryColor,
+                scaffoldBackgroundColor: AppColors.background,
+                textTheme: TextTheme(
+                  bodyLarge: TextStyle(
+                    color: Colors.white,
+                  ),
+                  bodyMedium: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              darkTheme: ThemeData(
+                brightness: Brightness.dark,
+                primaryColor: kPrimaryColor,
+                scaffoldBackgroundColor: AppColors.black,
+                textTheme: TextTheme(
+                  bodyLarge: TextStyle(
+                    color: Colors.white,
+                  ),
+                  bodyMedium: TextStyle(
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+              themeMode: ThemeMode.system,
+            );
+          },
         );
       },
     );
   }
-
-  ThemeData appThemeData(BuildContext context) {
-    return ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: AppColors.kPrimaryColor),
-      useMaterial3: true,
-      appBarTheme: AppBarTheme(
-        backgroundColor: kPrimaryColor,
-        centerTitle: true,
-        iconTheme: const IconThemeData(color: AppColors.white),
-        elevation: 0,
-      ),
-      textTheme: TextTheme(
-        titleLarge: context.textTheme.titleLarge?.copyWith(
-          fontFamily: AppTextStyles.defaultFontFamily,
-          overflow: TextOverflow.ellipsis,
-          color: AppColors.black,
-          height: 1.6,
-        ),
-        titleMedium: context.textTheme.titleMedium?.copyWith(
-          overflow: TextOverflow.ellipsis,
-          fontFamily: AppTextStyles.defaultFontFamily,
-          color: AppColors.black,
-          height: 1.6,
-        ),
-        // titleSmall: context.textTheme.titleSmall?.copyWith(
-        //   overflow: TextOverflow.ellipsis,
-        //   fontFamily: AppTextStyles.defaultFontFamily,
-        //   color: AppColors.nearBlack,
-        //   height: 1.6,
-        // ),
-        // bodyLarge: context.textTheme.bodyLarge?.copyWith(
-        //   overflow: TextOverflow.ellipsis,
-        //   fontFamily: AppTextStyles.defaultFontFamily,
-        //   color: AppColors.nearBlack,
-        //   height: 1.6,
-        // ),
-        // bodySmall: context.textTheme.bodySmall?.copyWith(
-        //   overflow: TextOverflow.ellipsis,
-        //   fontFamily: AppTextStyles.defaultFontFamily,
-        //   color: AppColors.nearBlack,
-        //   height: 1.6,
-        // ),
-        // bodyMedium: context.textTheme.bodyMedium?.copyWith(
-        //   overflow: TextOverflow.ellipsis,
-        //   fontFamily: AppTextStyles.defaultFontFamily,
-        //   color: AppColors.nearBlack,
-        //   height: 1.6,
-        // ),
-      ),
-      inputDecorationTheme: InputDecorationTheme(
-        fillColor: AppColors.white,
-        filled: true,
-        contentPadding: EdgeInsets.only(
-          left: 30.w,
-          top: 10.h,
-          right: 30.w,
-          bottom: 10.h,
-        ),
-        focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(5.r),
-            borderSide: BorderSide(color: kPrimaryColor)),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.r),
-          borderSide: BorderSide(
-            color: Colors.grey.shade300,
-            width: 1.h,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.r),
-          borderSide: BorderSide(
-            color: Colors.red,
-            width: 2.0.h,
-          ),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(5.r),
-          borderSide: BorderSide(
-            color: Colors.red,
-            width: 2.0.h,
-          ),
-        ),
-        errorStyle: context.textTheme.bodySmall?.copyWith(
-          color: AppColors.errorColor,
-        ),
-        hintStyle: context.textTheme.bodySmall?.copyWith(
-          color: AppColors.black,
-        ),
-        labelStyle: context.textTheme.bodySmall?.copyWith(
-          color: AppColors.black,
-        ),
-        suffixStyle: context.textTheme.bodyLarge?.copyWith(
-          color: AppColors.black,
-        ),
-        prefixStyle: context.textTheme.bodyLarge?.copyWith(
-          color: Colors.black,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(0),
-        ),
-      ),
-      scaffoldBackgroundColor: AppColors.background,
-      brightness: Brightness.light,
-      elevatedButtonTheme: ElevatedButtonThemeData(
-        style: TextButton.styleFrom(
-          shape: const StadiumBorder(),
-          backgroundColor: kPrimaryColor,
-        ),
-      ),
-    );
-  }
 }
+
+
+/* 
+- scaffold
+- MaterialApp
+- Theme
+- ElevatedButton
+- switch
+-alertDialog
+- alertAction
+-CircularProgressIndicator
+-TextButton
+-Navigator.pageRoute
+- bottomSheet
+-alertActionSheet
+- pick date time
+- slider
+-navigationBar
+
+
+
+
+
+
+ */

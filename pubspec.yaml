@@ -22,6 +22,7 @@ dependencies:
   flutter_svg: ^2.0.9 
   flutter_native_splash: ^2.4.0
   shared_preferences: ^2.2.2
+  flutter_platform_widgets: ^6.1.0
 
 dev_dependencies:
   flutter_test:
@@ -31,18 +32,15 @@ dev_dependencies:
 flutter_launcher_icons:
   image_path: "assets/images/logo.png"
   adaptive_icon_padding: false
-  android: true # can specify file name here e.g. "ic_launcher"
-  ios: true # can specify file name here e.g. "My-Launcher-Icon"
+  android: true 
+  ios: true 
   remove_alpha_ios: false
-  # adaptive_icon_foreground:  "#ffffff"
   adaptive_icon_background: "#ffffff"
 
   flutter_lints: ^3.0.0
 
 
 flutter:
-
-
   uses-material-design: true
 
 
