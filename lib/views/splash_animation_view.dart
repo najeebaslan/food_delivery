@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../core/constants/assets_constants.dart';
-import '../core/router/routes_constants.dart';
 import '../core/styles/color_hex.dart';
 
 class SplashAnimationView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
 
   late final Animation<Offset> _positionAnimation = Tween<Offset>(
     begin: Offset(0.0, 1.5.h),
-    end: Offset(-0.0, .5.h),
+    end: Offset(-0.0, .2.h),
   ).animate(
     CurvedAnimation(
       parent: animationController,
@@ -32,7 +33,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   );
 
   late final Animation<Offset> _positionAnimationCola = Tween<Offset>(
-    begin: Offset(1.0, 1.5.h),
+    begin: Offset(1.0, 3.5.h),
     end: Offset(0.0, .5.h),
   ).animate(
     CurvedAnimation(
@@ -42,7 +43,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   );
 
   late final Animation<Offset> _positionAnimationHotDog = Tween<Offset>(
-    begin: Offset(-.7, 1.5.h),
+    begin: Offset(-.7, 2.5.h),
     end: Offset(0.0, .5.h),
   ).animate(
     CurvedAnimation(
@@ -61,7 +62,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   );
 
   late final Animation<Offset> _positionAnimationBurger = Tween<Offset>(
-    begin: Offset(-.5, -0.1.h),
+    begin: Offset(-.5, -0.6.h),
     end: Offset(0.0, .5.h),
   ).animate(
     CurvedAnimation(
@@ -70,7 +71,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
     ),
   );
   late final Animation<Offset> _positionAnimationTridonut = Tween<Offset>(
-    begin: Offset(.5, -0.2.h),
+    begin: Offset(.5, -1.5.h),
     end: Offset(0.0, .5.h),
   ).animate(
     CurvedAnimation(
@@ -96,8 +97,8 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
     );
     animationController.forward().whenComplete(() {
       return Future.delayed(const Duration(milliseconds: 100), () async {
-        Navigator.pushNamedAndRemoveUntil(
-            context, AppRoutesConstants.OnboardingHomeView, (route) => false);
+        // Navigator.pushNamedAndRemoveUntil(
+        //     context, AppRoutesConstants.OnboardingHomeView, (route) => false);
       });
     });
   }
@@ -113,207 +114,233 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
     return PlatformScaffold(
       body: Padding(
         padding: EdgeInsets.only(
-          top: 20.h,
           right: 20.w,
           left: 20.w,
         ),
-        child: Center(
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              // Hot dog isometric
-              Positioned(
-                top: 10.h,
-                right: -13.w,
-                child: SlideTransition(
-                  position: _positionAnimationHotDog,
-                  child: Column(
-                    children: [
-                      Transform.rotate(
-                        angle: 0.2,
-                        child: SvgPicture.asset(
-                          height: 143.h,
-                          width: 143.w,
-                          ImagesConstants.ellipseYellow,
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(0, -155.h),
-                        child: Image.asset(
-                          ImagesConstants.hotDogIsometric,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              // Mayo isometric
-              Positioned(
-                top: 170.h,
-                left: -30.w,
-                child: SlideTransition(
-                  position: _positionAnimationMayo,
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        height: 80.56.h,
-                        width: 80.56.w,
-                        ImagesConstants.ellipseRed,
-                      ),
-                      Transform.translate(
-                        offset: Offset(7.w, -140.h),
-                        child: Image.asset(
-                          ImagesConstants.mayoIsometric,
-                          height: 200.302.h,
-                          width: 200.302.w,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Fast delivery
-              Positioned(
-                top: 412.h,
-                child: ValueListenableBuilder(
-                  valueListenable: _opacityEllipseSmall,
-                  builder: (context, value, child) => AnimatedOpacity(
-                    duration: Duration(seconds: 1),
-                    opacity: value,
-                    child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          ImagesConstants.ellipseSmall,
-                        ),
-                        Text(
-                          'Fast delivery',
-                          style: TextStyle(
-                            fontSize: 40.sp,
-                            color: HexColor("#000000"),
-                            fontWeight: FontWeight.w400,
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            final height = constraints.maxHeight;
+            final width = constraints.maxWidth;
+            return Center(
+              child: Stack(
+                alignment: Alignment.center,
+                clipBehavior: Clip.none,
+                fit: StackFit.loose,
+                children: [
+                  // Hot dog isometric
+                  Positioned(
+                    top: 100.h,
+                    right: 0.w,
+                    child: SlideTransition(
+                      position: _positionAnimationHotDog,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          SvgPicture.asset(
+                            height: (height / 6.5),
+                            width: (width / 6.5),
+                            ImagesConstants.ellipseYellow,
                           ),
-                        ),
-                        Text(
-                          'Taste that best, its on time.',
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: HexColor("#000000"),
-                            fontWeight: FontWeight.w300,
+                          Positioned(
+                            bottom: -10.h,
+                            child: Image.asset(
+                              height: (height / 5.1),
+                              width: (width / 2.2),
+                              ImagesConstants.hotDogIsometric,
+                            ),
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ),
 
-              // Burger blue circle
-              Positioned(
-                top: 450.h,
-                right: -21.w,
-                child: SlideTransition(
-                  position: _positionAnimationBurger,
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        height: 143.h,
-                        width: 143.w,
-                        ImagesConstants.burgerBlueCircle,
-                      ),
-                      Transform.translate(
-                        offset: Offset(0, -190.h),
-                        child: Image.asset(
-                          ImagesConstants.burgerIsometric,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // tridonut
-              Positioned(
-                bottom: 100.h,
-                left: 21.w,
-                child: SlideTransition(
-                  position: _positionAnimationTridonut,
-                  child: Column(
-                    children: [
-                      Transform.rotate(
-                        angle: 4.7,
-                        child: SvgPicture.string(
-                          height: 143.h,
-                          width: 143.w,
-                          burgerCircleWithColor("#CEE9D5", 0.67),
-                        ),
-                      ),
-                      Transform.translate(
-                        offset: Offset(15.w, -170.h),
-                        child: Image.asset(
-                          ImagesConstants.tridonut,
-                          height: 170.h,
-                          width: 170.w,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Fries front
-              Positioned(
-                top: -100.h,
-                left: 60.w,
-                child: SlideTransition(
-                  position: _positionAnimation,
-                  child: Column(
-                    children: [
-                      SvgPicture.asset(
-                        ImagesConstants.ellipseBlue,
-                        height: 121.h,
-                        width: 121.w,
-                      ),
-                      Transform.translate(
-                        offset: Offset(0, -160.h),
-                        child: Image.asset(
-                          ImagesConstants.friesFront,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              // Cola isometric
-              Positioned(
-                top: 20.h,
-                left: -50.w,
-                child: SlideTransition(
-                  position: _positionAnimationCola,
-                  child: Column(
-                    children: [
-                      ValueListenableBuilder(
-                        valueListenable: _opacityColaCircle,
-                        builder: (context, value, child) => AnimatedOpacity(
-                          opacity: value,
-                          duration: Duration(seconds: 1),
-                          child: SvgPicture.asset(
-                            height: 82.h,
-                            width: 82.w,
-                            ImagesConstants.ellipseGreen,
+                  // Mayo isometric
+                  Positioned(
+                    top: height / 5,
+                    left: -40.w,
+                    child: SlideTransition(
+                      position: _positionAnimationMayo,
+                      child: Stack(
+                        alignment: Alignment.center,
+                        clipBehavior: Clip.none,
+                        children: [
+                          SvgPicture.asset(
+                            height: (height / 10.5),
+                            width: (width / 10.5),
+                            ImagesConstants.ellipseRed,
                           ),
-                        ),
+                          Transform.translate(
+                            offset: Offset(10.w, 5.h),
+                            child: Image.asset(
+                              ImagesConstants.mayoIsometric,
+                              height: (height / 4.6),
+                              width: (width / 1.95),
+                            ),
+                          ),
+                        ],
                       ),
-                      Transform.translate(
-                        offset: Offset(20, -115.h),
-                        child: Image.asset(
-                          ImagesConstants.colaIsometric,
-                        ),
-                      ),
-                    ],
+                    ),
                   ),
-                ),
+                  // Fast delivery
+                  Positioned(
+                    top: height / 2,
+                    child: ValueListenableBuilder(
+                      valueListenable: _opacityEllipseSmall,
+                      builder: (context, value, child) => AnimatedOpacity(
+                        duration: Duration(seconds: 1),
+                        opacity: value,
+                        child: Column(
+                          children: [
+                            SvgPicture.asset(
+                              ImagesConstants.ellipseSmall,
+                              width: 114.06.w,
+                              height: 84.97.h,
+                            ),
+                            Text(
+                              'Fast delivery',
+                              style: TextStyle(
+                                height: 0,
+                                fontSize: 40.sp,
+                                color: HexColor("#000000"),
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                            Text(
+                              'Taste that best, its on time.',
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                height: 0,
+                                color: HexColor("#000000"),
+                                fontWeight: FontWeight.w300,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  // Burger blue circle
+                  Positioned(
+                    top: height / 1.6,
+                    right: -20.w,
+                    child: SlideTransition(
+                      position: _positionAnimationBurger,
+                      child: Stack(
+                        alignment: Alignment.topCenter,
+                        children: [
+                          SvgPicture.asset(
+                            height: (height / 6.5),
+                            width: (width / 6.5),
+                            ImagesConstants.burgerBlueCircle,
+                          ),
+                          Transform.translate(
+                            offset: Offset(-10.w, -55.h),
+                            child: Image.asset(
+                              ImagesConstants.burgerIsometric,
+                              height: (height / 4.6),
+                              width: (width / 2),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // tridonut
+                  Positioned(
+                    top: height / 1.4,
+                    left: 0,
+                    child: SlideTransition(
+                      position: _positionAnimationTridonut,
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          Transform.rotate(
+                            angle: 4.7,
+                            child: SvgPicture.string(
+                              height: (height / 6.5),
+                              width: (width / 6.5),
+                              burgerCircleWithColor("#CEE9D5", 0.67),
+                            ),
+                          ),
+                          Positioned(
+                            right: -30,
+                            child: Image.asset(
+                              ImagesConstants.tridonut,
+                              height: (height / 5.5),
+                              width: (width / 2),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Fries front
+                  Positioned(
+                    top: 0.h,
+                    left: 60.w,
+                    child: SlideTransition(
+                      position: _positionAnimation,
+                      child: Stack(
+                        alignment: Alignment(-0.1, -0.1.h),
+                        children: [
+                          SvgPicture.asset(
+                            ImagesConstants.ellipseBlue,
+                            height: height / 7.5,
+                            width: width / 7.5,
+                          ),
+                          Image.asset(
+                            ImagesConstants.friesFront,
+                            height: height / 4,
+                            width: width / 2,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  // Cola isometric
+                  Positioned(
+                    top: height / 6.4,
+                    left: 0.w,
+                    child: SlideTransition(
+                      position: _positionAnimationCola,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        alignment: Alignment.center,
+                        children: [
+                          Positioned(
+                            child: ValueListenableBuilder(
+                              valueListenable: _opacityColaCircle,
+                              builder: (context, value, child) {
+                                return AnimatedOpacity(
+                                  opacity: value,
+                                  duration: Duration(seconds: 1),
+                                  child: SvgPicture.asset(
+                                    height: (height / 10.5),
+                                    width: (width / 10.5),
+                                    ImagesConstants.ellipseGreen,
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                          Positioned(
+                            bottom: (height * -0.10),
+                            left: -40,
+                            child: Image.asset(
+                              ImagesConstants.colaIsometric,
+                              height: (height / 4),
+                              width: (width / 1.8),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );

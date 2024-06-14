@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'color_hex.dart';
 
 Color kPrimaryColor = HexColor('#5b77ff');
-// Color kPrimaryColor = HexColor('#27b676');
 Color secondPrimaryColor = Colors.orange;
 Color thirdPrimaryColor = Colors.red;
 
