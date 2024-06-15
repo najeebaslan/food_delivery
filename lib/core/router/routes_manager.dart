@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/core/widget/splash_animation_view.dart';
+import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
 import 'package:food_delivery/features/onboading/onboarding_home_view.dart';
 
 import '../../features/onboading/blocs/cubit/onboarding_cubit.dart';
@@ -15,17 +15,11 @@ class AppRouter {
     switch (settings.name) {
       // --------------- Auth Screen ---------------//
       case AppRoutesConstants.OnboardingHomeView:
-        // return OnboardingHomeView(
-        //   colaCircleTag: settings.arguments as String,
-        // ).withAnimation;
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider<OnboardingCubit>(
+        return BlocProvider<OnboardingCubit>(
             create: (BuildContext context) => OnboardingCubit(),
             child: OnboardingHomeView(
-              colaCircleTag: settings.arguments as String,
-            ),
-          ),
-        );
+              onboardingHeroTags: settings.arguments as OnboardingHeroTags,
+            )).withAnimation;
 
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().withAnimation;
@@ -68,11 +62,9 @@ class AppRouter {
 
 extension AnimationPageRouter on Widget {
   PageRouteBuilder<dynamic> get withAnimation => PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 400),
-        reverseTransitionDuration: const Duration(milliseconds: 200),
-        pageBuilder: (context, animation, secondaryAnimation) => FadeTransition(
-          opacity: animation,
-          child: this,
-        ),
+        transitionDuration: const Duration(milliseconds: 2000),
+        reverseTransitionDuration: const Duration(milliseconds: 2000),
+        pageBuilder: (context, animation, secondaryAnimation) =>
+            FadeTransition(opacity: animation, child: this),
       );
 }

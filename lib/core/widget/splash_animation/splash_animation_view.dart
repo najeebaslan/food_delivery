@@ -1,13 +1,14 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../constants/assets_constants.dart';
-import '../router/routes_constants.dart';
-import '../styles/color_hex.dart';
+import '../../../features/onboading/onboarding_home_view.dart';
+import '../../constants/assets_constants.dart';
+import '../../router/routes_constants.dart';
+import 'widgets/cola_positioned.dart';
+import 'widgets/fast_delivery_positioned.dart';
 
 class SplashAnimationView extends StatefulWidget {
   const SplashAnimationView({super.key});
@@ -21,8 +22,11 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   late final AnimationController animationController;
   late Animation animation;
   final _opacityColaCircle = ValueNotifier<double>(0.0);
-  final _opacityEllipseSmall = ValueNotifier<double>(0.0);
-  static const String colaCircleTag = 'ColaCircleTag';
+  final _opacityFastDelivery = ValueNotifier<double>(0.0);
+  final onboardingHeroTags = OnboardingHeroTags(
+    drinkTag: 'drinkTag',
+    colaCircleTag: 'colaCircleTag',
+  );
   late final Animation<Offset> _positionAnimation = Tween<Offset>(
     begin: Offset(0.0, 1.5.h),
     end: Offset(-0.0, .2.h),
@@ -74,7 +78,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
       const Duration(milliseconds: 300),
       () async {
         _opacityColaCircle.value = 0.9;
-        _opacityEllipseSmall.value = 0.9;
+        _opacityFastDelivery.value = 0.9;
       },
     );
     animationController.forward().whenComplete(
@@ -85,7 +89,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
             return Navigator.pushNamedAndRemoveUntil(
               context,
               AppRoutesConstants.OnboardingHomeView,
-              arguments: colaCircleTag,
+              arguments: onboardingHeroTags,
               (route) => false,
             );
           },
@@ -155,10 +159,13 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                         alignment: Alignment.center,
                         clipBehavior: Clip.none,
                         children: [
-                          SvgPicture.asset(
-                            height: (height / 10.5),
-                            width: (width / 10.5),
-                            ImagesConstants.ellipseRed,
+                          Hero(
+                            tag: onboardingHeroTags.drinkTag,
+                            child: SvgPicture.asset(
+                              height: (height / 10.5),
+                              width: (width / 10.5),
+                              ImagesConstants.onboardingCircleRed,
+                            ),
                           ),
                           Transform.translate(
                             offset: Offset(10.w, 5.h),
@@ -174,48 +181,14 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                   ),
 
                   // Fast delivery
-                  Positioned(
-                    top: height / 2,
-                    child: ValueListenableBuilder(
-                      valueListenable: _opacityEllipseSmall,
-                      builder: (context, value, child) => AnimatedOpacity(
-                        duration: Duration(seconds: 1),
-                        opacity: value,
-                        child: Column(
-                          children: [
-                            SvgPicture.asset(
-                              ImagesConstants.ellipseSmall,
-                              width: 114.06.w,
-                              height: 84.97.h,
-                            ),
-                            Text(
-                              'Fast delivery',
-                              style: TextStyle(
-                                height: 0,
-                                fontSize: 40.sp,
-                                color: HexColor("#000000"),
-                                fontWeight: FontWeight.w400,
-                              ),
-                            ),
-                            Text(
-                              'Taste that best, its on time.',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                height: 0,
-                                color: HexColor("#000000"),
-                                fontWeight: FontWeight.w300,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
+                  FastDeliveryPositioned(
+                    height: height,
+                    opacityFastDelivery: _opacityFastDelivery,
                   ),
 
                   // Burger blue circle
                   Positioned(
                     top: height / 1.6,
-                    // right: -20.w,
                     left: width / 1.8,
                     child: SlideTransition(
                       position: _positionAnimationBurger,
@@ -292,46 +265,12 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                     ),
                   ),
                   // Cola
-                  Positioned(
-                    top: height / 6.4,
-                    left: 0.w,
-                    child: SlideTransition(
-                      position: _positionAnimationCola,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        alignment: Alignment.center,
-                        children: [
-                          Positioned(
-                            child: ValueListenableBuilder(
-                              valueListenable: _opacityColaCircle,
-                              builder: (context, value, child) {
-                                return AnimatedOpacity(
-                                  opacity: value,
-                                  duration: Duration(seconds: 1),
-                                  child: SvgPicture.asset(
-                                    height: (height / 10.5),
-                                    width: (width / 10.5),
-                                    ImagesConstants.ellipseGreen,
-                                  ),
-                                );
-                              },
-                            ),
-                          ),
-                          Positioned(
-                            bottom: (height * -0.10),
-                            left: -40,
-                            child: Hero(
-                              tag: colaCircleTag,
-                              child: Image.asset(
-                                ImagesConstants.colaIsometric,
-                                height: (height / 4),
-                                width: (width / 1.8),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  ColaPositioned(
+                    height: height,
+                    positionAnimationCola: _positionAnimationCola,
+                    onboardingHeroTags: onboardingHeroTags,
+                    width: width,
+                    opacityColaCircle: _opacityColaCircle,
                   ),
                 ],
               ),

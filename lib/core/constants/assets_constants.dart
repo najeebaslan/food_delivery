@@ -19,4 +19,6 @@ class ImagesConstants {
   static const circleBorderGreen = '${_baseImages}circle_border_green.svg';
   static const circleBorderYellow = '${_baseImages}circle_border_yellow.svg';
   static const deliveryManOnboarding = '${_baseImages}delivery_man_onboarding.gif';
+  static const onboardingCircleRed = '${_baseImages}onboarding_circle_red.svg';
+  static const onboardingCircleBoldRed = '${_baseImages}onboarding_circle_bold_red.svg';
 }
