@@ -6,25 +6,13 @@ part 'onboarding_state.dart';
 class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit() : super(OnboardingInitial());
   int indexIndicator = 0;
-  double opacityText = 1.0;
-  void nextIndicator() async {
-    indexIndicator == 0 ? opacityText = 1 : opacityText = 0;
-    if (indexIndicator == 2) {
-      return;
+  void nextIndicator({int? index}) async {
+    if (index != null) {
+      indexIndicator = index;
     } else {
-      opacityText = 1;
-
+      if (indexIndicator == 2) return;
       indexIndicator = indexIndicator == 2 ? 0 : indexIndicator + 1;
-      emit(NextIndicatorOnboarding(indexIndicator));
-
-      changeOpacity();
     }
-  }
-
-  changeOpacity() {
-    Future.delayed(Duration(milliseconds: 500), () {
-      opacityText = 1.0;
-      emit(NextIndicatorOnboarding(indexIndicator));
-    });
+    emit(NextIndicatorOnboarding(indexIndicator));
   }
 }
