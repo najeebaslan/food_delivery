@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../styles/app_colors.dart';
+
+class CustomElevatedButton extends StatelessWidget {
+  const CustomElevatedButton({
+    super.key,
+    required this.title,
+    required this.onPressed,
+    this.backgroundColor,
+  });
+  final String title;
+  final VoidCallback onPressed;
+
+  final Color? backgroundColor;
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      width: 322.w,
+      height: 66.h,
+      child: PlatformElevatedButton(
+        cupertino: (context, platform) => CupertinoElevatedButtonData(
+          borderRadius: BorderRadius.circular(20.r),
+          color:backgroundColor?? AppColors.blue,
+          disabledColor: AppColors.red,
+          onPressed: onPressed,
+          originalStyle: true,
+          child: buildText(title),
+        ),
+        material: (context, platform) => MaterialElevatedButtonData(
+          child: buildText(title),
+          onPressed: onPressed,
+          style: ElevatedButton.styleFrom(
+            backgroundColor:backgroundColor?? AppColors.blue,
+            disabledBackgroundColor: AppColors.red,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Text buildText(String title) {
+    return Text(
+      title,
+      style: TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontFamily: 'Roboto',
+        fontWeight: FontWeight.w700,
+        height: 0,
+      ),
+    );
+  }
+}

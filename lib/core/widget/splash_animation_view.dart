@@ -5,8 +5,9 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../core/constants/assets_constants.dart';
-import '../core/styles/color_hex.dart';
+import '../constants/assets_constants.dart';
+import '../router/routes_constants.dart';
+import '../styles/color_hex.dart';
 
 class SplashAnimationView extends StatefulWidget {
   const SplashAnimationView({super.key});
@@ -19,75 +20,56 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
     with TickerProviderStateMixin {
   late final AnimationController animationController;
   late Animation animation;
-  final ValueNotifier<double> _opacityColaCircle = ValueNotifier<double>(0.0);
-  final ValueNotifier<double> _opacityEllipseSmall = ValueNotifier<double>(0.0);
-
+  final _opacityColaCircle = ValueNotifier<double>(0.0);
+  final _opacityEllipseSmall = ValueNotifier<double>(0.0);
+  static const String colaCircleTag = 'ColaCircleTag';
   late final Animation<Offset> _positionAnimation = Tween<Offset>(
     begin: Offset(0.0, 1.5.h),
     end: Offset(-0.0, .2.h),
-  ).animate(
-    CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    ),
-  );
+  ).animate(CurvedAnimationSlider());
 
   late final Animation<Offset> _positionAnimationCola = Tween<Offset>(
     begin: Offset(1.0, 3.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(
-    CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    ),
-  );
+  ).animate(CurvedAnimationSlider());
 
-  late final Animation<Offset> _positionAnimationHotDog = Tween<Offset>(
+  late final Animation<Offset> _positionAnimationSandwich = Tween<Offset>(
     begin: Offset(-.7, 2.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(
-    CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    ),
-  );
-  late final Animation<Offset> _positionAnimationMayo = Tween<Offset>(
+  ).animate(CurvedAnimationSlider());
+  late final Animation<Offset> _positionAnimationDrink = Tween<Offset>(
     begin: Offset(.5, 1.h),
     end: Offset(0.0, .5.h),
-  ).animate(
-    CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    ),
-  );
+  ).animate(CurvedAnimationSlider());
 
   late final Animation<Offset> _positionAnimationBurger = Tween<Offset>(
     begin: Offset(-.5, -0.6.h),
     end: Offset(0.0, .5.h),
-  ).animate(
-    CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    ),
-  );
+  ).animate(CurvedAnimationSlider());
   late final Animation<Offset> _positionAnimationTridonut = Tween<Offset>(
     begin: Offset(.5, -1.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(
-    CurvedAnimation(
+  ).animate(CurvedAnimationSlider());
+
+  CurvedAnimation CurvedAnimationSlider() {
+    return CurvedAnimation(
       parent: animationController,
       curve: Curves.easeInSine,
-    ),
-  );
+    );
+  }
 
   @override
   void initState() {
     super.initState();
     animationController = AnimationController(
-      duration: const Duration(milliseconds: 900),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
+    forwardAnimationAndNavigatorToOnboarding();
+  }
+
+  void forwardAnimationAndNavigatorToOnboarding() {
     Future.delayed(
       const Duration(milliseconds: 300),
       () async {
@@ -95,12 +77,21 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
         _opacityEllipseSmall.value = 0.9;
       },
     );
-    animationController.forward().whenComplete(() {
-      return Future.delayed(const Duration(milliseconds: 100), () async {
-        // Navigator.pushNamedAndRemoveUntil(
-        //     context, AppRoutesConstants.OnboardingHomeView, (route) => false);
-      });
-    });
+    animationController.forward().whenComplete(
+      () {
+        return Future.delayed(
+          const Duration(milliseconds: 800),
+          () async {
+            return Navigator.pushNamedAndRemoveUntil(
+              context,
+              AppRoutesConstants.OnboardingHomeView,
+              arguments: colaCircleTag,
+              (route) => false,
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -127,12 +118,12 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                 clipBehavior: Clip.none,
                 fit: StackFit.loose,
                 children: [
-                  // Hot dog isometric
+                  // Sandwich
                   Positioned(
                     top: 100.h,
                     right: 0.w,
                     child: SlideTransition(
-                      position: _positionAnimationHotDog,
+                      position: _positionAnimationSandwich,
                       child: Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
@@ -154,12 +145,12 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                     ),
                   ),
 
-                  // Mayo isometric
+                  // Drink
                   Positioned(
                     top: height / 5,
                     left: -40.w,
                     child: SlideTransition(
-                      position: _positionAnimationMayo,
+                      position: _positionAnimationDrink,
                       child: Stack(
                         alignment: Alignment.center,
                         clipBehavior: Clip.none,
@@ -181,6 +172,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                       ),
                     ),
                   ),
+
                   // Fast delivery
                   Positioned(
                     top: height / 2,
@@ -223,7 +215,8 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                   // Burger blue circle
                   Positioned(
                     top: height / 1.6,
-                    right: -20.w,
+                    // right: -20.w,
+                    left: width / 1.8,
                     child: SlideTransition(
                       position: _positionAnimationBurger,
                       child: Stack(
@@ -235,7 +228,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                             ImagesConstants.burgerBlueCircle,
                           ),
                           Transform.translate(
-                            offset: Offset(-10.w, -55.h),
+                            offset: Offset(-10.w, -height / 18),
                             child: Image.asset(
                               ImagesConstants.burgerIsometric,
                               height: (height / 4.6),
@@ -275,7 +268,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                       ),
                     ),
                   ),
-                  // Fries front
+                  // Potato Cut
                   Positioned(
                     top: 0.h,
                     left: 60.w,
@@ -298,7 +291,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                       ),
                     ),
                   ),
-                  // Cola isometric
+                  // Cola
                   Positioned(
                     top: height / 6.4,
                     left: 0.w,
@@ -327,10 +320,13 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                           Positioned(
                             bottom: (height * -0.10),
                             left: -40,
-                            child: Image.asset(
-                              ImagesConstants.colaIsometric,
-                              height: (height / 4),
-                              width: (width / 1.8),
+                            child: Hero(
+                              tag: colaCircleTag,
+                              child: Image.asset(
+                                ImagesConstants.colaIsometric,
+                                height: (height / 4),
+                                width: (width / 1.8),
+                              ),
                             ),
                           ),
                         ],
