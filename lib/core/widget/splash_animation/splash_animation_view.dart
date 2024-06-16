@@ -30,37 +30,35 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   late final Animation<Offset> _positionAnimation = Tween<Offset>(
     begin: Offset(0.0, 1.5.h),
     end: Offset(-0.0, .2.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
 
   late final Animation<Offset> _positionAnimationCola = Tween<Offset>(
     begin: Offset(1.0, 3.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
 
   late final Animation<Offset> _positionAnimationSandwich = Tween<Offset>(
     begin: Offset(-.7, 2.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
   late final Animation<Offset> _positionAnimationDrink = Tween<Offset>(
     begin: Offset(.5, 1.h),
     end: Offset(0.0, .5.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
 
   late final Animation<Offset> _positionAnimationBurger = Tween<Offset>(
     begin: Offset(-.5, -0.6.h),
     end: Offset(0.0, .5.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
   late final Animation<Offset> _positionAnimationTridonut = Tween<Offset>(
     begin: Offset(.5, -1.5.h),
     end: Offset(0.0, .5.h),
-  ).animate(CurvedAnimationSlider());
+  ).animate(curvedAnimationSlider);
 
-  CurvedAnimation CurvedAnimationSlider() {
-    return CurvedAnimation(
-      parent: animationController,
-      curve: Curves.easeInSine,
-    );
-  }
+  late final curvedAnimationSlider = CurvedAnimation(
+    parent: animationController,
+    curve: Curves.easeInSine,
+  );
 
   @override
   void initState() {
