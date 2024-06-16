@@ -32,16 +32,6 @@ class OnboardingHomeView extends StatelessWidget {
         child: Stack(
           alignment: Alignment.center,
           children: [
-            // Hero(
-            //   tag: onboardingHeroTags.drinkTag,
-            //   child: SvgPicture.asset(
-            //     ImagesConstants.onboardingCircleRed,
-            //     height: 85.33.h,
-            //     width: 85.33.w,
-            //     // height: (height / 10.5),
-            //     // width: (width / 10.5),
-            //   ),
-            // ),
             Positioned(
               top: 180.h,
               child: SizedBox(
@@ -74,15 +64,13 @@ class OnboardingHomeView extends StatelessWidget {
             Positioned(
               top: 340.h,
               left: 10.w,
-              // left: 0.w,
               child: Hero(
                 tag: onboardingHeroTags.drinkTag,
                 child: SvgPicture.asset(
                   ImagesConstants.onboardingCircleRed,
                   height: 69.33.h,
                   width: 69.33.w,
-                  // height: (height / 10.5),
-                  // width: (width / 10.5),
+                 
                 ),
               ),
             ),
