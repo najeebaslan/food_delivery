@@ -5,7 +5,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/styles/app_colors.dart';
 import '../../../core/widget/custom_elevated_button.dart';
-import '../blocs/cubit/onboarding_cubit.dart';
+import '../onboarding_cubit/onboarding_cubit.dart';
 
 class BodyOnboardingHome extends StatelessWidget {
   const BodyOnboardingHome({

@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
 import 'package:food_delivery/features/onboading/onboarding_home_view.dart';
 
-import '../../features/onboading/blocs/cubit/onboarding_cubit.dart';
+import '../../features/onboading/onboarding_cubit/onboarding_cubit.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_text_styles.dart';
 import 'routes_constants.dart';
