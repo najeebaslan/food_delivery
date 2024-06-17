@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
@@ -8,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/num_constants.dart';
 import '../../core/widget/custom_painters/onboarding_circle_bold_red.dart';
 import 'widgets/body_onboarding.dart';
 
@@ -36,12 +36,13 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
     'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
   ];
   late Tween<double> _colorTween;
-
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: Duration(
+        milliseconds: NumConstants.animationDurationTime,
+      ),
       vsync: this,
     );
 
@@ -51,7 +52,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
         _animation = Tween<double>(begin: 0, end: math.pi / 1.5);
         _delayTimeStartAnimation.value = true;
         _animationController.forward();
-        _colorTween = Tween<double>(begin: 1, end: 0.0);
+        _colorTween = Tween<double>(begin: 0.5, end: 0.0);
         _animationController.addListener(() {});
         _animationController.addStatusListener((status) {
           if (status == AnimationStatus.completed) {}
@@ -111,58 +112,63 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
                   ),
                 ),
                 AnimatedPositioned(
-                  top: isStart ? 170.h : 340.h,
-                  left: isStart ? -5.w : 20.w,
-                  // curve: Curves.easeInOut,
-                  duration: Duration(milliseconds: 1000),
-                  child: Hero(
-                    tag: widget.onboardingHeroTags.drinkTag,
-                    child: AnimatedBuilder(
-                      animation: Listenable.merge([_animationController]),
-                      builder: (context, child) {
-                        if (isStart) {
-                          log(_animation.evaluate(_animationController).toString());
-                        }
-                        return Transform(
-                          alignment: Alignment.center,
-                          transform: Matrix4.identity()
-                            ..rotateZ(
-                              isStart ? _animation.evaluate(_animationController) : 0,
+                  top: isStart ? 190.h : 340.h,
+                  left: isStart ? -10.w : 20.w,
+                  duration: Duration(milliseconds: NumConstants.animationDurationTime),
+                  child: AnimatedBuilder(
+                    animation: Listenable.merge([_animationController]),
+                    builder: (context, child) {
+                      return Transform(
+                        alignment: Alignment.center,
+                        transform: Matrix4.identity()
+                          ..rotateZ(
+                            isStart ? _animation.evaluate(_animationController) : 0,
+                          ),
+                        child: AnimatedCrossFade(
+                          firstChild: Hero(
+                            tag: widget.onboardingHeroTags.drinkTag,
+                            child: SvgPicture.asset(
+                              ImagesConstants.onboardingCircleRed,
+                              height: 69.33.h,
+                              width: 69.33.w,
                             ),
-                          child: isStart
-                              ? Transform.rotate(
-                                  alignment: Alignment.center,
-                                  angle: 4.1,
-                                  child: Stack(
+                          ),
+                          secondChild: Transform.rotate(
+                              alignment: Alignment.center,
+                              angle: 4.1,
+                              child: Stack(
+                                alignment: Alignment.center,
+                                clipBehavior: Clip.none,
+                                children: [
+                                  OnboardingCircleBoldRed(),
+                                  Transform.rotate(
+                                    angle: 2.1,
                                     alignment: Alignment.center,
-                                    // clipBehavior: Clip.none,
-                                    children: [
-                                      OnboardingCircleBoldRed(),
-                                      Transform.rotate(
-                                        angle: 2.1,
-                                        alignment: Alignment.center,
-                                        child: SvgPicture.asset(
-                                          ImagesConstants.onboardingCircleRed,
-                                          height: 65.33.h,
-                                          width: 65.33.w,
-                                          colorFilter: ColorFilter.mode(
-                                            Color(0xFFE8453C).withOpacity(
-                                              _colorTween.evaluate(_animationController),
-                                            ),
-                                            BlendMode.srcIn,
-                                          ),
+                                    child: SvgPicture.asset(
+                                      ImagesConstants.onboardingCircleRed,
+                                      height: 69.33.h,
+                                      width: 69.33.w,
+                                      colorFilter: ColorFilter.mode(
+                                        Color(0xFFE8453C).withOpacity(
+                                          isStart
+                                              ? _colorTween.evaluate(_animationController)
+                                              : 0,
                                         ),
+                                        BlendMode.srcIn,
                                       ),
-                                    ],
-                                  ))
-                              : SvgPicture.asset(
-                                  ImagesConstants.onboardingCircleRed,
-                                  height: 69.33.h,
-                                  width: 69.33.w,
-                                ),
-                        );
-                      },
-                    ),
+                                    ),
+                                  ),
+                                ],
+                              )),
+                          crossFadeState: isStart
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          duration: Duration(
+                            milliseconds: NumConstants.animationDurationTime,
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ),
                 Positioned(

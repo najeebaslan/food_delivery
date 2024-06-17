@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
+import '../../../core/constants/num_constants.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../../core/widget/custom_elevated_button.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
@@ -61,7 +62,9 @@ class BodyOnboardingHome extends StatelessWidget {
               height: 38.w,
               child: Center(
                 child: AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 700),
+                  duration: const Duration(
+                    milliseconds: NumConstants.animationDurationTime,
+                  ),
                   transitionBuilder: (child, animation) {
                     return FadeTransition(opacity: animation, child: child);
                   },
@@ -80,7 +83,7 @@ class BodyOnboardingHome extends StatelessWidget {
             ),
             SizedBox(height: 44.h),
             AnimatedSmoothIndicator(
-              duration: Duration(milliseconds: 800),
+              duration: Duration(milliseconds: NumConstants.animationDurationTime),
               onDotClicked: (index) => onboardingStats.nextIndicator(index: index),
               axisDirection: Axis.horizontal,
               activeIndex: onboardingStats.indexIndicator,

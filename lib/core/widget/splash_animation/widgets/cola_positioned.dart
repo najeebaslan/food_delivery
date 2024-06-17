@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../../../features/onboading/onboarding_home_view.dart';
 import '../../../constants/assets_constants.dart';
+import '../../../constants/num_constants.dart';
 
 class ColaPositioned extends StatelessWidget {
   const ColaPositioned({
@@ -46,7 +47,9 @@ class ColaPositioned extends StatelessWidget {
                       bool startSwitch = customAnimation.value > 0.0859375 ? true : false;
 
                       return AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 800),
+                        duration: const Duration(
+                          milliseconds: NumConstants.animationDurationTime,
+                        ),
                         transitionBuilder: (child, animation) {
                           return FadeTransition(opacity: animation, child: child);
                         },
