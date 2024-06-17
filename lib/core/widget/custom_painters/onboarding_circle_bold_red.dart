@@ -6,7 +6,7 @@ class OnboardingCircleBoldRed extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double onboardingCircleRedWidth = 69.33.w;
+    double onboardingCircleRedWidth = 72.33.w;
 
     return CustomPaint(
       size: Size(

@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../features/onboading/onboarding_home_view.dart';
 import '../../constants/assets_constants.dart';
+import '../../constants/num_constants.dart';
 import '../../router/routes_constants.dart';
 import 'widgets/cola_positioned.dart';
 import 'widgets/fast_delivery_positioned.dart';
@@ -82,7 +83,9 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
     animationController.forward().whenComplete(
       () {
         return Future.delayed(
-          const Duration(milliseconds: 800),
+          const Duration(
+            milliseconds: NumConstants.animationDurationTime,
+          ),
           () async {
             return Navigator.pushNamedAndRemoveUntil(
               context,
