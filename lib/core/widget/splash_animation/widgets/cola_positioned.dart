@@ -48,7 +48,7 @@ class ColaPositioned extends StatelessWidget {
 
                       return AnimatedSwitcher(
                         duration: const Duration(
-                          milliseconds: NumConstants.animationDurationTime,
+                          milliseconds: NumConstants.animationDuration,
                         ),
                         transitionBuilder: (child, animation) {
                           return FadeTransition(opacity: animation, child: child);

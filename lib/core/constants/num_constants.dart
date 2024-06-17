@@ -1,3 +1,3 @@
 class NumConstants {
-  static const int animationDurationTime = 800;
+  static const int animationDuration = 800;
 }

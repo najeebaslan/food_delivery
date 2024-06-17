@@ -63,7 +63,7 @@ class BodyOnboardingHome extends StatelessWidget {
               child: Center(
                 child: AnimatedSwitcher(
                   duration: const Duration(
-                    milliseconds: NumConstants.animationDurationTime,
+                    milliseconds: NumConstants.animationDuration,
                   ),
                   transitionBuilder: (child, animation) {
                     return FadeTransition(opacity: animation, child: child);
@@ -83,7 +83,7 @@ class BodyOnboardingHome extends StatelessWidget {
             ),
             SizedBox(height: 44.h),
             AnimatedSmoothIndicator(
-              duration: Duration(milliseconds: NumConstants.animationDurationTime),
+              duration: Duration(milliseconds: NumConstants.animationDuration),
               onDotClicked: (index) => onboardingStats.nextIndicator(index: index),
               axisDirection: Axis.horizontal,
               activeIndex: onboardingStats.indexIndicator,

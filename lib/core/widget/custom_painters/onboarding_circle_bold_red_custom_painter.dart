@@ -1,24 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-class OnboardingCircleBoldRed extends StatelessWidget {
-  const OnboardingCircleBoldRed({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    double onboardingCircleRedWidth = 72.33.w;
-
-    return CustomPaint(
-      size: Size(
-        onboardingCircleRedWidth,
-        (onboardingCircleRedWidth * 1.0142857142857142).toDouble(),
-      ),
-      painter: OnboardingCircleBoldRedCustomPainter(),
-    );
-  }
-}
 
 class OnboardingCircleBoldRedCustomPainter extends CustomPainter {
+  final Color? color;
+  OnboardingCircleBoldRedCustomPainter({this.color});
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
@@ -161,7 +145,7 @@ class OnboardingCircleBoldRedCustomPainter extends CustomPainter {
     path_0.close();
 
     Paint paint_0_fill = Paint()..style = PaintingStyle.fill;
-    paint_0_fill.color = Color(0xffE8453C).withOpacity(0.90);
+    paint_0_fill.color = color ?? Color(0xffE8453C).withOpacity(0.90);
     canvas.drawPath(path_0, paint_0_fill);
   }
 
