@@ -84,7 +84,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
       () {
         return Future.delayed(
           const Duration(
-            milliseconds: NumConstants.animationDurationTime,
+            milliseconds: NumConstants.animationDuration,
           ),
           () async {
             return Navigator.pushNamedAndRemoveUntil(

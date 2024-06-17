@@ -62,8 +62,8 @@ class AppRouter {
 
 extension AnimationPageRouter on Widget {
   PageRouteBuilder<dynamic> get withAnimation => PageRouteBuilder(
-        transitionDuration: const Duration(milliseconds: 2000),
-        reverseTransitionDuration: const Duration(milliseconds: 2000),
+        transitionDuration: const Duration(milliseconds: 1500),
+        reverseTransitionDuration: const Duration(milliseconds: 1500),
         pageBuilder: (context, animation, secondaryAnimation) =>
             FadeTransition(opacity: animation, child: this),
       );
