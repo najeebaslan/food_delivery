@@ -58,7 +58,7 @@ class ColaPositioned extends StatelessWidget {
                           height: (height / 10.5),
                           width: (width / 10.5),
                           startSwitch
-                              ? ImagesConstants.circleBorderGreen
+                              ? ImagesConstants.onboardingCircleBorderGreen
                               : ImagesConstants.ellipseGreen,
                         ),
                       );

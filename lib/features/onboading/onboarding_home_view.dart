@@ -6,13 +6,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/features/onboading/widgets/circle_yellow.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/num_constants.dart';
 import 'onboarding_cubit/onboarding_cubit.dart';
-import 'widgets/animation_circle_bold_green.dart';
-import 'widgets/animation_circle_bold_red.dart';
 import 'widgets/body_onboarding.dart';
+import 'widgets/circle_bold_green.dart';
+import 'widgets/circle_bold_red.dart';
 
 class OnboardingHomeView extends StatefulWidget {
   const OnboardingHomeView({super.key, required this.onboardingHeroTags});
@@ -76,25 +77,26 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
                 height: isSmallDevice ? 250.h : 331.h,
                 width: isSmallDevice ? 250.w : 331.w,
                 child: Image.asset(
-                  ImagesConstants.deliveryManOnboarding,
+                  ImagesConstants.onboardingDeliveryManOnboarding,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            HeaderAnimationCircleGreen(
+            CircleGreen(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.colaCircleTag,
             ),
-            Positioned(
-              top: 130.h,
-              right: 20.w,
-              child: SvgPicture.asset(
-                ImagesConstants.circleBorderYellow,
-                height: 84.91.h,
-                width: 84.91.w,
-              ),
-            ),
-            HeaderAnimationCircleBoldRed(
+            CircleYellow(onboardingCubit: onboardingCubit),
+            // Positioned(
+            //   top: 130.h,
+            //   right: 20.w,
+            //   child: SvgPicture.asset(
+            //     ImagesConstants.onboardingCircleBorderYellow,
+            //     height: 84.91.h,
+            //     width: 84.91.w,
+            //   ),
+            // ),
+            CircleBoldRed(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
