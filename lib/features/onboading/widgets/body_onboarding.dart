@@ -8,7 +8,7 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/widget/custom_elevated_button.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
 
-class BodyOnboardingHome extends StatelessWidget {
+class BodyOnboardingHome extends StatefulWidget {
   const BodyOnboardingHome({
     super.key,
     required this.title,
@@ -17,6 +17,43 @@ class BodyOnboardingHome extends StatelessWidget {
 
   final List<String> title;
   final List<String> subtitle;
+
+  @override
+  State<BodyOnboardingHome> createState() => _BodyOnboardingHomeState();
+}
+
+class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation _colorTween;
+
+  @override
+  void initState() {
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(milliseconds: 1300),
+    );
+    _colorTween = ColorTween(begin: AppColors.blue, end: AppColors.green)
+        .animate(_animationController);
+    super.initState();
+  }
+
+  Future changeColors() async {
+    final cubitIndex = BlocProvider.of<OnboardingCubit>(context).indexIndicator;
+    if (_animationController.status == AnimationStatus.completed) {
+      if (cubitIndex == 1) {
+        _colorTween = ColorTween(begin: AppColors.red, end: AppColors.green)
+            .animate(_animationController);
+      } else if (cubitIndex == 0) {
+        _colorTween = ColorTween(begin: AppColors.blue, end: AppColors.green)
+            .animate(_animationController);
+      }
+
+      _animationController.reverse();
+    } else {
+      _animationController.forward();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +82,7 @@ class BodyOnboardingHome extends StatelessWidget {
                   ),
                   children: [
                     TextSpan(
-                      text: title[onboardingStats.indexIndicator],
+                      text: widget.title[onboardingStats.indexIndicator],
                       style: TextStyle(
                         color: AppColors.black,
                         fontSize: 20.sp,
@@ -70,7 +107,7 @@ class BodyOnboardingHome extends StatelessWidget {
                   },
                   child: Text(
                     key: ValueKey(onboardingStats.indexIndicator.toString() + 'subtitle'),
-                    subtitle[onboardingStats.indexIndicator],
+                    widget.subtitle[onboardingStats.indexIndicator],
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: AppColors.black,
@@ -84,7 +121,10 @@ class BodyOnboardingHome extends StatelessWidget {
             SizedBox(height: 44.h),
             AnimatedSmoothIndicator(
               duration: Duration(milliseconds: NumConstants.animationDuration),
-              onDotClicked: (index) => onboardingStats.nextIndicator(index: index),
+              onDotClicked: (index) {
+                changeColors();
+                onboardingStats.nextIndicator(index: index);
+              },
               axisDirection: Axis.horizontal,
               activeIndex: onboardingStats.indexIndicator,
               count: 3,
@@ -99,15 +139,19 @@ class BodyOnboardingHome extends StatelessWidget {
               ),
             ),
             SizedBox(height: 44.h),
-            CustomElevatedButton(
-              backgroundColor: onboardingStats.indexIndicator == 1
-                  ? AppColors.green
-                  : onboardingStats.indexIndicator == 2
-                      ? AppColors.red
-                      : null,
-              title: 'Order Food',
-              onPressed: () => onboardingStats.nextIndicator(),
-            ),
+            AnimatedBuilder(
+                animation: _colorTween,
+                builder: (context, child) {
+                  return CustomElevatedButton(
+                    backgroundColor: _colorTween.value,
+                    title: 'Order Food',
+                    onPressed: () {
+                      if (onboardingStats.indexIndicator == 2) return;
+                      changeColors();
+                      onboardingStats.nextIndicator();
+                    },
+                  );
+                }),
           ],
         );
       },

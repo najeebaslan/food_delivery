@@ -3,8 +3,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:food_delivery/food_delivery.dart';
 
+import 'core/constants/assets_constants.dart';
 import 'core/helpers/helper_shared_preferences.dart';
 import 'core/utils/bloc_observer.dart';
 
@@ -21,8 +23,25 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
+  await cacheSvgSplashView();
 
   runApp(const FoodDeliveryApp());
+}
+
+Future<void> cacheSvgSplashView() async {
+  List<String> splashViewImagesUrl = [
+    ImagesConstants.ellipseGreen,
+    ImagesConstants.ellipseBlue,
+    ImagesConstants.ellipseYellow,
+    ImagesConstants.ellipseRed,
+    ImagesConstants.ellipseSmall,
+    ImagesConstants.burgerBlueCircle,
+  ];
+  for (String imageUrl in splashViewImagesUrl) {
+    final svg.SvgAssetLoader loader = svg.SvgAssetLoader(imageUrl);
+
+    await svg.Cache().putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null));
+  }
 }
 
 

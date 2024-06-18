@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 
+import '../../../core/styles/app_colors.dart';
+
 part 'onboarding_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
@@ -57,7 +59,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
             animationController
               ..reset()
               ..forward();
-         
+
             topPositionedCircleRed = 80.h;
             leftPositionedCircleRed = 50.w;
             colorTweenLastAnimation = Tween<double>(begin: 0.0, end: 1);
@@ -67,5 +69,17 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         });
       }
     });
+  }
+
+  Color get colorCircleRedLast {
+    return AppColors.red.withOpacity(
+      isStartAnimation ? colorTweenLastAnimation.evaluate(animationController) : 0,
+    );
+  }
+
+  Color get colorCircleRedFirst {
+    return AppColors.red.withOpacity(
+      isStartAnimation ? colorTweenFirstAnimation.evaluate(animationController) : 0,
+    );
   }
 }
