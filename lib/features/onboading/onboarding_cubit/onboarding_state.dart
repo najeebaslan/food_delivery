@@ -11,8 +11,5 @@ final class NextIndicatorOnboarding extends OnboardingState {
 }
 
 final class InitAnimationOnboarding extends OnboardingState {}
+
 final class CompletedFirstAnimationOnboarding extends OnboardingState {}
-// final class ResetOpacityCircleIndicatorOnboarding extends OnboardingState {
-//   final double opacityCircleIndicator;
-//   ResetOpacityCircleIndicatorOnboarding(this.opacityCircleIndicator);
-// }
