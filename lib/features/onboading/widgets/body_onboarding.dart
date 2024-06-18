@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -103,26 +105,26 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
               ),
             ),
             SizedBox(height: 14.h),
-            SizedBox(
-              width: 265.w,
-              height: 38.w,
-              child: Center(
-                child: AnimatedSwitcher(
-                  duration: const Duration(
-                    milliseconds: NumConstants.animationDuration,
-                  ),
-                  transitionBuilder: (child, animation) {
-                    return FadeTransition(opacity: animation, child: child);
-                  },
-                  child: Text(
-                    key: ValueKey(onboardingStats.indexIndicator.toString() + 'subtitle'),
-                    widget.subtitle[onboardingStats.indexIndicator],
-                    textAlign: TextAlign.left,
-                    style: TextStyle(
-                      color: AppColors.black,
-                      fontSize: 16.sp,
-                      fontWeight: FontWeight.w400,
-                    ),
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 55.h,
+                maxWidth: 300.w,
+              ),
+              child: AnimatedSwitcher(
+                duration: const Duration(
+                  milliseconds: NumConstants.animationDuration,
+                ),
+                transitionBuilder: (child, animation) {
+                  return FadeTransition(opacity: animation, child: child);
+                },
+                child: Text(
+                  key: ValueKey(onboardingStats.indexIndicator.toString() + 'subtitle'),
+                  widget.subtitle[onboardingStats.indexIndicator],
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: AppColors.black,
+                    fontSize: 16.sp,
+                    fontWeight: FontWeight.w400,
                   ),
                 ),
               ),
@@ -164,8 +166,6 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
                       toIndex: onboardingStats.indexIndicator,
                     );
                     indexIndicator = onboardingStats.indexIndicator;
-                    // changeColors();
-                    // onboardingStats.nextIndicator();
                   },
                 );
               },

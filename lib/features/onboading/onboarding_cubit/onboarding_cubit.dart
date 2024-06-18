@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 
-import '../../../core/styles/app_colors.dart';
-
 part 'onboarding_state.dart';
 
 class OnboardingCubit extends Cubit<OnboardingState> {
@@ -20,6 +18,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   late bool completedFirstAnimation;
   late double topPositionedCircleRed;
   late double leftPositionedCircleRed;
+  late double topPositionedCircleGreen;
+  late double leftPositionedCircleGreen;
 
   void nextIndicator({int? index}) async {
     if (index != null) {
@@ -34,6 +34,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   void initAnimation() {
     topPositionedCircleRed = 340.h;
     leftPositionedCircleRed = 20.w;
+    topPositionedCircleGreen = 100.h;
+    leftPositionedCircleGreen = 150.w;
     completedFirstAnimation = false;
     Future.delayed(
       Duration(seconds: 2),
@@ -42,6 +44,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
         isStartAnimation = true;
         topPositionedCircleRed = 180.h;
         leftPositionedCircleRed = -10.w;
+        topPositionedCircleGreen = 130.h;
+        leftPositionedCircleGreen = 250.w;
 
         animationController.forward();
         colorTweenFirstAnimation = Tween<double>(begin: 0.9, end: 0.0);
@@ -62,6 +66,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
             topPositionedCircleRed = 80.h;
             leftPositionedCircleRed = 50.w;
+            topPositionedCircleGreen = 250.h;
+            leftPositionedCircleGreen = 290.w;
             colorTweenLastAnimation = Tween<double>(begin: 0.0, end: 1);
             completedFirstAnimation = true;
             emit(CompletedFirstAnimationOnboarding());
@@ -71,14 +77,14 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     });
   }
 
-  Color get colorCircleRedLast {
-    return AppColors.red.withOpacity(
+  Color colorCircleRedLast(Color color) {
+    return color.withOpacity(
       isStartAnimation ? colorTweenLastAnimation.evaluate(animationController) : 0,
     );
   }
 
-  Color get colorCircleRedFirst {
-    return AppColors.red.withOpacity(
+  Color colorCircleRedFirst(Color color) {
+    return color.withOpacity(
       isStartAnimation ? colorTweenFirstAnimation.evaluate(animationController) : 0,
     );
   }

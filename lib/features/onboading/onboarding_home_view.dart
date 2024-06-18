@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/num_constants.dart';
 import 'onboarding_cubit/onboarding_cubit.dart';
+import 'widgets/animation_circle_bold_green.dart';
 import 'widgets/animation_circle_bold_red.dart';
 import 'widgets/body_onboarding.dart';
 
@@ -48,12 +49,16 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
 
   @override
   void dispose() {
-    onboardingCubit.animationController.dispose();
+    onboardingCubit
+      ..animationController.dispose()
+      ..animationController.removeStatusListener((status) {});
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
+    log(MediaQuery.sizeOf(context).height.toString());
+    bool isSmallDevice = MediaQuery.sizeOf(context).height < 600 ? true : false;
     log('rebuild PlatformScaffold');
     return PlatformScaffold(
       body: Padding(
@@ -68,30 +73,25 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
             Positioned(
               top: 180.h,
               child: SizedBox(
-                height: 331.h,
-                width: 331.w,
+                height: isSmallDevice ? 250.h : 331.h,
+                width: isSmallDevice ? 250.w : 331.w,
                 child: Image.asset(
                   ImagesConstants.deliveryManOnboarding,
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            Positioned(
-              top: 100.h,
-              child: Hero(
-                tag: widget.onboardingHeroTags.colaCircleTag,
-                child: SvgPicture.asset(
-                  ImagesConstants.circleBorderGreen,
-                  height: 56.27.h,
-                  width: 56.27.w,
-                ),
-              ),
+            HeaderAnimationCircleGreen(
+              onboardingCubit: onboardingCubit,
+              onboardingHeroTags: widget.onboardingHeroTags.colaCircleTag,
             ),
             Positioned(
               top: 130.h,
               right: 20.w,
               child: SvgPicture.asset(
                 ImagesConstants.circleBorderYellow,
+                height: 84.91.h,
+                width: 84.91.w,
               ),
             ),
             HeaderAnimationCircleBoldRed(
@@ -99,7 +99,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
             Positioned(
-              bottom: 130.h,
+              bottom: isSmallDevice ? 20.h : 130.h,
               child: BodyOnboardingHome(
                 title: title,
                 subtitle: subtitle,
