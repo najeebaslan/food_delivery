@@ -26,33 +26,42 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _colorTween;
-
+  int indexIndicator = 0;
   @override
   void initState() {
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 1300),
     );
-    _colorTween = ColorTween(begin: AppColors.blue, end: AppColors.green)
-        .animate(_animationController);
+    _colorTween = ColorTween(
+      begin: AppColors.blue,
+      end: AppColors.green,
+    ).animate(_animationController);
     super.initState();
   }
 
-  Future changeColors() async {
-    final cubitIndex = BlocProvider.of<OnboardingCubit>(context).indexIndicator;
-    if (_animationController.status == AnimationStatus.completed) {
-      if (cubitIndex == 1) {
-        _colorTween = ColorTween(begin: AppColors.red, end: AppColors.green)
-            .animate(_animationController);
-      } else if (cubitIndex == 0) {
-        _colorTween = ColorTween(begin: AppColors.blue, end: AppColors.green)
-            .animate(_animationController);
-      }
+  void changeColors({required int fromIndex, required int toIndex}) {
+    final colorMap = {
+      (0, 1): _buildColorTween(AppColors.blue, AppColors.green),
+      (0, 2): _buildColorTween(AppColors.blue, AppColors.red),
+      (2, 1): _buildColorTween(AppColors.red, AppColors.green),
+      (1, 0): _buildColorTween(AppColors.green, AppColors.blue),
+      (1, 2): _buildColorTween(AppColors.green, AppColors.red),
+      (2, 0): _buildColorTween(AppColors.red, AppColors.blue),
+    };
 
-      _animationController.reverse();
+    _colorTween = colorMap[(fromIndex, toIndex)]!.animate(_animationController);
+    if (_animationController.status == AnimationStatus.completed) {
+      _animationController
+        ..reset()
+        ..forward();
     } else {
       _animationController.forward();
     }
+  }
+
+  ColorTween _buildColorTween(Color begin, Color end) {
+    return ColorTween(begin: begin, end: end);
   }
 
   @override
@@ -122,8 +131,9 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
             AnimatedSmoothIndicator(
               duration: Duration(milliseconds: NumConstants.animationDuration),
               onDotClicked: (index) {
-                changeColors();
+                changeColors(fromIndex: indexIndicator, toIndex: index);
                 onboardingStats.nextIndicator(index: index);
+                indexIndicator = onboardingStats.indexIndicator;
               },
               axisDirection: Axis.horizontal,
               activeIndex: onboardingStats.indexIndicator,
@@ -140,18 +150,26 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
             ),
             SizedBox(height: 44.h),
             AnimatedBuilder(
-                animation: _colorTween,
-                builder: (context, child) {
-                  return CustomElevatedButton(
-                    backgroundColor: _colorTween.value,
-                    title: 'Order Food',
-                    onPressed: () {
-                      if (onboardingStats.indexIndicator == 2) return;
-                      changeColors();
-                      onboardingStats.nextIndicator();
-                    },
-                  );
-                }),
+              animation: _colorTween,
+              builder: (context, child) {
+                return CustomElevatedButton(
+                  backgroundColor: _colorTween.value,
+                  title: 'Order Food',
+                  onPressed: () {
+                    if (onboardingStats.indexIndicator == 2) return;
+
+                    onboardingStats.nextIndicator();
+                    changeColors(
+                      fromIndex: indexIndicator,
+                      toIndex: onboardingStats.indexIndicator,
+                    );
+                    indexIndicator = onboardingStats.indexIndicator;
+                    // changeColors();
+                    // onboardingStats.nextIndicator();
+                  },
+                );
+              },
+            ),
           ],
         );
       },
