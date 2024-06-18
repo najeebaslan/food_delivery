@@ -8,6 +8,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/num_constants.dart';
 import 'onboarding_cubit/onboarding_cubit.dart';
 import 'widgets/animation_circle_bold_red.dart';
 import 'widgets/body_onboarding.dart';
@@ -39,7 +40,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
     onboardingCubit = BlocProvider.of<OnboardingCubit>(context);
     onboardingCubit.animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 900),
+      duration: Duration(milliseconds: NumConstants.animationDuration - 100),
     );
 
     onboardingCubit.initAnimation();
@@ -93,7 +94,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
                 ImagesConstants.circleBorderYellow,
               ),
             ),
-            AnimationCircleBoldRed(
+            HeaderAnimationCircleBoldRed(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
