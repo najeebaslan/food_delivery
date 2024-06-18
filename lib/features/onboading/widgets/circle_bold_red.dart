@@ -9,8 +9,8 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/widget/custom_painters/onboarding_circle_bold_red_custom_painter.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
 
-class HeaderAnimationCircleBoldRed extends StatelessWidget {
-  const HeaderAnimationCircleBoldRed({
+class CircleBoldRed extends StatelessWidget {
+  const CircleBoldRed({
     super.key,
     required this.onboardingCubit,
     required this.onboardingHeroTags,
@@ -35,11 +35,11 @@ class HeaderAnimationCircleBoldRed extends StatelessWidget {
                 alignment: Alignment.center,
                 transform: Matrix4.identity()..rotateZ(transformZ),
                 child: onboardingCubit.completedFirstAnimation == false
-                    ? AnimationCircleBoldRedFirst(
+                    ? FirstCircleBoldRedAnimation(
                         onboardingHeroTags: onboardingHeroTags,
                         onboardingCubit: onboardingCubit,
                       )
-                    : AnimationCircleBoldRedLast(
+                    : LastCircleBoldRedAnimation(
                         onboardingHeroTags: onboardingHeroTags,
                         onboardingCubit: onboardingCubit,
                       ),
@@ -60,8 +60,8 @@ class HeaderAnimationCircleBoldRed extends StatelessWidget {
   }
 }
 
-class AnimationCircleBoldRedFirst extends StatelessWidget {
-  const AnimationCircleBoldRedFirst({
+class FirstCircleBoldRedAnimation extends StatelessWidget {
+  const FirstCircleBoldRedAnimation({
     super.key,
     required this.onboardingHeroTags,
     required this.onboardingCubit,
@@ -101,7 +101,7 @@ class AnimationCircleBoldRedFirst extends StatelessWidget {
                       height: 69.33.h,
                       width: 69.33.w,
                       colorFilter: ColorFilter.mode(
-                        onboardingCubit.colorCircleRedFirst(AppColors.red),
+                        onboardingCubit.onStartAnimatedColor(AppColors.red),
                         BlendMode.srcIn,
                       ),
                     ),
@@ -120,8 +120,8 @@ class AnimationCircleBoldRedFirst extends StatelessWidget {
   }
 }
 
-class AnimationCircleBoldRedLast extends StatelessWidget {
-  const AnimationCircleBoldRedLast({
+class LastCircleBoldRedAnimation extends StatelessWidget {
+  const LastCircleBoldRedAnimation({
     super.key,
     required this.onboardingHeroTags,
     required this.onboardingCubit,
@@ -149,7 +149,7 @@ class AnimationCircleBoldRedLast extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               OnboardingCircleBoldRedWidget(
-                color: onboardingCubit.colorCircleRedFirst(AppColors.red),
+                color: onboardingCubit.onStartAnimatedColor(AppColors.red),
               ),
               BlocBuilder<OnboardingCubit, OnboardingState>(
                 buildWhen: (previous, current) =>
@@ -163,7 +163,7 @@ class AnimationCircleBoldRedLast extends StatelessWidget {
                       height: 69.33.h,
                       width: 69.33.w,
                       colorFilter: ColorFilter.mode(
-                        onboardingCubit.colorCircleRedLast(AppColors.red),
+                        onboardingCubit.onEndAnimatedColor(AppColors.red),
                         BlendMode.srcIn,
                       ),
                     ),

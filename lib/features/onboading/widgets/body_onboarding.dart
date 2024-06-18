@@ -105,11 +105,9 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
               ),
             ),
             SizedBox(height: 14.h),
-            ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: 55.h,
-                maxWidth: 300.w,
-              ),
+            SizedBox(
+              height: 55.h,
+              width: 300.w,
               child: AnimatedSwitcher(
                 duration: const Duration(
                   milliseconds: NumConstants.animationDuration,

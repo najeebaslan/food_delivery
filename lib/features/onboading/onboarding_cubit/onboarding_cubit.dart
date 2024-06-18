@@ -13,13 +13,20 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   late AnimationController animationController;
   late Tween<double> animation;
   bool isStartAnimation = false;
-  late Tween<double> colorTweenFirstAnimation;
-  late Tween<double> colorTweenLastAnimation;
+
+  late Tween<double> firstColorTweenAnimation;
+  late Tween<double> lastColorTweenAnimation;
+
   late bool completedFirstAnimation;
+
   late double topPositionedCircleRed;
   late double leftPositionedCircleRed;
+
   late double topPositionedCircleGreen;
   late double leftPositionedCircleGreen;
+
+  late double topPositionedCircleYellow;
+  late double leftPositionedCircleYellow;
 
   void nextIndicator({int? index}) async {
     if (index != null) {
@@ -34,28 +41,38 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   void initAnimation() {
     topPositionedCircleRed = 340.h;
     leftPositionedCircleRed = 20.w;
+
     topPositionedCircleGreen = 100.h;
     leftPositionedCircleGreen = 150.w;
+
+    topPositionedCircleYellow = 130.h;
+    leftPositionedCircleYellow = 20.w;
+
     completedFirstAnimation = false;
     Future.delayed(
       Duration(seconds: 2),
       () {
         animation = Tween<double>(begin: 0, end: math.pi / 1.5);
         isStartAnimation = true;
+
         topPositionedCircleRed = 180.h;
         leftPositionedCircleRed = -10.w;
+
         topPositionedCircleGreen = 130.h;
         leftPositionedCircleGreen = 250.w;
 
+        topPositionedCircleYellow = 280.h;
+        leftPositionedCircleYellow = 290.w;
+
         animationController.forward();
-        colorTweenFirstAnimation = Tween<double>(begin: 0.9, end: 0.0);
+        firstColorTweenAnimation = Tween<double>(begin: 0.9, end: 0.0);
         emit(InitAnimationOnboarding());
-        StatusListenerAnimation();
+        statusListenerAnimation();
       },
     );
   }
 
-  void StatusListenerAnimation() {
+  void statusListenerAnimation() {
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(Duration(milliseconds: NumConstants.animationDuration), () {
@@ -66,9 +83,14 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
             topPositionedCircleRed = 80.h;
             leftPositionedCircleRed = 50.w;
+
             topPositionedCircleGreen = 250.h;
             leftPositionedCircleGreen = 290.w;
-            colorTweenLastAnimation = Tween<double>(begin: 0.0, end: 1);
+
+            topPositionedCircleYellow = 430.h;
+            leftPositionedCircleYellow = -5.w;
+
+            lastColorTweenAnimation = Tween<double>(begin: 0.0, end: 1);
             completedFirstAnimation = true;
             emit(CompletedFirstAnimationOnboarding());
           }
@@ -77,15 +99,15 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     });
   }
 
-  Color colorCircleRedLast(Color color) {
+  Color onEndAnimatedColor(Color color) {
     return color.withOpacity(
-      isStartAnimation ? colorTweenLastAnimation.evaluate(animationController) : 0,
+      isStartAnimation ? lastColorTweenAnimation.evaluate(animationController) : 0,
     );
   }
 
-  Color colorCircleRedFirst(Color color) {
+  Color onStartAnimatedColor(Color color) {
     return color.withOpacity(
-      isStartAnimation ? colorTweenFirstAnimation.evaluate(animationController) : 0,
+      isStartAnimation ? firstColorTweenAnimation.evaluate(animationController) : 0,
     );
   }
 }
