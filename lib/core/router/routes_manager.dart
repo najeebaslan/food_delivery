@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
-import 'package:food_delivery/features/onboading/onboarding_home_view.dart';
 
 import '../../features/onboading/onboarding_cubit/onboarding_cubit.dart';
+import '../../features/onboading/widgets/test_animation.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_text_styles.dart';
 import 'routes_constants.dart';
@@ -16,10 +16,14 @@ class AppRouter {
       // --------------- Auth Screen ---------------//
       case AppRoutesConstants.OnboardingHomeView:
         return BlocProvider<OnboardingCubit>(
-            create: (BuildContext context) => OnboardingCubit(),
-            child: OnboardingHomeView(
-              onboardingHeroTags: settings.arguments as OnboardingHeroTags,
-            )).withAnimation;
+                create: (BuildContext context) => OnboardingCubit(),
+                child: TestAnimation()
+                //  OnboardingHomeView(
+                //   onboardingHeroTags: settings.arguments as OnboardingHeroTags,
+                // )
+
+                )
+            .withAnimation;
 
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().withAnimation;
