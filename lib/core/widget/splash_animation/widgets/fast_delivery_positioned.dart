@@ -22,7 +22,7 @@ class FastDeliveryPositioned extends StatelessWidget {
       child: ValueListenableBuilder(
         valueListenable: opacityFastDelivery,
         builder: (context, value, child) => AnimatedOpacity(
-          duration: Duration(seconds: 1),
+          duration: const Duration(seconds: 1),
           opacity: value,
           child: Column(
             children: [

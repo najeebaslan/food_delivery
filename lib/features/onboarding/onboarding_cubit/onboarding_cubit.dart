@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 
@@ -11,7 +11,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   OnboardingCubit() : super(OnboardingInitial());
   int indexIndicator = 0;
   bool isAnimationHasStarted = false;
-  
+
   late AnimationController animationController;
   late Tween<double> animation;
 
@@ -45,7 +45,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
 
     completedFirstAnimation = false;
     Future.delayed(
-      Duration(seconds: 2),
+      const Duration(seconds: 2),
       () {
         animation = Tween<double>(begin: 0, end: math.pi / 1.5);
         isAnimationHasStarted = true;
@@ -68,7 +68,7 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     animationController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         Future.delayed(
-            Duration(
+            const Duration(
               milliseconds: NumConstants.animationDuration,
             ), () {
           if (completedFirstAnimation == false) {

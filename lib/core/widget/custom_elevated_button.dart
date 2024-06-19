@@ -23,7 +23,7 @@ class CustomElevatedButton extends StatelessWidget {
       child: PlatformElevatedButton(
         cupertino: (context, platform) => CupertinoElevatedButtonData(
           borderRadius: BorderRadius.circular(20.r),
-          color:backgroundColor?? AppColors.blue,
+          color: backgroundColor ?? AppColors.blue,
           disabledColor: AppColors.red,
           onPressed: onPressed,
           originalStyle: true,
@@ -33,7 +33,7 @@ class CustomElevatedButton extends StatelessWidget {
           child: buildText(title),
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
-            backgroundColor:backgroundColor?? AppColors.blue,
+            backgroundColor: backgroundColor ?? AppColors.blue,
             disabledBackgroundColor: AppColors.red,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
@@ -47,7 +47,7 @@ class CustomElevatedButton extends StatelessWidget {
   Text buildText(String title) {
     return Text(
       title,
-      style: TextStyle(
+      style: const TextStyle(
         color: Colors.white,
         fontSize: 20,
         fontFamily: 'Roboto',

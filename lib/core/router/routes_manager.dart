@@ -5,8 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
 
 import '../../features/home/views/home_view.dart';
-import '../../features/onboading/onboarding_cubit/onboarding_cubit.dart';
-import '../../features/onboading/onboarding_home_view.dart';
+import '../../features/onboarding/onboarding_cubit/onboarding_cubit.dart';
+import '../../features/onboarding/onboarding_home_view.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_text_styles.dart';
 import 'routes_constants.dart';
@@ -15,7 +15,7 @@ class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
     switch (settings.name) {
       // --------------- Auth Screen ---------------//
-      case AppRoutesConstants.OnboardingHomeView:
+      case AppRoutesConstants.onboardingHomeView:
         return BlocProvider<OnboardingCubit>(
             create: (BuildContext context) => OnboardingCubit(),
             child: OnboardingHomeView(

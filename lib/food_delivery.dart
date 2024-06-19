@@ -35,7 +35,7 @@ class FoodDeliveryApp extends StatelessWidget {
               barBackgroundColor: Colors.black,
               primaryColor: kPrimaryColor,
               scaffoldBackgroundColor: AppColors.background,
-              textTheme: CupertinoTextThemeData(
+              textTheme: const CupertinoTextThemeData(
                 textStyle: TextStyle(
                   color: Colors.white,
                 ),
@@ -61,7 +61,7 @@ class FoodDeliveryApp extends StatelessWidget {
                 brightness: Brightness.dark,
                 primaryColor: kPrimaryColor,
                 scaffoldBackgroundColor: AppColors.black,
-                textTheme: TextTheme(
+                textTheme: const TextTheme(
                   bodyLarge: TextStyle(
                     color: Colors.white,
                   ),

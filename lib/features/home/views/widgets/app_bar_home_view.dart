@@ -15,7 +15,7 @@ class AppBarHomeView extends StatelessWidget {
     return Stack(
       children: [
         Transform.translate(
-          offset: Offset(30, -10),
+          offset: Offset(30.w, -10.h),
           child: Transform.rotate(
             angle: 6,
             child: SvgPicture.asset(
@@ -69,7 +69,7 @@ class AppBarHomeView extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             SvgPicture.asset(
               ImagesConstants.homeMenu,
             ),
