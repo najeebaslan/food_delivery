@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/num_constants.dart';
@@ -57,9 +58,9 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
 
   void startNextAnimation() {
     _animationController.addStatusListener(
-      (status) {
+      (status) async {
         if (status == AnimationStatus.completed) {
-          Future.delayed(
+          await Future.delayed(
             const Duration(milliseconds: NumConstants.animationDuration),
             () {
               if (completedFirstAnimation == false) {
@@ -69,7 +70,7 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
                   ..reset()
                   ..forward();
 
-                topPositionedCircleYellow = 430.h;
+                topPositionedCircleYellow = context.isSmallDevice ? 350.h : 430.h;
                 rightPositionedCircleYellow = -5.w;
               }
             },

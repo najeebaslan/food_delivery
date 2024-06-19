@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../../features/onboarding/onboarding_home_view.dart';
 import '../../constants/assets_constants.dart';
@@ -124,62 +125,10 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                 fit: StackFit.loose,
                 children: [
                   // Sandwich
-                  Positioned(
-                    top: 100.h,
-                    right: 0.w,
-                    child: SlideTransition(
-                      position: _positionAnimationSandwich,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          SvgPicture.asset(
-                            height: (height / 6.5),
-                            width: (width / 6.5),
-                            ImagesConstants.ellipseYellow,
-                          ),
-                          Positioned(
-                            bottom: -10.h,
-                            child: Image.asset(
-                              height: (height / 5.1),
-                              width: (width / 2.2),
-                              ImagesConstants.hotDogIsometric,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _buildSandwich(height, width),
 
                   // Drink
-                  Positioned(
-                    top: height / 5,
-                    left: -40.w,
-                    child: SlideTransition(
-                      position: _positionAnimationDrink,
-                      child: Stack(
-                        alignment: Alignment.center,
-                        clipBehavior: Clip.none,
-                        children: [
-                          Hero(
-                            tag: onboardingHeroTags.drinkTag,
-                            child: SvgPicture.asset(
-                              height: (height / 10.5),
-                              width: (width / 10.5),
-                              ImagesConstants.onboardingCircleRed,
-                            ),
-                          ),
-                          Transform.translate(
-                            offset: Offset(10.w, 5.h),
-                            child: Image.asset(
-                              ImagesConstants.mayoIsometric,
-                              height: (height / 4.6),
-                              width: (width / 1.95),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _buildDrink(context, height, width),
 
                   // Fast delivery
                   FastDeliveryPositioned(
@@ -188,83 +137,11 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                   ),
 
                   // Burger blue circle
-                  Positioned(
-                    top: height / 1.6,
-                    left: width / 1.8,
-                    child: SlideTransition(
-                      position: _positionAnimationBurger,
-                      child: Stack(
-                        alignment: Alignment.topCenter,
-                        children: [
-                          SvgPicture.asset(
-                            height: (height / 6.5),
-                            width: (width / 6.5),
-                            ImagesConstants.burgerBlueCircle,
-                          ),
-                          Transform.translate(
-                            offset: Offset(-10.w, -height / 18),
-                            child: Image.asset(
-                              ImagesConstants.burgerIsometric,
-                              height: (height / 4.6),
-                              width: (width / 2),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _buildBurgerBlueCircle(height, width),
                   // tridonut
-                  Positioned(
-                    top: height / 1.4,
-                    left: 0,
-                    child: SlideTransition(
-                      position: _positionAnimationTridonut,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          Transform.rotate(
-                            angle: 4.7,
-                            child: SvgPicture.string(
-                              height: (height / 6.5),
-                              width: (width / 6.5),
-                              burgerCircleWithColor("#CEE9D5", 0.67),
-                            ),
-                          ),
-                          Positioned(
-                            right: -30,
-                            child: Image.asset(
-                              ImagesConstants.tridonut,
-                              height: (height / 5.5),
-                              width: (width / 2),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _tridonut(height, width),
                   // Potato Cut
-                  Positioned(
-                    top: 0.h,
-                    left: 60.w,
-                    child: SlideTransition(
-                      position: _positionAnimation,
-                      child: Stack(
-                        alignment: Alignment(-0.1, -0.1.h),
-                        children: [
-                          SvgPicture.asset(
-                            ImagesConstants.ellipseBlue,
-                            height: height / 7.5,
-                            width: width / 7.5,
-                          ),
-                          Image.asset(
-                            ImagesConstants.friesFront,
-                            height: height / 4,
-                            width: width / 2,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                  _potatoCut(height, width),
                   // Cola
                   ColaPositioned(
                     height: height,
@@ -277,6 +154,150 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+
+  Positioned _buildSandwich(double height, double width) {
+    return Positioned(
+      top: 100.h,
+      right: 0.w,
+      child: SlideTransition(
+        position: _positionAnimationSandwich,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            SvgPicture.asset(
+              height: (height / 6.5),
+              width: (width / 6.5),
+              ImagesConstants.ellipseYellow,
+            ),
+            Positioned(
+              bottom: -10.h,
+              child: Image.asset(
+                height: (height / 5.1),
+                width: (width / 2.2),
+                ImagesConstants.hotDogIsometric,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Positioned _buildDrink(BuildContext context, double height, double width) {
+    return Positioned(
+      top: context.isSmallDevice ? height / 4 : height / 5,
+      left: -40.w,
+      child: SlideTransition(
+        position: _positionAnimationDrink,
+        child: Stack(
+          alignment: Alignment.center,
+          clipBehavior: Clip.none,
+          children: [
+            Hero(
+              tag: onboardingHeroTags.drinkTag,
+              child: SvgPicture.asset(
+                height: (height / 10.5),
+                width: (width / 10.5),
+                ImagesConstants.onboardingCircleRed,
+              ),
+            ),
+            Transform.translate(
+              offset: Offset(10.w, 5.h),
+              child: Image.asset(
+                ImagesConstants.mayoIsometric,
+                height: (height / 4.6),
+                width: (width / 1.95),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Positioned _buildBurgerBlueCircle(double height, double width) {
+    return Positioned(
+      top: height / 1.6,
+      left: width / 1.8,
+      child: SlideTransition(
+        position: _positionAnimationBurger,
+        child: Stack(
+          alignment: Alignment.topCenter,
+          children: [
+            SvgPicture.asset(
+              height: (height / 6.5),
+              width: (width / 6.5),
+              ImagesConstants.burgerBlueCircle,
+            ),
+            Transform.translate(
+              offset: Offset(-10.w, -height / 18),
+              child: Image.asset(
+                ImagesConstants.burgerIsometric,
+                height: (height / 4.6),
+                width: (width / 2),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Positioned _tridonut(double height, double width) {
+    return Positioned(
+      top: height / 1.4,
+      left: 0,
+      child: SlideTransition(
+        position: _positionAnimationTridonut,
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            Transform.rotate(
+              angle: 4.7,
+              child: SvgPicture.string(
+                height: (height / 6.5),
+                width: (width / 6.5),
+                burgerCircleWithColor("#CEE9D5", 0.67),
+              ),
+            ),
+            Positioned(
+              right: -30,
+              child: Image.asset(
+                ImagesConstants.tridonut,
+                height: (height / 5.5),
+                width: (width / 2),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Positioned _potatoCut(double height, double width) {
+    return Positioned(
+      top: 0.h,
+      left: 60.w,
+      child: SlideTransition(
+        position: _positionAnimation,
+        child: Stack(
+          alignment: Alignment(-0.1, -0.1.h),
+          children: [
+            SvgPicture.asset(
+              ImagesConstants.ellipseBlue,
+              height: height / 7.5,
+              width: width / 7.5,
+            ),
+            Image.asset(
+              ImagesConstants.friesFront,
+              height: height / 4,
+              width: width / 2,
+            ),
+          ],
         ),
       ),
     );
