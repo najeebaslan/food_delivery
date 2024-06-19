@@ -20,12 +20,12 @@ class AppRouter {
             create: (BuildContext context) => OnboardingCubit(),
             child: OnboardingHomeView(
               onboardingHeroTags: settings.arguments as OnboardingHeroTags,
-            )).withAnimation;
+            )).withAnimation();
 
       case AppRoutesConstants.splashView:
-        return const SplashAnimationView().withAnimation;
+        return const SplashAnimationView().withAnimation();
       case AppRoutesConstants.homeView:
-        return const HomeView().withAnimation;
+        return const HomeView().withAnimation(milliseconds: 200);
 
       default:
         return unknownRouteScreen();
@@ -64,10 +64,10 @@ class AppRouter {
 }
 
 extension AnimationPageRouter on Widget {
-  PageRouteBuilder<dynamic> get withAnimation {
+  PageRouteBuilder<dynamic> withAnimation({int? milliseconds}) {
     return PageRouteBuilder(
-      transitionDuration: const Duration(milliseconds: 1500),
-      reverseTransitionDuration: const Duration(milliseconds: 1500),
+      transitionDuration: Duration(milliseconds: milliseconds ?? 1500),
+      reverseTransitionDuration: Duration(milliseconds: milliseconds ?? 1500),
       pageBuilder: (context, animation, secondaryAnimation) =>
           FadeTransition(opacity: animation, child: this),
     );

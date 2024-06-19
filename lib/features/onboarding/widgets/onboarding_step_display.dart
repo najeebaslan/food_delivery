@@ -1,14 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/router/routes_constants.dart';
+import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/constants/num_constants.dart';
 import '../../../core/styles/app_colors.dart';
-import '../../../core/widget/custom_elevated_button.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
 
 class OnboardingStepDisplay extends StatefulWidget {
@@ -40,6 +39,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       begin: AppColors.blue,
       end: AppColors.green,
     ).animate(_animationController);
+    runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
     super.initState();
   }
 
@@ -55,12 +55,9 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
 
     _colorTween = colorMap[(fromIndex, toIndex)]!.animate(_animationController);
     if (_animationController.status == AnimationStatus.completed) {
-      _animationController
-        ..reset()
-        ..forward();
-    } else {
-      _animationController.forward();
+      _animationController.reset();
     }
+    _animationController.forward();
   }
 
   ColorTween _buildColorTween(Color begin, Color end) {
@@ -76,102 +73,149 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Gap(46.h),
-            AnimatedSwitcher(
-              duration: const Duration(milliseconds: 700),
-              transitionBuilder: (child, animation) {
-                return FadeTransition(opacity: animation, child: child);
-              },
-              child: Text.rich(
-                key: ValueKey(onboardingStats.indexIndicator),
-                textAlign: TextAlign.center,
-                TextSpan(
-                  text: '# ',
-                  style: TextStyle(
-                    color: AppColors.red,
-                    fontSize: 20.sp,
-                    fontWeight: FontWeight.w700,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: widget.title[onboardingStats.indexIndicator],
-                      style: TextStyle(
-                        color: AppColors.black,
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
+            _buildTitle(onboardingStats.indexIndicator),
             Gap(14.h),
-            SizedBox(
-              height: 55.h,
-              width: 300.w,
-              child: AnimatedSwitcher(
-                duration: const Duration(
-                  milliseconds: NumConstants.animationDuration,
-                ),
-                transitionBuilder: (child, animation) {
-                  return FadeTransition(opacity: animation, child: child);
-                },
-                child: Text(
-                  key: ValueKey('${onboardingStats.indexIndicator}subtitle'),
-                  widget.subtitle[onboardingStats.indexIndicator],
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: AppColors.black,
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-            ),
+            _buildSubtitle(onboardingStats.indexIndicator),
             Gap(44.h),
-            AnimatedSmoothIndicator(
-              duration: const Duration(milliseconds: NumConstants.animationDuration),
-              onDotClicked: (index) {
-                changeColors(fromIndex: indexIndicator, toIndex: index);
-                onboardingStats.nextIndicator(index: index);
-                indexIndicator = onboardingStats.indexIndicator;
-              },
-              axisDirection: Axis.horizontal,
-              activeIndex: onboardingStats.indexIndicator,
-              count: 3,
-              effect: SwapEffect(
-                dotWidth: 12.w,
-                dotHeight: 12.h,
-                activeDotColor: AppColors.blue,
-                paintStyle: PaintingStyle.stroke,
-                dotColor: AppColors.blue,
-                strokeWidth: 1,
-                spacing: 18.w,
-              ),
-            ),
+            _buildSmoothIndicator(onboardingStats),
             Gap(44.h),
-            AnimatedBuilder(
-              animation: _colorTween,
-              builder: (context, child) {
-                return CustomElevatedButton(
-                  backgroundColor: _colorTween.value,
-                  title: 'Order Food',
-                  onPressed: () {
-                    if (onboardingStats.indexIndicator == 2) return;
-
-                    onboardingStats.nextIndicator();
-                    changeColors(
-                      fromIndex: indexIndicator,
-                      toIndex: onboardingStats.indexIndicator,
-                    );
-                    indexIndicator = onboardingStats.indexIndicator;
-                  },
-                );
-              },
-            ),
+            _buildOrderFoodButton(onboardingStats),
           ],
         );
       },
+    );
+  }
+
+  AnimatedBuilder _buildOrderFoodButton(OnboardingCubit onboardingStats) {
+    return AnimatedBuilder(
+      animation: _colorTween,
+      builder: (context, child) {
+        return Container(
+          width: 322.w,
+          height: 66.h,
+          alignment: Alignment.center,
+          decoration: ShapeDecoration(
+            color:
+                onboardingStats.indexIndicator != 0 ? _colorTween.value : AppColors.blue,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+          child: Text('Order Food', style: AppTextStyles.font20White700W),
+        );
+      },
+    );
+  }
+
+  AnimatedSmoothIndicator _buildSmoothIndicator(OnboardingCubit onboardingStats) {
+    return AnimatedSmoothIndicator(
+      duration: const Duration(
+        milliseconds: NumConstants.animationDuration,
+      ),
+      onDotClicked: (index) {
+        changeColors(fromIndex: indexIndicator, toIndex: index);
+        onboardingStats.nextIndicator(index: index);
+        indexIndicator = onboardingStats.indexIndicator;
+      },
+      axisDirection: Axis.horizontal,
+      activeIndex: onboardingStats.indexIndicator,
+      count: 3,
+      effect: SwapEffect(
+        dotWidth: 12.w,
+        dotHeight: 12.h,
+        activeDotColor: AppColors.blue,
+        paintStyle: PaintingStyle.stroke,
+        dotColor: AppColors.blue,
+        strokeWidth: 1,
+        spacing: 18.w,
+      ),
+    );
+  }
+
+  SizedBox _buildSubtitle(int index) {
+    return SizedBox(
+      height: 55.h,
+      width: 300.w,
+      child: AnimatedSwitcher(
+        duration: const Duration(
+          milliseconds: NumConstants.animationDuration,
+        ),
+        transitionBuilder: (child, animation) {
+          return FadeTransition(opacity: animation, child: child);
+        },
+        child: Text(
+          key: ValueKey('${index}subtitle'),
+          widget.subtitle[index],
+          textAlign: TextAlign.left,
+          style: TextStyle(
+            color: AppColors.black,
+            fontSize: 16.sp,
+            fontWeight: FontWeight.w400,
+          ),
+        ),
+      ),
+    );
+  }
+
+  AnimatedSwitcher _buildTitle(int index) {
+    return AnimatedSwitcher(
+      duration: const Duration(milliseconds: 700),
+      transitionBuilder: (child, animation) {
+        return FadeTransition(opacity: animation, child: child);
+      },
+      child: Text.rich(
+        key: ValueKey(index),
+        textAlign: TextAlign.center,
+        TextSpan(
+          text: '# ',
+          style: TextStyle(
+            color: AppColors.red,
+            fontSize: 20.sp,
+            fontWeight: FontWeight.w700,
+          ),
+          children: [
+            TextSpan(
+              text: widget.title[index],
+              style: TextStyle(
+                color: AppColors.black,
+                fontSize: 20.sp,
+                fontWeight: FontWeight.w700,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  void runAutoStepsAnimation(OnboardingCubit onboardingStats) async {
+    await Future.delayed(
+      onboardingStats.indexIndicator == 0
+          ? const Duration(seconds: 2)
+          : const Duration(
+              milliseconds: NumConstants.animationDuration * 2,
+            ),
+    );
+    if (onboardingStats.indexIndicator == 2) {
+      navigatorToHomeView();
+      return;
+    } else {
+      onboardingStats.nextIndicator();
+      changeColors(
+        fromIndex: indexIndicator,
+        toIndex: onboardingStats.indexIndicator,
+      );
+      indexIndicator = onboardingStats.indexIndicator;
+      // ----------------------------    Note: This recursion function   ----------------------------
+      runAutoStepsAnimation(onboardingStats);
+    }
+  }
+
+  void navigatorToHomeView() {
+    Navigator.pushNamedAndRemoveUntil(
+      context,
+      AppRoutesConstants.homeView,
+      (route) => false,
     );
   }
 }

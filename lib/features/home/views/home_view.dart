@@ -111,7 +111,7 @@ class RowCategoriesWithAnimation extends StatelessWidget {
               bottom: 6.5.h,
               child: Text(
                 'Donut',
-                style: AppTextStyles.font30Whit300W.copyWith(
+                style: AppTextStyles.font30White300W.copyWith(
                   height: 0,
                 ),
               ),
@@ -122,6 +122,4 @@ class RowCategoriesWithAnimation extends StatelessWidget {
       ],
     );
   }
-
-  
 }

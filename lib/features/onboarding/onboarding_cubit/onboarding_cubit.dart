@@ -102,4 +102,6 @@ class OnboardingCubit extends Cubit<OnboardingState> {
       isAnimationHasStarted ? firstColorTweenAnimation.evaluate(animationController) : 0,
     );
   }
+
+  
 }

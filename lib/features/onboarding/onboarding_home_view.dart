@@ -65,7 +65,6 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
           alignment: Alignment.center,
           clipBehavior: Clip.none,
           children: [
-          
             Positioned(
               top: 180.h,
               child: SizedBox(
@@ -87,7 +86,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
             Positioned(
-              bottom: isSmallDevice ? 20.h : 130.h,
+              bottom: isSmallDevice ? 20.h : 120.h,
               child: const OnboardingStepDisplay(
                 title: title,
                 subtitle: subtitle,
@@ -107,31 +106,4 @@ class OnboardingHeroTags {
     required this.drinkTag,
     required this.colaCircleTag,
   });
-}
-
-
-class MyPage extends StatelessWidget {
-  const MyPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const Text('data'),
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.blue,
-            ),
-            Container(
-              height: 100,
-              width: 100,
-              color: Colors.blue,
-            ),
-          ]),
-    );
-  }
 }
