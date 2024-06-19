@@ -29,11 +29,30 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
     overflow: TextOverflow.ellipsis,
   );
-  static TextStyle font30Whit300W = TextStyle(
+  static TextStyle font30White300W = TextStyle(
     fontSize: 30.sp,
     color: AppColors.white,
     fontFamily: defaultFontFamily,
     fontWeight: FontWeight.w300,
     overflow: TextOverflow.ellipsis,
   );
+  static TextStyle font20White700W = TextStyle(
+    fontSize: 20.sp,
+    color: AppColors.white,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w700,
+    overflow: TextOverflow.ellipsis,
+  );
+
+
+  /* 
+  
+   TextStyle(
+                      color: Colors.Whitee,
+                      fontSize: 20.sp,
+                      fontFamily: 'Roboto',
+                      fontWeight: FontWeight.w700,
+                      height: 0,
+                    ),
+   */
 }
