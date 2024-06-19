@@ -14,6 +14,7 @@ class ImagesConstants {
   static const ellipseYellow = '${_baseImages}ellipse_yellow.svg';
   static const ellipseRed = '${_baseImages}ellipse_red.svg';
   static const ellipseSmall = '${_baseImages}ellipse_small.svg';
+  static const homeMenu = '${_baseImages}menu.svg';
   static const burgerBlueCircle = '${_baseImages}burger_blue_circle.svg';
 // Onboarding view images
   static const onboardingCircleBorderGreen = '${_baseImages}circle_border_green.svg';

@@ -19,7 +19,8 @@ class FoodDeliveryApp extends StatelessWidget {
       builder: (context, child) {
         return PlatformApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: AppRoutesConstants.splashView,
+          // initialRoute: AppRoutesConstants.splashView,
+          initialRoute: AppRoutesConstants.homeView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaler: const TextScaler.linear(1),

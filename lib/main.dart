@@ -23,12 +23,12 @@ Future<void> main() async {
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
-  await cacheSvgSplashView();
+  await cacheSvgImagesSplashView();
 
   runApp(const FoodDeliveryApp());
 }
 
-Future<void> cacheSvgSplashView() async {
+Future<void> cacheSvgImagesSplashView() async {
   List<String> splashViewImagesUrl = [
     ImagesConstants.ellipseGreen,
     ImagesConstants.ellipseBlue,
