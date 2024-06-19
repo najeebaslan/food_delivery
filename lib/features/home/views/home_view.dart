@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/constants/assets_constants.dart';
 import 'widgets/app_bar_home_view.dart';
+import 'widgets/categories_items.dart';
 import 'widgets/header_home_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -18,38 +19,48 @@ class HomeView extends StatelessWidget {
       backgroundColor: AppColors.homeBackground,
       body: SafeArea(
         child: Padding(
-          padding: EdgeInsets.only(
-            right: 24.w,
-            left: 24.w,
-            top: 30.h,
+          padding: EdgeInsets.only(right: 24.w, left: 24.w, top: 20.h),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                const AppBarHomeView(),
+                // Gap(14.h),
+                const HeaderHomeView(),
+                Gap(50.h),
+                _buildTitle(title: 'Categories'),
+                Gap(30.h),
+                const CategoriesItems(),
+                Gap(47.h),
+                _buildTitle(
+                  title: 'Popular',
+                  color: AppColors.black,
+                ),
+                Gap(30.h),
+
+                const PopularListItems(),
+              ],
+            ),
           ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const AppBarHomeView(),
-              Gap(14.h),
-              const HeaderHomeView(),
-              Gap(60.h),
-              ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: 37.h,
-                  maxWidth: 235.w,
-                ),
-                child: const Text(
-                  'Categories',
-                  textAlign: TextAlign.left,
-                  style: TextStyle(
-                    color: Color(0xFFFABB2D),
-                    fontSize: 20,
-                    fontFamily: 'Roboto',
-                    fontWeight: FontWeight.w700,
-                    height: 0,
-                  ),
-                ),
-              ),
-              Gap(30.h),
-              const RowCategoriesWithAnimation(),
-            ],
+        ),
+      ),
+    );
+  }
+
+  Align _buildTitle({required String title, Color? color}) {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: 37.h,
+          maxWidth: 235.w,
+        ),
+        child: Text(
+          title,
+          textAlign: TextAlign.left,
+          style: AppTextStyles.font20White700W.copyWith(
+            color: color ?? AppColors.yellow,
+            height: 0,
           ),
         ),
       ),
@@ -57,69 +68,56 @@ class HomeView extends StatelessWidget {
   }
 }
 
-class RowCategoriesWithAnimation extends StatelessWidget {
-  const RowCategoriesWithAnimation({super.key});
+class PopularListItems extends StatelessWidget {
+  const PopularListItems({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Container(
-          height: 118.h,
-          width: 81.w,
-          alignment: Alignment.center,
-          decoration: ShapeDecoration(
-            color: AppColors.yellow,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+    return Container(
+      width: 362.w,
+      height: 154.h,
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        shadows: const [
+          BoxShadow(
+            color: Color(0x19000000),
+            blurRadius: 10,
+            offset: Offset(0, 10),
+            spreadRadius: 0,
+          )
+        ],
+      ),
+      child: Stack(
+        alignment: Alignment.topCenter,
+        children: [
+          Container(
+            width: 199.w,
+            height: 199.h,
+            decoration: BoxDecoration(
+              image: const DecorationImage(
+                image: AssetImage(ImagesConstants.hotDogIsometric),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: const Color(0x26000000).withOpacity(0.1),
+                  blurRadius: 12,
+                  offset: const Offset(-4, -1),
+                  spreadRadius: 0,
+                ),
+              ],
             ),
           ),
-          child: Text(
-            'All',
-            style: AppTextStyles.font16Black400W.copyWith(
-              height: 0,
-            ),
+          Image.asset(
+            ImagesConstants.hotDogIsometric,
           ),
-        ),
-        Gap(10.w),
-        Stack(
-          alignment: Alignment.center,
-          clipBehavior: Clip.none,
-          children: [
-            Container(
-              height: 83.h,
-              width: 130.w,
-              decoration: ShapeDecoration(
-                color: AppColors.nearRed,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(
-                    20.r,
-                  ),
-                ),
-              ),
-            ),
-            Positioned(
-              top: -60.h,
-              // left: 0,
-              child: Image.asset(
-                ImagesConstants.homeBoxDonut,
-                width: 121.w,
-                height: 121.h,
-              ),
-            ),
-            Positioned(
-              bottom: 6.5.h,
-              child: Text(
-                'Donut',
-                style: AppTextStyles.font30White300W.copyWith(
-                  height: 0,
-                ),
-              ),
-            )
-          ],
-        ),
-        Gap(10.w),
-      ],
+          const Row(
+            children: [],
+          ),
+        ],
+      ),
     );
   }
 }
