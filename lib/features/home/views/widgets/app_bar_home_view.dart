@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/styles/app_text_styles.dart';
 
 class AppBarHomeView extends StatelessWidget {
   const AppBarHomeView({
@@ -49,30 +50,20 @@ class AppBarHomeView extends StatelessWidget {
               ),
             ),
             Transform.translate(
-              offset: Offset(-40.w, 0),
+              offset: Offset(-43.w, 0),
               child: Text.rich(
                 textAlign: TextAlign.left,
                 TextSpan(
                   children: [
                     TextSpan(
                       text: 'Good moring, ',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w300,
+                      style: AppTextStyles.font16Black300W.copyWith(
                         height: 0,
                       ),
                     ),
                     TextSpan(
                       text: 'Jeev jobs',
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 16,
-                        fontFamily: 'Roboto',
-                        fontWeight: FontWeight.w400,
-                        height: 0,
-                      ),
+                      style: AppTextStyles.font16Black400W,
                     ),
                   ],
                 ),
