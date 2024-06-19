@@ -39,11 +39,11 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       begin: AppColors.blue,
       end: AppColors.green,
     ).animate(_animationController);
-    runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
+    _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
     super.initState();
   }
 
-  void changeColors({required int fromIndex, required int toIndex}) {
+  void _changeColors({required int fromIndex, required int toIndex}) {
     final colorMap = {
       (0, 1): _buildColorTween(AppColors.blue, AppColors.green),
       (0, 2): _buildColorTween(AppColors.blue, AppColors.red),
@@ -113,7 +113,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
         milliseconds: NumConstants.animationDuration,
       ),
       onDotClicked: (index) {
-        changeColors(fromIndex: indexIndicator, toIndex: index);
+        _changeColors(fromIndex: indexIndicator, toIndex: index);
         onboardingStats.nextIndicator(index: index);
         indexIndicator = onboardingStats.indexIndicator;
       },
@@ -188,7 +188,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
     );
   }
 
-  void runAutoStepsAnimation(OnboardingCubit onboardingStats) async {
+  void _runAutoStepsAnimation(OnboardingCubit onboardingStats) async {
     await Future.delayed(
       onboardingStats.indexIndicator == 0
           ? const Duration(seconds: 2)
@@ -197,21 +197,21 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
             ),
     );
     if (onboardingStats.indexIndicator == 2) {
-      navigatorToHomeView();
+      _navigatorToHomeView();
       return;
     } else {
       onboardingStats.nextIndicator();
-      changeColors(
+      _changeColors(
         fromIndex: indexIndicator,
         toIndex: onboardingStats.indexIndicator,
       );
       indexIndicator = onboardingStats.indexIndicator;
       // ----------------------------    Note: This recursion function   ----------------------------
-      runAutoStepsAnimation(onboardingStats);
+      _runAutoStepsAnimation(onboardingStats);
     }
   }
 
-  void navigatorToHomeView() {
+  void _navigatorToHomeView() {
     Navigator.pushNamedAndRemoveUntil(
       context,
       AppRoutesConstants.homeView,

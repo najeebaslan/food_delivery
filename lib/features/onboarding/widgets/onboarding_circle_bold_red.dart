@@ -30,11 +30,13 @@ class OnboardingCircleBoldRed extends StatelessWidget {
               curve: Curves.easeInOut,
               top: onboardingCubit.topPositionedCircleRed,
               left: onboardingCubit.leftPositionedCircleRed,
-              duration: const Duration(milliseconds: NumConstants.animationDuration),
+              duration: const Duration(
+                milliseconds: NumConstants.animationDuration,
+              ),
               child: Transform(
                 alignment: Alignment.center,
-                transform: Matrix4.identity()..rotateZ(transformZ),
-                child: onboardingCubit.completedFirstAnimation == false
+                transform: Matrix4.identity()..rotateZ(_transformZ),
+                child: !onboardingCubit.completedFirstAnimation
                     ? FirstCircleBoldRedAnimation(
                         onboardingHeroTags: onboardingHeroTags,
                         onboardingCubit: onboardingCubit,
@@ -51,8 +53,8 @@ class OnboardingCircleBoldRed extends StatelessWidget {
     );
   }
 
-  double get transformZ {
-    if (onboardingCubit.isAnimationHasStarted == false) return 0;
+  double get _transformZ {
+    if (!onboardingCubit.isAnimationHasStarted) return 0;
 
     return onboardingCubit.animation.evaluate(
       onboardingCubit.animationController,

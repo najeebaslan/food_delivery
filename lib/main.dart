@@ -7,7 +7,6 @@ import 'package:flutter_svg/flutter_svg.dart' as svg;
 import 'package:food_delivery/food_delivery.dart';
 
 import 'core/constants/assets_constants.dart';
-import 'core/helpers/helper_shared_preferences.dart';
 import 'core/utils/bloc_observer.dart';
 
 Future<void> main() async {
@@ -15,7 +14,6 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Whenever your initialization is completed, remove the splash screen:
   FlutterNativeSplash.remove();
-  await HelperSharedPreferences().init();
   // This line for fix hide text bugs in screen_utils in release mode
   await ScreenUtil.ensureScreenSize();
 
