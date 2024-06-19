@@ -21,25 +21,29 @@ class CustomElevatedButton extends StatelessWidget {
       width: 322.w,
       height: 66.h,
       child: PlatformElevatedButton(
-        cupertino: (context, platform) => CupertinoElevatedButtonData(
-          borderRadius: BorderRadius.circular(20.r),
-          color: backgroundColor ?? AppColors.blue,
-          disabledColor: AppColors.red,
-          onPressed: onPressed,
-          originalStyle: true,
-          child: buildText(title),
-        ),
-        material: (context, platform) => MaterialElevatedButtonData(
-          child: buildText(title),
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            backgroundColor: backgroundColor ?? AppColors.blue,
-            disabledBackgroundColor: AppColors.red,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+        cupertino: (context, platform) {
+          return CupertinoElevatedButtonData(
+            borderRadius: BorderRadius.circular(20.r),
+            color: backgroundColor ?? AppColors.blue,
+            disabledColor: AppColors.red,
+            onPressed: onPressed,
+            originalStyle: true,
+            child: buildText(title),
+          );
+        },
+        material: (context, platform) {
+          return MaterialElevatedButtonData(
+            child: buildText(title),
+            onPressed: onPressed,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: backgroundColor ?? AppColors.blue,
+              disabledBackgroundColor: AppColors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

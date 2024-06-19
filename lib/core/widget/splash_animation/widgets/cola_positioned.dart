@@ -10,18 +10,17 @@ class ColaPositioned extends StatelessWidget {
   const ColaPositioned({
     super.key,
     required this.height,
-    required Animation<Offset> positionAnimationCola,
+    required this.positionAnimationCola,
     required this.onboardingHeroTags,
     required this.width,
-    required ValueNotifier<double> opacityColaCircle,
-  })  : _positionAnimationCola = positionAnimationCola,
-        _opacityColaCircle = opacityColaCircle;
+    required this.opacityColaCircle,
+  });
 
   final double height;
-  final Animation<Offset> _positionAnimationCola;
+  final Animation<Offset> positionAnimationCola;
   final OnboardingHeroTags onboardingHeroTags;
   final double width;
-  final ValueNotifier<double> _opacityColaCircle;
+  final ValueNotifier<double> opacityColaCircle;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +28,7 @@ class ColaPositioned extends StatelessWidget {
       top: height / 6.4,
       left: 0.w,
       child: SlideTransition(
-        position: _positionAnimationCola,
+        position: positionAnimationCola,
         child: Stack(
           clipBehavior: Clip.none,
           alignment: Alignment.center,
@@ -37,8 +36,13 @@ class ColaPositioned extends StatelessWidget {
             Positioned(
               child: Hero(
                 tag: onboardingHeroTags.colaCircleTag,
-                flightShuttleBuilder: (flightContext, animation, flightDirection,
-                    fromHeroContext, toHeroContext) {
+                flightShuttleBuilder: (
+                  flightContext,
+                  animation,
+                  flightDirection,
+                  fromHeroContext,
+                  toHeroContext,
+                ) {
                   final customAnimation =
                       Tween<double>(begin: 0, end: 2).animate(animation);
                   return AnimatedBuilder(
@@ -51,7 +55,10 @@ class ColaPositioned extends StatelessWidget {
                           milliseconds: NumConstants.animationDuration,
                         ),
                         transitionBuilder: (child, animation) {
-                          return FadeTransition(opacity: animation, child: child);
+                          return FadeTransition(
+                            opacity: animation,
+                            child: child,
+                          );
                         },
                         child: SvgPicture.asset(
                           key: ValueKey(startSwitch),
@@ -66,7 +73,7 @@ class ColaPositioned extends StatelessWidget {
                   );
                 },
                 child: ValueListenableBuilder(
-                  valueListenable: _opacityColaCircle,
+                  valueListenable: opacityColaCircle,
                   builder: (context, value, child) {
                     return AnimatedOpacity(
                       opacity: value,
