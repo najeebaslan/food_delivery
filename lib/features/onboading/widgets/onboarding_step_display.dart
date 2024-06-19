@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import '../../../core/constants/num_constants.dart';
@@ -10,8 +11,8 @@ import '../../../core/styles/app_colors.dart';
 import '../../../core/widget/custom_elevated_button.dart';
 import '../onboarding_cubit/onboarding_cubit.dart';
 
-class BodyOnboardingHome extends StatefulWidget {
-  const BodyOnboardingHome({
+class OnboardingStepDisplay extends StatefulWidget {
+  const OnboardingStepDisplay({
     super.key,
     required this.title,
     required this.subtitle,
@@ -21,10 +22,10 @@ class BodyOnboardingHome extends StatefulWidget {
   final List<String> subtitle;
 
   @override
-  State<BodyOnboardingHome> createState() => _BodyOnboardingHomeState();
+  State<OnboardingStepDisplay> createState() => _OnboardingStepDisplayState();
 }
 
-class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
+class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation _colorTween;
@@ -75,7 +76,7 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
         return Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(height: 46.h),
+            Gap(46.h),
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 700),
               transitionBuilder: (child, animation) {
@@ -104,7 +105,7 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
                 ),
               ),
             ),
-            SizedBox(height: 14.h),
+            Gap(14.h),
             SizedBox(
               height: 55.h,
               width: 300.w,
@@ -127,7 +128,7 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
                 ),
               ),
             ),
-            SizedBox(height: 44.h),
+            Gap(44.h),
             AnimatedSmoothIndicator(
               duration: Duration(milliseconds: NumConstants.animationDuration),
               onDotClicked: (index) {
@@ -148,7 +149,7 @@ class _BodyOnboardingHomeState extends State<BodyOnboardingHome>
                 spacing: 18.w,
               ),
             ),
-            SizedBox(height: 44.h),
+            Gap(44.h),
             AnimatedBuilder(
               animation: _colorTween,
               builder: (context, child) {
