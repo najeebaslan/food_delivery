@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/num_constants.dart';
@@ -54,7 +55,6 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
 
   @override
   Widget build(BuildContext context) {
-    bool isSmallDevice = MediaQuery.sizeOf(context).height < 600 ? true : false;
     return PlatformScaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -68,8 +68,8 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
             Positioned(
               top: 180.h,
               child: SizedBox(
-                height: isSmallDevice ? 250.h : 331.h,
-                width: isSmallDevice ? 250.w : 331.w,
+                height: context.isSmallDevice ? 250.h : 331.h,
+                width: context.isSmallDevice ? 250.w : 331.w,
                 child: Image.asset(
                   ImagesConstants.onboardingDeliveryManOnboarding,
                   fit: BoxFit.cover,
@@ -86,7 +86,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
             Positioned(
-              bottom: isSmallDevice ? 20.h : 120.h,
+              bottom: context.isSmallDevice ? 20.h : 120.h,
               child: const OnboardingStepDisplay(
                 title: title,
                 subtitle: subtitle,
