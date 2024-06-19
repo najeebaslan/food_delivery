@@ -85,7 +85,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.colaCircleTag,
             ),
-            CircleYellow(onboardingCubit: onboardingCubit),
+            CircleYellow(),
             CircleBoldRed(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
