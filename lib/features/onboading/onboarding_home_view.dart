@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,10 +7,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../core/constants/assets_constants.dart';
 import '../../core/constants/num_constants.dart';
 import 'onboarding_cubit/onboarding_cubit.dart';
-import 'widgets/body_onboarding.dart';
-import 'widgets/circle_bold_green.dart';
-import 'widgets/circle_bold_red.dart';
-import 'widgets/circle_yellow.dart';
+import 'widgets/onboarding_circle_bold_green.dart';
+import 'widgets/onboarding_circle_bold_red.dart';
+import 'widgets/onboarding_circle_yellow.dart';
+import 'widgets/onboarding_step_display.dart';
 
 class OnboardingHomeView extends StatefulWidget {
   const OnboardingHomeView({super.key, required this.onboardingHeroTags});
@@ -57,9 +55,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
 
   @override
   Widget build(BuildContext context) {
-    log(MediaQuery.sizeOf(context).height.toString());
     bool isSmallDevice = MediaQuery.sizeOf(context).height < 600 ? true : false;
-    log('rebuild PlatformScaffold');
     return PlatformScaffold(
       body: Padding(
         padding: EdgeInsets.only(
@@ -81,18 +77,18 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
                 ),
               ),
             ),
-            CircleGreen(
+            OnboardingCircleGreen(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.colaCircleTag,
             ),
-            CircleYellow(),
-            CircleBoldRed(
+            OnboardingCircleYellow(),
+            OnboardingCircleBoldRed(
               onboardingCubit: onboardingCubit,
               onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
             ),
             Positioned(
               bottom: isSmallDevice ? 20.h : 130.h,
-              child: BodyOnboardingHome(
+              child: OnboardingStepDisplay(
                 title: title,
                 subtitle: subtitle,
               ),
