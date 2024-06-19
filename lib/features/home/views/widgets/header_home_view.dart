@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 
 import '../../../../core/constants/assets_constants.dart';
@@ -10,18 +10,21 @@ import '../../../../core/styles/app_colors.dart';
 
 class HeaderHomeView extends StatelessWidget {
   const HeaderHomeView({super.key});
-
+  static const String _hintText = 'What you wanna order today ?..';
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        PlatformWidget(
-          cupertino: (_, __) => _buildIOSSearchTextField(),
-          material: (_, __) => _buildAndroidSearchTextField(),
-        )
-      ],
+    return Transform.translate(
+      offset: Offset(0, -14.h),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          PlatformWidget(
+            cupertino: (_, __) => _buildIOSSearchTextField(),
+            material: (_, __) => _buildAndroidSearchTextField(),
+          )
+        ],
+      ),
     );
   }
 
@@ -32,10 +35,12 @@ class HeaderHomeView extends StatelessWidget {
       decoration: ShapeDecoration(
         color: Colors.white,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.circular(30.r),
         ),
       ),
       child: TextField(
+        textAlign: TextAlign.start,
+        textAlignVertical: TextAlignVertical.bottom,
         onChanged: (value) {
           debugPrint(value);
         },
@@ -44,22 +49,21 @@ class HeaderHomeView extends StatelessWidget {
           fontStyle: FontStyle.italic,
         ),
         decoration: InputDecoration(
-          hintText: 'What you wanna order today ?..',
-          border: const OutlineInputBorder(),
+          hintText: _hintText,
+          border: const OutlineInputBorder(borderSide: BorderSide.none),
           hintStyle: AppTextStyles.font16Black300W.copyWith(
             height: 0,
             fontStyle: FontStyle.italic,
           ),
-          suffixIcon: SvgPicture.asset(
-            ImagesConstants.iconsSearch,
-            height: 20.h,
-            width: 20.w,
+          suffixIcon: Padding(
+            padding: const EdgeInsets.all(7),
+            child: SvgPicture.asset(
+              ImagesConstants.iconsSearch,
+              height: 20.h,
+              width: 20.w,
+              allowDrawingOutsideViewBox: false,
+            ),
           ),
-          //     Icon(
-          //   Icons.search,
-          //   color: AppColors.black,
-          //   size: 20,
-          // ),
         ),
       ),
     );
@@ -104,7 +108,7 @@ class HeaderHomeView extends StatelessWidget {
               height: 0,
               fontStyle: FontStyle.italic,
             ),
-            placeholder: 'What you wanna order today ?..',
+            placeholder: _hintText,
           ),
         );
       },
