@@ -34,7 +34,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
   void initState() {
     _animationController = AnimationController(
       vsync: this,
-      duration: Duration(milliseconds: 1300),
+      duration: const Duration(milliseconds: 1300),
     );
     _colorTween = ColorTween(
       begin: AppColors.blue,
@@ -117,7 +117,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
                   return FadeTransition(opacity: animation, child: child);
                 },
                 child: Text(
-                  key: ValueKey(onboardingStats.indexIndicator.toString() + 'subtitle'),
+                  key: ValueKey('${onboardingStats.indexIndicator}subtitle'),
                   widget.subtitle[onboardingStats.indexIndicator],
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -130,7 +130,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
             ),
             Gap(44.h),
             AnimatedSmoothIndicator(
-              duration: Duration(milliseconds: NumConstants.animationDuration),
+              duration: const Duration(milliseconds: NumConstants.animationDuration),
               onDotClicked: (index) {
                 changeColors(fromIndex: indexIndicator, toIndex: index);
                 onboardingStats.nextIndicator(index: index);

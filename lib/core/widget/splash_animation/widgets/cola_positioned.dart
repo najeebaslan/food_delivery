@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../features/onboading/onboarding_home_view.dart';
+import '../../../../features/onboarding/onboarding_home_view.dart';
 import '../../../constants/assets_constants.dart';
 import '../../../constants/num_constants.dart';
 
@@ -70,7 +70,7 @@ class ColaPositioned extends StatelessWidget {
                   builder: (context, value, child) {
                     return AnimatedOpacity(
                       opacity: value,
-                      duration: Duration(seconds: 1),
+                      duration: const Duration(seconds: 1),
                       child: SvgPicture.asset(
                         height: (height / 10.5),
                         width: (width / 10.5),

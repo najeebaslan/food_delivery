@@ -26,16 +26,16 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              AppBarHomeView(),
+              const AppBarHomeView(),
               Gap(14.h),
-              HeaderHomeView(),
+              const HeaderHomeView(),
               Gap(60.h),
               ConstrainedBox(
                 constraints: BoxConstraints(
                   maxHeight: 37.h,
                   maxWidth: 235.w,
                 ),
-                child: Text(
+                child: const Text(
                   'Categories',
                   textAlign: TextAlign.left,
                   style: TextStyle(
@@ -48,7 +48,7 @@ class HomeView extends StatelessWidget {
                 ),
               ),
               Gap(30.h),
-              RowCategoriesWithAnimation(),
+              const RowCategoriesWithAnimation(),
             ],
           ),
         ),
@@ -123,28 +123,5 @@ class RowCategoriesWithAnimation extends StatelessWidget {
     );
   }
 
-  Widget _buildCategoryItem(String title, bool isSelected) {
-    return Container(
-      height: 37.h,
-      width: 80.w,
-      decoration: ShapeDecoration(
-        color: isSelected ? AppColors.yellow : Colors.red,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: isSelected ? Colors.red : AppColors.black,
-            fontSize: 16,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w700,
-            height: 0,
-          ),
-        ),
-      ),
-    );
-  }
+  
 }

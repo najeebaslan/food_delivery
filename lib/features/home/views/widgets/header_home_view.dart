@@ -45,7 +45,7 @@ class HeaderHomeView extends StatelessWidget {
         ),
         decoration: InputDecoration(
           hintText: 'What you wanna order today ?..',
-          border: OutlineInputBorder(),
+          border: const OutlineInputBorder(),
           hintStyle: AppTextStyles.font16Black300W.copyWith(
             height: 0,
             fontStyle: FontStyle.italic,
@@ -85,7 +85,7 @@ class HeaderHomeView extends StatelessWidget {
               fontStyle: FontStyle.italic,
             ),
             suffixMode: OverlayVisibilityMode.always,
-            prefixIcon: SizedBox.shrink(),
+            prefixIcon: const SizedBox.shrink(),
             suffixIcon: valueTextField.isEmpty
                 ? Icon(
                     CupertinoIcons.search,

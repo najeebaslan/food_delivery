@@ -30,7 +30,7 @@ class OnboardingCircleBoldRed extends StatelessWidget {
               curve: Curves.easeInOut,
               top: onboardingCubit.topPositionedCircleRed,
               left: onboardingCubit.leftPositionedCircleRed,
-              duration: Duration(milliseconds: NumConstants.animationDuration),
+              duration: const Duration(milliseconds: NumConstants.animationDuration),
               child: Transform(
                 alignment: Alignment.center,
                 transform: Matrix4.identity()..rotateZ(transformZ),
@@ -88,7 +88,7 @@ class FirstCircleBoldRedAnimation extends StatelessWidget {
             alignment: Alignment.center,
             clipBehavior: Clip.none,
             children: [
-              OnboardingCircleBoldRedWidget(),
+              const OnboardingCircleBoldRedWidget(),
               BlocBuilder<OnboardingCubit, OnboardingState>(
                 buildWhen: (previous, current) =>
                     current is CompletedFirstAnimationOnboarding,
@@ -113,7 +113,7 @@ class FirstCircleBoldRedAnimation extends StatelessWidget {
       crossFadeState: onboardingCubit.isAnimationHasStarted
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
-      duration: Duration(
+      duration: const Duration(
         milliseconds: NumConstants.animationDuration,
       ),
     );
@@ -175,7 +175,7 @@ class LastCircleBoldRedAnimation extends StatelessWidget {
       crossFadeState: onboardingCubit.isAnimationHasStarted
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
-      duration: Duration(
+      duration: const Duration(
         milliseconds: NumConstants.animationDuration,
       ),
     );

@@ -4,7 +4,7 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../features/onboading/onboarding_home_view.dart';
+import '../../../features/onboarding/onboarding_home_view.dart';
 import '../../constants/assets_constants.dart';
 import '../../constants/num_constants.dart';
 import '../../router/routes_constants.dart';
@@ -89,7 +89,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
           () async {
             return Navigator.pushNamedAndRemoveUntil(
               context,
-              AppRoutesConstants.OnboardingHomeView,
+              AppRoutesConstants.onboardingHomeView,
               arguments: onboardingHeroTags,
               (route) => false,
             );
