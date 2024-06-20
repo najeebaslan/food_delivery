@@ -29,11 +29,25 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
     overflow: TextOverflow.ellipsis,
   );
+  static TextStyle font14Black400W = TextStyle(
+    fontSize: 14.sp,
+    color: AppColors.black,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w400,
+    // overflow: TextOverflow.ellipsis,
+  );
   static TextStyle font30White300W = TextStyle(
     fontSize: 30.sp,
     color: AppColors.white,
     fontFamily: defaultFontFamily,
     fontWeight: FontWeight.w300,
+    overflow: TextOverflow.ellipsis,
+  );
+  static TextStyle font30Black400W = TextStyle(
+    fontSize: 30.sp,
+    color: AppColors.black,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w400,
     overflow: TextOverflow.ellipsis,
   );
   static TextStyle font20White700W = TextStyle(
@@ -43,7 +57,6 @@ class AppTextStyles {
     fontWeight: FontWeight.w700,
     overflow: TextOverflow.ellipsis,
   );
-
 
   /* 
   
