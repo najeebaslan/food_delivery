@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:gap/gap.dart';
+
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
-import 'package:gap/gap.dart';
 
+import '../../../core/widget/shadow.dart';
 import 'widgets/app_bar_home_view.dart';
 import 'widgets/categories_items.dart';
-import 'widgets/header_home_view.dart';
+import 'widgets/popular_list_items.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -25,10 +27,10 @@ class HomeView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 const AppBarHomeView(),
-                // Gap(14.h),
-                const HeaderHomeView(),
                 Gap(50.h),
-                _buildTitle(title: 'Categories'),
+                _buildTitle(
+                  title: 'Categories',
+                ),
                 Gap(30.h),
                 const CategoriesItems(),
                 Gap(47.h),
@@ -37,8 +39,63 @@ class HomeView extends StatelessWidget {
                   color: AppColors.black,
                 ),
                 Gap(30.h),
-
-                const PopularListItems(),
+                PopularListItems(
+                  title: 'Hotdog',
+                  subtitle: 'Top of the day',
+                  description:
+                      'The term hot dog can also refer to the sausage itself. The sausage used is a wiener or a frankfurter.',
+                  imageUri: ImagesConstants.hotDogIsometric,
+                  colorForLineTitle: AppColors.blue,
+                ),
+                Gap(49.h),
+                PopularListItems(
+                  title: 'Donut',
+                  subtitle: 'Top of the week',
+                  description:
+                      'A doughnut or donut is a type of leavened fried dough. It is popular in many countries and is prepared in various forms as a sweet snack ',
+                  imageUri: ImagesConstants.homeBoxDonut,
+                  colorForLineTitle: AppColors.red,
+                  customImage: Positioned(
+                    bottom: 60.h,
+                    right: -40.w,
+                    child: SimpleShadow(
+                      color: const Color(0x26000000),
+                      offset: const Offset(-4, -1),
+                      sigma: 10,
+                      child: Image.asset(
+                        ImagesConstants.homeBoxDonut,
+                        width: 130.w,
+                        height: 130.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Gap(49.h),
+                PopularListItems(
+                  title: 'Donut',
+                  subtitle: 'Top of the month',
+                  description:
+                      'A doughnut or donut is a type of leavened fried dough. It is popular in many countries and is prepared in various forms as a sweet snack ',
+                  imageUri: ImagesConstants.friesFront,
+                  colorForLineTitle: AppColors.green,
+                  customImage: Positioned(
+                    bottom: 20.h,
+                    right: -70.w,
+                    child: SimpleShadow(
+                      color: const Color(0x26000000),
+                      offset: const Offset(-4, -1),
+                      sigma: 10,
+                      child: Image.asset(
+                        ImagesConstants.friesFront,
+                        width: 190.w,
+                        height: 190.h,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                Gap(49.h),
               ],
             ),
           ),
@@ -63,60 +120,6 @@ class HomeView extends StatelessWidget {
             height: 0,
           ),
         ),
-      ),
-    );
-  }
-}
-
-class PopularListItems extends StatelessWidget {
-  const PopularListItems({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 362.w,
-      height: 154.h,
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        shadows: const [
-          BoxShadow(
-            color: Color(0x19000000),
-            blurRadius: 10,
-            offset: Offset(0, 10),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: Stack(
-        alignment: Alignment.topCenter,
-        children: [
-          Container(
-            width: 199.w,
-            height: 199.h,
-            decoration: BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage(ImagesConstants.hotDogIsometric),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: const Color(0x26000000).withOpacity(0.1),
-                  blurRadius: 12,
-                  offset: const Offset(-4, -1),
-                  spreadRadius: 0,
-                ),
-              ],
-            ),
-          ),
-          Image.asset(
-            ImagesConstants.hotDogIsometric,
-          ),
-          const Row(
-            children: [],
-          ),
-        ],
       ),
     );
   }

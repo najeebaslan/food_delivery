@@ -29,7 +29,8 @@ class FoodDeliveryApp extends StatelessWidget {
           ),
           title: 'Food Delivery App',
           debugShowCheckedModeBanner: false,
-          cupertino: (_, __) => CupertinoAppData(
+          cupertino: (_, __) {
+            return CupertinoAppData(
             theme: CupertinoThemeData(
               brightness: Brightness.light,
               barBackgroundColor: Colors.black,
@@ -41,7 +42,8 @@ class FoodDeliveryApp extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          );
+          },
           material: (context, platform) {
             return MaterialAppData(
               theme: ThemeData(

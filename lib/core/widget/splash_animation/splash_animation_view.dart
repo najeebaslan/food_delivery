@@ -176,8 +176,8 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
             Positioned(
               bottom: -10.h,
               child: Image.asset(
-                height: (height / 5.1),
-                width: (width / 2.2),
+                height: (height / 4.8),
+                width: (width / 3),
                 ImagesConstants.hotDogIsometric,
               ),
             ),

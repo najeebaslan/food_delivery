@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_text_styles.dart';
+import 'header_text_field.dart';
 
 class AppBarHomeView extends StatelessWidget {
   const AppBarHomeView({
@@ -81,6 +82,7 @@ class AppBarHomeView extends StatelessWidget {
             ),
           ],
         ),
+        const HeaderTextField(),
       ],
     );
   }
