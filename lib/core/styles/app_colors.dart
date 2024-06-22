@@ -12,6 +12,7 @@ class AppColors {
   static Color nearRed = const Color(0xFFEA574F);
   static Color black = HexColor("#000000");
   static Color green = HexColor("#3AA856");
+  static Color nearGreen = HexColor("#CEE9D5");
   static Color yellow = HexColor("#FABB2D");
   static const Color errorColor = Color(0xFFBD1B1B);
   static Color background = const Color(0xFFFFFFFF);
