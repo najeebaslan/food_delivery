@@ -25,7 +25,7 @@ class AppRouter {
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().withAnimation();
       case AppRoutesConstants.homeView:
-        return const HomeView().withAnimation(milliseconds: 200);
+        return const HomeView().withAnimation(milliseconds: 500);
 
       default:
         return unknownRouteScreen();

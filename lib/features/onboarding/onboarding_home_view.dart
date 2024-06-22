@@ -39,7 +39,9 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
     onboardingCubit = BlocProvider.of<OnboardingCubit>(context);
     onboardingCubit.animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: NumConstants.animationDuration - 100),
+      duration: const Duration(
+        milliseconds: NumConstants.animationDuration - 100,
+      ),
     );
 
     onboardingCubit.initAnimation();

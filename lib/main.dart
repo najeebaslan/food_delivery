@@ -29,7 +29,7 @@ Future<void> main() async {
 Future<void> cacheSvgImagesSplashView() async {
   List<String> splashViewImagesUrl = [
     ImagesConstants.ellipseGreen,
-    ImagesConstants.ellipseBlue,
+    ImagesConstants.friesBlue,
     ImagesConstants.ellipseYellow,
     ImagesConstants.ellipseRed,
     ImagesConstants.ellipseSmall,

@@ -17,12 +17,15 @@ class AppBarHomeView extends StatelessWidget {
       children: [
         Row(
           children: [
-            Transform.rotate(
-              angle: 6,
-              child: SvgPicture.asset(
-                ImagesConstants.ellipseRed,
-                height: 32.28.h,
-                width: 32.28.w,
+            Hero(
+              tag: 'drinkTag',
+              child: Transform.rotate(
+                angle: 6,
+                child: SvgPicture.asset(
+                  ImagesConstants.ellipseRed,
+                  height: 32.28.h,
+                  width: 32.28.w,
+                ),
               ),
             ),
             Column(

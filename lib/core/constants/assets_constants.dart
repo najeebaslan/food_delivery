@@ -13,7 +13,7 @@ class ImagesConstants {
   static const tridonut = '${_baseImages}tridonut.png';
   static const ketchupIsometric = '${_baseImages}ketchup_Isometric.png';
   static const ellipseGreen = '${_baseImages}ellipse_green.svg';
-  static const ellipseBlue = '${_baseImages}ellipse_blue.svg';
+  static const friesBlue = '${_baseImages}fries_blue.svg';
   static const ellipseYellow = '${_baseImages}ellipse_yellow.svg';
   static const ellipseRed = '${_baseImages}ellipse_red.svg';
   static const ellipseSmall = '${_baseImages}ellipse_small.svg';
