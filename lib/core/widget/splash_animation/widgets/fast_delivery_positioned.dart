@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,8 +19,9 @@ class FastDeliveryPositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log('rebuild FastDeliveryPositioned');
     return Positioned(
-      top: height / 5,
+      top: height / 10,
       child: ValueListenableBuilder(
         valueListenable: opacityFastDelivery,
         builder: (context, value, child) {

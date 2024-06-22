@@ -5,8 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../../../features/onboarding/onboarding_home_view.dart';
 import '../../../constants/assets_constants.dart';
 import '../../../constants/num_constants.dart';
-class ColaPositioned extends StatelessWidget {
-  const ColaPositioned({
+
+class ColaCircleGreenWithHero extends StatelessWidget {
+  const ColaCircleGreenWithHero({
     super.key,
     required this.curvedAnimationSlider,
     required this.onboardingHeroTags,
@@ -55,8 +56,8 @@ class ColaPositioned extends StatelessWidget {
                 },
                 child: SvgPicture.asset(
                   key: ValueKey(startSwitch),
-                  height: (height / 10.5),
-                  width: (width / 10.5),
+                  height: height / 10.5,
+                  width: width / 10.5,
                   startSwitch
                       ? ImagesConstants.onboardingCircleBorderGreen
                       : ImagesConstants.ellipseGreen,
@@ -72,8 +73,8 @@ class ColaPositioned extends StatelessWidget {
               opacity: value,
               duration: const Duration(seconds: 1),
               child: SvgPicture.asset(
-                // height: (height / 10.5),
-                // width: (width / 10.5),
+                // height: height / 11.15,
+                // width: width / 11.2,
                 height: 82.981.h,
                 width: 82.981.w,
                 ImagesConstants.ellipseGreen,
