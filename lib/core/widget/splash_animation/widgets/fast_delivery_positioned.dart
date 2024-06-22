@@ -18,40 +18,42 @@ class FastDeliveryPositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Positioned(
-      top: height / 2,
+      top: height / 5,
       child: ValueListenableBuilder(
         valueListenable: opacityFastDelivery,
-        builder: (context, value, child) => AnimatedOpacity(
-          duration: const Duration(seconds: 1),
-          opacity: value,
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                ImagesConstants.ellipseSmall,
-                width: 114.06.w,
-                height: 84.97.h,
-              ),
-              Text(
-                'Fast delivery',
-                style: TextStyle(
-                  height: 0,
-                  fontSize: 40.sp,
-                  color: HexColor("#000000"),
-                  fontWeight: FontWeight.w400,
+        builder: (context, value, child) {
+          return AnimatedOpacity(
+            duration: const Duration(seconds: 1),
+            opacity: value,
+            child: Column(
+              children: [
+                SvgPicture.asset(
+                  ImagesConstants.ellipseSmall,
+                  width: 114.06.w,
+                  height: 84.97.h,
                 ),
-              ),
-              Text(
-                'Taste that best, its on time.',
-                style: TextStyle(
-                  fontSize: 20.sp,
-                  height: 0,
-                  color: HexColor("#000000"),
-                  fontWeight: FontWeight.w300,
+                Text(
+                  'Fast delivery',
+                  style: TextStyle(
+                    height: 0,
+                    fontSize: 40.sp,
+                    color: HexColor("#000000"),
+                    fontWeight: FontWeight.w400,
+                  ),
                 ),
-              )
-            ],
-          ),
-        ),
+                Text(
+                  'Taste that best, its on time.',
+                  style: TextStyle(
+                    fontSize: 20.sp,
+                    height: 0,
+                    color: HexColor("#000000"),
+                    fontWeight: FontWeight.w300,
+                  ),
+                )
+              ],
+            ),
+          );
+        },
       ),
     );
   }
