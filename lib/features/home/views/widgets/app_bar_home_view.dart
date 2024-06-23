@@ -4,13 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_text_styles.dart';
-import 'header_text_field.dart';
 
 class AppBarHomeView extends StatelessWidget {
-  const AppBarHomeView({
-    super.key,
-  });
-
+  const AppBarHomeView({super.key, required this.redCircleTag});
+  final String redCircleTag;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -18,7 +15,7 @@ class AppBarHomeView extends StatelessWidget {
         Row(
           children: [
             Hero(
-              tag: 'drinkTag',
+              tag: redCircleTag ,
               child: Transform.rotate(
                 angle: 6,
                 child: SvgPicture.asset(
@@ -85,7 +82,6 @@ class AppBarHomeView extends StatelessWidget {
             ),
           ],
         ),
-        const HeaderTextField(),
       ],
     );
   }

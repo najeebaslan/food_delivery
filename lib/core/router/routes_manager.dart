@@ -25,7 +25,9 @@ class AppRouter {
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().withAnimation();
       case AppRoutesConstants.homeView:
-        return const HomeView().withAnimation(milliseconds: 500);
+        return HomeView(
+          redCircleTag: settings.arguments as String,
+        ).withAnimation(milliseconds: 500);
 
       default:
         return unknownRouteScreen();
