@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
-
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
+import 'package:gap/gap.dart';
 
 import '../../../core/widget/shadow.dart';
 import 'widgets/app_bar_home_view.dart';
 import 'widgets/categories_items.dart';
+import 'widgets/header_text_field.dart';
 import 'widgets/popular_list_items.dart';
 
 class HomeView extends StatelessWidget {
-  const HomeView({super.key});
-
+  const HomeView({super.key, required this.redCircleTag});
+  final String redCircleTag;
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
@@ -26,18 +26,14 @@ class HomeView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                const AppBarHomeView(),
+                AppBarHomeView(redCircleTag: redCircleTag),
+                const HeaderTextField(),
                 Gap(50.h),
-                _buildTitle(
-                  title: 'Categories',
-                ),
+                _buildTitle(title: 'Categories'),
                 Gap(30.h),
                 const CategoriesItems(),
                 Gap(47.h),
-                _buildTitle(
-                  title: 'Popular',
-                  color: AppColors.black,
-                ),
+                _buildTitle(title: 'Popular', color: AppColors.black),
                 Gap(30.h),
                 PopularListItems(
                   title: 'Hotdog',

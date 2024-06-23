@@ -14,12 +14,13 @@ class OnboardingStepDisplay extends StatefulWidget {
   const OnboardingStepDisplay({
     super.key,
     required this.title,
-    required this.subtitle,
+    required this.subtitle, 
+    required this.redCircleHeroTag,
   });
 
   final List<String> title;
   final List<String> subtitle;
-
+final String redCircleHeroTag;
   @override
   State<OnboardingStepDisplay> createState() => _OnboardingStepDisplayState();
 }
@@ -216,6 +217,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       context,
       AppRoutesConstants.homeView,
       (route) => false,
+      arguments: widget.redCircleHeroTag,
     );
   }
 }

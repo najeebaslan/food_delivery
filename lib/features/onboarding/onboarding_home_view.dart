@@ -22,28 +22,16 @@ class OnboardingHomeView extends StatefulWidget {
 
 class _OnboardingHomeViewState extends State<OnboardingHomeView>
     with TickerProviderStateMixin {
-  static const List<String> title = [
-    'Fastest Food delivery',
-    'Good Food for Good Moments',
-    'Good food smile',
-  ];
-  static const List<String> subtitle = [
-    'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
-    'Taste that best, its on time.',
-    'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
-  ];
-  late OnboardingCubit onboardingCubit;
+  late final OnboardingCubit onboardingCubit;
+
   @override
   void initState() {
     super.initState();
-    onboardingCubit = BlocProvider.of<OnboardingCubit>(context);
+    onboardingCubit = context.read<OnboardingCubit>();
     onboardingCubit.animationController = AnimationController(
       vsync: this,
-      duration: const Duration(
-        milliseconds: NumConstants.animationDuration - 100,
-      ),
+      duration: const Duration(milliseconds: NumConstants.animationDuration - 100),
     );
-
     onboardingCubit.initAnimation();
   }
 
@@ -57,12 +45,11 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
 
   @override
   Widget build(BuildContext context) {
+    final imageSize = context.isSmallDevice ? 250 : 331;
+
     return PlatformScaffold(
       body: Padding(
-        padding: EdgeInsets.only(
-          right: 20.w,
-          left: 20.w,
-        ),
+        padding: EdgeInsets.symmetric(horizontal: 20.w),
         child: Stack(
           alignment: Alignment.center,
           clipBehavior: Clip.none,
@@ -70,8 +57,8 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
             Positioned(
               top: 180.h,
               child: SizedBox(
-                height: context.isSmallDevice ? 250.h : 331.h,
-                width: context.isSmallDevice ? 250.w : 331.w,
+                height: imageSize.h,
+                width: imageSize.w,
                 child: Image.asset(
                   ImagesConstants.onboardingDeliveryManOnboarding,
                   fit: BoxFit.cover,
@@ -89,9 +76,18 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
             ),
             Positioned(
               bottom: context.isSmallDevice ? 20.h : 120.h,
-              child: const OnboardingStepDisplay(
-                title: title,
-                subtitle: subtitle,
+              child: OnboardingStepDisplay(
+                redCircleHeroTag: widget.onboardingHeroTags.drinkTag,
+                title: const [
+                  'Fastest Food delivery',
+                  'Good Food for Good Moments',
+                  'Good food smile',
+                ],
+                subtitle: const [
+                  'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
+                  'Taste that best, its on time.',
+                  'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
+                ],
               ),
             ),
           ],
