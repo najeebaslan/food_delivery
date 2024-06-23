@@ -9,8 +9,13 @@ import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_text_styles.dart';
 
 class CategoriesItems extends StatelessWidget {
-  const CategoriesItems({super.key});
-
+  const CategoriesItems({
+    super.key,
+    required this.transformCardAll,
+    required this.transformBurger,
+  });
+  final Animation<double> transformCardAll;
+  final Animation<double> transformBurger;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -21,20 +26,23 @@ class CategoriesItems extends StatelessWidget {
       children: [
         Flexible(
           flex: 0,
-          child: Container(
-            height: 118.h,
-            width: 81.w,
-            alignment: Alignment.center,
-            decoration: ShapeDecoration(
-              color: AppColors.yellow,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
+          child: Transform.translate(
+            offset: Offset(transformCardAll.value.w, 0),
+            child: Container(
+              height: 118.h,
+              width: 81.w,
+              alignment: Alignment.center,
+              decoration: ShapeDecoration(
+                color: AppColors.yellow,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
               ),
-            ),
-            child: Text(
-              'All',
-              style: AppTextStyles.font16Black400W.copyWith(
-                height: 0,
+              child: Text(
+                'All',
+                style: AppTextStyles.font16Black400W.copyWith(
+                  height: 0,
+                ),
               ),
             ),
           ),
@@ -50,9 +58,12 @@ class CategoriesItems extends StatelessWidget {
         Gap(10.w),
         Flexible(
           flex: 1,
-          child: _buildCard(
-            imageUri: ImagesConstants.burgerIsometric,
-            isBurger: true,
+          child: Transform.translate(
+            offset: Offset(-transformBurger.value.w, 0),
+            child: _buildCard(
+              imageUri: ImagesConstants.burgerIsometric,
+              isBurger: true,
+            ),
           ),
         ),
       ],
