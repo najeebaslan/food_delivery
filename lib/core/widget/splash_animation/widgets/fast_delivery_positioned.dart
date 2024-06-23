@@ -20,6 +20,7 @@ class FastDeliveryPositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     log('rebuild FastDeliveryPositioned');
+    log(opacityFastDelivery.value.toString());
     return Positioned(
       top: height / 10,
       child: ValueListenableBuilder(

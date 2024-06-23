@@ -19,8 +19,8 @@ class FoodDeliveryApp extends StatelessWidget {
       builder: (context, child) {
         return PlatformApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
-          initialRoute: AppRoutesConstants.splashView,
-          // initialRoute: AppRoutesConstants.homeView,
+          // initialRoute: AppRoutesConstants.splashView,
+          initialRoute: AppRoutesConstants.homeView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaler: const TextScaler.linear(1),
@@ -31,7 +31,7 @@ class FoodDeliveryApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           cupertino: (_, __) {
             return CupertinoAppData(
-              // home: const MultipleTickerProvider(),
+              // home: const TestAnimationHoePage(),
               theme: CupertinoThemeData(
                 brightness: Brightness.light,
                 barBackgroundColor: Colors.black,

@@ -44,7 +44,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   void initState() {
     super.initState();
     animationController = AnimationController(
-      duration: const Duration(milliseconds: 1300),
+      duration: const Duration(milliseconds: 1000),
       vsync: this,
     );
 
@@ -53,20 +53,30 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
 
   void startAnimation() {
     _opacityColaCircle.value = 0.9;
-    _opacityFastDelivery.value = 0.9;
     isAnimationStarted.value = true;
     _opacityKetchup.value = 0.0;
     animationController.forward().whenComplete(
-          () => Future.delayed(
-            const Duration(milliseconds: NumConstants.animationDuration),
-            () => Navigator.pushNamedAndRemoveUntil(
-              context,
-              AppRoutesConstants.onboardingHomeView,
-              arguments: onboardingHeroTags,
-              (route) => false,
-            ),
-          ),
+          navigatorToOnboardingView,
         );
+
+    Future.delayed(
+      const Duration(milliseconds: 200),
+      () => _opacityFastDelivery.value = 0.9,
+    );
+  }
+
+  void navigatorToOnboardingView() {
+    Future.delayed(
+      const Duration(
+        milliseconds: NumConstants.animationDuration,
+      ),
+      () => Navigator.pushNamedAndRemoveUntil(
+        context,
+        AppRoutesConstants.onboardingHomeView,
+        arguments: onboardingHeroTags,
+        (route) => false,
+      ),
+    );
   }
 
   @override

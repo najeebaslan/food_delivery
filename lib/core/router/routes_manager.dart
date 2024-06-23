@@ -26,7 +26,7 @@ class AppRouter {
         return const SplashAnimationView().withAnimation();
       case AppRoutesConstants.homeView:
         return HomeView(
-          redCircleTag: settings.arguments as String,
+          redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
         ).withAnimation(milliseconds: 500);
 
       default:
