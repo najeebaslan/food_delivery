@@ -48,8 +48,8 @@ class CustomElevatedButton extends StatelessWidget {
     );
   }
 
-  Text buildText(String title) {
-    return Text(
+  PlatformText buildText(String title) {
+    return PlatformText(
       title,
       style: const TextStyle(
         color: Colors.white,

@@ -1,6 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -19,8 +18,6 @@ class FastDeliveryPositioned extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    log('rebuild FastDeliveryPositioned');
-    log(opacityFastDelivery.value.toString());
     return Positioned(
       top: height / 10,
       child: ValueListenableBuilder(
@@ -36,7 +33,7 @@ class FastDeliveryPositioned extends StatelessWidget {
                   width: 114.06.w,
                   height: 84.97.h,
                 ),
-                Text(
+                PlatformText(
                   'Fast delivery',
                   style: TextStyle(
                     height: 0,
@@ -45,7 +42,7 @@ class FastDeliveryPositioned extends StatelessWidget {
                     fontWeight: FontWeight.w400,
                   ),
                 ),
-                Text(
+                PlatformText(
                   'Taste that best, its on time.',
                   style: TextStyle(
                     fontSize: 20.sp,

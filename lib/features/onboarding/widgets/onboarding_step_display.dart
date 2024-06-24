@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/router/routes_constants.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
@@ -14,13 +15,13 @@ class OnboardingStepDisplay extends StatefulWidget {
   const OnboardingStepDisplay({
     super.key,
     required this.title,
-    required this.subtitle, 
+    required this.subtitle,
     required this.redCircleHeroTag,
   });
 
   final List<String> title;
   final List<String> subtitle;
-final String redCircleHeroTag;
+  final String redCircleHeroTag;
   @override
   State<OnboardingStepDisplay> createState() => _OnboardingStepDisplayState();
 }
@@ -40,7 +41,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       begin: AppColors.blue,
       end: AppColors.green,
     ).animate(_animationController);
-    _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
+    // _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
     super.initState();
   }
 
@@ -102,7 +103,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
               borderRadius: BorderRadius.circular(20),
             ),
           ),
-          child: Text('Order Food', style: AppTextStyles.font20White700W),
+          child: PlatformText('Order Food', style: AppTextStyles.font20White700W),
         );
       },
     );
@@ -144,7 +145,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
         transitionBuilder: (child, animation) {
           return FadeTransition(opacity: animation, child: child);
         },
-        child: Text(
+        child: PlatformText(
           key: ValueKey('${index}subtitle'),
           widget.subtitle[index],
           textAlign: TextAlign.left,
@@ -197,9 +198,9 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
               milliseconds: NumConstants.animationDuration * 2,
             ),
     );
+
     if (onboardingStats.indexIndicator == 2) {
       _navigatorToHomeView();
-      return;
     } else {
       onboardingStats.nextIndicator();
       _changeColors(

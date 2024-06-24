@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
@@ -71,7 +72,7 @@ class PopularListItems extends StatelessWidget {
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(
+                  PlatformText(
                     title,
                     style: AppTextStyles.font30Black400W.copyWith(
                       height: 0,

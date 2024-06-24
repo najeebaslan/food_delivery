@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/router/routes_constants.dart';
 import '../../../../core/styles/app_text_styles.dart';
 
 class AppBarHomeView extends StatelessWidget {
@@ -15,7 +17,7 @@ class AppBarHomeView extends StatelessWidget {
         Row(
           children: [
             Hero(
-              tag: redCircleTag ,
+              tag: redCircleTag,
               child: Transform.rotate(
                 angle: 6,
                 child: SvgPicture.asset(
@@ -75,10 +77,18 @@ class AppBarHomeView extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            SvgPicture.asset(
-              ImagesConstants.homeMenu,
-              height: 14.h,
-              width: 24.w,
+            PlatformIconButton(
+              onPressed: () {
+                Navigator.pushNamed(
+                  context,
+                  AppRoutesConstants.menuView,
+                );
+              },
+              icon: SvgPicture.asset(
+                ImagesConstants.homeMenuIcon,
+                height: 14.h,
+                width: 24.w,
+              ),
             ),
           ],
         ),

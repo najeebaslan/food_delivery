@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -7,15 +8,16 @@ import '../../../../core/styles/app_text_styles.dart';
 import 'categories_items.dart';
 import 'header_text_field.dart';
 
-class CategoriesAnimation extends StatefulWidget {
-  const CategoriesAnimation({super.key});
+class TextFieldWithCategoriesAnimation extends StatefulWidget {
+  const TextFieldWithCategoriesAnimation({super.key});
 
   @override
-  State<CategoriesAnimation> createState() => _CategoriesAnimationState();
+  State<TextFieldWithCategoriesAnimation> createState() =>
+      _TextFieldWithCategoriesAnimationState();
 }
 
-class _CategoriesAnimationState extends State<CategoriesAnimation>
-    with TickerProviderStateMixin {
+class _TextFieldWithCategoriesAnimationState
+    extends State<TextFieldWithCategoriesAnimation> with TickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<Offset> slideAnimation;
@@ -88,7 +90,7 @@ class _CategoriesAnimationState extends State<CategoriesAnimation>
                       maxHeight: 37.h,
                       maxWidth: 235.w,
                     ),
-                    child: Text(
+                    child: PlatformText(
                       'Categories',
                       textAlign: TextAlign.left,
                       style: AppTextStyles.font20White700W.copyWith(

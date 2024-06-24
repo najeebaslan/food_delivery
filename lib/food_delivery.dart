@@ -19,8 +19,8 @@ class FoodDeliveryApp extends StatelessWidget {
       builder: (context, child) {
         return PlatformApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
-          // initialRoute: AppRoutesConstants.splashView,
-          initialRoute: AppRoutesConstants.homeView,
+          initialRoute: AppRoutesConstants.splashView,
+          // initialRoute: AppRoutesConstants.homeView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaler: const TextScaler.linear(1),
@@ -31,7 +31,7 @@ class FoodDeliveryApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           cupertino: (_, __) {
             return CupertinoAppData(
-              // home: const TestAnimationHoePage(),
+              // home: const ExpandingContainer(),
               theme: CupertinoThemeData(
                 brightness: Brightness.light,
                 barBackgroundColor: Colors.black,
@@ -115,3 +115,84 @@ FittedBox
 
 
  */
+
+
+
+
+
+class ExpandingContainer extends StatefulWidget {
+  final Widget child;
+  final bool isOpen;
+  final Duration duration;
+
+  const ExpandingContainer({
+    required this.child,
+    required this.isOpen,
+    this.duration = const Duration(milliseconds: 200),
+  });
+
+  @override
+  _ExpandingContainerState createState() => _ExpandingContainerState();
+}
+
+class _ExpandingContainerState extends State<ExpandingContainer>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _heightAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      duration: widget.duration,
+      vsync: this,
+    );
+    _heightAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(_animationController);
+
+    if (widget.isOpen) {
+      _animationController.forward();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ExpandingContainer oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isOpen != oldWidget.isOpen) {
+      if (widget.isOpen) {
+        _animationController.forward();
+      } else {
+        _animationController.reverse();
+      }
+    }
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _animationController,
+      builder: (context, child) => ClipRect(
+        child: Column(
+          children: [
+            Expanded(
+              child: Container(
+                color: Colors.blue,
+                // Adjust height based on your content
+                height: _heightAnimation.value * MediaQuery.of(context).size.height,
+                child: widget.child,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

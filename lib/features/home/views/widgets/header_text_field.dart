@@ -94,7 +94,7 @@ class HeaderTextField extends StatelessWidget {
                 ? Icon(
                     CupertinoIcons.search,
                     color: AppColors.black,
-                    size: 20,
+                    size: 25.w,
                   )
                 : const Icon(
                     CupertinoIcons.xmark_circle_fill,

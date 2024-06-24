@@ -38,17 +38,12 @@ class OnboardingCircleGreen extends StatelessWidget {
                   ..rotateZ(
                     !onboardingCubit.completedFirstAnimation
                         ? transformZ / 2
-                        : -(transformZ / 1),
+                        : -(transformZ),
                   ),
-                child: !onboardingCubit.completedFirstAnimation
-                    ? FirstCircleGreenAnimation(
-                        onboardingHeroTags: onboardingHeroTags,
-                        onboardingCubit: onboardingCubit,
-                      )
-                    : LastCircleGreenAnimation(
-                        onboardingHeroTags: onboardingHeroTags,
-                        onboardingCubit: onboardingCubit,
-                      ),
+                child: CircleGreenAnimation(
+                  onboardingHeroTags: onboardingHeroTags,
+                  onboardingCubit: onboardingCubit,
+                ),
               ),
             );
           },
@@ -66,8 +61,8 @@ class OnboardingCircleGreen extends StatelessWidget {
   }
 }
 
-class FirstCircleGreenAnimation extends StatelessWidget {
-  const FirstCircleGreenAnimation({
+class CircleGreenAnimation extends StatelessWidget {
+  const CircleGreenAnimation({
     super.key,
     required this.onboardingHeroTags,
     required this.onboardingCubit,
@@ -88,25 +83,38 @@ class FirstCircleGreenAnimation extends StatelessWidget {
         ),
       ),
       secondChild: Transform.rotate(
+        alignment: Alignment.center,
+        angle: 5,
+        child: Stack(
           alignment: Alignment.center,
-          angle: 5,
-          child: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              BlocBuilder<OnboardingCubit, OnboardingState>(
-                buildWhen: (previous, current) =>
-                    current is CompletedFirstAnimationOnboarding,
-                builder: (context, state) {
-                  return SvgPicture.string(
+          clipBehavior: Clip.none,
+          children: [
+            BlocBuilder<OnboardingCubit, OnboardingState>(
+              buildWhen: (previous, current) =>
+                  current is CompletedFirstAnimationOnboarding,
+              builder: (context, state) {
+                return Transform.rotate(
+                  angle: onboardingCubit.completedFirstAnimation ? 6.58 : 0,
+                  child: SvgPicture.string(
                     SVGStrings.greenCircleFill,
                     height: 69.33.h,
                     width: 69.33.w,
-                  );
-                },
+                    colorFilter: colorFilter,
+                  ),
+                );
+              },
+            ),
+            if (onboardingCubit.completedFirstAnimation)
+              Transform.rotate(
+                angle: 3.3,
+                alignment: Alignment.center,
+                child: OnboardingCircleGreenSmallWidget(
+                  color: onboardingCubit.onEndAnimatedColor(AppColors.green),
+                ),
               ),
-            ],
-          )),
+          ],
+        ),
+      ),
       crossFadeState: onboardingCubit.isAnimationHasStarted
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
@@ -115,64 +123,12 @@ class FirstCircleGreenAnimation extends StatelessWidget {
       ),
     );
   }
-}
 
-class LastCircleGreenAnimation extends StatelessWidget {
-  const LastCircleGreenAnimation({
-    super.key,
-    required this.onboardingHeroTags,
-    required this.onboardingCubit,
-  });
-
-  final String onboardingHeroTags;
-  final OnboardingCubit onboardingCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedCrossFade(
-      firstChild: Hero(
-        tag: onboardingHeroTags,
-        child: SvgPicture.asset(
-          ImagesConstants.onboardingCircleBorderGreen,
-          height: 69.33.h,
-          width: 69.33.w,
-        ),
-      ),
-      secondChild: Transform.rotate(
-          alignment: Alignment.center,
-          angle: 2,
-          child: Stack(
-            alignment: Alignment.center,
-            clipBehavior: Clip.none,
-            children: [
-              const OnboardingCircleGreenSmallWidget(),
-              BlocBuilder<OnboardingCubit, OnboardingState>(
-                buildWhen: (previous, current) =>
-                    current is CompletedFirstAnimationOnboarding,
-                builder: (context, state) {
-                  return Transform.rotate(
-                    angle: 3.3,
-                    alignment: Alignment.center,
-                    child: SvgPicture.string(
-                      SVGStrings.greenCircle,
-                      height: 69.33.h,
-                      width: 69.33.w,
-                      colorFilter: ColorFilter.mode(
-                        onboardingCubit.onStartAnimatedColor(AppColors.green),
-                        BlendMode.srcIn,
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          )),
-      crossFadeState: onboardingCubit.isAnimationHasStarted
-          ? CrossFadeState.showSecond
-          : CrossFadeState.showFirst,
-      duration: const Duration(
-        milliseconds: NumConstants.animationDuration,
-      ),
+  ColorFilter? get colorFilter {
+    if (!onboardingCubit.completedFirstAnimation) return null;
+    return ColorFilter.mode(
+      onboardingCubit.onStartAnimatedColor(AppColors.green),
+      BlendMode.srcIn,
     );
   }
 }
@@ -183,7 +139,7 @@ class OnboardingCircleGreenSmallWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(72.33.w, (72.33.w * 1.0142857142857142).toDouble()),
+      size: Size(69.33.w, (69.33.w * 1.0142857142857142).toDouble()),
       painter: OnboardingCircleGreenSmallCustomPainter(),
     );
   }

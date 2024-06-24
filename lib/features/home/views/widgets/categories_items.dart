@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
@@ -38,7 +39,7 @@ class CategoriesItems extends StatelessWidget {
                   borderRadius: BorderRadius.circular(20),
                 ),
               ),
-              child: Text(
+              child: PlatformText(
                 'All',
                 style: AppTextStyles.font16Black400W.copyWith(
                   height: 0,
@@ -108,7 +109,7 @@ class CategoriesItems extends StatelessWidget {
         ),
         Positioned(
           bottom: 6.5.h,
-          child: Text(
+          child: PlatformText(
             isBurger ? 'Burger' : 'Donut',
             style: AppTextStyles.font30White300W.copyWith(
               height: 0,
