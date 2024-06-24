@@ -14,6 +14,7 @@ class AppColors {
   static Color green = HexColor("#3AA856");
   static Color nearGreen = HexColor("#CEE9D5");
   static Color yellow = HexColor("#FABB2D");
+  static Color backgroundMenuViewColor = HexColor("#FAF6F6");
   static const Color errorColor = Color(0xFFBD1B1B);
   static Color background = const Color(0xFFFFFFFF);
   static Color homeBackground = const Color(0xFFF9FFF6);
