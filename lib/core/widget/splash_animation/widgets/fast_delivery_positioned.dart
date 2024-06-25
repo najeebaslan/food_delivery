@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/styles/app_text_styles.dart';
 
 import '../../../constants/assets_constants.dart';
-import '../../../styles/color_hex.dart';
 
 class FastDeliveryPositioned extends StatelessWidget {
   const FastDeliveryPositioned({
@@ -33,22 +33,14 @@ class FastDeliveryPositioned extends StatelessWidget {
                   width: 114.06.w,
                   height: 84.97.h,
                 ),
-                PlatformText(
-                  'Fast delivery',
-                  style: TextStyle(
-                    height: 0,
-                    fontSize: 40.sp,
-                    color: HexColor("#000000"),
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
+                PlatformText('Fast delivery',
+                    style: AppTextStyles.font14Black400W.copyWith(
+                      height: 0,
+                    )),
                 PlatformText(
                   'Taste that best, its on time.',
-                  style: TextStyle(
-                    fontSize: 20.sp,
+                  style: AppTextStyles.font20Black300W.copyWith(
                     height: 0,
-                    color: HexColor("#000000"),
-                    fontWeight: FontWeight.w300,
                   ),
                 )
               ],

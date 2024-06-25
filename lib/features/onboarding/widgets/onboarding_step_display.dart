@@ -41,7 +41,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       begin: AppColors.blue,
       end: AppColors.green,
     ).animate(_animationController);
-    // _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
+    _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
     super.initState();
   }
 

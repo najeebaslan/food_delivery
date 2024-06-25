@@ -29,9 +29,7 @@ class HomeView extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              AppBarHomeView(
-                redCircleTag: redCircleTag,
-              ),
+              AppBarHomeView(redCircleTag: redCircleTag),
               const TextFieldWithCategoriesAnimation(),
               AnimationSlideTransition(
                 delay: 0,
