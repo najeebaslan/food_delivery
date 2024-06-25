@@ -38,7 +38,10 @@ class ColaCircleGreenWithHero extends StatelessWidget {
           fromHeroContext,
           toHeroContext,
         ) {
-          final customAnimation = Tween<double>(begin: 0, end: 2).animate(animation);
+          final customAnimation = Tween<double>(
+            begin: 0,
+            end: 2,
+          ).animate(animation);
           return AnimatedBuilder(
             animation: customAnimation,
             builder: (context, child) {
@@ -73,8 +76,6 @@ class ColaCircleGreenWithHero extends StatelessWidget {
               opacity: value,
               duration: const Duration(seconds: 1),
               child: SvgPicture.asset(
-                // height: height / 11.15,
-                // width: width / 11.2,
                 height: 82.981.h,
                 width: 82.981.w,
                 ImagesConstants.ellipseGreen,

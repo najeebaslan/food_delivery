@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
+import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
 
-import '../../features/home/views/home_view.dart';
 import '../../features/home/views/menu_view.dart';
 import '../../features/onboarding/onboarding_cubit/onboarding_cubit.dart';
 import '../../features/onboarding/onboarding_home_view.dart';
+import '../../food_delivery.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_text_styles.dart';
 import 'routes_constants.dart';
@@ -25,9 +26,13 @@ class AppRouter {
         ).withAnimation();
 
       case AppRoutesConstants.homeView:
-        return HomeView(
-          redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
-        ).withAnimation(milliseconds: 250);
+        return BlocProvider<HomeCubit>(
+                create: (BuildContext context) => HomeCubit(), child: const MyPage()
+                //  HomeView(
+                //   redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
+                // ),
+                )
+            .withAnimation(milliseconds: 250);
 
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().withAnimation();

@@ -82,13 +82,11 @@ class PopularListItems extends StatelessWidget {
                   Row(
                     children: List.generate(
                       5,
-                      (index) {
-                        return Icon(
-                          index == 4 ? Icons.star_half : Icons.star,
-                          size: 22.w,
-                          color: AppColors.black,
-                        );
-                      },
+                      (index) => Icon(
+                        index == 4 ? Icons.star_half : Icons.star,
+                        size: 22.w,
+                        color: AppColors.black,
+                      ),
                     ),
                   ),
                 ],
