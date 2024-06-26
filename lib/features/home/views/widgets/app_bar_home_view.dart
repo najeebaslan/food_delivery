@@ -6,6 +6,7 @@ import 'package:food_delivery/features/home/views/menu_view.dart';
 
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_text_styles.dart';
+import '../../../../core/widget/custom_eect_tween.dart';
 
 class AppBarHomeView extends StatelessWidget {
   const AppBarHomeView({super.key, required this.redCircleTag});
@@ -40,20 +41,65 @@ class AppBarHomeView extends StatelessWidget {
                     ),
                   ),
                 ),
-                Transform.translate(
-                  offset: Offset(1.w, -20.h),
-                  child: Opacity(
-                    opacity: 0.10,
-                    child: Transform.rotate(
-                      angle: 2.8,
-                      child: SvgPicture.asset(
-                        ImagesConstants.ellipseRed,
-                        height: 65.30.h,
-                        width: 65.30.w,
+                Hero(
+                  tag: 'tag',
+                  transitionOnUserGestures: true,
+                  createRectTween: (begin, end) {
+                    return CustomRectTween(
+                      begin: begin!,
+                      end: end!,
+                    );
+                  },
+                  flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
+                    final rotationAnimation = Tween<double>(
+                      begin: 0.0,
+                      end: 2.3,
+                    ).animate(
+                      CurvedAnimation(
+                        parent: animation,
+                        curve: Curves.easeInOutBack,
                       ),
-                    ),
-                  ),
+                    );
+
+                    return AnimatedBuilder(
+                      animation: rotationAnimation,
+                      child: Transform.rotate(
+                        angle: rotationAnimation.value > 0.7 ? 3 : -2.3,
+                        child: Opacity(
+                          opacity: 0.10,
+                          child: SvgPicture.asset(
+                            ImagesConstants.ellipseRed,
+                            height: 65.30.h,
+                            width: 65.30.w,
+                          ),
+                        ),
+                      ),
+                      builder: (context, child) {
+                        return Transform(
+                          transform: Matrix4.identity()..rotateZ(rotationAnimation.value),
+                          alignment: Alignment.center,
+                          child: child,
+                        );
+                      },
+                    );
+                  },
+                  child: _buildImageCircleRed(),
                 ),
+
+                // Transform.translate(
+                //   offset: Offset(1.w, -20.h),
+                //   child: Opacity(
+                //     opacity: 0.10,
+                //     child: Transform.rotate(
+                //       angle: 2.8,
+                //       child: SvgPicture.asset(
+                //         ImagesConstants.ellipseRed,
+                //         height: 65.30.h,
+                //         width: 65.30.w,
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
             Transform.translate(
@@ -79,11 +125,7 @@ class AppBarHomeView extends StatelessWidget {
             const Spacer(),
             PlatformIconButton(
               onPressed: () {
-                Navigator.push(context, _createRoute());
-                // Navigator.pushNamed(
-                //   context,
-                //   AppRoutesConstants.menuView,
-                // );
+                Navigator.push(context, _pageRouteBuilder());
               },
               icon: SvgPicture.asset(
                 ImagesConstants.homeMenuIcon,
@@ -97,45 +139,34 @@ class AppBarHomeView extends StatelessWidget {
     );
   }
 
-  Route _createRoute() {
+  Widget _buildImageCircleRed() {
+    return Opacity(
+      opacity: 0.10,
+      child: Transform.rotate(
+        angle: 3,
+        child: SvgPicture.asset(
+          ImagesConstants.ellipseRed,
+          height: 65.30.h,
+          width: 65.30.w,
+        ),
+      ),
+    );
+  }
+
+  PageRouteBuilder _pageRouteBuilder() {
     return PageRouteBuilder(
       pageBuilder: (context, animation, secondaryAnimation) {
-        const begin = Offset(0.0, 1.0);
-        const end = Offset.zero;
-        const curve = Curves.easeInOutBack;
-
-        var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
-        return SlideTransition(position: animation.drive(tween), child: const MenuView()
-            // Stack(
-            //   children: [
-            //     Transform.translate(
-            //       offset: Offset(1.w, -20.h),
-            //       child: Opacity(
-            //         opacity: 0.10,
-            //         child: Transform.rotate(
-            //           angle: 2.8,
-            //           child: SvgPicture.asset(
-            //             ImagesConstants.ellipseRed,
-            //             height: 65.30.h,
-            //             width: 65.30.w,
-            //           ),
-            //         ),
-            //       ),
-            //     ),
-            //   ],
-            // ),
-            );
-        // return const MenuView();
-      },
-      transitionsBuilder: (context, animation, secondaryAnimation, child) {
-        // const begin = Offset(0.0, 1.0);
-        // const end = Offset.zero;
-        // const curve = Curves.easeInOutBack;
-
-        // var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
-
         return const MenuView();
+      },
+      // transitionDuration: const Duration(milliseconds: 2000),
+      // reverseTransitionDuration: const Duration(milliseconds: 2000),
+      transitionDuration: const Duration(seconds: 3),
+      reverseTransitionDuration: const Duration(seconds: 3),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
       },
     );
   }
