@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:gap/gap.dart';
+import 'package:food_delivery/features/home/views/widgets/app_bar/hero_circle_red_app_bar_home_view.dart';
 
-import '../../../core/constants/assets_constants.dart';
+import '../../../core/widget/base_hero_transition.dart';
 import '../../../core/widget/custom_rect_tween.dart';
+import '../../onboarding/widgets/onboarding_circle_bold_green.dart';
+import 'widgets/app_bar/hero_circle_yellow_app_bar_home_view.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});
@@ -95,12 +97,41 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.end,
+        body: Stack(
+          alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
           children: [
-            _buildCircleRed(),
-            const Gap(90),
+            Positioned(
+              bottom: 160.h,
+              left: 0,
+              child: HeroCircleRedAppBarHomeView(
+                heroWidgetAngle: 5.3,
+                heroWidgetHeight: 248.46.h,
+                heroWidgetWidth: 248.46.w,
+                animatedBuilderChildAngle: (animationValue) {
+                  return animationValue > 7 ? 5.3 : 3;
+                },
+              ),
+            ),
+            Positioned(
+              bottom: 80.h,
+              left: 70.w,
+              child: HeroCircleYellowAppBarHomeView(
+                endTweenAnimation: 3.3,
+                heroWidgetAngle: 3.2,
+                heroWidgetHeight: 138.142.h,
+                heroWidgetWidth: 138.142.w,
+                animatedBuilderChildAngle: (animationValue) {
+                  return animationValue > 7 ? 5.3 : 3;
+                },
+              ),
+            ),
+            Positioned(
+              bottom: 80.h,
+              right: 70.w,
+              child: _heroCircleGreen(),
+            ),
+            // const Gap(90),
           ],
         )
         // AnimatedBuilder(
@@ -169,68 +200,49 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
         );
   }
 
-  Widget _buildCircleRed() {
-    return Hero(
-      tag: 'tag',
-      flightShuttleBuilder: (
-        _,
-        Animation<double> animation,
-        __,
-        ___,
-        ____,
-      ) {
-        final rotationAnimation = Tween<double>(
-          begin: 0.0,
-          end: 2.3,
-        ).animate(
-          CurvedAnimation(
-            parent: animation,
-            curve: Curves.easeInOutBack,
-          ),
-        );
-
-        return AnimatedBuilder(
-          animation: rotationAnimation,
-          child: Transform.rotate(
-            angle: rotationAnimation.value > 7 ? 5.3 : 3,
-            child: Opacity(
-              opacity: 0.10,
-              child: SvgPicture.asset(
-                ImagesConstants.ellipseRed,
-                height: 248.46.h,
-                width: 248.46.w,
-              ),
-            ),
-          ),
-          builder: (context, child) {
-            return Transform(
-              transform: Matrix4.identity()
-                ..rotateZ(
-                  rotationAnimation.value,
-                ),
-              alignment: Alignment.center,
-              child: child,
-            );
-          },
-        );
-      },
+  Widget _heroCircleGreen() {
+    return BaseHeroTransition(
+      endTweenAnimation: 3.3,
+      heroTag: HeroTagsConstants.smallCircleGreenTagHomeViewAppBar,
       createRectTween: (begin, end) {
         return CustomRectTween(
           begin: begin!,
           end: end!,
         );
       },
-      child: Transform.rotate(
-        angle: 5.3,
+      heroWidget: Transform.rotate(
+        angle: 3,
         child: Opacity(
-          opacity: 0.10,
-          child: SvgPicture.asset(
-            ImagesConstants.ellipseRed,
-            height: 248.46.h,
-            width: 248.46.w,
+          opacity: 0.2,
+          child: OnboardingCircleGreenSmallWidget(
+            width: 134.118.w,
           ),
         ),
       ),
+      animatedBuilderChild: (rotationAnimation) {
+        return Transform.rotate(
+          angle: rotationAnimation.value > 7 ? 5.3 : 3,
+          child: Opacity(
+            opacity: 0.2,
+            child: Transform.rotate(
+              angle: 3,
+              child: OnboardingCircleGreenSmallWidget(
+                width: 134.118.w,
+              ),
+            ),
+          ),
+        );
+      },
+      animatedBuilderBuilder: (rotationAnimation, child) {
+        return Transform(
+          transform: Matrix4.identity()
+            ..rotateZ(
+              rotationAnimation.value,
+            ),
+          alignment: Alignment.center,
+          child: child,
+        );
+      },
     );
   }
 }
