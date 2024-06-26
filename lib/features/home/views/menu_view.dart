@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/features/home/views/widgets/app_bar/hero_circle_red_app_bar_home_view.dart';
 
-import '../../../core/widget/base_hero_transition.dart';
-import '../../../core/widget/custom_rect_tween.dart';
-import '../../onboarding/widgets/onboarding_circle_bold_green.dart';
+import 'widgets/app_bar/hero_circle_green_app_bar_home_view.dart';
 import 'widgets/app_bar/hero_circle_yellow_app_bar_home_view.dart';
 
 class MenuView extends StatefulWidget {
@@ -129,9 +126,14 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
             Positioned(
               bottom: 80.h,
               right: 70.w,
-              child: _heroCircleGreen(),
+              child: HeroCircleGreenAppBarHomeView(
+                heroWidgetWidth: 134.118.w,
+                heroWidgetAngle: 5.3,
+                animatedBuilderChildAngle: (animationValue) {
+                  return animationValue > 7 ? 5.3 : 3;
+                },
+              ),
             ),
-            // const Gap(90),
           ],
         )
         // AnimatedBuilder(
@@ -198,51 +200,5 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
         //   },
         // ),
         );
-  }
-
-  Widget _heroCircleGreen() {
-    return BaseHeroTransition(
-      endTweenAnimation: 3.3,
-      heroTag: HeroTagsConstants.smallCircleGreenTagHomeViewAppBar,
-      createRectTween: (begin, end) {
-        return CustomRectTween(
-          begin: begin!,
-          end: end!,
-        );
-      },
-      heroWidget: Transform.rotate(
-        angle: 3,
-        child: Opacity(
-          opacity: 0.2,
-          child: OnboardingCircleGreenSmallWidget(
-            width: 134.118.w,
-          ),
-        ),
-      ),
-      animatedBuilderChild: (rotationAnimation) {
-        return Transform.rotate(
-          angle: rotationAnimation.value > 7 ? 5.3 : 3,
-          child: Opacity(
-            opacity: 0.2,
-            child: Transform.rotate(
-              angle: 3,
-              child: OnboardingCircleGreenSmallWidget(
-                width: 134.118.w,
-              ),
-            ),
-          ),
-        );
-      },
-      animatedBuilderBuilder: (rotationAnimation, child) {
-        return Transform(
-          transform: Matrix4.identity()
-            ..rotateZ(
-              rotationAnimation.value,
-            ),
-          alignment: Alignment.center,
-          child: child,
-        );
-      },
-    );
   }
 }
