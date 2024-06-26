@@ -134,12 +134,17 @@ class CircleGreenAnimation extends StatelessWidget {
 }
 
 class OnboardingCircleGreenSmallWidget extends StatelessWidget {
-  const OnboardingCircleGreenSmallWidget({super.key, this.color});
+  const OnboardingCircleGreenSmallWidget({
+    super.key,
+    this.color,
+    this.width,
+  });
   final Color? color;
+  final double? width;
   @override
   Widget build(BuildContext context) {
     return CustomPaint(
-      size: Size(69.33.w, (69.33.w * 1.0142857142857142).toDouble()),
+      size: Size(width ?? 69.33.w, (width ?? 69.33.w * 1.0142857142857142).toDouble()),
       painter: OnboardingCircleGreenSmallCustomPainter(),
     );
   }

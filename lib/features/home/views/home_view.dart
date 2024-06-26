@@ -10,7 +10,7 @@ import 'package:food_delivery/features/home/views/widgets/popular_list_items.dar
 import 'package:gap/gap.dart';
 
 import '../../../core/widget/animation_slide_transition.dart';
-import 'widgets/app_bar_home_view.dart';
+import 'widgets/app_bar/app_bar_home_view.dart';
 import 'widgets/text_field_with_categories_animation.dart';
 
 class HomeView extends StatelessWidget {
