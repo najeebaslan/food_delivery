@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_delivery/core/styles/app_colors.dart';
+import 'package:food_delivery/core/styles/color_hex.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/constants/assets_constants.dart';
@@ -18,85 +18,88 @@ class _FirstPageState extends State<FirstPage> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      body: Center(
-        child: Column(
-          children: [
-            const Gap(100),
-            Hero(
-                tag: 'tag',
-                createRectTween: (begin, end) {
-                  return CustomRectTween(
-                    begin: begin!,
-                    end: end!,
-                  );
-                },
-                flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-                  final rotationAnimation = Tween<double>(
-                    begin: 0.0,
-                    end: 2.3,
-                  ).animate(
-                    CurvedAnimation(
-                      parent: animation,
-                      curve: Curves.easeInOutBack,
-                    ),
-                  );
+      backgroundColor: AppColors.backgroundMenuViewColor,
+      body: Column(
+        children: [
+          const Gap(50),
+          Hero(
+            tag: 'tag',
+            transitionOnUserGestures: true,
+            createRectTween: (begin, end) {
+              return CustomRectTween(
+                begin: begin!,
+                end: end!,
+              );
+            },
+            flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
+              final rotationAnimation = Tween<double>(
+                begin: 0.0,
+                end: 2.3,
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOutBack,
+                ),
+              );
 
-                  return AnimatedBuilder(
-                    animation: rotationAnimation,
-                    child: Transform.rotate(
-                      angle: rotationAnimation.value > 0.7 ? 3 : -2.3,
-                      child: SvgPicture.asset(
-                        ImagesConstants.ellipseRed,
-                        height: 150,
-                        width: 150,
-                      ),
-                    ),
-                    builder: (context, child) {
-                      log((rotationAnimation.value).toString());
-                      return Transform(
-                        transform: Matrix4.identity()..rotateZ(rotationAnimation.value),
-                        alignment: Alignment.center,
-                        child: child,
-                      );
-                    },
-                  );
-                },
+              return AnimatedBuilder(
+                animation: rotationAnimation,
                 child: Transform.rotate(
-                  angle: 3,
+                  angle: rotationAnimation.value > 0.7 ? 3 : -2.3,
                   child: SvgPicture.asset(
                     ImagesConstants.ellipseRed,
-                    height: 100,
-                    width: 100,
+                    height: 63,
+                    width: 63,
                   ),
-                )),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  PageRouteBuilder(
-                    transitionDuration: const Duration(milliseconds: 1350),
-                    reverseTransitionDuration: const Duration(milliseconds: 1350),
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return FadeTransition(
-                        opacity: animation,
-                        child: const NextPage(),
-                      );
-                    },
-                  ),
-                );
-              },
-              child: const Text('next'),
-            )
-          ],
-        ),
+                ),
+                builder: (context, child) {
+                  return Transform(
+                    transform: Matrix4.identity()..rotateZ(rotationAnimation.value),
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+              );
+            },
+            child: Transform.rotate(
+              angle: 3,
+              child: SvgPicture.asset(
+                ImagesConstants.ellipseRed,
+                height: 63,
+                width: 63,
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(context, _pageRouteBuilder());
+            },
+            child: const Text('next'),
+          )
+        ],
       ),
+    );
+  }
+
+  PageRouteBuilder _pageRouteBuilder() {
+    return PageRouteBuilder(
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return const NextPage();
+      },
+      transitionDuration: const Duration(milliseconds: 2000),
+      reverseTransitionDuration: const Duration(milliseconds: 2000),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) {
+        return FadeTransition(
+          opacity: animation,
+          child: child,
+        );
+      },
     );
   }
 }
 
 class NextPage extends StatefulWidget {
   const NextPage({super.key});
-
   @override
   State<NextPage> createState() => _NextPageState();
 }
@@ -105,69 +108,68 @@ class _NextPageState extends State<NextPage> {
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
-      backgroundColor: Colors.indigo,
-      appBar: PlatformAppBar(),
+      backgroundColor: HexColor('#F6F6FF'),
+      appBar: PlatformAppBar(
+        backgroundColor: HexColor('#F6F6FF'),
+      ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          Align(
-            alignment: Alignment.bottomLeft,
-            child: Hero(
-              tag: 'tag',
-              flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-                final rotationAnimation = Tween<double>(
-                  begin: 0.0,
-                  end: 2.3,
-                ).animate(
-                  CurvedAnimation(
-                    parent: animation,
-                    curve: Curves.easeInOutBack,
-                  ),
-                );
-
-                return AnimatedBuilder(
-                  animation: rotationAnimation,
-                  child: Transform.rotate(
-                    angle: rotationAnimation.value > 7 ? 5.3 : 3,
-                    child: SvgPicture.asset(
-                      ImagesConstants.ellipseRed,
-                      height: 150,
-                      width: 150,
-                    ),
-                  ),
-                  builder: (context, child) {
-                    log((rotationAnimation.value).toString());
-                    return Transform(
-                      transform: Matrix4.identity()..rotateZ(rotationAnimation.value),
-                      alignment: Alignment.center,
-                      child: child,
-                    );
-                  },
-                );
-              },
-              createRectTween: (begin, end) {
-                return CustomRectTween(
-                  begin: begin!,
-                  end: end!,
-                );
-              },
-              child: Transform.rotate(
-                angle: 5.3,
-                child: SvgPicture.asset(
-                  ImagesConstants.ellipseRed,
-                  height: 200,
-                  width: 200,
+          Hero(
+            tag: 'tag',
+            flightShuttleBuilder: (
+              _,
+              Animation<double> animation,
+              __,
+              ___,
+              ____,
+            ) {
+              final rotationAnimation = Tween<double>(
+                begin: 0.0,
+                end: 2.3,
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOutBack,
                 ),
+              );
+
+              return AnimatedBuilder(
+                animation: rotationAnimation,
+                child: Transform.rotate(
+                  angle: rotationAnimation.value > 7 ? 5.3 : 3,
+                  child: SvgPicture.asset(
+                    ImagesConstants.ellipseRed,
+                    height: 248.46,
+                    width: 248.46,
+                  ),
+                ),
+                builder: (context, child) {
+                  return Transform(
+                    transform: Matrix4.identity()..rotateZ(rotationAnimation.value),
+                    alignment: Alignment.center,
+                    child: child,
+                  );
+                },
+              );
+            },
+            createRectTween: (begin, end) {
+              return CustomRectTween(
+                begin: begin!,
+                end: end!,
+              );
+            },
+            child: Transform.rotate(
+              angle: 5.3,
+              child: SvgPicture.asset(
+                ImagesConstants.ellipseRed,
+                height: 248.46,
+                width: 248.46,
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: const Text('back'),
-          )
+          const Gap(90),
         ],
       ),
     );
@@ -175,8 +177,10 @@ class _NextPageState extends State<NextPage> {
 }
 
 class CustomRectTween extends RectTween {
-  CustomRectTween({required Rect begin, required Rect end})
-      : super(begin: begin, end: end);
+  CustomRectTween({
+    required Rect begin,
+    required Rect end,
+  }) : super(begin: begin, end: end);
 
   @override
   Rect lerp(double t) {
@@ -196,7 +200,6 @@ class CustomRectTween extends RectTween {
     double animatedY = startY + (endY - startY) * easeInOutBackValue;
     double animatedWidth = startWidth + (endWidth - startWidth) * easeInOutBackValue;
     double animatedHeight = startHeight + (endHeight - startHeight) * easeInOutBackValue;
-
     return Rect.fromLTWH(animatedX, animatedY, animatedWidth, animatedHeight);
   }
 }
