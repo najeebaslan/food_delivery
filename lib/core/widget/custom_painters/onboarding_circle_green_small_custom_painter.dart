@@ -1,7 +1,8 @@
-//Copy this CustomPainter code to the Bottom of the File
 import 'package:flutter/material.dart';
 
 class OnboardingCircleGreenSmallCustomPainter extends CustomPainter {
+  final Color? color;
+  OnboardingCircleGreenSmallCustomPainter({this.color});
   @override
   void paint(Canvas canvas, Size size) {
     Path path_0 = Path();
@@ -139,7 +140,7 @@ class OnboardingCircleGreenSmallCustomPainter extends CustomPainter {
     path_0.close();
 
     Paint paint0Fill = Paint()..style = PaintingStyle.fill;
-    paint0Fill.color = const Color(0xff3AA856).withOpacity(1.0);
+    paint0Fill.color =color?? const Color(0xff3AA856).withOpacity(1.0);
     canvas.drawPath(path_0, paint0Fill);
   }
 

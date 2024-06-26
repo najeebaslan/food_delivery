@@ -13,12 +13,14 @@ class HeroCircleYellowAppBarHomeView extends StatelessWidget {
     this.heroWidgetAngle,
     this.heroWidgetHeight,
     this.heroWidgetWidth,
+    this.imageYellowAngle,
     this.animatedBuilderChildAngle,
   });
   final double? endTweenAnimation;
   final double? heroWidgetAngle;
   final double? heroWidgetHeight;
   final double? heroWidgetWidth;
+  final double? imageYellowAngle;
   final double Function(
     double animationValue,
   )? animatedBuilderChildAngle;
@@ -35,7 +37,7 @@ class HeroCircleYellowAppBarHomeView extends StatelessWidget {
         return Transform.rotate(
           angle: getAngle(rotationAnimation),
           child: Transform.rotate(
-            angle: 3.2,
+            angle: imageYellowAngle ?? 3.2,
             child: _buildImageCircleYellow(),
           ),
         );
@@ -44,7 +46,7 @@ class HeroCircleYellowAppBarHomeView extends StatelessWidget {
         return Transform(
           transform: Matrix4.identity()
             ..rotateZ(
-              rotationAnimation.value,
+              -rotationAnimation.value,
             ),
           alignment: Alignment.center,
           child: child,
@@ -71,7 +73,7 @@ class HeroCircleYellowAppBarHomeView extends StatelessWidget {
     if (animatedBuilderChildAngle != null) {
       return animatedBuilderChildAngle!(rotationAnimation.value);
     } else {
-      return rotationAnimation.value > 0.7 ? 3 : -2.3;
+      return rotationAnimation.value > 0.7 ? 3 : -2.6;
     }
   }
 }

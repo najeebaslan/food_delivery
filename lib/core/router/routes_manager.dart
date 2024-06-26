@@ -38,7 +38,7 @@ class AppRouter {
 
       case AppRoutesConstants.menuView:
         return const MenuView().routeWithFadeTransition(
-          milliseconds: 3000,
+          milliseconds: 2000,
         );
       default:
         return unknownRouteScreen();

@@ -145,7 +145,9 @@ class OnboardingCircleGreenSmallWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomPaint(
       size: Size(width ?? 69.33.w, (width ?? 69.33.w * 1.0142857142857142).toDouble()),
-      painter: OnboardingCircleGreenSmallCustomPainter(),
+      painter: OnboardingCircleGreenSmallCustomPainter(
+        color: color,
+      ),
     );
   }
 }

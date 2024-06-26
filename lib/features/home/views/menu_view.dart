@@ -98,8 +98,22 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
           children: [
+              Positioned(
+              bottom: 40.h,
+              left: 70.w,
+              child: HeroCircleYellowAppBarHomeView(
+                endTweenAnimation: 3.3,
+                heroWidgetAngle: 2.9,
+                imageYellowAngle: 3.2,
+                heroWidgetHeight: 138.142.h,
+                heroWidgetWidth: 138.142.w,
+                animatedBuilderChildAngle: (animationValue) {
+                  return animationValue > 7 ? 5.3 : 3;
+                },
+              ),
+            ),
             Positioned(
-              bottom: 160.h,
+              bottom: 110.h,
               left: 0,
               child: HeroCircleRedAppBarHomeView(
                 heroWidgetAngle: 5.3,
@@ -111,21 +125,8 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
               ),
             ),
             Positioned(
-              bottom: 80.h,
-              left: 70.w,
-              child: HeroCircleYellowAppBarHomeView(
-                endTweenAnimation: 3.3,
-                heroWidgetAngle: 3.2,
-                heroWidgetHeight: 138.142.h,
-                heroWidgetWidth: 138.142.w,
-                animatedBuilderChildAngle: (animationValue) {
-                  return animationValue > 7 ? 5.3 : 3;
-                },
-              ),
-            ),
-            Positioned(
-              bottom: 80.h,
-              right: 70.w,
+              bottom: 100.h,
+              right: 65.w,
               child: HeroCircleGreenAppBarHomeView(
                 heroWidgetWidth: 134.118.w,
                 heroWidgetAngle: 5.3,
@@ -134,6 +135,7 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
                 },
               ),
             ),
+          
           ],
         )
         // AnimatedBuilder(

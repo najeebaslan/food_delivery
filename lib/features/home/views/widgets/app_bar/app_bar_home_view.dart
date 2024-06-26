@@ -76,17 +76,17 @@ class AppBarHomeView extends StatelessWidget {
   Stack _heroRedAndGreenCircles() {
     return Stack(
       children: [
-        // Hero(
-        //   tag: redCircleTag,
-        //   child: Transform.rotate(
-        //     angle: 6,
-        //     child: SvgPicture.asset(
-        //       ImagesConstants.ellipseRed,
-        //       height: 32.28.h,
-        //       width: 32.28.w,
-        //     ),
-        //   ),
-        // ),
+        Hero(
+          tag: redCircleTag,
+          child: Transform.rotate(
+            angle: 6,
+            child: SvgPicture.asset(
+              ImagesConstants.ellipseRed,
+              height: 32.28.h,
+              width: 32.28.w,
+            ),
+          ),
+        ),
         const HeroCircleGreenAppBarHomeView(),
       ],
     );
