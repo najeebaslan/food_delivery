@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
+import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
 import 'package:food_delivery/features/onboarding/widgets/onboarding_circle_bold_green.dart';
 
@@ -28,7 +29,7 @@ class HeroCircleGreenAppBarHomeView extends StatelessWidget {
     return BaseHeroTransition(
       heroTag: HeroTagsConstants.smallCircleGreenTagHomeViewAppBar,
       heroWidget: Transform.rotate(
-        angle:heroWidgetAngle?? 3,
+        angle: heroWidgetAngle ?? 3,
         child: _buildImageCircleYellowWithOpacity(),
       ),
       animatedBuilderChild: (rotationAnimation) {
@@ -59,12 +60,10 @@ class HeroCircleGreenAppBarHomeView extends StatelessWidget {
     );
   }
 
-  Opacity _buildImageCircleYellowWithOpacity() {
-    return Opacity(
-      opacity: 0.2,
-      child: OnboardingCircleGreenSmallWidget(
-        width: heroWidgetWidth ?? 32.25.w,
-      ),
+  OnboardingCircleGreenSmallWidget _buildImageCircleYellowWithOpacity() {
+    return OnboardingCircleGreenSmallWidget(
+      width: heroWidgetWidth ?? 32.25.w,
+      color: AppColors.green.withOpacity(0.2),
     );
   }
 
