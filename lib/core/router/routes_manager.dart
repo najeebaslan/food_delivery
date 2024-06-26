@@ -23,7 +23,7 @@ class AppRouter {
           child: OnboardingHomeView(
             onboardingHeroTags: settings.arguments as OnboardingHeroTags,
           ),
-        ).withAnimation();
+        ).routeWithFadeTransition();
 
       case AppRoutesConstants.homeView:
         return BlocProvider<HomeCubit>(
@@ -31,13 +31,15 @@ class AppRouter {
           child: HomeView(
             redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
           ),
-        ).withAnimation(milliseconds: 250);
+        ).routeWithFadeTransition(milliseconds: 250);
 
       case AppRoutesConstants.splashView:
-        return const SplashAnimationView().withAnimation();
+        return const SplashAnimationView().routeWithFadeTransition();
 
       case AppRoutesConstants.menuView:
-        return const MenuView().withAnimation(milliseconds: 1000);
+        return const MenuView().routeWithFadeTransition(
+          milliseconds: 3000,
+        );
       default:
         return unknownRouteScreen();
     }
@@ -75,7 +77,7 @@ class AppRouter {
 }
 
 extension AnimationPageRouter on Widget {
-  PageRouteBuilder<dynamic> withAnimation({int? milliseconds}) {
+  PageRouteBuilder<dynamic> routeWithFadeTransition({int? milliseconds}) {
     return PageRouteBuilder(
       transitionDuration: Duration(milliseconds: milliseconds ?? 1500),
       reverseTransitionDuration: Duration(milliseconds: milliseconds ?? 1500),
