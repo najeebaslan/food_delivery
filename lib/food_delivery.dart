@@ -4,11 +4,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
 import 'package:gap/gap.dart';
 
-import 'core/router/routes_constants.dart';
 import 'core/router/routes_manager.dart';
+import 'features/home/blocs/home_cubit/home_cubit.dart';
+import 'features/home/views/widgets/test_animation_hero.dart';
 
 class FoodDeliveryApp extends StatelessWidget {
   const FoodDeliveryApp({super.key});
@@ -23,7 +23,7 @@ class FoodDeliveryApp extends StatelessWidget {
         return PlatformApp(
           onGenerateRoute: AppRouter.onGenerateRoute,
           // initialRoute: AppRoutesConstants.splashView,
-          initialRoute: AppRoutesConstants.homeView,
+          // initialRoute: AppRoutesConstants.homeView,
           builder: (context, child) => MediaQuery(
             data: MediaQuery.of(context).copyWith(
               textScaler: const TextScaler.linear(1),
@@ -34,7 +34,7 @@ class FoodDeliveryApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           cupertino: (_, __) {
             return CupertinoAppData(
-              // home: const MyPage(),
+              home: const FirstPage(),
               theme: CupertinoThemeData(
                 brightness: Brightness.light,
                 barBackgroundColor: Colors.black,
@@ -117,7 +117,7 @@ FittedBox
 
 
 
- */
+//  */
 
 class MyPage extends StatefulWidget {
   const MyPage({super.key});
@@ -241,39 +241,35 @@ class _MyPage1State extends State<MyPage1> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-        valueListenable: widget.homeCubit.animationTransition,
-        builder: (context, value, child) {
-          return Scaffold(
-            backgroundColor: Colors.red.shade100.withOpacity(
-              widget.homeCubit.animationTransition.value,
-            ),
-            body: Center(
-              child: Column(
-                children: [
-                  const Gap(100),
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.red,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
-                      height: 100,
-                      width: 100,
-                    ),
-                  ),
-                  const Text('najeeb aslan '),
-                  const Gap(100),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: const Text('start'),
-                  ),
-                ],
+    return Scaffold(
+      // backgroundColor: Colors.red.shade100.withOpacity(
+      //   widget.homeCubit.animationTransition.value,
+      // ),
+      body: Center(
+        child: Column(
+          children: [
+            const Gap(100),
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                height: 100,
+                width: 100,
               ),
             ),
-          );
-        });
+            const Text('najeeb aslan '),
+            const Gap(100),
+            ElevatedButton(
+              onPressed: () {},
+              child: const Text('start'),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
@@ -331,27 +327,27 @@ class _Page3State extends State<Page3> with SingleTickerProviderStateMixin {
                 );
               },
             ),
-            const Gap(100),
-            ElevatedButton(
-              onPressed: () {
-                if (isStarted) {
-                  _animationController.reverse();
-                  isStarted = false;
-                } else {
-                  _animationController.forward();
-                  isStarted = true;
-                }
+            // const Gap(100),
+            // ElevatedButton(
+            //   onPressed: () {
+            //     if (isStarted) {
+            //       _animationController.reverse();
+            //       isStarted = false;
+            //     } else {
+            //       _animationController.forward();
+            //       isStarted = true;
+            //     }
 
-                // _animationController.addStatusListener((status) {
-                //   if (status == AnimationStatus.completed) {
-                //     _animationController.reverse();
-                //   } else if (status == AnimationStatus.dismissed) {
-                //     _animationController.forward();
-                //   }
-                // });
-              },
-              child: const Text('start'),
-            )
+            //     // _animationController.addStatusListener((status) {
+            //     //   if (status == AnimationStatus.completed) {
+            //     //     _animationController.reverse();
+            //     //   } else if (status == AnimationStatus.dismissed) {
+            //     //     _animationController.forward();
+            //     //   }
+            //     // });
+            //   },
+            //   child: const Text('start'),
+            // )
           ],
         ),
       ),
@@ -402,28 +398,25 @@ class HeroSlideTransition extends PageRouteBuilder<void> {
   @override
   Widget buildTransitions(BuildContext context, Animation<double> animation,
       Animation<double> secondaryAnimation, Widget child) {
-    homeCubit.animationTransition.value = animation.value;
-    return ColoredBox(
-      color: Colors.red.shade100.withOpacity(homeCubit.animationTransition.value),
-      child: Stack(
-        children: [
-          Hero(
-            tag: heroTag,
-            child: SlideTransition(
-              position: Tween<Offset>(
-                begin: const Offset(0.0, 0.35),
-                end: Offset.zero,
-              ).animate(
-                CurvedAnimation(
-                  parent: animation,
-                  curve: Curves.easeInOutBack,
-                ),
+    // homeCubit.animationTransition.value = animation.value;
+    return Stack(
+      children: [
+        Hero(
+          tag: heroTag,
+          child: SlideTransition(
+            position: Tween<Offset>(
+              begin: const Offset(0.0, 0.35),
+              end: Offset.zero,
+            ).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInOutBack,
               ),
-              child: endScreen,
             ),
+            child: endScreen,
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

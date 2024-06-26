@@ -48,7 +48,7 @@ class CategoriesItems extends StatelessWidget {
             ),
           ),
         ),
-        Gap(10.w),
+        // Gap(10.w),
         Flexible(
           flex: 0,
           child: _buildCard(
@@ -56,7 +56,7 @@ class CategoriesItems extends StatelessWidget {
             isBurger: false,
           ),
         ),
-        Gap(10.w),
+        // SizedBox(10.w),
         Flexible(
           flex: 1,
           child: Transform.translate(

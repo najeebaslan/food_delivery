@@ -28,7 +28,7 @@ class AppRouter {
       case AppRoutesConstants.homeView:
         return BlocProvider<HomeCubit>(
                 create: (BuildContext context) => HomeCubit(), child: const MyPage()
-                //  HomeView(
+                // HomeView(
                 //   redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
                 // ),
                 )
