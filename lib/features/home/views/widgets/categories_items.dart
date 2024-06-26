@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:gap/gap.dart';
 
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_colors.dart';
@@ -48,7 +47,6 @@ class CategoriesItems extends StatelessWidget {
             ),
           ),
         ),
-        // Gap(10.w),
         Flexible(
           flex: 0,
           child: _buildCard(
@@ -56,7 +54,6 @@ class CategoriesItems extends StatelessWidget {
             isBurger: false,
           ),
         ),
-        // SizedBox(10.w),
         Flexible(
           flex: 1,
           child: Transform.translate(
