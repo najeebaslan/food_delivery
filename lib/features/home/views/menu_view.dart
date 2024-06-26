@@ -6,7 +6,7 @@ import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:gap/gap.dart';
 
 import '../../../core/constants/assets_constants.dart';
-import '../../../core/widget/custom_eect_tween.dart';
+import '../../../core/widget/custom_rect_tween.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});

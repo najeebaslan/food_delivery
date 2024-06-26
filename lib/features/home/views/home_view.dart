@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
@@ -26,6 +27,7 @@ class HomeView extends StatelessWidget {
           top: 47.h,
         ),
         child: SingleChildScrollView(
+          clipBehavior: Clip.none,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
