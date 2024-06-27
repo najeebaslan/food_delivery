@@ -6,4 +6,5 @@ extension ContextExtension<T> on BuildContext {
   double get height => mediaQuery.height;
   double get width => mediaQuery.width;
   bool get isSmallDevice => height < 600 ? true : false;
+  bool get isIOS => Theme.of(this).platform == TargetPlatform.iOS;
 }

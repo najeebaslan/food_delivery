@@ -35,7 +35,10 @@ class HomeView extends StatelessWidget {
             children: [
               AppBarHomeView(redCircleTag: redCircleTag),
               Gap(10.h),
-              const TextFieldWithCategoriesAnimation(),
+              Padding(
+                padding: EdgeInsets.only(right: 24.w),
+                child: const TextFieldWithCategoriesAnimation(),
+              ),
               AnimationSlideTransition(
                 delay: 0,
                 direction: 'down',

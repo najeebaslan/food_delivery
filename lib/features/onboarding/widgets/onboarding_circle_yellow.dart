@@ -23,7 +23,13 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
   late AnimationController _animationController;
   late Tween<double> firstColorTweenAnimation;
   late Tween<double> animation;
+
   bool isAnimationHasStarted = false;
+  bool completedFirstAnimation = false;
+
+  double topPositionedCircleYellow = 130.h;
+  double rightPositionedCircleYellow = 290.w;
+
   @override
   void initState() {
     super.initState();
@@ -35,11 +41,6 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
     );
     initAnimation();
   }
-
-  bool completedFirstAnimation = false;
-
-  double topPositionedCircleYellow = 130.h;
-  double rightPositionedCircleYellow = 290.w;
 
   void initAnimation() {
     animation = Tween<double>(begin: 0, end: 1);
@@ -104,7 +105,9 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
               left: rightPositionedCircleYellow,
               child: Transform(
                 alignment: Alignment.center,
-                transform: Matrix4.identity()
+                transform:
+                
+                 Matrix4.identity()
                   ..rotateZ(completedFirstAnimation
                       ? -animation.evaluate(_animationController) * 2
                       : animation.evaluate(_animationController)),
