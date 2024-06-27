@@ -17,7 +17,7 @@ class TextFieldWithCategoriesAnimation extends StatefulWidget {
 }
 
 class _TextFieldWithCategoriesAnimationState
-    extends State<TextFieldWithCategoriesAnimation> with TickerProviderStateMixin {
+    extends State<TextFieldWithCategoriesAnimation> with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<Offset> slideAnimation;

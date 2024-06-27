@@ -1,5 +1,3 @@
-library simple_shadow;
-
 import 'dart:ui';
 
 import 'package:flutter/material.dart';

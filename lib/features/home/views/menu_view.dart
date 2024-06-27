@@ -98,7 +98,7 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
           alignment: Alignment.bottomCenter,
           clipBehavior: Clip.none,
           children: [
-              Positioned(
+            Positioned(
               bottom: 40.h,
               left: 70.w,
               child: HeroCircleYellowAppBarHomeView(
@@ -135,72 +135,70 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
                 },
               ),
             ),
-          
+            // AnimatedBuilder(
+            //   animation: _animationController,
+            //   builder: (context, child) {
+            //     return Stack(
+            //       clipBehavior: Clip.none,
+            //       fit: StackFit.expand,
+            //       children: [
+            //         Padding(
+            //           padding: EdgeInsets.only(right: 24.w, left: 24.w),
+            //           child: Align(
+            //             alignment: AlignmentDirectional.centerEnd,
+            //             child: AnimatedContainer(
+            //               // alignment: AlignmentDirectional.centerEnd,
+            //               duration: const Duration(milliseconds: 1),
+            //               transformAlignment: AlignmentDirectional.center,
+            //               curve: Curves.easeInOutBack,
+            //               height: _animation.value < 0 ? 0 : _animation.value,
+            //               // width: 600,
+            //               child: SizedBox(
+            //                 height: 500,
+            //                 // color: AppColors.red,
+            //                 child: SingleChildScrollView(
+            //                   child: Column(
+            //                     crossAxisAlignment: CrossAxisAlignment.end,
+            //                     children: List<Widget>.generate(
+            //                       titles.length,
+            //                       (index) {
+            //                         return Padding(
+            //                           padding: EdgeInsets.only(bottom: 14.h),
+            //                           child: PlatformTextButton(
+            //                             padding: EdgeInsets.zero,
+            //                             onPressed: () {},
+            //                             child: PlatformText(
+            //                               titles[index],
+            //                               textAlign: TextAlign.right,
+            //                               style: AppTextStyles.font30Black700W,
+            //                             ),
+            //                           ),
+            //                         );
+            //                       },
+            //                     ),
+            //                   ),
+            //                 ),
+            //               ),
+            //             ),
+            //           ),
+            //         ),
+            //         // Opacity(
+            //         //   opacity: 0.10,
+            //         //   child: Transform.rotate(
+            //         //     angle: 2.8,
+            //         //     child: SvgPicture.asset(
+            //         //       ImagesConstants.ellipseRed,
+            //         //       height: 65.30.h,
+            //         //       width: 65.30.w,
+            //         //     ),
+            //         //   ),
+            //         // ),
+            //         // _buildCircleRed()
+            //       ],
+            //     );
+            //   },
+            // ),
           ],
-        )
-        // AnimatedBuilder(
-        //   animation: _animationController,
-        //   builder: (context, child) {
-        //     return Stack(
-        //       clipBehavior: Clip.none,
-        //       fit: StackFit.expand,
-        //       children: [
-        //         Padding(
-        //           padding: EdgeInsets.only(right: 24.w, left: 24.w),
-        //           child: Align(
-        //             alignment: AlignmentDirectional.centerEnd,
-        //             child: AnimatedContainer(
-        //               // alignment: AlignmentDirectional.centerEnd,
-        //               duration: const Duration(milliseconds: 1),
-        //               transformAlignment: AlignmentDirectional.center,
-        //               curve: Curves.easeInOutBack,
-        //               height: _animation.value < 0 ? 0 : _animation.value,
-        //               // width: 600,
-        //               child: SizedBox(
-        //                 height: 500,
-        //                 // color: AppColors.red,
-        //                 child: SingleChildScrollView(
-        //                   child: Column(
-        //                     crossAxisAlignment: CrossAxisAlignment.end,
-        //                     children: List<Widget>.generate(
-        //                       titles.length,
-        //                       (index) {
-        //                         return Padding(
-        //                           padding: EdgeInsets.only(bottom: 14.h),
-        //                           child: PlatformTextButton(
-        //                             padding: EdgeInsets.zero,
-        //                             onPressed: () {},
-        //                             child: PlatformText(
-        //                               titles[index],
-        //                               textAlign: TextAlign.right,
-        //                               style: AppTextStyles.font30Black700W,
-        //                             ),
-        //                           ),
-        //                         );
-        //                       },
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ),
-        //           ),
-        //         ),
-        //         // Opacity(
-        //         //   opacity: 0.10,
-        //         //   child: Transform.rotate(
-        //         //     angle: 2.8,
-        //         //     child: SvgPicture.asset(
-        //         //       ImagesConstants.ellipseRed,
-        //         //       height: 65.30.h,
-        //         //       width: 65.30.w,
-        //         //     ),
-        //         //   ),
-        //         // ),
-        //         _buildCircleRed()
-        //       ],
-        //     );
-        //   },
-        // ),
-        );
+        ));
   }
 }

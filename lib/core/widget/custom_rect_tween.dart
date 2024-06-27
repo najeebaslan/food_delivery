@@ -6,7 +6,7 @@ class CustomRectTween extends Tween<Rect> {
   CustomRectTween({
     required Rect begin,
     required Rect end,
-    this.tension = 1.70158,
+    this.tension = 1.7,
   }) : super(begin: begin, end: end);
 
   final double tension;
@@ -35,7 +35,7 @@ class CustomRectTween extends Tween<Rect> {
 /// to the final position, creating an "easing-out" effect.
 ///
 /// The [tension] parameter controls the amount of "back" movement.
-double easeInOutBack(double t, {double tension = 1.70158}) {
+double easeInOutBack(double t, {double tension = 1.7}) {
   // Normalize the input value to be between 0 and 2
   double normalizedT = t * 2;
 
@@ -49,3 +49,4 @@ double easeInOutBack(double t, {double tension = 1.70158}) {
     return (normalizedT * normalizedT * ((tension + 1) * normalizedT + tension) + 2) / 2;
   }
 }
+

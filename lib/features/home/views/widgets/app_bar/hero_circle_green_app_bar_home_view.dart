@@ -5,8 +5,6 @@ import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
 import 'package:food_delivery/features/onboarding/widgets/onboarding_circle_bold_green.dart';
 
-import '../../../../../core/widget/custom_rect_tween.dart';
-
 class HeroCircleGreenAppBarHomeView extends StatelessWidget {
   const HeroCircleGreenAppBarHomeView({
     super.key,
@@ -49,12 +47,6 @@ class HeroCircleGreenAppBarHomeView extends StatelessWidget {
             ),
           alignment: Alignment.center,
           child: child,
-        );
-      },
-      createRectTween: (begin, end) {
-        return CustomRectTween(
-          begin: begin!,
-          end: end!,
         );
       },
     );

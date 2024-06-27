@@ -20,7 +20,7 @@ class SplashAnimationView extends StatefulWidget {
 }
 
 class _SplashAnimationViewState extends State<SplashAnimationView>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   final _opacityColaCircle = ValueNotifier<double>(0.0);
   final _opacityFastDelivery = ValueNotifier<double>(0.0);
