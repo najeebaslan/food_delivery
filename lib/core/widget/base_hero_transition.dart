@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'custom_rect_tween.dart';
+
 class BaseHeroTransition extends StatelessWidget {
   const BaseHeroTransition({
     super.key,
@@ -7,7 +9,6 @@ class BaseHeroTransition extends StatelessWidget {
     required this.heroWidget,
     required this.animatedBuilderChild,
     required this.animatedBuilderBuilder,
-    required this.createRectTween,
     this.endTweenAnimation,
   });
 
@@ -24,16 +25,13 @@ class BaseHeroTransition extends StatelessWidget {
     Animation<double> animation,
   ) animatedBuilderChild;
 
-  final Tween<Rect?> Function(
-    Rect? begin,
-    Rect? end,
-  ) createRectTween;
   @override
   Widget build(BuildContext context) {
+    Animation<double> rotationAnimation;
     return Hero(
       tag: heroTag,
       flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-        final rotationAnimation = Tween<double>(
+        rotationAnimation = Tween<double>(
           begin: 0.0,
           end: endTweenAnimation ?? 2.3,
         ).animate(
@@ -54,7 +52,12 @@ class BaseHeroTransition extends StatelessWidget {
           },
         );
       },
-      createRectTween: createRectTween,
+      createRectTween: (begin, end) {
+        return CustomRectTween(
+          begin: begin!,
+          end: end!,
+        );
+      },
       child: heroWidget,
     );
   }

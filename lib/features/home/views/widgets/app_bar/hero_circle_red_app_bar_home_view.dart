@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
-import 'package:food_delivery/core/widget/custom_rect_tween.dart';
 
 import '../../../../../core/constants/hero_tags_constants.dart';
 
@@ -21,6 +20,7 @@ class HeroCircleRedAppBarHomeView extends StatelessWidget {
   final double Function(
     double animationValue,
   )? animatedBuilderChildAngle;
+
   @override
   Widget build(BuildContext context) {
     return BaseHeroTransition(
@@ -43,12 +43,6 @@ class HeroCircleRedAppBarHomeView extends StatelessWidget {
             ),
           alignment: Alignment.center,
           child: child,
-        );
-      },
-      createRectTween: (begin, end) {
-        return CustomRectTween(
-          begin: begin!,
-          end: end!,
         );
       },
     );

@@ -21,7 +21,7 @@ class OnboardingHomeView extends StatefulWidget {
 }
 
 class _OnboardingHomeViewState extends State<OnboardingHomeView>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late final OnboardingCubit onboardingCubit;
 
   @override

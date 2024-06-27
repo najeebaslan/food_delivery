@@ -15,15 +15,9 @@ class HeaderTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Transform.translate(
       offset: Offset(0, -14.h),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          PlatformWidget(
-            cupertino: (_, __) => _buildIOSSearchTextField(),
-            material: (_, __) => _buildAndroidSearchTextField(),
-          )
-        ],
+      child: PlatformWidget(
+        cupertino: (_, __) => _buildIOSSearchTextField(),
+        material: (_, __) => _buildAndroidSearchTextField(),
       ),
     );
   }

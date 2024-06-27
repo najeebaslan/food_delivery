@@ -33,26 +33,29 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
   int indexIndicator = 0;
   @override
   void initState() {
+    super.initState();
+
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 1300),
     );
+
     _colorTween = ColorTween(
       begin: AppColors.blue,
       end: AppColors.green,
     ).animate(_animationController);
+
     _runAutoStepsAnimation(BlocProvider.of<OnboardingCubit>(context));
-    super.initState();
   }
 
   void _changeColors({required int fromIndex, required int toIndex}) {
     final colorMap = {
-      (0, 1): _buildColorTween(AppColors.blue, AppColors.green),
-      (0, 2): _buildColorTween(AppColors.blue, AppColors.red),
-      (2, 1): _buildColorTween(AppColors.red, AppColors.green),
-      (1, 0): _buildColorTween(AppColors.green, AppColors.blue),
-      (1, 2): _buildColorTween(AppColors.green, AppColors.red),
-      (2, 0): _buildColorTween(AppColors.red, AppColors.blue),
+      (0, 1): ColorTween(begin: AppColors.blue, end: AppColors.green),
+      (0, 2): ColorTween(begin: AppColors.blue, end: AppColors.red),
+      (2, 1): ColorTween(begin: AppColors.red, end: AppColors.green),
+      (1, 0): ColorTween(begin: AppColors.green, end: AppColors.blue),
+      (1, 2): ColorTween(begin: AppColors.green, end: AppColors.red),
+      (2, 0): ColorTween(begin: AppColors.red, end: AppColors.blue),
     };
 
     _colorTween = colorMap[(fromIndex, toIndex)]!.animate(_animationController);
@@ -60,10 +63,6 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       _animationController.reset();
     }
     _animationController.forward();
-  }
-
-  ColorTween _buildColorTween(Color begin, Color end) {
-    return ColorTween(begin: begin, end: end);
   }
 
   @override

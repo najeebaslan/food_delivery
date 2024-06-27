@@ -31,14 +31,15 @@ class AppRouter {
           child: HomeView(
             redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
           ),
-        ).routeWithFadeTransition(milliseconds: 250);
+        ).routeWithFadeTransition(transitionDuration: 250);
 
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().routeWithFadeTransition();
 
       case AppRoutesConstants.menuView:
         return const MenuView().routeWithFadeTransition(
-          milliseconds: 2000,
+          transitionDuration: 1350,
+          reverseTransitionDuration: 1350,
         );
       default:
         return unknownRouteScreen();
@@ -77,12 +78,23 @@ class AppRouter {
 }
 
 extension AnimationPageRouter on Widget {
-  PageRouteBuilder<dynamic> routeWithFadeTransition({int? milliseconds}) {
+  PageRouteBuilder<dynamic> routeWithFadeTransition({
+    int? transitionDuration,
+    int? reverseTransitionDuration,
+  }) {
     return PageRouteBuilder(
-      transitionDuration: Duration(milliseconds: milliseconds ?? 1500),
-      reverseTransitionDuration: Duration(milliseconds: milliseconds ?? 1500),
-      pageBuilder: (context, animation, secondaryAnimation) =>
-          FadeTransition(opacity: animation, child: this),
+      fullscreenDialog: true,
+      transitionDuration: Duration(milliseconds: transitionDuration ?? 1500),
+      reverseTransitionDuration: Duration(
+          milliseconds: (reverseTransitionDuration ?? transitionDuration) ?? 1500),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return FadeTransition(opacity: animation, child: this);
+      },
+      // transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      //   log(secondaryAnimation.value.toString());
+
+      //   return FadeTransition(opacity: animation, child: this);
+      // },
     );
   }
 }
