@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
@@ -17,6 +18,8 @@ class HomeView extends StatelessWidget {
   final String redCircleTag;
   @override
   Widget build(BuildContext context) {
+    timeDilation = 1.0;
+
     return PlatformScaffold(
       backgroundColor: AppColors.homeBackground,
       body: Padding(
