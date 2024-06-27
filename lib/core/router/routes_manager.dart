@@ -90,11 +90,22 @@ extension AnimationPageRouter on Widget {
       pageBuilder: (context, animation, secondaryAnimation) {
         return FadeTransition(opacity: animation, child: this);
       },
-      // transitionsBuilder: (context, animation, secondaryAnimation, child) {
-      //   log(secondaryAnimation.value.toString());
+    );
+  }
 
-      //   return FadeTransition(opacity: animation, child: this);
-      // },
+  PageRouteBuilder<dynamic> routeWithAnimatedBuilder(
+      Widget Function(Animation<double> animation) widget) {
+    return PageRouteBuilder<void>(
+      transitionDuration: const Duration(milliseconds: 2000),
+      reverseTransitionDuration: const Duration(milliseconds: 2000),
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return AnimatedBuilder(
+          animation: animation,
+          builder: (context, child) {
+            return widget(animation);
+          },
+        );
+      },
     );
   }
 }
