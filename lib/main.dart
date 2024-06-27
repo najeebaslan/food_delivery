@@ -42,49 +42,13 @@ Future<void> cacheSvgImagesSplashView() async {
   }
 }
 
-// // Copyright 2019 the Dart project authors. All rights reserved.
-// // Use of this source code is governed by a BSD-style license
-// // that can be found in the LICENSE file.
-
 // import 'package:flutter/material.dart';
 
-// const owlUrl =
-//     'https://raw.githubusercontent.com/flutter/website/main/src/content/assets/images/docs/owl.jpg';
+// import 'core/styles/app_colors.dart';
+// import 'core/styles/app_text_styles.dart';
 
-// class FadeInDemo extends StatefulWidget {
-//   const FadeInDemo({super.key});
-
-//   @override
-//   State<FadeInDemo> createState() => _FadeInDemoState();
-// }
-
-// class _FadeInDemoState extends State<FadeInDemo> {
-//   double opacity = 0;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return ListView(children: <Widget>[
-//       Image.network(owlUrl),
-//       TextButton(
-//         child: const Text(
-//           'Show Details',
-//           style: TextStyle(color: Colors.blueAccent),
-//         ),
-//         onPressed: () => {opacity = 1, setState(() {})},
-//       ),
-//       AnimatedOpacity(
-//         duration: const Duration(seconds: 1),
-//         opacity: opacity,
-//         child: const Column(
-//           children: [
-//             Text('Type: Owl'),
-//             Text('Age: 39'),
-//             Text('Employment: None'),
-//           ],
-//         ),
-//       )
-//     ]);
-//   }
+// void main() {
+//   runApp(const MyApp());
 // }
 
 // class MyApp extends StatelessWidget {
@@ -93,17 +57,113 @@ Future<void> cacheSvgImagesSplashView() async {
 //   @override
 //   Widget build(BuildContext context) {
 //     return const MaterialApp(
-//       home: Scaffold(
-//         body: Center(
-//           child: FadeInDemo(),
-//         ),
-//       ),
+//       title: 'Animated Container Demo',
+//       home: AnimatedContainerPage(),
 //     );
 //   }
 // }
 
-// void main() {
-//   runApp(
-//     const MyApp(),
-//   );
+// class AnimatedContainerPage extends StatefulWidget {
+//   const AnimatedContainerPage({super.key});
+
+//   @override
+//   _AnimatedContainerPageState createState() => _AnimatedContainerPageState();
+// }
+
+// class _AnimatedContainerPageState extends State<AnimatedContainerPage>
+//     with SingleTickerProviderStateMixin {
+//   bool _isExpanded = false;
+//   late AnimationController _animationController;
+//   late Animation<double> _heightAnimation;
+//   static const List<String> titles = [
+//     "Order History",
+//     "Offers",
+//     "Settings",
+//     "Wallet",
+//     "Support",
+//     "Logout",
+//   ];
+//   @override
+//   void initState() {
+//     super.initState();
+//     _animationController = AnimationController(
+//       vsync: this,
+//       duration: const Duration(seconds: 1),
+//     );
+
+//     _heightAnimation = Tween<double>(
+//       begin: 100.0,
+//       end: 400.0,
+//     ).animate(
+//       CurvedAnimation(
+//         parent: _animationController,
+//         curve: Curves.easeInOutBack,
+//       ),
+//     );
+//   }
+
+//   @override
+//   void dispose() {
+//     _animationController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: const Text('Animated Container Demo'),
+//       ),
+//       body: Center(
+//         child: AnimatedBuilder(
+//           animation: _heightAnimation,
+//           builder: (context, child) {
+//             return Stack(
+//               alignment: Alignment.center,
+//               clipBehavior: Clip.none,
+//               children: [
+//                 Container(
+//                   height: _heightAnimation.value,
+//                   width: 200.0,
+//                   color: Colors.blue,
+//                 ),
+//                 ...List.generate(
+//                   titles.length,
+//                   (index) {
+//                     return Positioned(
+//                       top: ((_heightAnimation.value / titles.length) * index),
+//                       child: Text(
+//                         titles[index],
+//                         textAlign: TextAlign.right,
+//                         style: TextStyle(
+//                           fontSize: 30,
+//                           color: AppColors.black,
+//                           fontFamily: AppTextStyles.defaultFontFamily,
+//                           fontWeight: FontWeight.w700,
+//                           overflow: TextOverflow.ellipsis,
+//                         ),
+//                       ),
+//                     );
+//                   },
+//                 )
+//               ],
+//             );
+//           },
+//         ),
+//       ),
+//       floatingActionButton: FloatingActionButton(
+//         onPressed: () {
+//           setState(() {
+//             _isExpanded = !_isExpanded;
+//             if (_isExpanded) {
+//               _animationController.forward();
+//             } else {
+//               _animationController.reverse();
+//             }
+//           });
+//         },
+//         child: const Icon(Icons.expand),
+//       ),
+//     );
+//   }
 // }

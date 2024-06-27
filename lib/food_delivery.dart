@@ -39,7 +39,7 @@ class FoodDeliveryApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           cupertino: (_, __) {
             return CupertinoAppData(
-              // home: const RadialExpansionDemo(),
+              // home: const MenuView(),
               theme: CupertinoThemeData(
                 brightness: Brightness.light,
                 barBackgroundColor: Colors.black,
@@ -56,7 +56,11 @@ class FoodDeliveryApp extends StatelessWidget {
           material: (context, platform) {
             return MaterialAppData(
               theme: ThemeData(
-                brightness: Brightness.dark,
+                brightness: Brightness.light,
+                appBarTheme: const AppBarTheme(
+                  elevation: 0,
+                  backgroundColor: Colors.transparent,
+                ),
                 primaryColor: AppColors.kPrimaryColor,
                 scaffoldBackgroundColor: AppColors.background,
                 // textTheme: TextTheme(

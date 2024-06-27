@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/features/home/views/widgets/app_bar/hero_circle_red_app_bar_home_view.dart';
 
+import '../../../core/styles/app_text_styles.dart';
 import 'widgets/app_bar/hero_circle_green_app_bar_home_view.dart';
 import 'widgets/app_bar/hero_circle_yellow_app_bar_home_view.dart';
 
@@ -16,7 +18,8 @@ class MenuView extends StatefulWidget {
 
 class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin {
   late final AnimationController _animationController;
-  late Animation<double> _animation;
+  late Animation<double> _heightAnimation;
+  late Animation<double> _opacityTextAnimation;
 
   static const List<String> titles = [
     "Order History",
@@ -26,24 +29,34 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
     "Support",
     "Logout",
   ];
-  bool openContainer = false;
   @override
   void initState() {
     super.initState();
     _animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1350),
+      duration: const Duration(milliseconds: 1385),
     );
 
-    _animation = Tween<double>(
-      begin: 0.0,
-      end: 350.0,
+    _heightAnimation = Tween<double>(
+      begin: 20.0.h,
+      end: 300.0.h,
     ).animate(
       CurvedAnimation(
         parent: _animationController,
         curve: Curves.easeInOutBack,
       ),
     );
+
+    _opacityTextAnimation = Tween<double>(
+      begin: 0.0.h,
+      end: 1.0.h,
+    ).animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+
     _animationController.forward();
   }
 
@@ -56,36 +69,33 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return PlatformScaffold(
+      iosContentPadding: true,
+      backgroundColor: AppColors.backgroundMenuViewColor,
+      appBar: PlatformAppBar(
         backgroundColor: AppColors.backgroundMenuViewColor,
-        appBar: PlatformAppBar(
-          backgroundColor: AppColors.backgroundMenuViewColor,
-          material: (context, platform) {
-            return MaterialAppBarData(
-              elevation: 0,
-              backgroundColor: Colors.transparent,
-            );
-          },
-          cupertino: (context, platform) {
-            return CupertinoNavigationBarData(
-              noMaterialParent: false,
-              border: const Border.fromBorderSide(BorderSide.none),
-              backgroundColor: Colors.transparent,
-              transitionBetweenRoutes: false,
-              automaticallyImplyLeading: false,
-            );
-          },
-          title: Align(
-            alignment: AlignmentDirectional.centerEnd,
+        material: (context, platform) => MaterialAppBarData(
+          automaticallyImplyLeading: false,
+        ),
+        cupertino: (context, platform) {
+          return CupertinoNavigationBarData(
+            noMaterialParent: false,
+            brightness: Brightness.light,
+            automaticallyImplyMiddle: false,
+            border: const Border.fromBorderSide(BorderSide.none),
+            backgroundColor: Colors.transparent,
+            transitionBetweenRoutes: false,
+            automaticallyImplyLeading: false,
+          );
+        },
+        title: Align(
+          alignment: AlignmentDirectional.centerEnd,
+          child: Padding(
+            padding: EdgeInsets.only(
+              right: context.isIOS ? 24.w : 5.w,
+            ),
             child: PlatformIconButton(
-              padding: EdgeInsets.only(right: 30.w),
-              onPressed: () {
-                Navigator.pop(context);
-                // _animationController.reverse();
-                // Future.delayed(
-                //   const Duration(milliseconds: 600),
-                //   () => Navigator.pop(context),
-                // );
-              },
+              onPressed: () => backToHomeView(context),
+              padding: EdgeInsets.zero,
               icon: Icon(
                 Icons.close,
                 color: AppColors.black,
@@ -94,111 +104,116 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
             ),
           ),
         ),
-        body: Stack(
-          alignment: Alignment.bottomCenter,
-          clipBehavior: Clip.none,
-          children: [
-            Positioned(
-              bottom: 40.h,
-              left: 70.w,
-              child: HeroCircleYellowAppBarHomeView(
-                endTweenAnimation: 3.3,
-                heroWidgetAngle: 2.9,
-                imageYellowAngle: 3.2,
-                heroWidgetHeight: 138.142.h,
-                heroWidgetWidth: 138.142.w,
-                animatedBuilderChildAngle: (animationValue) {
-                  return animationValue > 7 ? 5.3 : 3;
-                },
-              ),
-            ),
-            Positioned(
-              bottom: 110.h,
-              left: 0,
-              child: HeroCircleRedAppBarHomeView(
-                heroWidgetAngle: 5.3,
-                heroWidgetHeight: 248.46.h,
-                heroWidgetWidth: 248.46.w,
-                animatedBuilderChildAngle: (animationValue) {
-                  return animationValue > 7 ? 5.3 : 3;
-                },
-              ),
-            ),
-            Positioned(
-              bottom: 100.h,
-              right: 65.w,
-              child: HeroCircleGreenAppBarHomeView(
-                heroWidgetWidth: 134.118.w,
-                heroWidgetAngle: 5.3,
-                animatedBuilderChildAngle: (animationValue) {
-                  return animationValue > 7 ? 5.3 : 3;
-                },
-              ),
-            ),
-            // AnimatedBuilder(
-            //   animation: _animationController,
-            //   builder: (context, child) {
-            //     return Stack(
-            //       clipBehavior: Clip.none,
-            //       fit: StackFit.expand,
-            //       children: [
-            //         Padding(
-            //           padding: EdgeInsets.only(right: 24.w, left: 24.w),
-            //           child: Align(
-            //             alignment: AlignmentDirectional.centerEnd,
-            //             child: AnimatedContainer(
-            //               // alignment: AlignmentDirectional.centerEnd,
-            //               duration: const Duration(milliseconds: 1),
-            //               transformAlignment: AlignmentDirectional.center,
-            //               curve: Curves.easeInOutBack,
-            //               height: _animation.value < 0 ? 0 : _animation.value,
-            //               // width: 600,
-            //               child: SizedBox(
-            //                 height: 500,
-            //                 // color: AppColors.red,
-            //                 child: SingleChildScrollView(
-            //                   child: Column(
-            //                     crossAxisAlignment: CrossAxisAlignment.end,
-            //                     children: List<Widget>.generate(
-            //                       titles.length,
-            //                       (index) {
-            //                         return Padding(
-            //                           padding: EdgeInsets.only(bottom: 14.h),
-            //                           child: PlatformTextButton(
-            //                             padding: EdgeInsets.zero,
-            //                             onPressed: () {},
-            //                             child: PlatformText(
-            //                               titles[index],
-            //                               textAlign: TextAlign.right,
-            //                               style: AppTextStyles.font30Black700W,
-            //                             ),
-            //                           ),
-            //                         );
-            //                       },
-            //                     ),
-            //                   ),
-            //                 ),
-            //               ),
-            //             ),
-            //           ),
-            //         ),
-            //         // Opacity(
-            //         //   opacity: 0.10,
-            //         //   child: Transform.rotate(
-            //         //     angle: 2.8,
-            //         //     child: SvgPicture.asset(
-            //         //       ImagesConstants.ellipseRed,
-            //         //       height: 65.30.h,
-            //         //       width: 65.30.w,
-            //         //     ),
-            //         //   ),
-            //         // ),
-            //         // _buildCircleRed()
-            //       ],
-            //     );
-            //   },
-            // ),
-          ],
-        ));
+      ),
+      body: Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: 35.w,
+        ),
+        child: LayoutBuilder(
+          builder: (context, constraints) {
+            return Stack(
+              alignment: Alignment.bottomCenter,
+              clipBehavior: Clip.none,
+              children: [
+                _buildMenuTitles(constraints),
+                Positioned(
+                  bottom: 40.h,
+                  left: 70.w,
+                  child: HeroCircleYellowAppBarHomeView(
+                    endTweenAnimation: 3.3,
+                    heroWidgetAngle: 2.9,
+                    imageYellowAngle: 3.2,
+                    heroWidgetHeight: 138.142.h,
+                    heroWidgetWidth: 138.142.w,
+                    animatedBuilderChildAngle: (animationValue) {
+                      return animationValue > 7 ? 5.3 : 3;
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: 110.h,
+                  left: 0,
+                  child: HeroCircleRedAppBarHomeView(
+                    heroWidgetAngle: 5.3,
+                    heroWidgetHeight: 248.46.h,
+                    heroWidgetWidth: 248.46.w,
+                    animatedBuilderChildAngle: (animationValue) {
+                      return animationValue > 7 ? 5.3 : 3;
+                    },
+                  ),
+                ),
+                Positioned(
+                  bottom: 100.h,
+                  right: 65.w,
+                  child: HeroCircleGreenAppBarHomeView(
+                    heroWidgetWidth: 134.118.w,
+                    heroWidgetAngle: 5.3,
+                    animatedBuilderChildAngle: (animationValue) {
+                      return animationValue > 7 ? 5.3 : 3;
+                    },
+                  ),
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  void backToHomeView(BuildContext context) {
+    Navigator.pop(context);
+    Future.delayed(
+      const Duration(milliseconds: 150),
+      () {
+        if (mounted) _animationController.reverse();
+      },
+    );
+  }
+
+  Align _buildMenuTitles(BoxConstraints constraints) {
+    return Align(
+      alignment: AlignmentDirectional.centerEnd,
+      child: Transform.translate(
+        offset: Offset(0, -(constraints.maxHeight / 4)),
+        child: AnimatedBuilder(
+          animation: _heightAnimation,
+          builder: (context, child) {
+            return Stack(
+              alignment: AlignmentDirectional.centerEnd,
+              clipBehavior: Clip.none,
+              children: [
+                Container(
+                  alignment: Alignment.center,
+                  height: _heightAnimation.value < 0 ? 0 : _heightAnimation.value,
+                  width: 200.0.w,
+                ),
+                ...List.generate(
+                  titles.length,
+                  (index) {
+                    return Positioned(
+                      top: (_heightAnimation.value / titles.length) * index,
+                      child: Opacity(
+                        opacity: textOpacity,
+                        child: Text(
+                          titles[index],
+                          textAlign: TextAlign.right,
+                          style: AppTextStyles.font30Black700W,
+                        ),
+                      ),
+                    );
+                  },
+                )
+              ],
+            );
+          },
+        ),
+      ),
+    );
+  }
+
+  double get textOpacity {
+    if (_opacityTextAnimation.value < 0) return 0;
+    return _opacityTextAnimation.value > 1 ? 1 : _opacityTextAnimation.value;
   }
 }

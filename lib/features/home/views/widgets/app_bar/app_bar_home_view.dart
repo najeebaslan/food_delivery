@@ -17,7 +17,7 @@ class AppBarHomeView extends StatelessWidget {
   final String redCircleTag;
   static Interval opacityCurve = const Interval(
     0.20,
-    0.70,
+    0.75,
     curve: Curves.fastOutSlowIn,
   );
 
