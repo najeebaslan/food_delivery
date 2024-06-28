@@ -7,10 +7,10 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
 
   ValueNotifier<double> animationTransition = ValueNotifier(0.0);
+  double sizeTextAnimation = 14.0;
 
-  bool showContainer = false;
-  void showOrHideHomeViewContainer() {
-    showContainer = !showContainer;
+  void changeSizeText() {
+    sizeTextAnimation = 20.0;
     emit(ShowOrHideHomeViewContainer());
   }
 }

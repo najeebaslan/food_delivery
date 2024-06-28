@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/core/widget/splash_animation/splash_animation_view.dart';
 import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
+import 'package:food_delivery/features/product_details/product_details_view.dart';
+import 'package:food_delivery/features/splash/splash_view.dart';
 
 import '../../features/home/views/home_view.dart';
-import '../../features/home/views/menu_view.dart';
+import '../../features/menu/menu_view.dart';
 import '../../features/onboarding/onboarding_cubit/onboarding_cubit.dart';
 import '../../features/onboarding/onboarding_home_view.dart';
 import '../styles/app_colors.dart';
@@ -15,6 +16,11 @@ import 'routes_constants.dart';
 
 class AppRouter {
   static Route<dynamic> onGenerateRoute(RouteSettings settings) {
+    const Interval opacityCurve = Interval(
+      0.20,
+      0.75,
+      curve: Curves.fastOutSlowIn,
+    );
     switch (settings.name) {
       // --------------- Auth Screen ---------------//
       case AppRoutesConstants.onboardingHomeView:
@@ -34,13 +40,30 @@ class AppRouter {
         ).routeWithFadeTransition(transitionDuration: 300);
 
       case AppRoutesConstants.splashView:
-        return const SplashAnimationView().routeWithFadeTransition();
+        return const SplashView().routeWithFadeTransition();
 
       case AppRoutesConstants.menuView:
-        return const MenuView().routeWithFadeTransition(
-          transitionDuration: 1350,
-          reverseTransitionDuration: 1350,
+        return const Navigator().routeWithAnimatedBuilder(
+          widget: (animation) {
+            return Opacity(
+              opacity: opacityCurve.transform(animation.value),
+              child: const MenuView(),
+            );
+          },
         );
+
+      case AppRoutesConstants.productDetailsView:
+        return const Navigator().routeWithAnimatedBuilder(
+          transitionDuration: 700,
+          reverseTransitionDuration: 2000,
+          widget: (animation) {
+            return Opacity(
+              opacity: opacityCurve.transform(animation.value),
+              child: const ProductDetailsView(),
+            );
+          },
+        );
+
       default:
         return unknownRouteScreen();
     }
@@ -93,11 +116,15 @@ extension AnimationPageRouter on Widget {
     );
   }
 
-  PageRouteBuilder<dynamic> routeWithAnimatedBuilder(
-      Widget Function(Animation<double> animation) widget) {
+  PageRouteBuilder<dynamic> routeWithAnimatedBuilder({
+    required Widget Function(Animation<double> animation) widget,
+    int? transitionDuration,
+    int? reverseTransitionDuration,
+  }) {
     return PageRouteBuilder<void>(
-      transitionDuration: const Duration(milliseconds: 2000),
-      reverseTransitionDuration: const Duration(milliseconds: 2000),
+      transitionDuration: Duration(milliseconds: transitionDuration ?? 2000),
+      reverseTransitionDuration:
+          Duration(milliseconds: reverseTransitionDuration ?? 2000),
       pageBuilder: (context, animation, secondaryAnimation) {
         return AnimatedBuilder(
           animation: animation,

@@ -39,7 +39,7 @@ class HomeView extends StatelessWidget {
               AnimationSlideTransition(
                 delay: 50,
                 direction: 'down',
-                milliseconds: 200,
+                milliseconds: 150,
                 startFromBottom: -0.1,
                 child: Column(
                   children: [
@@ -131,10 +131,13 @@ class HomeView extends StatelessWidget {
 }
 
 
+
 /* 
-- Hero transition to 
-SVG Exporter
+1- create appBar with hero animation with curves and give it a tag to animate it and speed transition
+2- create a text field so create animation size for hit text and icon search using curve easeInOutBack
+and animation for change fontStyle form matic to normal 
 
+3- using fateTransition to animate the popular list items with delay and direction and startFromBottom
 
-
+-create class ProductDetailsView for navigator from Home View to Product Details
  */

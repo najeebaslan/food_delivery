@@ -29,6 +29,13 @@ class AppTextStyles {
     fontWeight: FontWeight.w300,
     overflow: TextOverflow.ellipsis,
   );
+  static TextStyle font14Black300W = TextStyle(
+    fontSize: 14.sp,
+    color: AppColors.black,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w300,
+    overflow: TextOverflow.clip,
+  );
   static TextStyle font14Black400W = TextStyle(
     fontSize: 14.sp,
     color: AppColors.black,
