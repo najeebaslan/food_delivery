@@ -110,6 +110,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
 
   AnimatedSmoothIndicator _buildSmoothIndicator(OnboardingCubit onboardingStats) {
     return AnimatedSmoothIndicator(
+      curve: Curves.easeOut,
       duration: const Duration(
         milliseconds: NumConstants.animationDuration,
       ),
