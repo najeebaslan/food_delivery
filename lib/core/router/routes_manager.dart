@@ -31,7 +31,7 @@ class AppRouter {
           child: HomeView(
             redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
           ),
-        ).routeWithFadeTransition(transitionDuration: 250);
+        ).routeWithFadeTransition(transitionDuration: 300);
 
       case AppRoutesConstants.splashView:
         return const SplashAnimationView().routeWithFadeTransition();

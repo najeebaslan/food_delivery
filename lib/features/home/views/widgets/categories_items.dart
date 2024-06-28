@@ -19,10 +19,8 @@ class CategoriesItems extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisSize: MainAxisSize.max,
-      verticalDirection: VerticalDirection.down,
       crossAxisAlignment: CrossAxisAlignment.end,
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
           flex: 0,
@@ -49,9 +47,12 @@ class CategoriesItems extends StatelessWidget {
         ),
         Flexible(
           flex: 0,
-          child: _buildCard(
-            imageUri: ImagesConstants.homeBoxDonut,
-            isBurger: false,
+          child: Transform.translate(
+            offset: Offset(transformCardAll.value.w + 12.w, 0),
+            child: _buildCard(
+              imageUri: ImagesConstants.homeBoxDonut,
+              isBurger: false,
+            ),
           ),
         ),
         Flexible(

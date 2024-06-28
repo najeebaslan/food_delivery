@@ -35,20 +35,20 @@ class _TextFieldWithCategoriesAnimationState
 
     /// Scale all this on animation started
     scaleAnimation = Tween<double>(
-      begin: 0.8,
+      begin: 0.5,
       end: 1.0,
     ).animate(curve);
 
     /// Transform card burger when animation is started
     transformBurger = Tween<double>(
-      begin: 100,
-      end: 0,
+      begin: 0,
+      end: -20.w,
     ).animate(curve);
 
     /// Transform card all when animation is started
     transformCardAll = Tween<double>(
       begin: 70,
-      end: 0,
+      end: -3.w,
     ).animate(curve);
 
     /// Sild all this class form down to up

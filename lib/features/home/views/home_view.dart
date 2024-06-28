@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
@@ -18,8 +17,6 @@ class HomeView extends StatelessWidget {
   final String redCircleTag;
   @override
   Widget build(BuildContext context) {
-    timeDilation = 1.0;
-
     return PlatformScaffold(
       backgroundColor: AppColors.homeBackground,
       body: Padding(
@@ -40,9 +37,9 @@ class HomeView extends StatelessWidget {
                 child: const TextFieldWithCategoriesAnimation(),
               ),
               AnimationSlideTransition(
-                delay: 0,
+                delay: 50,
                 direction: 'down',
-                milliseconds: 300,
+                milliseconds: 200,
                 startFromBottom: -0.1,
                 child: Column(
                   children: [
@@ -109,7 +106,7 @@ class HomeView extends StatelessWidget {
                         bottom: 20.h,
                         right: -70.w,
                         child: SimpleShadow(
-                          color: const Color(0x26000000),
+                          color: AppColors.black.withOpacity(0.15),
                           offset: const Offset(-4, -1),
                           sigma: 10,
                           child: Image.asset(
@@ -132,3 +129,12 @@ class HomeView extends StatelessWidget {
     );
   }
 }
+
+
+/* 
+- Hero transition to 
+SVG Exporter
+
+
+
+ */
