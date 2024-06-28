@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../features/onboarding/onboarding_home_view.dart';
-import '../../../constants/assets_constants.dart';
-import '../../../constants/num_constants.dart';
+import '../../onboarding/onboarding_home_view.dart';
+import '../../../core/constants/assets_constants.dart';
+import '../../../core/constants/num_constants.dart';
 
 class ColaCircleGreenWithHero extends StatelessWidget {
   const ColaCircleGreenWithHero({

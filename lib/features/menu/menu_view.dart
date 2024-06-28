@@ -5,9 +5,9 @@ import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/features/home/views/widgets/app_bar/hero_circle_red_app_bar_home_view.dart';
 
-import '../../../core/styles/app_text_styles.dart';
-import 'widgets/app_bar/hero_circle_green_app_bar_home_view.dart';
-import 'widgets/app_bar/hero_circle_yellow_app_bar_home_view.dart';
+import '../../core/styles/app_text_styles.dart';
+import '../home/views/widgets/app_bar/hero_circle_green_app_bar_home_view.dart';
+import '../home/views/widgets/app_bar/hero_circle_yellow_app_bar_home_view.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});

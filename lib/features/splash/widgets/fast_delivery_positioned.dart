@@ -4,7 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 
-import '../../../constants/assets_constants.dart';
+import '../../../core/constants/assets_constants.dart';
 
 class FastDeliveryPositioned extends StatelessWidget {
   const FastDeliveryPositioned({

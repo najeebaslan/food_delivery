@@ -4,27 +4,25 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
-import '../../../features/onboarding/onboarding_home_view.dart';
-import '../../constants/assets_constants.dart';
-import '../../constants/num_constants.dart';
-import '../../router/routes_constants.dart';
-import '../../styles/app_colors.dart';
+import '../../core/constants/assets_constants.dart';
+import '../../core/constants/num_constants.dart';
+import '../../core/router/routes_constants.dart';
+import '../../core/styles/app_colors.dart';
+import '../onboarding/onboarding_home_view.dart';
 import 'widgets/cola_positioned.dart';
 import 'widgets/fast_delivery_positioned.dart';
 
-class SplashAnimationView extends StatefulWidget {
-  const SplashAnimationView({super.key});
+class SplashView extends StatefulWidget {
+  const SplashView({super.key});
 
   @override
-  State<SplashAnimationView> createState() => _SplashAnimationViewState();
+  State<SplashView> createState() => _SplashViewState();
 }
 
-class _SplashAnimationViewState extends State<SplashAnimationView>
-    with SingleTickerProviderStateMixin {
+class _SplashViewState extends State<SplashView> with SingleTickerProviderStateMixin {
   late final AnimationController animationController;
   final _opacityColaCircle = ValueNotifier<double>(0.0);
   final _opacityFastDelivery = ValueNotifier<double>(0.0);
-  final _opacityKetchup = ValueNotifier<double>(1.0);
   final isAnimationStarted = ValueNotifier<bool>(false);
   final onboardingHeroTags = OnboardingHeroTags(
     drinkTag: 'drinkTag',
@@ -38,13 +36,13 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
 
   late final curvedAnimationSlider = CurvedAnimation(
     parent: animationController,
-    curve: Curves.easeInSine,
+    curve: Curves.easeInOut,
   );
   @override
   void initState() {
     super.initState();
     animationController = AnimationController(
-      duration: const Duration(milliseconds: 1000),
+      duration: const Duration(milliseconds: 1300),
       vsync: this,
     );
 
@@ -54,7 +52,6 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
   void startAnimation() {
     _opacityColaCircle.value = 0.9;
     isAnimationStarted.value = true;
-    _opacityKetchup.value = 0.0;
     animationController.forward().whenComplete(
           navigatorToOnboardingView,
         );
@@ -120,16 +117,7 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
                   _buildFriesBlueCircle(height, width),
                   _buildCircleRed(height, width),
                   _buildImageBurgerBlueCircle(height, width),
-                  AnimatedOpacity(
-                    duration: const Duration(seconds: 1),
-                    opacity: _opacityKetchup.value,
-                    child: Image.asset(
-                      ImagesConstants.ketchupIsometric,
-                      height: (height / 4.2),
-                      width: (width / 2.2),
-                      fit: BoxFit.contain,
-                    ),
-                  ),
+                  _buildImageKetchup(height, width),
                   _buildImageCircleRed(height, width),
                   _buildImageYellowCircle(height, width),
                   _buildImageSweetCircleGreen(height, width),
@@ -141,6 +129,26 @@ class _SplashAnimationViewState extends State<SplashAnimationView>
           },
         ),
       ),
+    );
+  }
+
+  TweenAnimationBuilder<double> _buildImageKetchup(double height, double width) {
+    return TweenAnimationBuilder(
+      tween: Tween<double>(begin: 1.0, end: 0.0),
+      curve: Curves.easeInOut,
+      duration: const Duration(milliseconds: 200),
+      builder: (context, opacityKetchup, child) {
+        return AnimatedOpacity(
+          duration: const Duration(seconds: 1),
+          opacity: opacityKetchup,
+          child: Image.asset(
+            ImagesConstants.ketchupIsometric,
+            height: (height / 4.2),
+            width: (width / 2.2),
+            fit: BoxFit.contain,
+          ),
+        );
+      },
     );
   }
 
