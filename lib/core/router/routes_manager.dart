@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
 import 'package:food_delivery/features/product_details/product_details_view.dart';
 import 'package:food_delivery/features/splash/splash_view.dart';
 
@@ -32,11 +31,8 @@ class AppRouter {
         ).routeWithFadeTransition();
 
       case AppRoutesConstants.homeView:
-        return BlocProvider<HomeCubit>(
-          create: (BuildContext context) => HomeCubit(),
-          child: HomeView(
-            redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
-          ),
+        return HomeView(
+          redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
         ).routeWithFadeTransition(transitionDuration: 300);
 
       case AppRoutesConstants.splashView:

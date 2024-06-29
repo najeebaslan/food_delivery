@@ -5,8 +5,8 @@ import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
 import 'package:food_delivery/features/onboarding/widgets/onboarding_circle_bold_green.dart';
 
-class HeroCircleGreenAppBarHomeView extends StatelessWidget {
-  const HeroCircleGreenAppBarHomeView({
+class HeroGreenCircleAppBarHomeView extends StatelessWidget {
+  const HeroGreenCircleAppBarHomeView({
     super.key,
     this.endTweenAnimation,
     this.heroWidgetAngle,

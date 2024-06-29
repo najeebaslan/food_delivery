@@ -5,9 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
+import 'package:food_delivery/features/home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../core/styles/app_colors.dart';
+import 'widgets/hero_blue_circle_product.dart';
 import 'widgets/product_details_list_items.dart';
 
 class ProductDetailsView extends StatelessWidget {
@@ -32,7 +34,7 @@ class ProductDetailsView extends StatelessWidget {
                 Positioned(
                   top: 150.h,
                   left: -70.w,
-                  child: circleBlue(),
+                  child: _blueCircle(),
                 ),
                 Positioned(
                   width: 235.w,
@@ -55,14 +57,14 @@ class ProductDetailsView extends StatelessWidget {
                   height: 78.358.h,
                   width: 78.358.w,
                   right: 53.w,
-                  child: circleYellow(),
+                  child: _yellowCircle(),
                 ),
                 Positioned(
                   top: 180.h,
                   height: 48.13.h,
                   width: 48.13.w,
                   right: 30.w,
-                  child: circleRed(),
+                  child: _redCircle(),
                 ),
                 const ProductDetailsListItems(),
               ],
@@ -73,7 +75,7 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  Hero circleRed() {
+  Hero _redCircle() {
     return Hero(
       createRectTween: (begin, end) {
         return CustomRectTween(
@@ -93,7 +95,7 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  Hero circleYellow() {
+  Hero _yellowCircle() {
     return Hero(
       tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
       createRectTween: (begin, end) {
@@ -110,35 +112,14 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  Hero circleBlue() {
-    return Hero(
-      createRectTween: (begin, end) {
-        return CustomRectTween(
-          begin: begin!,
-          end: end!,
-        );
-      },
-      tag: HeroTagsConstants.bigCircleRedTagHomeViewAppBar,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(
-          maxWidth: 195.023.w,
-          maxHeight: 195.023.h,
-        ),
-        child: Opacity(
-          opacity: 0.10,
-          child: Transform.rotate(
-            angle: 4,
-            child: SvgPicture.asset(
-              ImagesConstants.ellipseRed,
-              height: 195.023.h,
-              width: 195.023.w,
-              colorFilter: ColorFilter.mode(
-                AppColors.blue,
-                BlendMode.srcIn,
-              ),
-            ),
-          ),
-        ),
+  Widget _blueCircle() {
+    return HeroBlueCircleProduct(
+      parameters: HeroRedCircleParameters(
+        height: 195.023.h,
+        width: 195.023.w,
+        animatedBuilderChildAngle: (animationValue) {
+          return animationValue > 7 ? 5.3 : 3;
+        },
       ),
     );
   }
