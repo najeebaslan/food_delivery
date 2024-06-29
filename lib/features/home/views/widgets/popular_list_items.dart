@@ -1,165 +1,106 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:food_delivery/core/styles/app_text_styles.dart';
-import 'package:food_delivery/core/widget/shadow.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/router/routes_constants.dart';
-import '../../blocs/home_cubit/home_cubit.dart';
+import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/styles/app_text_styles.dart';
+import '../../../../core/widget/animation_slide_transition.dart';
+import '../../../../core/widget/shadow.dart';
+import 'popular_card.dart';
 
 class PopularListItems extends StatelessWidget {
   const PopularListItems({
     super.key,
-    required this.title,
-    required this.subtitle,
-    required this.description,
-    required this.imageUri,
-    this.customImage,
-    required this.colorForLineTitle,
   });
-  final String title;
-  final String imageUri;
-  final String subtitle;
-  final String description;
-  final Color colorForLineTitle;
-  final Widget? customImage;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        BlocProvider.of<HomeCubit>(context).navigateToView(
-          NavigateTo.productDetails,
-        );
-
-        Navigator.of(context).pushNamed(
-          AppRoutesConstants.productDetailsView,
-        );
-      },
-      child: Container(
-        width: 362.w,
-        height: 154.h,
-        padding: EdgeInsets.symmetric(
-          horizontal: 19.w,
-          vertical: 18.h,
-        ),
-        decoration: ShapeDecoration(
-          color: Colors.white,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          shadows: const [
-            BoxShadow(
-              color: Color(0x19000000),
-              blurRadius: 10,
-              offset: Offset(0, 10),
-              spreadRadius: 0,
-            )
-          ],
-        ),
-        child: Stack(
-          alignment: Alignment.topCenter,
-          clipBehavior: Clip.none,
-          children: [
-            customImage ??
-                Positioned(
-                  bottom: 40.h,
-                  right: -70.w,
-                  child: SimpleShadow(
-                    color: const Color(0x26000000),
-                    offset: const Offset(-4, -1),
-                    sigma: 10,
-                    child: Image.asset(
-                      imageUri,
-                      width: 199.w,
-                      height: 199.h,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+    return AnimationSlideTransition(
+      delay: 50,
+      direction: 'down',
+      milliseconds: 150,
+      startFromBottom: -0.1,
+      child: Column(
+        children: [
+          Gap(47.h),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: 37.h,
+                maxWidth: 235.w,
+              ),
+              child: PlatformText(
+                'Popular',
+                textAlign: TextAlign.left,
+                style: AppTextStyles.font20White700W.copyWith(
+                  color: AppColors.black,
+                  height: 0,
                 ),
-            Column(
-              children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    PlatformText(
-                      title,
-                      style: AppTextStyles.font30Black400W.copyWith(
-                        height: 0,
-                      ),
-                    ),
-                    Gap(2.w),
-                    Row(
-                      children: List.generate(
-                        5,
-                        (index) => Icon(
-                          index == 4 ? Icons.star_half : Icons.star,
-                          size: 22.w,
-                          color: AppColors.black,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Transform.translate(
-                      offset: Offset(0, -5.h),
-                      child: Container(
-                        width: 85.w,
-                        height: 3.h,
-                        padding: EdgeInsets.zero,
-                        decoration: ShapeDecoration(
-                          color: colorForLineTitle,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          shadows: const [
-                            BoxShadow(
-                              color: Color(0x19000000),
-                              blurRadius: 10,
-                              offset: Offset(0, 10),
-                              spreadRadius: 0,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    Gap(20.w),
-                    AutoSizeText(
-                      subtitle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.font16Black300W.copyWith(
-                        fontStyle: FontStyle.italic,
-                        height: 0.8,
-                      ),
-                    ),
-                  ],
-                ),
-                Gap(12.h),
-                SizedBox(
-                  width: 324.w,
-                  child: AutoSizeText(
-                    description,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    group: AutoSizeGroup(),
-                    style: AppTextStyles.font14Black400W.copyWith(
-                      height: 0,
-                    ),
-                  ),
-                ),
-              ],
+              ),
             ),
-          ],
-        ),
+          ),
+          Gap(30.h),
+          PopularCard(
+            title: 'Hotdog',
+            subtitle: 'Top of the day',
+            description:
+                'The term hot dog can also refer to the sausage itself. The sausage used is a wiener or a frankfurter.',
+            imageUri: ImagesConstants.hotDogIsometric,
+            colorForLineTitle: AppColors.blue,
+          ),
+          Gap(49.h),
+          PopularCard(
+            title: 'Donut',
+            subtitle: 'Top of the week',
+            description:
+                'A doughnut or donut is a type of leavened fried dough. It is popular in many countries and is prepared in various forms as a sweet snack ',
+            imageUri: ImagesConstants.homeBoxDonut,
+            colorForLineTitle: AppColors.red,
+            customImage: Positioned(
+              bottom: 60.h,
+              right: -40.w,
+              child: SimpleShadow(
+                color: const Color(0x26000000),
+                offset: const Offset(-4, -1),
+                sigma: 10,
+                child: Image.asset(
+                  ImagesConstants.homeBoxDonut,
+                  width: 130.w,
+                  height: 130.h,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Gap(49.h),
+          PopularCard(
+            title: 'Donut',
+            subtitle: 'Top of the month',
+            description:
+                'A doughnut or donut is a type of leavened fried dough. It is popular in many countries and is prepared in various forms as a sweet snack ',
+            imageUri: ImagesConstants.friesFront,
+            colorForLineTitle: AppColors.green,
+            customImage: Positioned(
+              bottom: 20.h,
+              right: -70.w,
+              child: SimpleShadow(
+                color: AppColors.black.withOpacity(0.15),
+                offset: const Offset(-4, -1),
+                sigma: 10,
+                child: Image.asset(
+                  ImagesConstants.friesFront,
+                  width: 190.w,
+                  height: 190.h,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          ),
+          Gap(49.h),
+        ],
       ),
     );
   }

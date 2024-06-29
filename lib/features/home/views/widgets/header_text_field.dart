@@ -19,37 +19,34 @@ class HeaderTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(0, -14.h),
-      child: Hero(
-        tag: HeroTagsConstants.appBarTag,
-        flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-          _sizeHintTextAnimations = Tween<double>(
-            begin: 14,
-            end: 16,
-          ).animate(
-            CurvedAnimation(
-              parent: animation,
-              curve: Curves.easeInOutBack,
-            ),
-          );
-          changeSizeHintText();
+    return Hero(
+      tag: HeroTagsConstants.appBarTag,
+      flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
+        _sizeHintTextAnimations = Tween<double>(
+          begin: 14,
+          end: 16,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOutBack,
+          ),
+        );
+        changeSizeHintText();
 
-          return PlatformWidget(
-            cupertino: (context, platform) {
-              return _buildAnimatedBuilder();
-            },
-            material: (context, platform) {
-              return Material(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(30.r),
-                child: _buildAnimatedBuilder(),
-              );
-            },
-          );
-        },
-        child: appBarContent(),
-      ),
+        return PlatformWidget(
+          cupertino: (context, platform) {
+            return _buildAnimatedBuilder();
+          },
+          material: (context, platform) {
+            return Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30.r),
+              child: _buildAnimatedBuilder(),
+            );
+          },
+        );
+      },
+      child: appBarContent(),
     );
   }
 
@@ -74,8 +71,9 @@ class HeaderTextField extends StatelessWidget {
     return Container(
       height: 38.h,
       width: 374.w,
+      padding: EdgeInsets.symmetric(horizontal: 5.w),
       decoration: ShapeDecoration(
-        color: Colors.red,
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
@@ -118,6 +116,7 @@ class HeaderTextField extends StatelessWidget {
         return Container(
           height: 38.h,
           width: 374.w,
+          padding: EdgeInsets.symmetric(horizontal: 5.w),
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(

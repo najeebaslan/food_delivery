@@ -9,6 +9,7 @@ class ImagesConstants {
   static const hotDogIsometric = '${_baseImages}hot_dog_isometric.png';
   static const mayoIsometric = '${_baseImages}mayo_isometric.png';
   static const homeBoxDonut = '${_baseImages}home_box_donut.png';
+  static const crossDonut = '${_baseImages}cross_donut.png';
   static const burgerIsometric = '${_baseImages}burger_isometric.png';
   static const tridonut = '${_baseImages}tridonut.png';
   static const ketchupIsometric = '${_baseImages}ketchup_Isometric.png';

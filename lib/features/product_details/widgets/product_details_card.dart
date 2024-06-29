@@ -5,132 +5,156 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/constants/assets_constants.dart';
 import '../../../core/styles/app_colors.dart';
+import '../data/product_model.dart';
 
 class ProductDetailsCard extends StatelessWidget {
-  const ProductDetailsCard({super.key, required this.index});
+  const ProductDetailsCard({
+    super.key,
+    required this.product,
+    required this.index,
+  });
+  final ProductModel product;
   final int index;
-  static List<Color> borderColors = [
-    AppColors.yellow,
-    AppColors.green,
-    AppColors.red,
-    AppColors.yellow,
-  ];
-  static const List<String> imagesUrl = [
-    ImagesConstants.homeBoxDonut,
-    ImagesConstants.tridonut,
-    ImagesConstants.tridonut,
-    ImagesConstants.tridonut,
-  ];
-  static const List<String> titles = [
-    '',
-    'Spudnut',
-    'Ube',
-    'Vanilla',
-  ];
-  static const List<String> prices = [
-    '\$7.50',
-    '\$17.30',
-    '\$3.50',
-    '\$20.50',
-  ];
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      alignment: _isOdd(index) ? Alignment.centerRight : Alignment.centerLeft,
-      width: 362.w,
-      height: 154.h,
-      margin: EdgeInsets.only(
-        bottom: 24.h,
-      ),
-      padding: EdgeInsets.only(
-        left: 15.w,
-        bottom: 11.h,
-      ),
-      decoration: ShapeDecoration(
-        color: Colors.white,
-        shape: RoundedRectangleBorder(
-          side: BorderSide(
-            width: 1,
-            color: borderColors[index],
+    return Stack(
+      clipBehavior: Clip.none,
+      alignment: Alignment.bottomCenter,
+      children: [
+        Container(
+          alignment: _isOdd(index) ? Alignment.centerRight : Alignment.centerLeft,
+          width: 362.w,
+          height: 154.h,
+          margin: EdgeInsets.only(
+            bottom: 24.h,
           ),
-          borderRadius: BorderRadius.circular(20.r),
-        ),
-        shadows: [
-          BoxShadow(
-            color: const Color(0x19000000),
-            blurRadius: 10,
-            offset: Offset(0, 10.h),
-            spreadRadius: 0,
-          )
-        ],
-      ),
-      child: Padding(
-        padding: EdgeInsets.only(
-          right: _isOdd(index) ? 10.w : 0,
-          left: _isOdd(index) ? 0 : 0.w,
-        ),
-        child: Column(
-          crossAxisAlignment:
-              _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-          children: [
-            Flexible(
-              flex: 1,
-              child: Row(
-                textDirection: _isOdd(index) ? TextDirection.rtl : TextDirection.ltr,
-                children: [
-                  _buildTitleAndSubtitleProduct(),
-                  const Spacer(),
-                  _buildImageProduct(),
-                ],
+          padding: EdgeInsets.only(
+            left: 15.w,
+            bottom: 11.h,
+          ),
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              side: BorderSide(
+                width: 1,
+                color: product.color,
               ),
+              borderRadius: BorderRadius.circular(20.r),
             ),
-            Gap(24.h),
-            Flexible(
-              flex: 0,
-              child: ConstrainedBox(
-                constraints: BoxConstraints(
-                  maxHeight: 28.h,
+            shadows: [
+              BoxShadow(
+                color: const Color(0x19000000),
+                blurRadius: 10,
+                offset: Offset(0, 10.h),
+                spreadRadius: 0,
+              )
+            ],
+          ),
+          child: Stack(
+            clipBehavior: Clip.none,
+            alignment: Alignment.topCenter,
+            // mainAxisSize: MainAxisSize.min,
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  right: _isOdd(index) ? 10.w : 0,
+                  left: _isOdd(index) ? 0 : 0.w,
                 ),
-                child: Padding(
-                  padding: EdgeInsets.only(
-                    right: 15.w,
-                  ),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: _isOdd(index)
-                        ? MainAxisAlignment.spaceBetween
-                        : MainAxisAlignment.end,
-                    children: [
-                      SizedBox(
-                        width: 140.w,
-                        height: 28.h,
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Text(
-                              prices[index],
-                              style: AppTextStyles.font20White700W.copyWith(
-                                color: AppColors.black,
-                                height: 0,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment:
+                      _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                  children: [
+                    _buildTitleAndSubtitleProduct(),
+                    // Flexible(
+                    //   child: Row(
+                    //     textDirection:
+                    //         _isOdd(index) ? TextDirection.rtl : TextDirection.ltr,
+                    //     children: [
+                    //       _buildTitleAndSubtitleProduct(),
+                    //     ],
+                    //   ),
+                    // ),
+                    Gap(24.h),
+                    Flexible(
+                      flex: 0,
+                      child: ConstrainedBox(
+                        constraints: BoxConstraints(
+                          maxHeight: 28.h,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.only(
+                            right: !_isOdd(index) ? 15.w : 0,
+                          ),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: _isOdd(index)
+                                ? MainAxisAlignment.end
+                                : MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                product.price,
+                                style: AppTextStyles.font20White700W.copyWith(
+                                  color: AppColors.black,
+                                  height: 0,
+                                ),
                               ),
-                            ),
-                            Gap(15.w),
-                            if (!_isOdd(index)) _addIconButton(context) else const Spacer(),
-                          ],
+                              Gap(15.w),
+                              if (index != 1 && !_isOdd(index)) const Spacer(),
+                              _addIconButton(context)
+                            ],
+                          ),
+                          //  Row(
+                          //   crossAxisAlignment: CrossAxisAlignment.start,
+                          //   mainAxisAlignment: _isOdd(index)
+                          //       ? MainAxisAlignment.spaceBetween
+                          //       : MainAxisAlignment.end,
+                          //   children: [
+                          //     SizedBox(
+                          //       width: 140.w,
+                          //       height: 28.h,
+                          //       child: Row(
+                          //         crossAxisAlignment: CrossAxisAlignment.start,
+                          //         mainAxisAlignment: MainAxisAlignment.end,
+                          //         children: [
+                          //           Text(
+                          //             product.price,
+                          //             style: AppTextStyles.font20White700W.copyWith(
+                          //               color: AppColors.black,
+                          //               height: 0,
+                          //             ),
+                          //           ),
+                          //           Gap(15.w),
+                          //           if (_isOdd(index)) _addIconButton(context)
+                          //         ],
+                          //       ),
+                          //     ),
+                          //     if (!_isOdd(index))
+                          //       _addIconButton(context)
+                          //     else
+                          //       const Spacer(),
+                          //   ],
+                          // ),
                         ),
                       ),
-                      if (_isOdd(index)) _addIconButton(context)
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
-      ),
+        Positioned(
+          top: _isOdd(index) ? -10.h : -19.h,
+          width: 130.w,
+          height: 130.w,
+          right: _isOdd(index) ? null : -12.w,
+          left: _isOdd(index) ? 0.w : null,
+          child: _buildImageProduct(),
+        ),
+      ],
     );
   }
 
@@ -140,11 +164,17 @@ class ProductDetailsCard extends StatelessWidget {
       crossAxisAlignment:
           _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        AutoSizeText(
-          titles[index],
-          textAlign: _isOdd(index) ? TextAlign.left : TextAlign.right,
-          style: AppTextStyles.font30Black400W.copyWith(
-            height: 0,
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 140.w,
+            maxHeight: 28.h,
+          ),
+          child: AutoSizeText(
+            product.title,
+            textAlign: _isOdd(index) ? TextAlign.left : TextAlign.right,
+            style: AppTextStyles.font30Black400W.copyWith(
+              height: 0,
+            ),
           ),
         ),
         if (index != 0)
@@ -153,7 +183,7 @@ class ProductDetailsCard extends StatelessWidget {
             height: 3.h,
             margin: EdgeInsets.symmetric(vertical: 2.h),
             decoration: ShapeDecoration(
-              color: borderColors[index],
+              color: product.color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -168,33 +198,39 @@ class ProductDetailsCard extends StatelessWidget {
             ),
           )
         else
-          Gap(3.h),
-        AutoSizeText(
-          'Want a delicious meal, but no \ntime we will deliver it hot and yummy.',
-          textAlign: _isOdd(index) ? TextAlign.right : TextAlign.left,
-          textDirection: TextDirection.ltr,
-          style: AppTextStyles.font14Black400W.copyWith(
-            height: 0,
+          Gap(50.h),
+        ConstrainedBox(
+          constraints: BoxConstraints(
+            maxWidth: 232.w,
+            maxHeight: 32.h,
+          ),
+          child: AutoSizeText(
+            'Want a delicious meal, but no \ntime we will deliver it hot and yummy.',
+            textAlign: _isOdd(index) ? TextAlign.right : TextAlign.left,
+            textDirection: TextDirection.ltr,
+            maxLines: 2,
+            overflow: TextOverflow.ellipsis,
+            style: AppTextStyles.font14Black400W.copyWith(
+              height: 0,
+            ),
           ),
         )
       ],
     );
   }
 
-  Expanded _buildImageProduct() {
-    return Expanded(
-      flex: 10,
-      child: SizedBox(
-        width: 130.w,
-        height: 130.w,
-        child: FittedBox(
+  SizedBox _buildImageProduct() {
+    return SizedBox(
+      width: 130.w,
+      height: 130.w,
+      child: FittedBox(
+        fit: BoxFit.cover,
+        alignment: Alignment.center,
+        child: Image.asset(
+          product.imageUrl,
+          width: 130.w,
+          height: 130.w,
           fit: BoxFit.cover,
-          child: Image.asset(
-            imagesUrl[index],
-            width: 130.w,
-            height: 130.w,
-            fit: BoxFit.cover,
-          ),
         ),
       ),
     );
@@ -225,8 +261,8 @@ class ProductDetailsCard extends StatelessWidget {
   }
 
   bool _isOdd(int index) {
-    if (index == 0) return false;
-    if (index == 1) return true;
+    // if (index == 0) return false;
+    // if (index == 1) return true;
     return index % 2 != 0;
   }
 }

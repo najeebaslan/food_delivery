@@ -18,12 +18,12 @@ import 'hero_yellow_circle_app_bar_home_view.dart';
 class AppBarHomeView extends StatelessWidget {
   const AppBarHomeView({
     super.key,
-    required this.redCircleTag,
+     this.redCircleTag,
     this.showIconMenuWithTitleOnly = false,
     this.backFrom = NavigateTo.menu,
   });
 
-  final String redCircleTag;
+  final String? redCircleTag;
   final bool showIconMenuWithTitleOnly;
   final NavigateTo backFrom;
 
@@ -89,7 +89,7 @@ class AppBarHomeView extends StatelessWidget {
           ),
         ),
         Hero(
-          tag: redCircleTag,
+          tag: redCircleTag??'drinkTag',
           createRectTween: (begin, end) {
             return CustomRectTween(
               begin: begin!,
