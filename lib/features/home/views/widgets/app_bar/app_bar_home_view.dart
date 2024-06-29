@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/router/routes_constants.dart';
 
 import '../../../../../core/constants/assets_constants.dart';
@@ -24,21 +27,27 @@ class AppBarHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    log(redCircleTag.toString());
     return Row(
       children: [
-        if (showIconMenuWithTitleOnly == false) ...[
-          _heroRedAndGreenCircles(),
-          Stack(
-            clipBehavior: Clip.none,
-            children: [
-              Positioned(
-                top: -10.h,
-                child: const HeroCircleYellowAppBarHomeView(),
-              ),
-              const HeroCircleRedAppBarHomeView(),
-            ],
-          ),
-        ],
+        if (showIconMenuWithTitleOnly == false) _heroRedAndGreenCircles(),
+        if (showIconMenuWithTitleOnly == false)
+          SizedBox(
+            width: 65.30.w,
+            height: 65.30.h,
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Positioned(
+                  top: -10.h,
+                  child: const HeroCircleYellowAppBarHomeView(),
+                ),
+                const HeroCircleRedAppBarHomeView()
+              ],
+            ),
+          )
+        else
+          SizedBox(width: 0.w, height: 65.30.h), // This for make ui responsive
         _GoodMorningTitleWithHero(
           showIconMenuWithTitleOnly: showIconMenuWithTitleOnly,
         ),
@@ -76,6 +85,12 @@ class AppBarHomeView extends StatelessWidget {
         ),
         Hero(
           tag: redCircleTag,
+          createRectTween: (begin, end) {
+            return CustomRectTween(
+              begin: begin!,
+              end: end!,
+            );
+          },
           child: Transform.rotate(
             angle: 6,
             child: SvgPicture.asset(
@@ -102,22 +117,35 @@ class _GoodMorningTitleWithHero extends StatelessWidget {
       offset: Offset(showIconMenuWithTitleOnly == true ? 10 : -43.w, 0),
       child: Hero(
         tag: HeroTagsConstants.titleAppBarTag,
-        flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-          return AnimatedBuilder(
-            animation: animation,
-            builder: (context, child) {
-              return _goodMorningTitle();
-            },
-          );
+        flightShuttleBuilder: (
+          BuildContext flightContext,
+          Animation<double> animation,
+          HeroFlightDirection flightDirection,
+          BuildContext fromHeroContext,
+          BuildContext toHeroContext,
+        ) {
+          if (context.isIOS) {
+            return _buildAnimatedBuilder(animation);
+          } else {
+            return Material(
+              color: Colors.transparent,
+              child: _buildAnimatedBuilder(animation),
+            );
+          }
         },
         createRectTween: (begin, end) {
-          return CustomRectTween(
-            begin: begin!,
-            end: end!,
-          );
+          return CustomRectTween(begin: begin!, end: end!);
         },
         child: _goodMorningTitle(),
       ),
+    );
+  }
+
+  AnimatedBuilder _buildAnimatedBuilder(Animation<double> animation) {
+    return AnimatedBuilder(
+      animation: animation,
+      child: _goodMorningTitle(),
+      builder: (context, child) => _goodMorningTitle(),
     );
   }
 

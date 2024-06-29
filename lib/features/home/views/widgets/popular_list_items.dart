@@ -29,19 +29,6 @@ class PopularListItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.of(context).push(
-        //   routeWithAnimatedBuilder(
-        //     reverseTransitionDuration: 1350,
-        //     transitionDuration: 500,
-        //     widget: (animation) {
-        //       return Opacity(
-        //         opacity: opacityCurve.transform(animation.value),
-        //         child: const ProductDetailsView(),
-        //       );
-        //     },
-        //   ),
-        // );
-
         Navigator.of(context).pushNamed(
           AppRoutesConstants.productDetailsView,
         );
