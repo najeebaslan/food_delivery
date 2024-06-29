@@ -43,7 +43,7 @@ class AppRouter {
         return const SplashView().routeWithFadeTransition();
 
       case AppRoutesConstants.menuView:
-        return const Navigator().routeWithAnimatedBuilder(
+        return const SizedBox().routeWithAnimatedBuilder(
           widget: (animation) {
             return Opacity(
               opacity: opacityCurve.transform(animation.value),
@@ -53,7 +53,7 @@ class AppRouter {
         );
 
       case AppRoutesConstants.productDetailsView:
-        return const Navigator().routeWithAnimatedBuilder(
+        return const SizedBox().routeWithAnimatedBuilder(
           transitionDuration: 700,
           reverseTransitionDuration: 2000,
           widget: (animation) {

@@ -13,9 +13,9 @@ class HeaderTextField extends StatelessWidget {
   const HeaderTextField({super.key, this.startAnimationHero = false});
   static const String _hintText = 'What you wanna order today ?..';
   final bool startAnimationHero;
-  static Animation<double>? sizeHintTextAnimations;
-  static double sizeHintText = 14;
-  static FontStyle fontStyleHintText = FontStyle.italic;
+  static Animation<double>? _sizeHintTextAnimations;
+  static double _sizeHintText = 14;
+  static FontStyle _fontStyleHintText = FontStyle.italic;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class HeaderTextField extends StatelessWidget {
       child: Hero(
         tag: HeroTagsConstants.appBarTag,
         flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
-          sizeHintTextAnimations = Tween<double>(
+          _sizeHintTextAnimations = Tween<double>(
             begin: 14,
             end: 16,
           ).animate(
@@ -34,16 +34,32 @@ class HeaderTextField extends StatelessWidget {
             ),
           );
           changeSizeHintText();
-          return AnimatedBuilder(
-            animation: sizeHintTextAnimations!,
-            child: appBarContent(),
-            builder: (context, child) {
-              return appBarContent();
+
+          return PlatformWidget(
+            cupertino: (context, platform) {
+              return _buildAnimatedBuilder();
+            },
+            material: (context, platform) {
+              return Material(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30.r),
+                child: _buildAnimatedBuilder(),
+              );
             },
           );
         },
         child: appBarContent(),
       ),
+    );
+  }
+
+  AnimatedBuilder _buildAnimatedBuilder() {
+    return AnimatedBuilder(
+      animation: _sizeHintTextAnimations!,
+      child: faceTextField(),
+      builder: (context, child) {
+        return appBarContent();
+      },
     );
   }
 
@@ -59,7 +75,7 @@ class HeaderTextField extends StatelessWidget {
       height: 38.h,
       width: 374.w,
       decoration: ShapeDecoration(
-        color: Colors.white,
+        color: Colors.red,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.r),
         ),
@@ -67,22 +83,20 @@ class HeaderTextField extends StatelessWidget {
       child: TextField(
         textAlign: TextAlign.start,
         textAlignVertical: TextAlignVertical.bottom,
-        onChanged: (value) {
-          debugPrint(value);
-        },
-        style: AppTextStyles.font16Black300W.copyWith(
+        onChanged: (value) {},
+        style: AppTextStyles.font14Black300W.copyWith(
           height: 0,
-          fontSize: startAnimationHero ? 16.sp : null,
-          fontStyle: startAnimationHero ? FontStyle.normal : FontStyle.italic,
+          fontSize: _sizeHintText.sp,
+          fontStyle: _fontStyleHintText,
         ),
         decoration: InputDecoration(
           hintText: _hintText,
-          border: const OutlineInputBorder(borderSide: BorderSide.none),
-          hintStyle: AppTextStyles.font16Black300W.copyWith(
+          hintStyle: AppTextStyles.font14Black300W.copyWith(
             height: 0,
-            fontSize: startAnimationHero ? 16.sp : null,
-            fontStyle: startAnimationHero ? FontStyle.normal : FontStyle.italic,
+            fontSize: _sizeHintText.sp,
+            fontStyle: _fontStyleHintText,
           ),
+          border: const OutlineInputBorder(borderSide: BorderSide.none),
           suffixIcon: Padding(
             padding: const EdgeInsets.all(7),
             child: SvgPicture.asset(
@@ -99,79 +113,88 @@ class HeaderTextField extends StatelessWidget {
 
   Widget _buildIOSSearchTextField() {
     String valueTextField = '';
-    return Stack(
-      alignment: Alignment.centerLeft,
-      children: [
-        StatefulBuilder(
-          builder: (context, setState) {
-            return Container(
-              height: 38.h,
-              width: 374.w,
-              decoration: ShapeDecoration(
-                color: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-              ),
-              child: CupertinoSearchTextField(
-                borderRadius: BorderRadius.circular(30),
-                style: AppTextStyles.font14Black300W.copyWith(
-                  height: 0,
-                  fontSize: startAnimationHero ? 16.sp : null,
-                  fontStyle: startAnimationHero ? FontStyle.normal : FontStyle.italic,
-                ),
-                suffixMode: OverlayVisibilityMode.always,
-                prefixIcon: const SizedBox.shrink(),
-                suffixIcon: valueTextField.isEmpty
-                    ? Icon(
-                        CupertinoIcons.search,
-                        color: AppColors.black,
-                        size: 25.w,
-                      )
-                    : const Icon(
-                        CupertinoIcons.xmark_circle_fill,
-                      ),
-                backgroundColor: AppColors.white,
-                onChanged: (value) {
-                  setState(() => valueTextField = value);
-                  debugPrint(value);
-                },
-                placeholder: '',
-              ),
-            );
-          },
-        ),
-        Positioned(
-          left: 14.w,
-          child: Text(
-            HeaderTextField._hintText,
-            style: AppTextStyles.font14Black300W.copyWith(
-              height: 0,
-              fontSize: sizeHintText.sp,
-              fontStyle: HeaderTextField.fontStyleHintText,
+    return StatefulBuilder(
+      builder: (context, setState) {
+        return Container(
+          height: 38.h,
+          width: 374.w,
+          decoration: ShapeDecoration(
+            color: Colors.white,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.r),
             ),
           ),
-        ),
-      ],
+          child: CupertinoSearchTextField(
+            borderRadius: BorderRadius.circular(30.r),
+            style: AppTextStyles.font14Black300W.copyWith(
+              height: 0,
+              fontSize: _sizeHintText.sp,
+              fontStyle: _fontStyleHintText,
+            ),
+            suffixMode: OverlayVisibilityMode.always,
+            prefixIcon: const SizedBox.shrink(),
+            suffixIcon: valueTextField.isEmpty
+                ? Icon(
+                    CupertinoIcons.search,
+                    color: AppColors.black,
+                    size: 25.w,
+                  )
+                : const Icon(
+                    CupertinoIcons.xmark_circle_fill,
+                  ),
+            backgroundColor: AppColors.white,
+            placeholderStyle: AppTextStyles.font14Black300W.copyWith(
+              height: 0,
+              fontSize: _sizeHintText.sp,
+              fontStyle: _fontStyleHintText,
+            ),
+            onChanged: (value) {
+              setState(() => valueTextField = value);
+            },
+            placeholder: _hintText,
+          ),
+        );
+      },
     );
   }
 
   void changeSizeHintText() {
-    sizeHintTextAnimations!.addListener(() {
-      if (sizeHintTextAnimations!.value > 13) {
-        sizeHintText = sizeHintTextAnimations!.value;
+    _sizeHintTextAnimations!.addListener(() {
+      if (_sizeHintTextAnimations!.value > 13) {
+        _sizeHintText = _sizeHintTextAnimations!.value;
       }
       changeFontStyleHint();
     });
   }
 
   void changeFontStyleHint() {
-    if ((sizeHintTextAnimations!.value >= 15) && startAnimationHero == true) {
-      fontStyleHintText = FontStyle.normal;
-    } else if ((sizeHintTextAnimations!.value >= 15) && startAnimationHero == false) {
-      fontStyleHintText = FontStyle.normal;
+    if ((_sizeHintTextAnimations!.value >= 15) && startAnimationHero == true) {
+      _fontStyleHintText = FontStyle.normal;
+    } else if ((_sizeHintTextAnimations!.value >= 15) && startAnimationHero == false) {
+      _fontStyleHintText = FontStyle.normal;
     } else {
-      fontStyleHintText = FontStyle.italic;
+      _fontStyleHintText = FontStyle.italic;
     }
+  }
+
+  Widget faceTextField() {
+    return Container(
+      height: 38.h,
+      width: 374.w,
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+      ),
+      child: Text(
+        _hintText,
+        style: AppTextStyles.font14Black300W.copyWith(
+          height: 0,
+          fontSize: _sizeHintText.sp,
+          fontStyle: _fontStyleHintText,
+        ),
+      ),
+    );
   }
 }
