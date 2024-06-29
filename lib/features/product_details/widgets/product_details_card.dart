@@ -38,7 +38,7 @@ class ProductDetailsCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      alignment: isOdd(index) ? Alignment.centerRight : Alignment.centerLeft,
+      alignment: _isOdd(index) ? Alignment.centerRight : Alignment.centerLeft,
       width: 362.w,
       height: 154.h,
       margin: EdgeInsets.only(
@@ -68,17 +68,17 @@ class ProductDetailsCard extends StatelessWidget {
       ),
       child: Padding(
         padding: EdgeInsets.only(
-          right: isOdd(index) ? 10.w : 0,
-          left: isOdd(index) ? 0 : 0.w,
+          right: _isOdd(index) ? 10.w : 0,
+          left: _isOdd(index) ? 0 : 0.w,
         ),
         child: Column(
           crossAxisAlignment:
-              isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+              _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
           children: [
             Flexible(
               flex: 1,
               child: Row(
-                textDirection: isOdd(index) ? TextDirection.rtl : TextDirection.ltr,
+                textDirection: _isOdd(index) ? TextDirection.rtl : TextDirection.ltr,
                 children: [
                   _buildTitleAndSubtitleProduct(),
                   const Spacer(),
@@ -99,7 +99,7 @@ class ProductDetailsCard extends StatelessWidget {
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: isOdd(index)
+                    mainAxisAlignment: _isOdd(index)
                         ? MainAxisAlignment.spaceBetween
                         : MainAxisAlignment.end,
                     children: [
@@ -118,11 +118,11 @@ class ProductDetailsCard extends StatelessWidget {
                               ),
                             ),
                             Gap(15.w),
-                            if (!isOdd(index)) addIconButton(context) else const Spacer(),
+                            if (!_isOdd(index)) _addIconButton(context) else const Spacer(),
                           ],
                         ),
                       ),
-                      if (isOdd(index)) addIconButton(context)
+                      if (_isOdd(index)) _addIconButton(context)
                     ],
                   ),
                 ),
@@ -138,11 +138,11 @@ class ProductDetailsCard extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment:
-          isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+          _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         AutoSizeText(
           titles[index],
-          textAlign: isOdd(index) ? TextAlign.left : TextAlign.right,
+          textAlign: _isOdd(index) ? TextAlign.left : TextAlign.right,
           style: AppTextStyles.font30Black400W.copyWith(
             height: 0,
           ),
@@ -171,7 +171,7 @@ class ProductDetailsCard extends StatelessWidget {
           Gap(3.h),
         AutoSizeText(
           'Want a delicious meal, but no \ntime we will deliver it hot and yummy.',
-          textAlign: isOdd(index) ? TextAlign.right : TextAlign.left,
+          textAlign: _isOdd(index) ? TextAlign.right : TextAlign.left,
           textDirection: TextDirection.ltr,
           style: AppTextStyles.font14Black400W.copyWith(
             height: 0,
@@ -200,7 +200,7 @@ class ProductDetailsCard extends StatelessWidget {
     );
   }
 
-  Container addIconButton(BuildContext context) {
+  Container _addIconButton(BuildContext context) {
     return Container(
       width: 28.w,
       height: 24.h,
@@ -224,7 +224,7 @@ class ProductDetailsCard extends StatelessWidget {
     );
   }
 
-  bool isOdd(int index) {
+  bool _isOdd(int index) {
     if (index == 0) return false;
     if (index == 1) return true;
     return index % 2 != 0;

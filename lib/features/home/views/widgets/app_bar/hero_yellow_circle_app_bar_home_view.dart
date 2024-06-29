@@ -5,8 +5,8 @@ import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
 
-class HeroCircleYellowAppBarHomeView extends StatelessWidget {
-  const HeroCircleYellowAppBarHomeView({
+class HeroYellowCircleAppBarHomeView extends StatelessWidget {
+  const HeroYellowCircleAppBarHomeView({
     super.key,
     this.endTweenAnimation,
     this.heroWidgetAngle,

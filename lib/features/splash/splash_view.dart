@@ -115,14 +115,14 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   _buildBurgerBlueCircle(height, width),
                   _buildSweetGreenCircle(),
                   _buildFriesBlueCircle(height, width),
-                  _buildCircleRed(height, width),
+                  _buildRedCircle(height, width),
                   _buildImageBurgerBlueCircle(height, width),
                   _buildImageKetchup(height, width),
-                  _buildImageCircleRed(height, width),
+                  _buildImageRedCircle(height, width),
                   _buildImageYellowCircle(height, width),
-                  _buildImageSweetCircleGreen(height, width),
+                  _buildImageSweetGreenCircle(height, width),
                   _buildImageFriesBlueCircle(height, width),
-                  _buildImageColaCircleGreen(height, width),
+                  _buildImageColaGreenCircle(height, width),
                 ],
               ),
             );
@@ -152,7 +152,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     );
   }
 
-  SlideTransition _buildImageColaCircleGreen(double height, double width) {
+  SlideTransition _buildImageColaGreenCircle(double height, double width) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
@@ -183,7 +183,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildImageSweetCircleGreen(double height, double width) {
+  Widget _buildImageSweetGreenCircle(double height, double width) {
     return ValueListenableBuilder(
       valueListenable: isAnimationStarted,
       builder: (context, value, child) {
@@ -215,7 +215,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     );
   }
 
-  SlideTransition _buildImageCircleRed(double height, double width) {
+  SlideTransition _buildImageRedCircle(double height, double width) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
@@ -233,7 +233,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
     );
   }
 
-  SlideTransition _buildCircleRed(double height, double width) {
+  SlideTransition _buildRedCircle(double height, double width) {
     return SlideTransition(
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
