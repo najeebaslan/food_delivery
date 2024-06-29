@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/features/home/views/widgets/header_text_field.dart';
 import 'package:food_delivery/features/product_details/widgets/product_details_card.dart';
 import 'package:gap/gap.dart';
 
-import '../../home/views/widgets/app_bar/app_bar_home_view.dart';
 import '../data/product_model.dart';
 
 class ProductDetailsListItems extends StatelessWidget {
@@ -16,20 +14,10 @@ class ProductDetailsListItems extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const AppBarHomeView(
-            redCircleTag: 'redCircleTag',
-            showIconMenuWithTitleOnly: true,
-          ),
-          Gap(21.h),
-          Padding(
-            padding: EdgeInsets.only(right: 24.w),
-            child: const HeaderTextField(
-              startAnimationHero: true,
-            ),
-          ),
-          Gap(157.h),
+          Gap(190.h),
           ...List.generate(ProductModel.products.length, (index) {
             return GestureDetector(
               onTap: () => Navigator.pop(context),

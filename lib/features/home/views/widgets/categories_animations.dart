@@ -6,18 +6,16 @@ import 'package:gap/gap.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_text_styles.dart';
 import 'categories_items.dart';
-import 'header_text_field.dart';
 
-class TextFieldWithCategoriesAnimation extends StatefulWidget {
-  const TextFieldWithCategoriesAnimation({super.key});
+class CategoriesAnimations extends StatefulWidget {
+  const CategoriesAnimations({super.key});
 
   @override
-  State<TextFieldWithCategoriesAnimation> createState() =>
-      _TextFieldWithCategoriesAnimationState();
+  State<CategoriesAnimations> createState() => _CategoriesAnimationsState();
 }
 
-class _TextFieldWithCategoriesAnimationState
-    extends State<TextFieldWithCategoriesAnimation> with SingleTickerProviderStateMixin {
+class _CategoriesAnimationsState extends State<CategoriesAnimations>
+    with SingleTickerProviderStateMixin {
   late AnimationController animationController;
   late Animation<double> scaleAnimation;
   late Animation<Offset> slideAnimation;
@@ -81,8 +79,7 @@ class _TextFieldWithCategoriesAnimationState
             scale: scaleAnimation.value,
             child: Column(
               children: [
-                const HeaderTextField(),
-                Gap(50.h),
+                Gap(60.h),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: ConstrainedBox(

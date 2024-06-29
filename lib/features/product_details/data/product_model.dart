@@ -18,18 +18,18 @@ class ProductModel {
   static List<ProductModel> products = [
     ProductModel(
       color: AppColors.yellow,
-      title: 'Spudnut',
+      title: '',
       price: '\$7.50',
       imageUrl: ImagesConstants.homeBoxDonut,
     ),
     ProductModel(
-      title: 'Ube',
+      title: 'Spudnut',
       price: '\$17.30',
       color: AppColors.green,
       imageUrl: ImagesConstants.crossDonut,
     ),
     ProductModel(
-      title: 'Vanilla',
+      title: 'Ube',
       price: '\$3.50',
       color: AppColors.red,
       imageUrl: ImagesConstants.tridonut,
