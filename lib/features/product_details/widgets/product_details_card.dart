@@ -5,36 +5,18 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/constants/assets_constants.dart';
 import '../../../core/styles/app_colors.dart';
+import '../data/product_model.dart';
 
 class ProductDetailsCard extends StatelessWidget {
-  const ProductDetailsCard({super.key, required this.index});
+  const ProductDetailsCard({
+    super.key,
+    required this.product,
+    required this.index,
+  });
+  final ProductModel product;
   final int index;
-  static List<Color> borderColors = [
-    AppColors.yellow,
-    AppColors.green,
-    AppColors.red,
-    AppColors.yellow,
-  ];
-  static const List<String> imagesUrl = [
-    ImagesConstants.homeBoxDonut,
-    ImagesConstants.tridonut,
-    ImagesConstants.tridonut,
-    ImagesConstants.tridonut,
-  ];
-  static const List<String> titles = [
-    '',
-    'Spudnut',
-    'Ube',
-    'Vanilla',
-  ];
-  static const List<String> prices = [
-    '\$7.50',
-    '\$17.30',
-    '\$3.50',
-    '\$20.50',
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -53,7 +35,7 @@ class ProductDetailsCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           side: BorderSide(
             width: 1,
-            color: borderColors[index],
+            color: product.color,
           ),
           borderRadius: BorderRadius.circular(20.r),
         ),
@@ -111,14 +93,17 @@ class ProductDetailsCard extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Text(
-                              prices[index],
+                              product.price,
                               style: AppTextStyles.font20White700W.copyWith(
                                 color: AppColors.black,
                                 height: 0,
                               ),
                             ),
                             Gap(15.w),
-                            if (!_isOdd(index)) _addIconButton(context) else const Spacer(),
+                            if (!_isOdd(index))
+                              _addIconButton(context)
+                            else
+                              const Spacer(),
                           ],
                         ),
                       ),
@@ -141,7 +126,7 @@ class ProductDetailsCard extends StatelessWidget {
           _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         AutoSizeText(
-          titles[index],
+          product.title,
           textAlign: _isOdd(index) ? TextAlign.left : TextAlign.right,
           style: AppTextStyles.font30Black400W.copyWith(
             height: 0,
@@ -153,7 +138,7 @@ class ProductDetailsCard extends StatelessWidget {
             height: 3.h,
             margin: EdgeInsets.symmetric(vertical: 2.h),
             decoration: ShapeDecoration(
-              color: borderColors[index],
+              color: product.color,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),
@@ -190,7 +175,7 @@ class ProductDetailsCard extends StatelessWidget {
         child: FittedBox(
           fit: BoxFit.cover,
           child: Image.asset(
-            imagesUrl[index],
+            product.imageUrl,
             width: 130.w,
             height: 130.w,
             fit: BoxFit.cover,

@@ -5,6 +5,7 @@ import 'package:food_delivery/features/product_details/widgets/product_details_c
 import 'package:gap/gap.dart';
 
 import '../../home/views/widgets/app_bar/app_bar_home_view.dart';
+import '../data/product_model.dart';
 
 class ProductDetailsListItems extends StatelessWidget {
   const ProductDetailsListItems({
@@ -29,10 +30,13 @@ class ProductDetailsListItems extends StatelessWidget {
             ),
           ),
           Gap(157.h),
-          ...List.generate(4, (index) {
+          ...List.generate(ProductModel.products.length, (index) {
             return GestureDetector(
               onTap: () => Navigator.pop(context),
-              child: ProductDetailsCard(index: index),
+              child: ProductDetailsCard(
+                product: ProductModel.products[index],
+                index: index,
+              ),
             );
           })
         ],

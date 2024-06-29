@@ -5,10 +5,10 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
-import 'package:food_delivery/features/home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../core/styles/app_colors.dart';
+import '../home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
 import 'widgets/hero_blue_circle_product.dart';
 import 'widgets/product_details_list_items.dart';
 
