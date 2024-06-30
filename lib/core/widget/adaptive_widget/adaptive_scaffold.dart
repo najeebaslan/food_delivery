@@ -19,7 +19,6 @@ class AdaptiveScaffold extends StatelessWidget {
     if (context.isIOS) {
       return CupertinoPageScaffold(
         backgroundColor: backgroundColor,
-        resizeToAvoidBottomInset: true,
         navigationBar: appBar,
         child: body,
       );

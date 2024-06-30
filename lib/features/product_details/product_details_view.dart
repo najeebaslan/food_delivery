@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
+import 'package:food_delivery/features/product_details/widgets/product_details_list_view.dart';
 
 import '../../core/constants/assets_constants.dart';
 import '../../core/styles/app_colors.dart';
@@ -13,7 +15,6 @@ import '../home/views/widgets/app_bar/app_bar_home_view.dart';
 import '../home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
 import '../home/views/widgets/header_text_field.dart';
 import 'widgets/hero_blue_circle_product.dart';
-import 'widgets/product_details_list_items.dart';
 
 class ProductDetailsView extends StatelessWidget {
   const ProductDetailsView({super.key});
@@ -22,9 +23,7 @@ class ProductDetailsView extends StatelessWidget {
   Widget build(BuildContext context) {
     return AdaptiveScaffold(
       backgroundColor: AppColors.productDetailsBackground,
-      appBar: AdaptiveAppBar(
-        customAppBar: _buildAppBar(),
-      ),
+      appBar: _buildAppBar(context),
       body: Padding(
         padding: EdgeInsets.only(
           right: 24.w,
@@ -37,14 +36,14 @@ class ProductDetailsView extends StatelessWidget {
             clipBehavior: Clip.none,
             children: [
               Positioned(
-                top: 50.h,
+                top: context.isIOS ? 50.h : 10.h,
                 left: -70.w,
                 child: _blueCircle(),
               ),
               Positioned(
                 width: 235.w,
                 height: 37.h,
-                top: 100.h,
+                top: context.isIOS ? 100.h : 60.h,
                 left: 0.w,
                 child: ConstrainedBox(
                   constraints: BoxConstraints(
@@ -58,20 +57,20 @@ class ProductDetailsView extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: 80.h,
+                top: context.isIOS ? 80.h : 40.h,
                 height: 78.358.h,
                 width: 78.358.w,
                 right: 53.w,
                 child: _yellowCircle(),
               ),
               Positioned(
-                top: 120.h,
+                top: context.isIOS ? 120.h : 80.h,
                 height: 48.13.h,
                 width: 48.13.w,
                 right: 30.w,
                 child: _redCircle(),
               ),
-              const Center(child: ProductDetailsListItems()),
+              const Center(child: ProductDetailsListView()),
             ],
           ),
         ),
@@ -128,26 +127,28 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  AdaptiveAppBar _buildAppBar() {
+  AdaptiveAppBar _buildAppBar(BuildContext context) {
     return AdaptiveAppBar(
-      size: Size.fromHeight(65.h),
+      size: Size.fromHeight(context.isIOS ? 65.h : 115.h),
       customAppBar: Container(
         padding: EdgeInsets.only(
           right: 24.w,
           left: 24.w,
-          top: 64.h,
         ),
         color: AppColors.productDetailsBackground,
-        child: Column(
-          children: [
-            const AppBarHomeView(
-              showIconMenuWithTitleOnly: true,
-            ),
-            Padding(
-              padding: EdgeInsets.only(right: 15.w),
-              child: const HeaderTextField(),
-            ),
-          ],
+        child: SafeArea(
+          bottom: false,
+          child: Column(
+            children: [
+              const AppBarHomeView(
+                showIconMenuWithTitleOnly: true,
+              ),
+              Padding(
+                padding: EdgeInsets.only(right: 15.w, bottom: 8.h),
+                child: const HeaderTextField(),
+              ),
+            ],
+          ),
         ),
       ),
     );

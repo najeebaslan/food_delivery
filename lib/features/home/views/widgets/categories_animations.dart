@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../core/styles/app_colors.dart';
@@ -79,7 +80,7 @@ class _CategoriesAnimationsState extends State<CategoriesAnimations>
             scale: scaleAnimation.value,
             child: Column(
               children: [
-                Gap(60.h),
+                Gap(context.isIOS ? 70.h : 30.h),
                 Align(
                   alignment: Alignment.centerLeft,
                   child: ConstrainedBox(
