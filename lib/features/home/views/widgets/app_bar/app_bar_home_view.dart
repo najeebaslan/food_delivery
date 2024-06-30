@@ -13,6 +13,7 @@ import '../../../../../core/widget/custom_rect_tween.dart';
 import '../../../blocs/home_cubit/home_cubit.dart';
 import 'hero_green_circle_app_bar_home_view.dart';
 import 'hero_red_circle_app_bar_home_view.dart';
+import 'hero_small_red_circle_app_bar_home_view.dart';
 import 'hero_yellow_circle_app_bar_home_view.dart';
 
 class AppBarHomeView extends StatelessWidget {
@@ -88,22 +89,8 @@ class AppBarHomeView extends StatelessWidget {
             child: HeroGreenCircleAppBarHomeView(),
           ),
         ),
-        Hero(
-          tag: redCircleTag ?? 'drinkTag',
-          createRectTween: (begin, end) {
-            return CustomRectTween(
-              begin: begin!,
-              end: end!,
-            );
-          },
-          child: Transform.rotate(
-            angle: 6,
-            child: SvgPicture.asset(
-              ImagesConstants.ellipseRed,
-              height: 32.28.h,
-              width: 32.28.w,
-            ),
-          ),
+        HeroSmallRedCircleAppBarHomeView(
+          redCircleTag: redCircleTag,
         ),
       ],
     );
