@@ -36,6 +36,7 @@ class HeroYellowCircleAppBarHomeView extends StatelessWidget {
       builder: (context, state) {
         if (context.read<HomeCubit>().navigateTo == NavigateTo.productDetails) {
           return Hero(
+            transitionOnUserGestures: true,
             tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
             createRectTween: (begin, end) {
               return CustomRectTween(
