@@ -19,12 +19,10 @@ class AdaptiveAppBar extends StatelessWidget
       return customAppBar ??
           CupertinoNavigationBar(
             middle: title,
+            padding: EdgeInsetsDirectional.zero,
           );
     }
-    return customAppBar ??
-        AppBar(
-          title: title,
-        );
+    return customAppBar ?? AppBar(title: title);
   }
 
   @override

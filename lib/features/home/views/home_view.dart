@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:gap/gap.dart';
 
@@ -64,54 +65,55 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     return AdaptiveScaffold(
       backgroundColor: AppColors.homeBackground,
       appBar: AdaptiveAppBar(
-        size: Size.fromHeight(65.h),
+        size: Size.fromHeight(context.isIOS ? 65.h : 115.h),
         customAppBar: Container(
           padding: EdgeInsets.only(
             right: 24.w,
             left: 24.w,
-            top: 64.h,
+            // top: 64.h,
           ),
           color: AppColors.homeBackground,
-          child: Column(
-            children: [
-              AppBarHomeView(
-                redCircleTag: widget.redCircleTag,
-              ),
-              AnimatedBuilder(
-                animation: animationController,
-                builder: (context, child) {
-                  return SlideTransition(
-                    position: slideAnimation,
-                    child: Transform.scale(
-                      scale: scaleAnimation.value,
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 15.w),
-                        child: const HeaderTextField(),
+          child: SafeArea(
+            bottom: false,
+            child: Column(
+              children: [
+                AppBarHomeView(
+                  redCircleTag: widget.redCircleTag,
+                ),
+                AnimatedBuilder(
+                  animation: animationController,
+                  builder: (context, child) {
+                    return SlideTransition(
+                      position: slideAnimation,
+                      child: Transform.scale(
+                        scale: scaleAnimation.value,
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 15.w),
+                          child: const HeaderTextField(),
+                        ),
                       ),
-                    ),
-                  );
-                },
-              )
-            ],
+                    );
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.only(right: 24.w, left: 24.w),
-          child: SingleChildScrollView(
-            clipBehavior: Clip.none,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Gap(10.h),
-                Padding(
-                  padding: EdgeInsets.only(right: 24.w, top: 8.h),
-                  child: const CategoriesAnimations(),
-                ),
-                const PopularListItems(),
-              ],
-            ),
+      body: Padding(
+        padding: EdgeInsets.only(right: 24.w, left: 24.w),
+        child: SingleChildScrollView(
+          clipBehavior: Clip.none,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Gap(10.h),
+              Padding(
+                padding: EdgeInsets.only(right: 24.w),
+                child: const CategoriesAnimations(),
+              ),
+              const PopularListItems(),
+            ],
           ),
         ),
       ),

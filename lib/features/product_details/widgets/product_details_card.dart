@@ -1,4 +1,3 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import 'package:gap/gap.dart';
 
 import '../../../core/styles/app_colors.dart';
 import '../data/product_model.dart';
+import 'title_and_subtitle_product.dart';
 
 class ProductDetailsCard extends StatelessWidget {
   const ProductDetailsCard({
@@ -55,7 +55,6 @@ class ProductDetailsCard extends StatelessWidget {
           child: Stack(
             clipBehavior: Clip.none,
             alignment: Alignment.topCenter,
-            // mainAxisSize: MainAxisSize.min,
             children: [
               Padding(
                 padding: EdgeInsets.only(
@@ -67,16 +66,12 @@ class ProductDetailsCard extends StatelessWidget {
                   crossAxisAlignment:
                       _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
-                    _buildTitleAndSubtitleProduct(),
-                    // Flexible(
-                    //   child: Row(
-                    //     textDirection:
-                    //         _isOdd(index) ? TextDirection.rtl : TextDirection.ltr,
-                    //     children: [
-                    //       _buildTitleAndSubtitleProduct(),
-                    //     ],
-                    //   ),
-                    // ),
+                    TitleAndSubtitleProduct(
+                      isOdd: _isOdd(index),
+                      index: index,
+                      title: product.title,
+                      color: product.color,
+                    ),
                     Gap(24.h),
                     Flexible(
                       flex: 0,
@@ -106,37 +101,6 @@ class ProductDetailsCard extends StatelessWidget {
                               _addIconButton(context)
                             ],
                           ),
-                          //  Row(
-                          //   crossAxisAlignment: CrossAxisAlignment.start,
-                          //   mainAxisAlignment: _isOdd(index)
-                          //       ? MainAxisAlignment.spaceBetween
-                          //       : MainAxisAlignment.end,
-                          //   children: [
-                          //     SizedBox(
-                          //       width: 140.w,
-                          //       height: 28.h,
-                          //       child: Row(
-                          //         crossAxisAlignment: CrossAxisAlignment.start,
-                          //         mainAxisAlignment: MainAxisAlignment.end,
-                          //         children: [
-                          //           Text(
-                          //             product.price,
-                          //             style: AppTextStyles.font20White700W.copyWith(
-                          //               color: AppColors.black,
-                          //               height: 0,
-                          //             ),
-                          //           ),
-                          //           Gap(15.w),
-                          //           if (_isOdd(index)) _addIconButton(context)
-                          //         ],
-                          //       ),
-                          //     ),
-                          //     if (!_isOdd(index))
-                          //       _addIconButton(context)
-                          //     else
-                          //       const Spacer(),
-                          //   ],
-                          // ),
                         ),
                       ),
                     )
@@ -154,67 +118,6 @@ class ProductDetailsCard extends StatelessWidget {
           left: _isOdd(index) ? 0.w : null,
           child: _buildImageProduct(),
         ),
-      ],
-    );
-  }
-
-  Column _buildTitleAndSubtitleProduct() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment:
-          _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-      children: [
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 140.w,
-            maxHeight: 28.h,
-          ),
-          child: AutoSizeText(
-            product.title,
-            textAlign: _isOdd(index) ? TextAlign.left : TextAlign.right,
-            style: AppTextStyles.font30Black400W.copyWith(
-              height: 0,
-            ),
-          ),
-        ),
-        if (index != 0)
-          Container(
-            width: 80.w,
-            height: 3.h,
-            margin: EdgeInsets.symmetric(vertical: 2.h),
-            decoration: ShapeDecoration(
-              color: product.color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              shadows: const [
-                BoxShadow(
-                  color: Color(0x19000000),
-                  blurRadius: 10,
-                  offset: Offset(0, 10),
-                  spreadRadius: 0,
-                )
-              ],
-            ),
-          )
-        else
-          Gap(50.h),
-        ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 232.w,
-            maxHeight: 32.h,
-          ),
-          child: AutoSizeText(
-            'Want a delicious meal, but no \ntime we will deliver it hot and yummy.',
-            textAlign: _isOdd(index) ? TextAlign.right : TextAlign.left,
-            textDirection: TextDirection.ltr,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.font14Black400W.copyWith(
-              height: 0,
-            ),
-          ),
-        )
       ],
     );
   }
@@ -260,9 +163,5 @@ class ProductDetailsCard extends StatelessWidget {
     );
   }
 
-  bool _isOdd(int index) {
-    // if (index == 0) return false;
-    // if (index == 1) return true;
-    return index % 2 != 0;
-  }
+  bool _isOdd(int index) => index % 2 != 0;
 }
