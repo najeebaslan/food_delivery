@@ -43,7 +43,7 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
             return AnimatedBuilder(
               animation: animation,
               child: Transform.rotate(
-                angle:6,
+                angle: 6,
                 child: _buildImageSmallRedCircle(),
               ),
               builder: (context, child) {
@@ -76,6 +76,4 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
       width: width ?? 32.28.w,
     );
   }
-
-  
 }
