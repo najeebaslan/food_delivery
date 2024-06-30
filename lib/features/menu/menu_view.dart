@@ -121,10 +121,10 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
                   left: 70.w,
                   child: HeroYellowCircleAppBarHomeView(
                     endTweenAnimation: 3.3,
-                    heroWidgetAngle: 2.9,
+                    angle: 2.9,
                     imageYellowAngle: 3.2,
-                    heroWidgetHeight: 138.142.h,
-                    heroWidgetWidth: 138.142.w,
+                    height: 138.142.h,
+                    width: 138.142.w,
                     animatedBuilderChildAngle: (animationValue) {
                       return animationValue > 7 ? 5.3 : 3;
                     },

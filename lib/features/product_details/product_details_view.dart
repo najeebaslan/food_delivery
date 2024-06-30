@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
 import 'package:food_delivery/features/product_details/widgets/product_details_list_view.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/hero_tags_constants.dart';
 import '../../core/styles/app_colors.dart';
 import '../../core/widget/adaptive_widget/adaptive_app_bar.dart';
 import '../../core/widget/adaptive_widget/adaptive_scaffold.dart';
 import '../home/views/widgets/app_bar/app_bar_home_view.dart';
 import '../home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
+import '../home/views/widgets/app_bar/hero_small_red_circle_app_bar_home_view.dart';
 import '../home/views/widgets/header_text_field.dart';
 import 'widgets/hero_blue_circle_product.dart';
 
@@ -78,27 +79,33 @@ class ProductDetailsView extends StatelessWidget {
     );
   }
 
-  Hero _redCircle() {
-    return Hero(
-      tag: 'drinkTag',
-      child: Transform.rotate(
-        angle: 2.3,
-        child: SvgPicture.asset(
-          ImagesConstants.ellipseRed,
-          height: 48.13.h,
-          width: 48.13.w,
-        ),
-      ),
-      createRectTween: (begin, end) {
-        return CustomRectTween(
-          begin: begin!,
-          end: end!,
-        );
-      },
+  Widget _redCircle() {
+    return HeroSmallRedCircleAppBarHomeView(
+      redCircleTag: 'drinkTag',
+      height: 48.13.h,
+      width: 48.13.w,
+      angle: 2,
     );
+    // Hero(
+    //   tag: 'drinkTag',
+    //   child: Transform.rotate(
+    //     angle: 2.3,
+    //     child: SvgPicture.asset(
+    //       ImagesConstants.ellipseRed,
+    //       height: 48.13.h,
+    //       width: 48.13.w,
+    //     ),
+    //   ),
+    //   createRectTween: (begin, end) {
+    //     return CustomRectTween(
+    //       begin: begin!,
+    //       end: end!,
+    //     );
+    //   },
+    // );
   }
 
-  Hero _yellowCircle() {
+  Widget _yellowCircle() {
     return Hero(
       tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
       createRectTween: (begin, end) {
