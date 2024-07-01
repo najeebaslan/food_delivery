@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
+import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 import '../../core/styles/app_text_styles.dart';
 
@@ -161,13 +163,14 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
   }
 
   void backToHomeView(BuildContext context) {
-    Navigator.pop(context);
-    Future.delayed(
-      const Duration(milliseconds: 150),
-      () {
-        if (mounted) _animationController.reverse();
-      },
-    );
+    context.read<HomeAnimationCubit>().animationController.reverse();
+    // Navigator.pop(context);
+    // Future.delayed(
+    //   const Duration(milliseconds: 150),
+    //   () {
+    //     if (mounted) _animationController.reverse();
+    //   },
+    // );
   }
 
   Align _buildMenuTitles(BoxConstraints constraints) {

@@ -30,9 +30,9 @@ class PopularCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        BlocProvider.of<HomeCubit>(context).navigateToView(
-          NavigateTo.productDetails,
-        );
+        // BlocProvider.of<HomeCubit>(context).navigateToView(
+        //   NavigateTo.productDetails,
+        // );
 
         Navigator.of(context).pushNamed(
           AppRoutesConstants.productDetailsView,
