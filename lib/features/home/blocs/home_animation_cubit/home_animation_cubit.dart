@@ -24,14 +24,13 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   late Animation<Size> positionGreenCircle;
   late Animation<double> sizeGreenCircle;
 // List Menu Texts
-  late Animation<double> heightAnimation;
+  late Animation<double> heightTitlesMenuAnimation;
   late Animation<double> opacityColorMenu;
 
   late final curve = CurvedAnimation(
     parent: animationController,
     curve: Curves.easeInOutBack,
   );
-  // Color homeBackground = AppColors.homeBackground;
 
   void setupAnimation(BuildContext context) {
     // Red Circle
@@ -82,7 +81,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
 // List Menu Texts
 
-    heightAnimation = Tween<double>(
+    heightTitlesMenuAnimation = Tween<double>(
       begin: 20.0.h,
       end: 300.0.h,
     ).animate(curve);

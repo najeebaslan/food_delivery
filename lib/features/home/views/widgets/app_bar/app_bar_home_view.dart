@@ -1,160 +1,165 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:food_delivery/core/extensions/context_extension.dart';
-import 'package:food_delivery/core/router/routes_constants.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+// import 'package:flutter_screenutil/flutter_screenutil.dart';
+// import 'package:flutter_svg/flutter_svg.dart';
+// import 'package:food_delivery/core/extensions/context_extension.dart';
+// import 'package:food_delivery/core/router/routes_constants.dart';
 
-import '../../../../../core/constants/assets_constants.dart';
-import '../../../../../core/constants/hero_tags_constants.dart';
-import '../../../../../core/styles/app_text_styles.dart';
-import '../../../../../core/widget/custom_rect_tween.dart';
-import '../../../blocs/home_cubit/home_cubit.dart';
-import 'hero_green_circle_app_bar_home_view.dart';
-import 'hero_red_circle_app_bar_home_view.dart';
-import 'hero_small_red_circle_app_bar_home_view.dart';
-import 'hero_yellow_circle_app_bar_home_view.dart';
+// import '../../../../../core/constants/assets_constants.dart';
+// import '../../../../../core/constants/hero_tags_constants.dart';
+// import '../../../../../core/styles/app_text_styles.dart';
+// import '../../../../../core/widget/custom_rect_tween.dart';
+// import '../../../blocs/home_cubit/home_cubit.dart';
+// import 'hero_green_circle_app_bar_home_view.dart';
+// import 'hero_red_circle_app_bar_home_view.dart';
+// import 'hero_small_red_circle_app_bar_home_view.dart';
+// import 'hero_yellow_circle_app_bar_home_view.dart';
 
-class AppBarHomeView extends StatelessWidget {
-  const AppBarHomeView({
-    super.key,
-    this.showIconMenuWithTitleOnly = false,
-    this.backFrom = NavigateTo.menu,
-  });
+// class AppBarHomeView extends StatelessWidget {
+//   const AppBarHomeView({
+//     super.key,
+//     this.showIconMenuWithTitleOnly = false,
+//     this.backFrom = NavigateTo.menu,
+//   });
 
-  final bool showIconMenuWithTitleOnly;
-  final NavigateTo backFrom;
+//   final bool showIconMenuWithTitleOnly;
+//   final NavigateTo backFrom;
 
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (showIconMenuWithTitleOnly == false) _heroRedAndGreenCircles(),
-        if (showIconMenuWithTitleOnly == false)
-          SizedBox(
-            width: 65.30.w,
-            height: 65.30.h,
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: -10.h,
-                  child: const HeroYellowCircleAppBarHomeView(),
-                ),
-                const HeroRedCircleAppBarHomeView(),
-              ],
-            ),
-          )
-        else
-          SizedBox(width: 0.w, height: 65.30.h), // This for make ui responsive
-        GoodMorningTitleWithHero(
-          showIconMenuWithTitleOnly: showIconMenuWithTitleOnly,
-        ),
-        const Spacer(),
-        _menuIconButton(context),
-      ],
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Row(
+//       children: [
+//         if (showIconMenuWithTitleOnly == false) _heroRedAndGreenCircles(),
+//         if (showIconMenuWithTitleOnly == false)
+//           SizedBox(
+//             width: 65.30.w,
+//             height: 65.30.h,
+//             child: Stack(
+//               clipBehavior: Clip.none,
+//               children: [
+//                 Positioned(
+//                   top: -10.h,
+//                   child: const HeroYellowCircleAppBarHomeView(),
+//                 ),
+//                 const HeroRedCircleAppBarHomeView(),
+//               ],
+//             ),
+//           )
+//         else
+//           SizedBox(width: 0.w, height: 65.30.h), // This for make ui responsive
+//         GoodMorningTitleWithHero(
+//           showIconMenuWithTitleOnly: showIconMenuWithTitleOnly,
+//         ),
+//         const Spacer(),
+//         _menuIconButton(context),
+//       ],
+//     );
+//   }
 
-  PlatformIconButton _menuIconButton(BuildContext context) {
-    return PlatformIconButton(
-      onPressed: () {
-        context.read<HomeCubit>().navigateToView(
-              NavigateTo.menu,
-            );
+//   PlatformIconButton _menuIconButton(BuildContext context) {
+//     return PlatformIconButton(
+//       onPressed: () {
+//         context.read<HomeCubit>().navigateToView(
+//               NavigateTo.menu,
+//             );
 
-        Navigator.pushNamed(
-          context,
-          AppRoutesConstants.menuView,
-        );
-      },
-      icon: SvgPicture.asset(
-        ImagesConstants.homeMenuIcon,
-        height: 14.h,
-        width: 24.w,
-      ),
-    );
-  }
+//         Navigator.pushNamed(
+//           context,
+//           AppRoutesConstants.menuView,
+//         );
+//       },
+//       icon: SvgPicture.asset(
+//         ImagesConstants.homeMenuIcon,
+//         height: 14.h,
+//         width: 24.w,
+//       ),
+//     );
+//   }
 
-  Stack _heroRedAndGreenCircles() {
-    return Stack(
-      children: [
-        Transform.translate(
-          offset: const Offset(-2, 0),
-          child: const Opacity(
-            opacity: 0.90,
-            child: HeroGreenCircleAppBarHomeView(),
-          ),
-        ),
-        const HeroSmallRedCircleAppBarHomeView(),
-      ],
-    );
-  }
-}
+//   Stack _heroRedAndGreenCircles() {
+//     return Stack(
+//       children: [
+//         Transform.translate(
+//           offset: const Offset(-2, 0),
+//           child: const Opacity(
+//             opacity: 0.90,
+//             child: HeroGreenCircleAppBarHomeView(),
+//           ),
+//         ),
+//         const HeroSmallRedCircleAppBarHomeView(),
+//       ],
+//     );
+//   }
+// }
 
-class GoodMorningTitleWithHero extends StatelessWidget {
-  const GoodMorningTitleWithHero({
-    super.key,
-    required this.showIconMenuWithTitleOnly,
-  });
-  final bool showIconMenuWithTitleOnly;
+// class GoodMorningTitleWithHero extends StatelessWidget {
+//   const GoodMorningTitleWithHero({
+//     super.key,
+//     required this.showIconMenuWithTitleOnly,
+//   });
+//   final bool showIconMenuWithTitleOnly;
 
-  @override
-  Widget build(BuildContext context) {
-    return Transform.translate(
-      offset: Offset(showIconMenuWithTitleOnly == true ? 10 : -43.w, 0),
-      child: Hero(
-        tag: HeroTagsConstants.titleAppBarTag,
-        flightShuttleBuilder: (
-          BuildContext flightContext,
-          Animation<double> animation,
-          HeroFlightDirection flightDirection,
-          BuildContext fromHeroContext,
-          BuildContext toHeroContext,
-        ) {
-          if (context.isIOS) {
-            return _buildAnimatedBuilder(animation);
-          } else {
-            return Material(
-              color: Colors.transparent,
-              child: _buildAnimatedBuilder(animation),
-            );
-          }
-        },
-        createRectTween: (begin, end) {
-          return CustomRectTween(begin: begin!, end: end!);
-        },
-        child: _goodMorningTitle(),
-      ),
-    );
-  }
+//   @override
+//   Widget build(BuildContext context) {
+//     return Transform.translate(
+//       offset: Offset(showIconMenuWithTitleOnly == true ? 10 : -43.w, 0),
+//       child: Hero(
+//         tag: HeroTagsConstants.titleAppBarTag,
+//         flightShuttleBuilder: (
+//           BuildContext flightContext,
+//           Animation<double> animation,
+//           HeroFlightDirection flightDirection,
+//           BuildContext fromHeroContext,
+//           BuildContext toHeroContext,
+//         ) {
+//           if (context.isIOS) {
+//             return _buildAnimatedBuilder(animation);
+//           } else {
+//             return Material(
+//               color: Colors.transparent,
+//               child: _buildAnimatedBuilder(animation),
+//             );
+//           }
+//         },
+//         createRectTween: (begin, end) {
+//           return CustomRectTween(begin: begin!, end: end!);
+//         },
+//         child: _goodMorningTitle(),
+//       ),
+//     );
+//   }
 
-  AnimatedBuilder _buildAnimatedBuilder(Animation<double> animation) {
-    return AnimatedBuilder(
-      animation: animation,
-      child: _goodMorningTitle(),
-      builder: (context, child) => _goodMorningTitle(),
-    );
-  }
+//   AnimatedBuilder _buildAnimatedBuilder(Animation<double> animation) {
+//     return AnimatedBuilder(
+//       animation: animation,
+//       child: _goodMorningTitle(),
+//       builder: (context, child) => _goodMorningTitle(),
+//     );
+//   }
 
-  Widget _goodMorningTitle() {
-    return Text.rich(
-      textAlign: TextAlign.left,
-      TextSpan(
-        children: [
-          TextSpan(
-            text: 'Good morning, ',
-            style: AppTextStyles.font16Black300W.copyWith(
-              height: 0,
-            ),
-          ),
-          TextSpan(
-            text: 'Jeev jobs',
-            style: AppTextStyles.font16Black400W,
-          ),
-        ],
-      ),
-    );
-  }
+//   Widget _goodMorningTitle() {
+//     return Text.rich(
+//       textAlign: TextAlign.left,
+//       TextSpan(
+//         children: [
+//           TextSpan(
+//             text: 'Good morning, ',
+//             style: AppTextStyles.font16Black300W.copyWith(
+//               height: 0,
+//             ),
+//           ),
+//           TextSpan(
+//             text: 'Jeev jobs',
+//             style: AppTextStyles.font16Black400W,
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
+
+
+class AppBarComponents{
+  
 }

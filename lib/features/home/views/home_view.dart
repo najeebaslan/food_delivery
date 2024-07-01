@@ -1,21 +1,17 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
-import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
-import 'package:gap/gap.dart';
 
 import '../../../core/constants/assets_constants.dart';
-import '../../../core/styles/app_text_styles.dart';
+import '../../menu/menu_view.dart';
 import '../../onboarding/widgets/onboarding_circle_bold_green.dart';
 import 'home_view_body.dart';
-import 'widgets/header_text_field.dart';
+import 'widgets/home_view_header.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
@@ -56,7 +52,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
         clipBehavior: Clip.none,
         children: [
           const HomeViewBody(),
-          _buildHeader(),
+          const HomeViewHeader(),
           Positioned(
             top: 70.h,
             left: 24.w,
@@ -74,15 +70,11 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
             child: BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
               buildWhen: (previous, current) => current is ChangePageView,
               builder: (context, state) {
-                return LayoutBuilder(
-                  builder: (context, constraints) {
-                    return Visibility(
-                      visible: _homeAnimationCubit.pageViewEnum == PageViewEnum.menu,
-                      child: NewWidget(
-                        homeAnimationCubit: _homeAnimationCubit,
-                      ),
-                    );
-                  },
+                return Visibility(
+                  visible: _homeAnimationCubit.pageViewEnum == PageViewEnum.menu,
+                  child: MenuView(
+                    homeAnimationCubit: _homeAnimationCubit,
+                  ),
                 );
               },
             ),
@@ -151,80 +143,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
     );
   }
 
-  Overlay _buildHeader() {
-    return Overlay(
-      clipBehavior: Clip.none,
-      initialEntries: [
-        OverlayEntry(
-          builder: (context) {
-            return Positioned(
-              top: (kToolbarHeight * 2).h,
-              width: context.width,
-              child: ColoredBox(
-                color: AppColors.homeBackground,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Column(
-                    children: [
-                      Gap(10.h),
-                      const HeaderTextField(),
-                      Gap(10.h),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        ),
-        OverlayEntry(
-          builder: (context) {
-            return Positioned(
-              top: 0,
-              width: context.width,
-              child: ColoredBox(
-                color: AppColors.homeBackground,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 24.w),
-                  child: Column(
-                    children: [
-                      Gap(
-                        context.isSmallDevice
-                            ? (kToolbarHeight / 1.8).h
-                            : kToolbarHeight.h,
-                      ),
-                      _buildAppBar(),
-                    ],
-                  ),
-                ),
-              ),
-            );
-          },
-        )
-      ],
-    );
-  }
-
-  Widget _buildAppBar() {
-    return Row(
-      children: [
-        SizedBox(
-          width: 65.30.w,
-          height: 65.30.h,
-        ),
-        Transform.translate(
-          offset: Offset(-16.w, 1.h),
-          child: _goodMorningTitle(),
-        ),
-        const Spacer(),
-        _menuIconButton(context),
-      ],
-    );
-  }
-
-  Transform _buildRedCircleFat({
-    Color? color,
-    required double size,
-  }) {
+  Transform _buildRedCircleFat({Color? color, required double size}) {
     return Transform.rotate(
       angle: 3,
       child: Opacity(
@@ -241,174 +160,6 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               : null,
         ),
       ),
-    );
-  }
-
-  Widget _goodMorningTitle() {
-    return Text.rich(
-      textAlign: TextAlign.left,
-      TextSpan(
-        children: [
-          TextSpan(
-            text: 'Good morning, ',
-            style: AppTextStyles.font16Black300W.copyWith(
-              height: 0,
-            ),
-          ),
-          TextSpan(
-            text: 'Jeev jobs',
-            style: AppTextStyles.font16Black400W,
-          ),
-        ],
-      ),
-    );
-  }
-
-  PlatformIconButton _menuIconButton(
-    BuildContext context,
-  ) {
-    return PlatformIconButton(
-      onPressed: () {
-        _homeAnimationCubit.startOrReverseAnimation();
-        context.read<HomeAnimationCubit>().changePageView(
-              PageViewEnum.menu,
-            );
-
-        // Navigator.pushNamed(
-        //   context,
-        //   AppRoutesConstants.menuView,
-        // );
-      },
-      icon: SvgPicture.asset(
-        ImagesConstants.homeMenuIcon,
-        height: 14.h,
-        width: 24.w,
-      ),
-    );
-  }
-}
-
-class NewWidget extends StatelessWidget {
-  const NewWidget({
-    super.key,
-    required HomeAnimationCubit homeAnimationCubit,
-  }) : _homeAnimationCubit = homeAnimationCubit;
-
-  final HomeAnimationCubit _homeAnimationCubit;
-
-  @override
-  Widget build(BuildContext context) {
-    log('rebuild NewWidget');
-    const List<String> titles = [
-      "Order History",
-      "Offers",
-      "Settings",
-      "Wallet",
-      "Support",
-      "Logout",
-    ];
-    return AnimatedBuilder(
-      animation: _homeAnimationCubit.animationController,
-      builder: (context, child) {
-        return GestureDetector(
-          onTap: () {
-            _homeAnimationCubit.startOrReverseAnimation();
-          },
-          child: Container(
-            alignment: Alignment.center,
-            height: context.height,
-            width: context.width,
-            padding: EdgeInsets.symmetric(
-              horizontal: 35.w,
-            ),
-            color: AppColors.backgroundMenuViewColor,
-            child: Stack(
-              alignment: AlignmentDirectional.centerEnd,
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  bottom: 0,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      right: context.isIOS ? 24.w : 5.w,
-                    ),
-                    child: PlatformIconButton(
-                      onPressed: () => _homeAnimationCubit.startOrReverseAnimation(),
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.close,
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ),
-                // Transform.translate(
-                //   offset: Offset(
-                //       constraints.maxWidth / 11, -(constraints.maxHeight / 2.3).h),
-                //   child: PlatformAppBar(
-                //     backgroundColor: AppColors.backgroundMenuViewColor,
-                //     material: (context, platform) {
-                //       return MaterialAppBarData(
-                //         automaticallyImplyLeading: false,
-                //       );
-                //     },
-                //     cupertino: (context, platform) {
-                //       return CupertinoNavigationBarData(
-                //         noMaterialParent: false,
-                //         brightness: Brightness.light,
-                //         automaticallyImplyMiddle: false,
-                //         border: const Border.fromBorderSide(BorderSide.none),
-                //         backgroundColor: Colors.transparent,
-                //         transitionBetweenRoutes: false,
-                //         automaticallyImplyLeading: false,
-                //       );
-                //     },
-                //     title: Align(
-                //       alignment: AlignmentDirectional.centerEnd,
-                //       child: Padding(
-                //         padding: EdgeInsets.only(
-                //           right: context.isIOS ? 24.w : 5.w,
-                //         ),
-                //         child: PlatformIconButton(
-                //           // onPressed: () => backToHomeView(context),
-                //           padding: EdgeInsets.zero,
-                //           icon: Icon(
-                //             Icons.close,
-                //             color: AppColors.black,
-                //             size: 25,
-                //           ),
-                //         ),
-                //       ),
-                //     ),
-                //   ),
-                // ),
-                SizedBox(
-                  // alignment: Alignment.topCenter,
-                  height: _homeAnimationCubit.heightAnimation.value < 0
-                      ? 0
-                      : _homeAnimationCubit.heightAnimation.value,
-                  width: 200.0.w,
-                ),
-                ...List.generate(
-                  titles.length,
-                  (index) {
-                    return Positioned(
-                      top: (_homeAnimationCubit.heightAnimation.value / titles.length) *
-                          index,
-                      child: Text(
-                        titles[index],
-                        textAlign: TextAlign.right,
-                        style: AppTextStyles.font30Black700W,
-                      ),
-                    );
-                  },
-                )
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 }

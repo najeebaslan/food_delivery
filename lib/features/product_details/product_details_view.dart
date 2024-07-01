@@ -131,9 +131,9 @@ class ProductDetailsView extends StatelessWidget {
           bottom: false,
           child: Column(
             children: [
-              const AppBarHomeView(
-                showIconMenuWithTitleOnly: true,
-              ),
+              // const AppBarHomeView(
+              //   showIconMenuWithTitleOnly: true,
+              // ),
               Padding(
                 padding: EdgeInsets.only(right: 15.w, bottom: 8.h),
                 child: const HeaderTextField(),
