@@ -10,6 +10,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit() : super(HomeInitial());
   NavigateTo? navigateTo;
   Color colorBlueOrRedCircle = AppColors.red;
+  Color homeBackground = AppColors.homeBackground;
 
   void navigateToView(NavigateTo to) {
     navigateTo = to;
@@ -19,5 +20,15 @@ class HomeCubit extends Cubit<HomeState> {
   void changeRedCircleColor(Color value) {
     colorBlueOrRedCircle = value;
     emit(ChangeRedCircleColor());
+  }
+
+  void changeHomeBackground() {
+    if (homeBackground == AppColors.homeBackground) {
+      homeBackground = AppColors.backgroundMenuViewColor;
+    } else {
+      homeBackground = AppColors.homeBackground;
+    }
+
+    emit(ChangeHomeBackground());
   }
 }

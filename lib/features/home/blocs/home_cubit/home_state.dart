@@ -11,3 +11,4 @@ class NavigateToView extends HomeState {
   NavigateToView(this.navigateTo);
 }
 class ChangeRedCircleColor extends HomeState {}
+class ChangeHomeBackground extends HomeState {}

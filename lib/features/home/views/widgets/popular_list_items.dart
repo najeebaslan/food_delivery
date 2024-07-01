@@ -25,19 +25,22 @@ class PopularListItems extends StatelessWidget {
       child: Column(
         children: [
           Gap(47.h),
-          Align(
-            alignment: Alignment.centerLeft,
-            child: ConstrainedBox(
-              constraints: BoxConstraints(
-                maxHeight: 37.h,
-                maxWidth: 235.w,
-              ),
-              child: PlatformText(
-                'Popular',
-                textAlign: TextAlign.left,
-                style: AppTextStyles.font20White700W.copyWith(
-                  color: AppColors.black,
-                  height: 0,
+          Padding(
+            padding: EdgeInsets.only(left: 10.w),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                  maxHeight: 37.h,
+                  maxWidth: 235.w,
+                ),
+                child: PlatformText(
+                  'Popular',
+                  textAlign: TextAlign.left,
+                  style: AppTextStyles.font20White700W.copyWith(
+                    color: AppColors.black,
+                    height: 0,
+                  ),
                 ),
               ),
             ),

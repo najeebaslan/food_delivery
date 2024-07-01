@@ -19,12 +19,10 @@ import 'hero_yellow_circle_app_bar_home_view.dart';
 class AppBarHomeView extends StatelessWidget {
   const AppBarHomeView({
     super.key,
-    this.redCircleTag,
     this.showIconMenuWithTitleOnly = false,
     this.backFrom = NavigateTo.menu,
   });
 
-  final String? redCircleTag;
   final bool showIconMenuWithTitleOnly;
   final NavigateTo backFrom;
 
@@ -50,7 +48,7 @@ class AppBarHomeView extends StatelessWidget {
           )
         else
           SizedBox(width: 0.w, height: 65.30.h), // This for make ui responsive
-        _GoodMorningTitleWithHero(
+        GoodMorningTitleWithHero(
           showIconMenuWithTitleOnly: showIconMenuWithTitleOnly,
         ),
         const Spacer(),
@@ -89,16 +87,15 @@ class AppBarHomeView extends StatelessWidget {
             child: HeroGreenCircleAppBarHomeView(),
           ),
         ),
-        HeroSmallRedCircleAppBarHomeView(
-          redCircleTag: redCircleTag,
-        ),
+        const HeroSmallRedCircleAppBarHomeView(),
       ],
     );
   }
 }
 
-class _GoodMorningTitleWithHero extends StatelessWidget {
-  const _GoodMorningTitleWithHero({
+class GoodMorningTitleWithHero extends StatelessWidget {
+  const GoodMorningTitleWithHero({
+    super.key,
     required this.showIconMenuWithTitleOnly,
   });
   final bool showIconMenuWithTitleOnly;
