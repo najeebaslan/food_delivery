@@ -8,7 +8,7 @@ import 'package:food_delivery/core/styles/app_colors.dart';
 
 import 'core/router/routes_constants.dart';
 import 'core/router/routes_manager.dart';
-import 'features/home/blocs/home_cubit/home_cubit.dart';
+import 'features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 class FoodDeliveryApp extends StatelessWidget {
   const FoodDeliveryApp({super.key});
@@ -27,11 +27,11 @@ class FoodDeliveryApp extends StatelessWidget {
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
-        return BlocProvider<HomeCubit>(
-          create: (BuildContext context) => HomeCubit()
-            ..navigateToView(
-              NavigateTo.menu,
-            ),
+        return BlocProvider<HomeAnimationCubit>(
+          create: (BuildContext context) => HomeAnimationCubit(),
+          // ..navigateToView(
+          //   NavigateTo.menu,
+          // ),
           child: PlatformApp(
             onGenerateRoute: AppRouter.onGenerateRoute,
             // initialRoute: AppRoutesConstants.splashView,
