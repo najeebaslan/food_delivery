@@ -36,15 +36,15 @@ class AppRouter {
       case AppRoutesConstants.splashView:
         return const SplashView().routeWithFadeTransition();
 
-      case AppRoutesConstants.menuView:
-        return const SizedBox().routeWithAnimatedBuilder(
-          widget: (animation) {
-            return Opacity(
-              opacity: opacityCurve.transform(animation.value),
-              child: const MenuView(),
-            );
-          },
-        );
+      // case AppRoutesConstants.menuView:
+      //   return const SizedBox().routeWithAnimatedBuilder(
+      //     widget: (animation) {
+      //       return Opacity(
+      //         opacity: opacityCurve.transform(animation.value),
+      //         child: const MenuView(),
+      //       );
+      //     },
+      //   );
 
       case AppRoutesConstants.productDetailsView:
         return const SizedBox().routeWithAnimatedBuilder(
