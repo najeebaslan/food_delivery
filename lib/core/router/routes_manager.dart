@@ -31,9 +31,7 @@ class AppRouter {
         ).routeWithFadeTransition();
 
       case AppRoutesConstants.homeView:
-        return HomeView(
-          redCircleTag: (settings.arguments as String?) ?? 'drinkTag',
-        ).routeWithFadeTransition(transitionDuration: 300);
+        return const HomeView().routeWithFadeTransition(transitionDuration: 300);
 
       case AppRoutesConstants.splashView:
         return const SplashView().routeWithFadeTransition();

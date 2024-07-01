@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 
 import '../../../../../core/constants/assets_constants.dart';
 import '../../../../../core/widget/custom_rect_tween.dart';
@@ -10,13 +11,11 @@ import '../../../blocs/home_cubit/home_cubit.dart';
 class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
   const HeroSmallRedCircleAppBarHomeView({
     super.key,
-    required this.redCircleTag,
     this.height,
     this.width,
     this.angle,
   });
 
-  final String? redCircleTag;
 
   final double? height;
   final double? width;
@@ -27,7 +26,9 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
         return Hero(
-          tag: redCircleTag ?? 'drinkTag',
+          tag:
+          HeroTagsConstants.drinkTag,
+           
           flightShuttleBuilder: (flightContext, animation, flightDirection,
               fromHeroContext, toHeroContext) {
             final rotationAnimation = Tween<double>(

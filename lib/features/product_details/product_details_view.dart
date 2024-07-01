@@ -83,7 +83,6 @@ class ProductDetailsView extends StatelessWidget {
 
   Widget _redCircle() {
     return HeroSmallRedCircleAppBarHomeView(
-      redCircleTag: 'drinkTag',
       height: 48.13.h,
       width: 48.13.w,
       angle: 2,

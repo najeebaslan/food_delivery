@@ -42,302 +42,181 @@ Future<void> cacheSvgImagesSplashView() async {
   }
 }
 
-
-
+// import 'dart:developer';
+// import 'dart:math' as math;
 
 // import 'package:flutter/material.dart';
+// import 'package:food_delivery/core/extensions/context_extension.dart';
+// import 'package:food_delivery/core/styles/app_colors.dart';
 
-// /// Flutter code sample for [Overlay].
+// void main() {
+//   runApp(const MyApp());
+// }
 
-// void main() => runApp(const OverlayApp());
-
-// class OverlayApp extends StatelessWidget {
-//   const OverlayApp({super.key});
+// class MyApp extends StatelessWidget {
+//   const MyApp({super.key});
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return const MaterialApp(
-//       home: OverlayExample(),
+//       title: 'stackoverflow question',
+//       home: SafeArea(
+//         top: false,
+//         bottom: true,
+//         child: TweenSequenceExample(),
+//       ),
 //     );
 //   }
 // }
 
-// class OverlayExample extends StatefulWidget {
-//   const OverlayExample({super.key});
+// class TweenSequenceExample extends StatefulWidget {
+//   const TweenSequenceExample({super.key});
 
 //   @override
-//   State<OverlayExample> createState() => _OverlayExampleState();
+//   State<TweenSequenceExample> createState() => _TweenSequenceExampleState();
 // }
 
-// class _OverlayExampleState extends State<OverlayExample> {
-//   OverlayEntry? overlayEntry;
-//   int currentPageIndex = 0;
+// class _TweenSequenceExampleState extends State<TweenSequenceExample>
+//     with SingleTickerProviderStateMixin {
+//   late AnimationController _controller;
+//   late Animation<Color?> _colorAnimation;
+//   late Animation<double> _sizeAnimation;
+//   late Animation<Offset> _slideAnimation;
 
-//   void createHighlightOverlay({
-//     required AlignmentDirectional alignment,
-//     required Color borderColor,
-//   }) {
-//     // Remove the existing OverlayEntry.
-//     removeHighlightOverlay();
-
-//     assert(overlayEntry == null);
-
-//     overlayEntry = OverlayEntry(
-//       // Create a new OverlayEntry.
-//       builder: (BuildContext context) {
-//         // Align is used to position the highlight overlay
-//         // relative to the NavigationBar destination.
-//         return SafeArea(
-//           child: Align(
-//             alignment: alignment,
-//             heightFactor: 1.0,
-//             child: DefaultTextStyle(
-//               style: const TextStyle(
-//                 color: Colors.blue,
-//                 fontWeight: FontWeight.bold,
-//                 fontSize: 14.0,
-//               ),
-//               child: Column(
-//                 mainAxisSize: MainAxisSize.min,
-//                 children: <Widget>[
-//                   const Text('Tap here for'),
-//                   Builder(builder: (BuildContext context) {
-//                     switch (currentPageIndex) {
-//                       case 0:
-//                         return const Column(
-//                           children: <Widget>[
-//                             Text(
-//                               'Explore page',
-//                               style: TextStyle(
-//                                 color: Colors.red,
-//                               ),
-//                             ),
-//                             Icon(
-//                               Icons.arrow_downward,
-//                               color: Colors.red,
-//                             ),
-//                           ],
-//                         );
-//                       case 1:
-//                         return const Column(
-//                           children: <Widget>[
-//                             Text(
-//                               'Commute page',
-//                               style: TextStyle(
-//                                 color: Colors.green,
-//                               ),
-//                             ),
-//                             Icon(
-//                               Icons.arrow_downward,
-//                               color: Colors.green,
-//                             ),
-//                           ],
-//                         );
-//                       case 2:
-//                         return const Column(
-//                           children: <Widget>[
-//                             Text(
-//                               'Saved page',
-//                               style: TextStyle(
-//                                 color: Colors.orange,
-//                               ),
-//                             ),
-//                             Icon(
-//                               Icons.arrow_downward,
-//                               color: Colors.orange,
-//                             ),
-//                           ],
-//                         );
-//                       default:
-//                         return const Text('No page selected.');
-//                     }
-//                   }),
-//                   SizedBox(
-//                     width: MediaQuery.of(context).size.width / 3,
-//                     height: 80.0,
-//                     child: Center(
-//                       child: Container(
-//                         decoration: BoxDecoration(
-//                           border: Border.all(
-//                             color: borderColor,
-//                             width: 4.0,
-//                           ),
-//                         ),
-//                       ),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//           ),
-//         );
-//       },
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = AnimationController(
+//       vsync: this,
+//       duration: const Duration(seconds: 7),
 //     );
+//     _slideAnimation = Tween<Offset>(
+//       begin: const Offset(0, 0),
+//       end: const Offset(
+//         math.pi * 1,
+//         math.pi * 5,
+//       ),
+//     ).animate(
+//       CurvedAnimation(
+//         parent: _controller,
+//         curve: Curves.easeInOutBack,
+//       ),
+//     );
+//     _colorAnimation = TweenSequence<Color?>(
+//       [
+//         TweenSequenceItem<Color?>(
+//           tween: ColorTween(
+//             begin: Colors.red,
+//             end: Colors.green,
+//           ),
+//           weight: 50.0, // Weight determines animation duration for this step
+//         ),
+//         TweenSequenceItem<Color?>(
+//           tween: ColorTween(
+//             begin: Colors.green,
+//             end: Colors.blue,
+//           ),
+//           weight: 50.0,
+//         ),
+//       ],
+//     ).animate(_controller);
 
-//     // Add the OverlayEntry to the Overlay.
-//     Overlay.of(context, debugRequiredFor: widget).insert(overlayEntry!);
-//   }
+//     _sizeAnimation = TweenSequence<double>([
+//       TweenSequenceItem<double>(
+//         tween: Tween<double>(
+//           begin: 50.0,
+//           end: 100.0,
+//         ),
+//         weight: 50.0,
+//       ),
+//       // TweenSequenceItem<double>(
+//       //   tween: Tween<double>(
+//       //     begin: 100.0,
+//       //     end: 75.0,
+//       //   ),
+//       //   weight: 50.0,
+//       // ),
+//     ]).animate(_controller);
 
-//   // Remove the OverlayEntry.
-//   void removeHighlightOverlay() {
-//     overlayEntry?.remove();
-//     overlayEntry?.dispose();
-//     overlayEntry = null;
+//     _controller.forward();
 //   }
 
 //   @override
 //   void dispose() {
-//     // Make sure to remove OverlayEntry when the widget is disposed.
-//     removeHighlightOverlay();
+//     _controller.dispose();
 //     super.dispose();
 //   }
 
 //   @override
 //   Widget build(BuildContext context) {
 //     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Overlay Sample'),
-//       ),
-//       bottomNavigationBar: NavigationBar(
-//         selectedIndex: currentPageIndex,
-//         destinations: const <NavigationDestination>[
-//           NavigationDestination(
-//             icon: Icon(Icons.explore),
-//             label: 'Explore',
-//           ),
-//           NavigationDestination(
-//             icon: Icon(Icons.commute),
-//             label: 'Commute',
-//           ),
-//           NavigationDestination(
-//             selectedIcon: Icon(Icons.bookmark),
-//             icon: Icon(Icons.bookmark_border),
-//             label: 'Saved',
-//           ),
-//         ],
-//       ),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           Text(
-//             'Use Overlay to highlight a NavigationBar destination',
-//             style: Theme.of(context).textTheme.bodyMedium,
-//           ),
-//           const SizedBox(height: 20.0),
-//           Row(
-//             mainAxisAlignment: MainAxisAlignment.center,
-//             children: <Widget>[
-//               // This creates a highlight Overlay for
-//               // the Explore item.
-//               ElevatedButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     currentPageIndex = 0;
-//                   });
-//                   createHighlightOverlay(
-//                     alignment: AlignmentDirectional.bottomStart,
-//                     borderColor: Colors.red,
-//                   );
-//                 },
-//                 child: const Text('Explore'),
-//               ),
-//               const SizedBox(width: 20.0),
-//               // This creates a highlight Overlay for
-//               // the Commute item.
-//               ElevatedButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     currentPageIndex = 1;
-//                   });
-//                   createHighlightOverlay(
-//                     alignment: AlignmentDirectional.bottomCenter,
-//                     borderColor: Colors.green,
-//                   );
-//                 },
-//                 child: const Text('Commute'),
-//               ),
-//               const SizedBox(width: 20.0),
-//               // This creates a highlight Overlay for
-//               // the Saved item.
-//               ElevatedButton(
-//                 onPressed: () {
-//                   setState(() {
-//                     currentPageIndex = 2;
-//                   });
-//                   createHighlightOverlay(
-//                     alignment: AlignmentDirectional.bottomEnd,
-//                     borderColor: Colors.orange,
-//                   );
-//                 },
-//                 child: const Text('Saved'),
-//               ),
-//             ],
-//           ),
-//           const SizedBox(height: 10.0),
-//           ElevatedButton(
-//             onPressed: () {
-//               removeHighlightOverlay();
-//             },
-//             child: const Text('Remove Overlay'),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
+//       // backgroundColor: AppColors.,
+//       body: SafeArea(
+//         child: AnimatedBuilder(
+//           animation: _controller,
+//           builder: (context, child) {
+//             bool visible = _sizeAnimation.value > 80;
+//             if (visible) {
+//               log(_sizeAnimation.value.toString());
+//             }
 
-
-// import 'package:flutter/material.dart';
-
-// /// Flutter code sample for [OverlayPortal].
-
-// void main() => runApp(const OverlayPortalExampleApp());
-
-// class OverlayPortalExampleApp extends StatelessWidget {
-//   const OverlayPortalExampleApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       home: Scaffold(
-//         appBar: AppBar(title: const Text('OverlayPortal Example')),
-//         body: const Center(child: ClickableTooltipWidget()),
-//       ),
-//     );
-//   }
-// }
-
-// class ClickableTooltipWidget extends StatefulWidget {
-//   const ClickableTooltipWidget({super.key});
-
-//   @override
-//   State<StatefulWidget> createState() => ClickableTooltipWidgetState();
-// }
-
-// class ClickableTooltipWidgetState extends State<ClickableTooltipWidget> {
-//   final OverlayPortalController _tooltipController = OverlayPortalController();
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return TextButton(
-//       onPressed: _tooltipController.toggle,
-//       child: DefaultTextStyle(
-//         style: DefaultTextStyle.of(context).style.copyWith(fontSize: 50),
-//         child: OverlayPortal(
-//           controller: _tooltipController,
-//           overlayChildBuilder: (BuildContext context) {
-//             return const Positioned(
-//               right: 50,
-//               bottom: 50,
-//               top: 0,
-//               child: ColoredBox(
-//                 color: Colors.amberAccent,
-//                 child: Text('tooltip'),
+//             return Padding(
+//               padding: const EdgeInsets.symmetric(horizontal: 20),
+//               child: Stack(
+//                 children: [
+//                   Visibility(
+//                     visible: !visible,
+//                     child: Container(
+//                       width: _sizeAnimation.value,
+//                       height: _sizeAnimation.value,
+//                       color: _colorAnimation.value,
+//                       child: const Center(
+//                         child: Text(
+//                           'Animated Box',
+//                           style: TextStyle(
+//                             color: Colors.white,
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//                   ),
+//                   Visibility(
+//                     visible: visible,
+//                     child: const NewWidget(),
+//                   ),
+//                   Positioned(
+//                     top: 0,
+//                     child: SlideTransition(
+//                       position: _slideAnimation,
+//                       child: const CircleAvatar(
+//                         backgroundColor: Colors.red,
+//                       ),
+//                     ),
+//                   ),
+//                 ],
 //               ),
 //             );
 //           },
-//           child: const Text('Press to show/hide tooltip'),
 //         ),
+//       ),
+//     );
+//   }
+// }
+
+// class NewWidget extends StatelessWidget {
+//   const NewWidget({
+//     super.key,
+//   });
+
+//   @override
+//   Widget build(BuildContext context) {
+//     log('NewWidget');
+//     return Container(
+//       height: context.height,
+//       width: context.width,
+//       color: AppColors.yellow,
+//       child: const Column(
+//         children: [],
 //       ),
 //     );
 //   }

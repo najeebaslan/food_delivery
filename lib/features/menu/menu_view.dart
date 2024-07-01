@@ -3,11 +3,8 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:food_delivery/features/home/views/widgets/app_bar/hero_red_circle_app_bar_home_view.dart';
 
 import '../../core/styles/app_text_styles.dart';
-import '../home/views/widgets/app_bar/hero_green_circle_app_bar_home_view.dart';
-import '../home/views/widgets/app_bar/hero_yellow_circle_app_bar_home_view.dart';
 
 class MenuView extends StatefulWidget {
   const MenuView({super.key});
@@ -116,45 +113,45 @@ class _MenuViewState extends State<MenuView> with SingleTickerProviderStateMixin
               clipBehavior: Clip.none,
               children: [
                 _buildMenuTitles(constraints),
-                Positioned(
-                  bottom: 40.h,
-                  left: 70.w,
-                  child: HeroYellowCircleAppBarHomeView(
-                    endTweenAnimation: 3.3,
-                    angle: 2.9,
-                    imageYellowAngle: 3.2,
-                    height: 138.142.h,
-                    width: 138.142.w,
-                    animatedBuilderChildAngle: (animationValue) {
-                      return animationValue > 7 ? 5.3 : 3;
-                    },
-                  ),
-                ),
-                Positioned(
-                  bottom: 110.h,
-                  left: 0,
-                  child: HeroRedCircleAppBarHomeView(
-                    parameters: HeroRedCircleParameters(
-                      angle: 5.3,
-                      height: 248.46.h,
-                      width: 248.46.w,
-                      animatedBuilderChildAngle: (animationValue) {
-                        return animationValue > 7 ? 5.3 : 3;
-                      },
-                    ),
-                  ),
-                ),
-                Positioned(
-                  bottom: 100.h,
-                  right: 65.w,
-                  child: HeroGreenCircleAppBarHomeView(
-                    heroWidgetWidth: 134.118.w,
-                    heroWidgetAngle: 5.3,
-                    animatedBuilderChildAngle: (animationValue) {
-                      return animationValue > 7 ? 5.3 : 3;
-                    },
-                  ),
-                ),
+                // Positioned(
+                //   bottom: 40.h,
+                //   left: 70.w,
+                //   child: HeroYellowCircleAppBarHomeView(
+                //     endTweenAnimation: 3.3,
+                //     angle: 2.9,
+                //     imageYellowAngle: 3.2,
+                //     height: 138.142.h,
+                //     width: 138.142.w,
+                //     animatedBuilderChildAngle: (animationValue) {
+                //       return animationValue > 7 ? 5.3 : 3;
+                //     },
+                //   ),
+                // ),
+                // Positioned(
+                //   bottom: 110.h,
+                //   left: 0,
+                //   child: HeroRedCircleAppBarHomeView(
+                //     parameters: HeroRedCircleParameters(
+                //       angle: 5.3,
+                //       height: 248.46.h,
+                //       width: 248.46.w,
+                //       animatedBuilderChildAngle: (animationValue) {
+                //         return animationValue > 7 ? 5.3 : 3;
+                //       },
+                //     ),
+                //   ),
+                // ),
+                // Positioned(
+                //   bottom: 100.h,
+                //   right: 65.w,
+                //   child: HeroGreenCircleAppBarHomeView(
+                //     heroWidgetWidth: 134.118.w,
+                //     heroWidgetAngle: 5.3,
+                //     animatedBuilderChildAngle: (animationValue) {
+                //       return animationValue > 7 ? 5.3 : 3;
+                //     },
+                //   ),
+                // ),
               ],
             );
           },
