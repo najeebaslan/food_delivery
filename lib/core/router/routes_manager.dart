@@ -6,7 +6,6 @@ import 'package:food_delivery/features/product_details/product_details_view.dart
 import 'package:food_delivery/features/splash/splash_view.dart';
 
 import '../../features/home/views/home_view.dart';
-import '../../features/menu/menu_view.dart';
 import '../../features/onboarding/onboarding_cubit/onboarding_cubit.dart';
 import '../../features/onboarding/onboarding_home_view.dart';
 import '../styles/app_colors.dart';
@@ -46,17 +45,17 @@ class AppRouter {
       //     },
       //   );
 
-      // case AppRoutesConstants.productDetailsView:
-      //   return const SizedBox().routeWithAnimatedBuilder(
-      //     transitionDuration: 700,
-      //     reverseTransitionDuration: 2000,
-      //     widget: (animation) {
-      //       return Opacity(
-      //         opacity: opacityCurve.transform(animation.value),
-      //         child: const ProductDetailsView(),
-      //       );
-      //     },
-      //   );
+      case AppRoutesConstants.productDetailsView:
+        return const SizedBox().routeWithAnimatedBuilder(
+          transitionDuration: 700,
+          reverseTransitionDuration: 2000,
+          widget: (animation) {
+            return Opacity(
+              opacity: opacityCurve.transform(animation.value),
+              child: const ProductDetailsView(),
+            );
+          },
+        );
 
       default:
         return unknownRouteScreen();

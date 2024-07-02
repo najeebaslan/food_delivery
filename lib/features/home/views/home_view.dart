@@ -4,13 +4,18 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 import '../../../core/constants/assets_constants.dart';
+import '../../../core/constants/hero_tags_constants.dart';
+import '../../../core/widget/custom_rect_tween.dart';
 import '../../menu/menu_view.dart';
 import '../../onboarding/widgets/onboarding_circle_bold_green.dart';
-import 'home_view_body.dart';
+import 'widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
+import 'widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
+import 'widgets/home_view_body.dart';
 import 'widgets/home_view_header.dart';
 
 class HomeView extends StatefulWidget {
@@ -67,15 +72,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           const HomeViewHeader(),
           // Red Circle Bold
           Positioned(
-            top: 70.h,
-            left: 24.w,
-            child: Transform.rotate(
+            top: context.mediaQueryOf.padding.top.h + 5.h,
+            left: 22.w,
+            child: HeroSmallRedCircleAppBarHomeView(
+              height: 32.28.h,
+              width: 32.28.w,
               angle: 6,
-              child: SvgPicture.asset(
-                ImagesConstants.ellipseRed,
-                height: 32.28.h,
-                width: 32.28.w,
-              ),
             ),
           ),
           // Menu View
@@ -156,14 +158,19 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 top: _homeAnimationCubit.positionYellowCircle.value.height.h,
                 duration: Duration.zero,
                 child: Transform.rotate(
-                  angle: -_homeAnimationCubit.rotationYellowCircle.value,
-                  alignment: Alignment.center,
-                  child: SvgPicture.string(
-                    SVGStrings.yellowCircle,
-                    height: _homeAnimationCubit.sizeYellowCircle.value.h,
-                    width: _homeAnimationCubit.sizeYellowCircle.value.w,
-                  ),
-                ),
+                    angle: -_homeAnimationCubit.rotationYellowCircle.value,
+                    alignment: Alignment.center,
+                    child: Hero(
+                      tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
+                      createRectTween: (begin, end) {
+                        return CustomRectTween(begin: begin!, end: end!);
+                      },
+                      child: SvgPicture.string(
+                        SVGStrings.yellowCircle,
+                        height: _homeAnimationCubit.sizeYellowCircle.value.h,
+                        width: _homeAnimationCubit.sizeYellowCircle.value.w,
+                      ),
+                    )),
               );
             },
           ),
@@ -172,22 +179,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     );
   }
 
-  Transform _buildRedCircleFat({Color? color, required double size}) {
-    return Transform.rotate(
-      angle: 3,
-      child: Opacity(
-        opacity: 0.10,
-        child: SvgPicture.asset(
-          ImagesConstants.ellipseRed,
-          height: size.h,
-          width: size.w,
-          colorFilter: color != null
-              ? ColorFilter.mode(
-                  color,
-                  BlendMode.srcIn,
-                )
-              : null,
-        ),
+  HeroRedCircleAppBarHomeView _buildRedCircleFat({required double size}) {
+    return HeroRedCircleAppBarHomeView(
+      parameters: HeroRedCircleParameters(
+        height: size.h,
+        width: size.h,
       ),
     );
   }

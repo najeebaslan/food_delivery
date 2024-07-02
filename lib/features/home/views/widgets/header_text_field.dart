@@ -7,85 +7,57 @@ import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 
-class HeaderTextField extends StatefulWidget {
-  const HeaderTextField({super.key, this.enableAnimation = true});
-  final bool enableAnimation;
+import '../../../../core/constants/hero_tags_constants.dart';
 
-  @override
-  State<HeaderTextField> createState() => _HeaderTextFieldState();
-}
-
-class _HeaderTextFieldState extends State<HeaderTextField>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _scaleAnimation;
-  late Animation<Offset> _slideAnimation;
-
+class HeaderTextField extends StatelessWidget {
+  const HeaderTextField({super.key, this.startAnimationHero = false});
   static const String _hintText = 'What you wanna order today ?..';
-  static const double _sizeHintText = 14;
-  static const FontStyle _fontStyleHintText = FontStyle.italic;
-
-  @override
-  void initState() {
-    super.initState();
-    setupAnimationSlider();
-  }
-
-  void setupAnimationSlider() {
-    _animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 250),
-    );
-
-    _slideAnimation = Tween<Offset>(
-      begin: const Offset(0, 5),
-      end: const Offset(0, 0.01),
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.easeInOut,
-        parent: _animationController,
-      ),
-    );
-
-    _scaleAnimation = Tween<double>(
-      begin: 0.5,
-      end: 1.0,
-    ).animate(
-      CurvedAnimation(
-        curve: Curves.easeInOut,
-        parent: _animationController,
-      ),
-    );
-    if (widget.enableAnimation) {
-      _animationController.forward();
-    }
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    super.dispose();
-  }
+  final bool startAnimationHero;
+  static Animation<double>? _sizeHintTextAnimations;
+  static double _sizeHintText = 14;
+  static FontStyle _fontStyleHintText = FontStyle.italic;
 
   @override
   Widget build(BuildContext context) {
-    return widget.enableAnimation
-        ? AnimatedBuilder(
-            animation: _animationController,
-            builder: (context, child) {
-              return SlideTransition(
-                position: _slideAnimation,
-                child: Transform.scale(
-                  scale: _scaleAnimation.value,
-                  child: Padding(
-                    padding: EdgeInsets.only(right: 15.w),
-                    child: appBarContent(),
-                  ),
-                ),
-              );
-            },
-          )
-        : appBarContent();
+    return Hero(
+      tag: HeroTagsConstants.appBarTag,
+      flightShuttleBuilder: (_, Animation<double> animation, __, ___, ____) {
+        _sizeHintTextAnimations = Tween<double>(
+          begin: 14,
+          end: 16,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Curves.easeInOutBack,
+          ),
+        );
+        changeSizeHintText();
+
+        return PlatformWidget(
+          cupertino: (context, platform) {
+            return _buildAnimatedBuilder();
+          },
+          material: (context, platform) {
+            return Material(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(30.r),
+              child: _buildAnimatedBuilder(),
+            );
+          },
+        );
+      },
+      child: appBarContent(),
+    );
+  }
+
+  AnimatedBuilder _buildAnimatedBuilder() {
+    return AnimatedBuilder(
+      animation: _sizeHintTextAnimations!,
+      child: faceTextField(),
+      builder: (context, child) {
+        return appBarContent();
+      },
+    );
   }
 
   PlatformWidget appBarContent() {
@@ -182,6 +154,46 @@ class _HeaderTextFieldState extends State<HeaderTextField>
           ),
         );
       },
+    );
+  }
+
+  void changeSizeHintText() {
+    _sizeHintTextAnimations!.addListener(() {
+      if (_sizeHintTextAnimations!.value > 13) {
+        _sizeHintText = _sizeHintTextAnimations!.value;
+      }
+      changeFontStyleHint();
+    });
+  }
+
+  void changeFontStyleHint() {
+    if ((_sizeHintTextAnimations!.value >= 15) && startAnimationHero == true) {
+      _fontStyleHintText = FontStyle.normal;
+    } else if ((_sizeHintTextAnimations!.value >= 15) && startAnimationHero == false) {
+      _fontStyleHintText = FontStyle.normal;
+    } else {
+      _fontStyleHintText = FontStyle.italic;
+    }
+  }
+
+  Widget faceTextField() {
+    return Container(
+      height: 38.h,
+      width: 374.w,
+      decoration: ShapeDecoration(
+        color: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.r),
+        ),
+      ),
+      child: Text(
+        _hintText,
+        style: AppTextStyles.font14Black300W.copyWith(
+          height: 0,
+          fontSize: _sizeHintText.sp,
+          fontStyle: _fontStyleHintText,
+        ),
+      ),
     );
   }
 }

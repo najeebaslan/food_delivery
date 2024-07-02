@@ -41,7 +41,10 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
       end: 2.3,
     ).animate(curve);
     positionRedCircleFat = Tween<Size>(
-      begin: const Size(55, 57),
+      begin: Size(
+        55,
+        context.mediaQueryOf.padding.top.h + 5.h,
+      ),
       end: Size(0, context.height * 0.66),
     ).animate(curve);
 
@@ -56,7 +59,10 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     ).animate(curve);
 
     positionYellowCircle = Tween<Size>(
-      begin: const Size(60, 40),
+      begin: Size(
+        60,
+        (context.mediaQueryOf.padding.top / 1.3).h,
+      ),
       end: Size(70, context.height * 0.87),
     ).animate(curve);
 
@@ -67,12 +73,12 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
     // Green Circle
     rotationGreenCircle = Tween<double>(
-      begin: 0.0,
+      begin: 2.5,
       end: 5.2,
     ).animate(curve);
 
     positionGreenCircle = Tween<Size>(
-      begin: Size(24.w, 70),
+      begin: Size(20.w, context.mediaQueryOf.padding.top.h + 10.h),
       end: Size(context.width * 0.58, context.height * 0.81),
     ).animate(curve);
 
@@ -151,9 +157,8 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
   void reverseProductDetailsAnimationAndBackToHomeView() {
     hideRedCircleFat = false;
-    productDetailsAnimationController.reverse().then((onValue){
-    // changePageView(PageViewEnum.empty);
-
+    productDetailsAnimationController.reverse().then((onValue) {
+      // changePageView(PageViewEnum.empty);
     });
 
     // .whenComplete(
@@ -166,11 +171,15 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     emit(ChangePageView());
   }
 
-  bool get isMenuView {
+  bool get isMenuViewOrEmpty {
     return pageViewEnum == PageViewEnum.empty || pageViewEnum == PageViewEnum.menu;
   }
 
   bool get isProductView {
     return pageViewEnum == PageViewEnum.productDetails;
+  }
+
+  bool get isMenuView {
+    return pageViewEnum == PageViewEnum.menu;
   }
 }
