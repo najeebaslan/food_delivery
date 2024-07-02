@@ -15,20 +15,21 @@ class ProductDetailsListView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SingleChildScrollView(
+        clipBehavior: Clip.none,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Gap(context.isIOS ? 190.h : 150.h),
-            ...List.generate(ProductModel.products.length, (index) {
-              return GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: ProductDetailsCard(
+            Gap(context.isIOS ? 275.h : 150.h),
+            ...List.generate(
+              ProductModel.products.length,
+              (index) {
+                return ProductDetailsCard(
                   product: ProductModel.products[index],
                   index: index,
-                ),
-              );
-            })
+                );
+              },
+            )
           ],
         ),
       ),

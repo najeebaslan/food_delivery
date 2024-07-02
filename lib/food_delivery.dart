@@ -46,7 +46,7 @@ class FoodDeliveryApp extends StatelessWidget {
             debugShowCheckedModeBanner: false,
             cupertino: (_, __) {
               return CupertinoAppData(
-                // home: const MyPage(),
+                // home: const MyHomePage(),
                 theme: CupertinoThemeData(
                   brightness: Brightness.light,
                   barBackgroundColor: Colors.black,
@@ -133,3 +133,5 @@ Flexible
 FittedBox
 
   */
+
+

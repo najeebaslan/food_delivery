@@ -108,7 +108,7 @@ class CircleGreenAnimation extends StatelessWidget {
               Transform.rotate(
                 angle: 3.3,
                 alignment: Alignment.center,
-                child: OnboardingCircleGreenSmallWidget(
+                child: OnboardingGreenSmallCircleWidget(
                   color: onboardingCubit.onEndAnimatedColor(AppColors.green),
                 ),
               ),
@@ -133,8 +133,8 @@ class CircleGreenAnimation extends StatelessWidget {
   }
 }
 
-class OnboardingCircleGreenSmallWidget extends StatelessWidget {
-  const OnboardingCircleGreenSmallWidget({
+class OnboardingGreenSmallCircleWidget extends StatelessWidget {
+  const OnboardingGreenSmallCircleWidget({
     super.key,
     this.color,
     this.width,

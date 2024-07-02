@@ -7,8 +7,7 @@ import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:food_delivery/core/widget/shadow.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/router/routes_constants.dart';
-import '../../blocs/home_cubit/home_cubit.dart';
+import '../../blocs/home_animation_cubit/home_animation_cubit.dart';
 
 class PopularCard extends StatelessWidget {
   const PopularCard({
@@ -29,15 +28,8 @@ class PopularCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        // BlocProvider.of<HomeCubit>(context).navigateToView(
-        //   NavigateTo.productDetails,
-        // );
-
-        Navigator.of(context).pushNamed(
-          AppRoutesConstants.productDetailsView,
-        );
-      },
+      onTap: () => context.read<HomeAnimationCubit>()
+      .startProductDetailsAnimation(context),
       child: Container(
         width: 362.w,
         height: 154.h,
@@ -49,7 +41,7 @@ class PopularCard extends StatelessWidget {
         decoration: ShapeDecoration(
           color: Colors.white,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(20.r),
           ),
           shadows: const [
             BoxShadow(

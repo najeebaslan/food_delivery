@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
@@ -18,25 +20,22 @@ class HomeViewHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) => _buildHeader(context);
 
-  static Widget _buildAppBar(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(width: 65.30.w, height: 65.30.h),
-        Transform.translate(
-          offset: Offset(-16.w, 1.h),
-          child: _goodMorningTitle(),
-        ),
-        const Spacer(),
-        _menuIconButton(
-          () => context.read<HomeAnimationCubit>()
-            ..startOrReverseAnimation()
-            ..changePageView(PageViewEnum.menu),
-        ),
-      ],
+  static BlocBuilder _buildHeader(BuildContext context) {
+    return BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
+      builder: (context, state) {
+        return _buildOverlay();
+        // context.read<HomeAnimationCubit>().isProductView
+        //     ? FadeTransition(
+        //         opacity: context.read<HomeAnimationCubit>().opacityColorProductDetails,
+        //         child: _buildOverlay(),
+        //       )
+        //     : _buildOverlay();
+      },
     );
   }
 
-  static Overlay _buildHeader(BuildContext context) {
+  static Overlay _buildOverlay() {
+    log('rebuild _buildOverlay');
     return Overlay(
       clipBehavior: Clip.none,
       initialEntries: [
@@ -46,13 +45,17 @@ class HomeViewHeader extends StatelessWidget {
               top: (kToolbarHeight * 2).h,
               width: context.width,
               child: ColoredBox(
-                color: AppColors.homeBackground,
+                color: context.read<HomeAnimationCubit>().isMenuView
+                    ? AppColors.homeBackground
+                    : AppColors.productDetailsBackground,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   child: Column(
                     children: [
                       Gap(10.h),
-                      const HeaderTextField(),
+                      HeaderTextField(
+                        enableAnimation: context.read<HomeAnimationCubit>().isMenuView,
+                      ),
                       Gap(10.h),
                     ],
                   ),
@@ -67,7 +70,9 @@ class HomeViewHeader extends StatelessWidget {
               top: 0,
               width: context.width,
               child: ColoredBox(
-                color: AppColors.homeBackground,
+                color: context.read<HomeAnimationCubit>().isMenuView
+                    ? AppColors.homeBackground
+                    : AppColors.productDetailsBackground,
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 24.w),
                   child: Column(
@@ -85,6 +90,24 @@ class HomeViewHeader extends StatelessWidget {
             );
           },
         )
+      ],
+    );
+  }
+
+  static Widget _buildAppBar(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(width: 65.30.w, height: 65.30.h), // make appBar responsive
+        Transform.translate(
+          offset: Offset(-16.w, 1.h),
+          child: _goodMorningTitle(),
+        ),
+        const Spacer(),
+        _menuIconButton(
+          () => context.read<HomeAnimationCubit>()
+            ..startOrReverseMenuAnimation()
+            ..changePageView(PageViewEnum.menu),
+        ),
       ],
     );
   }

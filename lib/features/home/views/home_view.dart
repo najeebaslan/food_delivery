@@ -20,25 +20,36 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin {
+class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   late HomeAnimationCubit _homeAnimationCubit;
 
   @override
   void didChangeDependencies() {
     _homeAnimationCubit = BlocProvider.of<HomeAnimationCubit>(context);
-    _homeAnimationCubit.animationController = AnimationController(
+    _homeAnimationCubit.menuAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(
         milliseconds: NumConstants.globalDuration,
       ),
     );
-    _homeAnimationCubit.setupAnimation(context);
+    _homeAnimationCubit.productDetailsAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(
+        milliseconds: NumConstants.fastDuration,
+      ),
+      reverseDuration: const Duration(
+        milliseconds: NumConstants.globalDuration,
+      ),
+    );
+    _homeAnimationCubit.setupMenuAnimations(context);
+    _homeAnimationCubit.setupProductDetailsAnimations(context);
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    _homeAnimationCubit.animationController.dispose();
+    _homeAnimationCubit.menuAnimationController.dispose();
+    _homeAnimationCubit.productDetailsAnimationController.dispose();
     super.dispose();
   }
 
@@ -52,7 +63,9 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
         clipBehavior: Clip.none,
         children: [
           const HomeViewBody(),
+
           const HomeViewHeader(),
+          // Red Circle Bold
           Positioned(
             top: 70.h,
             left: 24.w,
@@ -65,6 +78,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               ),
             ),
           ),
+          // Menu View
           FadeTransition(
             opacity: _homeAnimationCubit.opacityColorMenu,
             child: BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
@@ -79,8 +93,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               },
             ),
           ),
+
+          // Red Circle Fat
           AnimatedBuilder(
-            animation: _homeAnimationCubit.animationController,
+            animation: Listenable.merge([
+              _homeAnimationCubit.menuAnimationController,
+              _homeAnimationCubit.productDetailsAnimationController,
+            ]),
             builder: (context, child) {
               return AnimatedPositioned(
                 left: _homeAnimationCubit.positionRedCircleFat.value.width.w,
@@ -95,8 +114,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               );
             },
           ),
+
+          // Green Small Circle
           AnimatedBuilder(
-            animation: _homeAnimationCubit.animationController,
+            animation: Listenable.merge([
+              _homeAnimationCubit.menuAnimationController,
+              _homeAnimationCubit.productDetailsAnimationController,
+            ]),
             builder: (context, child) {
               return AnimatedPositioned(
                 top: _homeAnimationCubit.positionGreenCircle.value.height.h,
@@ -109,7 +133,7 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
                     offset: const Offset(-2, 0),
                     child: Opacity(
                       opacity: 0.90,
-                      child: OnboardingCircleGreenSmallWidget(
+                      child: OnboardingGreenSmallCircleWidget(
                         width: _homeAnimationCubit.sizeGreenCircle.value.w,
                         color: AppColors.green.withOpacity(0.2),
                       ),
@@ -119,8 +143,13 @@ class _HomeViewState extends State<HomeView> with SingleTickerProviderStateMixin
               );
             },
           ),
+
+          // Yellow Circle
           AnimatedBuilder(
-            animation: _homeAnimationCubit.animationController,
+            animation: Listenable.merge([
+              _homeAnimationCubit.menuAnimationController,
+              _homeAnimationCubit.productDetailsAnimationController,
+            ]),
             builder: (context, child) {
               return AnimatedPositioned(
                 left: _homeAnimationCubit.positionYellowCircle.value.width.w,

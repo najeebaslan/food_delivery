@@ -10,7 +10,8 @@ enum PageViewEnum { menu, productDetails, empty }
 class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   HomeAnimationCubit() : super(HomeAnimationInitial());
   PageViewEnum pageViewEnum = PageViewEnum.empty;
-  late AnimationController animationController;
+  late AnimationController menuAnimationController;
+  late AnimationController productDetailsAnimationController;
   // Red Circle Fat
   late Animation<double> rotationRedCircleFat;
   late Animation<Size> positionRedCircleFat;
@@ -26,14 +27,15 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 // List Menu Texts
   late Animation<double> heightTitlesMenuAnimation;
   late Animation<double> opacityColorMenu;
-
+  late Animation<double> opacityColorProductDetails;
+  bool hideRedCircleFat = false;
   late final curve = CurvedAnimation(
-    parent: animationController,
+    parent: menuAnimationController,
     curve: Curves.easeInOutBack,
   );
 
-  void setupAnimation(BuildContext context) {
-    // Red Circle
+  void setupMenuAnimations(BuildContext context, [bool? isTest]) {
+    // Red Circle Fat
     rotationRedCircleFat = Tween<double>(
       begin: 0.0,
       end: 2.3,
@@ -75,8 +77,8 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     ).animate(curve);
 
     sizeGreenCircle = Tween<double>(
-      begin: 32.25,
-      end: 134.118,
+      begin: isTest != null ? 100 : 32.25,
+      end: isTest != null ? 200 : 134.118,
     ).animate(curve);
 
 // List Menu Texts
@@ -92,16 +94,83 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     ).animate(curve);
   }
 
-  void startOrReverseAnimation() {
-    animationController.value == 0.0
-        ? animationController.forward()
-        : animationController.reverse().whenComplete(
+  void setupProductDetailsAnimations(BuildContext context) {
+    opacityColorProductDetails = Tween<double>(
+      begin: 0.0,
+      end: 1,
+    ).animate(
+      CurvedAnimation(
+        parent: productDetailsAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+  }
+
+  void startOrReverseMenuAnimation() {
+    menuAnimationController.value == 0.0
+        ? menuAnimationController.forward()
+        : menuAnimationController.reverse().whenComplete(
               () => changePageView(PageViewEnum.empty),
             );
+  }
+
+  void startProductDetailsAnimation(BuildContext context) {
+    rotationRedCircleFat = Tween<double>(
+      begin: 0.0,
+      end: 1,
+    ).animate(
+      CurvedAnimation(
+        parent: productDetailsAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+    positionRedCircleFat = Tween<Size>(
+      begin: const Size(55, 57),
+      end: Size(-60.w, context.height * 0.2),
+    ).animate(
+      CurvedAnimation(
+        parent: productDetailsAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+
+    sizeRedCircleFat = Tween<double>(
+      begin: 65.303,
+      end: 195.023,
+    ).animate(
+      CurvedAnimation(
+        parent: productDetailsAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+    changePageView(PageViewEnum.productDetails);
+    productDetailsAnimationController.forward().whenComplete(
+          () => hideRedCircleFat = true,
+        );
+  }
+
+  void reverseProductDetailsAnimationAndBackToHomeView() {
+    hideRedCircleFat = false;
+    productDetailsAnimationController.reverse().then((onValue){
+    // changePageView(PageViewEnum.empty);
+
+    });
+
+    // .whenComplete(
+    //       () =>
+    //     );
   }
 
   void changePageView(PageViewEnum page) {
     pageViewEnum = page;
     emit(ChangePageView());
+  }
+
+  bool get isMenuView {
+    return pageViewEnum == PageViewEnum.empty || pageViewEnum == PageViewEnum.menu;
+  }
+
+  bool get isProductView {
+    return pageViewEnum == PageViewEnum.productDetails;
   }
 }

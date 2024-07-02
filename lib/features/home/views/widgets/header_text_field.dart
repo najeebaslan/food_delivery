@@ -8,8 +8,8 @@ import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 
 class HeaderTextField extends StatefulWidget {
-  const HeaderTextField({super.key, this.startAnimationHero = false});
-  final bool startAnimationHero;
+  const HeaderTextField({super.key, this.enableAnimation = true});
+  final bool enableAnimation;
 
   @override
   State<HeaderTextField> createState() => _HeaderTextFieldState();
@@ -56,7 +56,9 @@ class _HeaderTextFieldState extends State<HeaderTextField>
         parent: _animationController,
       ),
     );
-    _animationController.forward();
+    if (widget.enableAnimation) {
+      _animationController.forward();
+    }
   }
 
   @override
@@ -67,21 +69,23 @@ class _HeaderTextFieldState extends State<HeaderTextField>
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animationController,
-      builder: (context, child) {
-        return SlideTransition(
-          position: _slideAnimation,
-          child: Transform.scale(
-            scale: _scaleAnimation.value,
-            child: Padding(
-              padding: EdgeInsets.only(right: 15.w),
-              child: appBarContent(),
-            ),
-          ),
-        );
-      },
-    );
+    return widget.enableAnimation
+        ? AnimatedBuilder(
+            animation: _animationController,
+            builder: (context, child) {
+              return SlideTransition(
+                position: _slideAnimation,
+                child: Transform.scale(
+                  scale: _scaleAnimation.value,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 15.w),
+                    child: appBarContent(),
+                  ),
+                ),
+              );
+            },
+          )
+        : appBarContent();
   }
 
   PlatformWidget appBarContent() {
@@ -181,4 +185,3 @@ class _HeaderTextFieldState extends State<HeaderTextField>
     );
   }
 }
-
