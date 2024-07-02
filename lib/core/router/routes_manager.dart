@@ -46,17 +46,17 @@ class AppRouter {
       //     },
       //   );
 
-      case AppRoutesConstants.productDetailsView:
-        return const SizedBox().routeWithAnimatedBuilder(
-          transitionDuration: 700,
-          reverseTransitionDuration: 2000,
-          widget: (animation) {
-            return Opacity(
-              opacity: opacityCurve.transform(animation.value),
-              child: const ProductDetailsView(),
-            );
-          },
-        );
+      // case AppRoutesConstants.productDetailsView:
+      //   return const SizedBox().routeWithAnimatedBuilder(
+      //     transitionDuration: 700,
+      //     reverseTransitionDuration: 2000,
+      //     widget: (animation) {
+      //       return Opacity(
+      //         opacity: opacityCurve.transform(animation.value),
+      //         child: const ProductDetailsView(),
+      //       );
+      //     },
+      //   );
 
       default:
         return unknownRouteScreen();

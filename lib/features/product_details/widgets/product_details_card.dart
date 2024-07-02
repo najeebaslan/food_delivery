@@ -152,13 +152,10 @@ class ProductDetailsCard extends StatelessWidget {
           ),
         ),
       ),
-      child: PlatformIconButton(
-        padding: EdgeInsets.zero,
-        icon: Icon(
-          PlatformIcons(context).add,
-          color: AppColors.white,
-          size: 15.sp,
-        ),
+      child: Icon(
+        PlatformIcons(context).add,
+        color: AppColors.white,
+        size: 15.sp,
       ),
     );
   }

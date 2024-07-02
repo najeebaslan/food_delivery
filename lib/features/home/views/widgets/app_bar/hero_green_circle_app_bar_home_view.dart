@@ -52,8 +52,8 @@ class HeroGreenCircleAppBarHomeView extends StatelessWidget {
     );
   }
 
-  OnboardingCircleGreenSmallWidget _buildImageCircleYellowWithOpacity() {
-    return OnboardingCircleGreenSmallWidget(
+  OnboardingGreenSmallCircleWidget _buildImageCircleYellowWithOpacity() {
+    return OnboardingGreenSmallCircleWidget(
       width: heroWidgetWidth ?? 32.25.w,
       color: AppColors.green.withOpacity(0.2),
     );
