@@ -24,15 +24,15 @@ class FoodDeliveryApp extends StatelessWidget {
     );
 
     return ScreenUtilInit(
-      designSize: const Size(428, 926),
+      designSize: const Size(430, 932),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         return BlocProvider<HomeCubit>(
-          create: (BuildContext context) => HomeCubit()
-            ..navigateToView(
-              NavigateTo.menu,
-            ),
+          create: (BuildContext context) => HomeCubit(),
+            // ..navigateToView(
+            //   NavigateTo.menu,
+            // ),
           child: BlocProvider<HomeAnimationCubit>(
             create: (BuildContext context) => HomeAnimationCubit(),
             child: PlatformApp(
@@ -96,7 +96,7 @@ class FoodDeliveryApp extends StatelessWidget {
                       ),
                     ),
                   ),
-                  themeMode: ThemeMode.system,
+                  themeMode: ThemeMode.light,
                 );
               },
             ),

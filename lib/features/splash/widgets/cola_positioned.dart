@@ -26,7 +26,7 @@ class ColaCircleGreenWithHero extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: Tween<Offset>(
-        begin: const Offset(0.0, 0.0),
+        begin:Offset.zero,
         end: Offset(-1.9, -2.9.h),
       ).animate(curvedAnimationSlider),
       child: Hero(

@@ -23,7 +23,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   //  Green Circle
   late Animation<double> rotationGreenCircle;
   late Animation<Size> positionGreenCircle;
-  late Animation<double> sizeGreenCircle;
+  late Animation<Size> sizeGreenCircle;
 // List Menu Texts
   late Animation<double> heightTitlesMenuAnimation;
   late Animation<double> opacityColorMenu;
@@ -34,7 +34,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     curve: Curves.easeInOutBack,
   );
 
-  void setupMenuAnimations(BuildContext context, [bool? isTest]) {
+  void setupMenuAnimations(BuildContext context) {
     // Red Circle Fat
     rotationRedCircleFat = Tween<double>(
       begin: 0.0,
@@ -52,7 +52,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
       begin: 65.303,
       end: 248.46,
     ).animate(curve);
-// Yellow Circle
+    // Yellow Circle
     rotationYellowCircle = Tween<double>(
       begin: 0.0,
       end: 2.9,
@@ -73,22 +73,21 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
     // Green Circle
     rotationGreenCircle = Tween<double>(
-      begin: 2.5,
-      end: 5.2,
+      begin: 3.7,
+      end: 6.3,
     ).animate(curve);
 
     positionGreenCircle = Tween<Size>(
-      begin: Size(20.w, context.mediaQueryOf.padding.top.h + 10.h),
-      end: Size(context.width * 0.58, context.height * 0.81),
+      begin: Size(22.w, context.mediaQueryOf.padding.top.h + 8.h),
+      end: Size((context.width*0.58).w, context.height * 0.81),
     ).animate(curve);
 
-    sizeGreenCircle = Tween<double>(
-      begin: isTest != null ? 100 : 32.25,
-      end: isTest != null ? 200 : 134.118,
+    sizeGreenCircle = Tween<Size>(
+      begin: const Size(35.25, 34.333),
+      end: const Size(134.118, 130.628),
     ).animate(curve);
 
-// List Menu Texts
-
+    // List Menu Texts
     heightTitlesMenuAnimation = Tween<double>(
       begin: 20.0.h,
       end: 300.0.h,
@@ -183,3 +182,18 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     return pageViewEnum == PageViewEnum.menu;
   }
 }
+
+
+
+
+/* 
+old ==== 5885
+
+new ==== 5810
+5610
+ 5685
+
+ */
+
+
+

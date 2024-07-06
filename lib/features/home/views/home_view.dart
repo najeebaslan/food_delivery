@@ -12,7 +12,6 @@ import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/hero_tags_constants.dart';
 import '../../../core/widget/custom_rect_tween.dart';
 import '../../menu/menu_view.dart';
-import '../../onboarding/widgets/onboarding_circle_bold_green.dart';
 import 'widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import 'widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
 import 'widgets/home_view_body.dart';
@@ -131,14 +130,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 child: Transform.rotate(
                   angle: _homeAnimationCubit.rotationGreenCircle.value,
                   alignment: Alignment.center,
-                  child: Transform.translate(
-                    offset: const Offset(-2, 0),
-                    child: Opacity(
-                      opacity: 0.90,
-                      child: OnboardingGreenSmallCircleWidget(
-                        width: _homeAnimationCubit.sizeGreenCircle.value.w,
-                        color: AppColors.green.withOpacity(0.2),
-                      ),
+                  child: Opacity(
+                    opacity: 0.90,
+                    child: SvgPicture.asset(
+                      ImagesConstants.greenCircle,
+                      width: _homeAnimationCubit.sizeGreenCircle.value.width.w,
+                      height: _homeAnimationCubit.sizeGreenCircle.value.height.h,
                     ),
                   ),
                 ),
@@ -166,7 +163,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                         return CustomRectTween(begin: begin!, end: end!);
                       },
                       child: SvgPicture.string(
-                        SVGStrings.yellowCircle,
+                        SVGImageConstants.yellowCircle,
                         height: _homeAnimationCubit.sizeYellowCircle.value.h,
                         width: _homeAnimationCubit.sizeYellowCircle.value.w,
                       ),
@@ -184,6 +181,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       parameters: HeroRedCircleParameters(
         height: size.h,
         width: size.h,
+        animatedBuilderChildAngle: (animationValue) {
+          return animationValue > 1 ? 4 : 3;
+        },
       ),
     );
   }

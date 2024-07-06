@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery/features/product_details/product_details_cubit/product_details_cubit.dart';
 import 'package:food_delivery/features/product_details/product_details_view.dart';
 import 'package:food_delivery/features/splash/splash_view.dart';
 
@@ -35,24 +36,17 @@ class AppRouter {
       case AppRoutesConstants.splashView:
         return const SplashView().routeWithFadeTransition();
 
-      // case AppRoutesConstants.menuView:
-      //   return const SizedBox().routeWithAnimatedBuilder(
-      //     widget: (animation) {
-      //       return Opacity(
-      //         opacity: opacityCurve.transform(animation.value),
-      //         child: const MenuView(),
-      //       );
-      //     },
-      //   );
-
       case AppRoutesConstants.productDetailsView:
         return const SizedBox().routeWithAnimatedBuilder(
           transitionDuration: 700,
           reverseTransitionDuration: 2000,
           widget: (animation) {
-            return Opacity(
-              opacity: opacityCurve.transform(animation.value),
-              child: const ProductDetailsView(),
+            return BlocProvider<ProductDetailsCubit>(
+              create: (BuildContext context) => ProductDetailsCubit(),
+              child: Opacity(
+                opacity: opacityCurve.transform(animation.value),
+                child: const ProductDetailsView(),
+              ),
             );
           },
         );

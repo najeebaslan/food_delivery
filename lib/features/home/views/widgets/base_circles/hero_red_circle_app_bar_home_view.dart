@@ -18,7 +18,8 @@ class HeroRedCircleAppBarHomeView extends StatelessWidget {
       buildWhen: (previous, current) =>
           current is NavigateToView || current is ChangeRedCircleColor,
       builder: (context, state) {
-        if (context.read<HomeCubit>().navigateTo == NavigateTo.productDetails) {
+        if (context.read<HomeCubit>().navigateTo == NavigateTo.productDetails ||
+            parameters?.showProductDetails == false) {
           return HeroBlueCircleProduct(parameters: parameters);
         } else {
           return BaseHeroTransition(
@@ -81,6 +82,7 @@ class HeroRedCircleParameters {
   final double? angle;
   final double? height;
   final double? width;
+  final bool? showProductDetails;
 
   final double Function(
     double animationValue,
@@ -90,5 +92,6 @@ class HeroRedCircleParameters {
     this.height,
     this.width,
     this.animatedBuilderChildAngle,
+    this.showProductDetails = false,
   });
 }
