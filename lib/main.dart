@@ -38,9 +38,9 @@ Future<void> cacheSvgImagesSplashView() async {
   for (String imageUrl in splashViewImagesUrl) {
     final svg.SvgAssetLoader loader = svg.SvgAssetLoader(imageUrl);
 
-    await svg.Cache().putIfAbsent(loader.cacheKey(null), () => loader.loadBytes(null));
+    await svg.Cache().putIfAbsent(
+      loader.cacheKey(null),
+      () => loader.loadBytes(null),
+    );
   }
 }
-
-
-

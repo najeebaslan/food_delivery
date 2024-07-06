@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
-import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/base_hero_transition.dart';
-import 'package:food_delivery/features/onboarding/widgets/onboarding_circle_bold_green.dart';
 
 class HeroGreenCircleAppBarHomeView extends StatelessWidget {
   const HeroGreenCircleAppBarHomeView({
@@ -52,11 +52,16 @@ class HeroGreenCircleAppBarHomeView extends StatelessWidget {
     );
   }
 
-  OnboardingGreenSmallCircleWidget _buildImageCircleYellowWithOpacity() {
-    return OnboardingGreenSmallCircleWidget(
+  SvgPicture _buildImageCircleYellowWithOpacity() {
+    return SvgPicture.asset(
+      ImagesConstants.greenCircle,
       width: heroWidgetWidth ?? 32.25.w,
-      color: AppColors.green.withOpacity(0.2),
+      height: heroWidgetWidth ?? 32.h,
     );
+    // OnboardingGreenSmallCircleWidget(
+    //   width: heroWidgetWidth ?? 32.25.w,
+    //   color: AppColors.green.withOpacity(0.2),
+    // );
   }
 
   double getAngle(Animation<double> rotationAnimation) {

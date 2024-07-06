@@ -28,34 +28,66 @@ class HeroBlueCircleProduct extends StatelessWidget {
           tag: tag ?? HeroTagsConstants.bigCircleRedTagHomeViewAppBar,
           child: Transform.rotate(
             angle: parameters?.angle ?? 3,
-            child: imageCircleBlueWithOpacity(cubitHomeView.colorBlueOrRedCircle),
+            child: imageCircleBlueWithOpacity(
+              cubitHomeView.colorBlueOrRedCircle,
+            ),
           ),
-          flightShuttleBuilder: (flightContext, animation, flightDirection,
-              fromHeroContext, toHeroContext) {
-            final rotationAnimation = Tween<double>(begin: 0.0, end: 2.3).animate(
-              CurvedAnimation(parent: animation, curve: Curves.easeInOutBack),
+          flightShuttleBuilder: (
+            flightContext,
+            animation,
+            flightDirection,
+            fromHeroContext,
+            toHeroContext,
+          ) {
+            final rotationAnimation = Tween<double>(
+              begin: 0.0,
+              end: 2.3,
+            ).animate(
+              CurvedAnimation(
+                parent: animation,
+                curve: Curves.easeInOutBack,
+              ),
             );
 
             return AnimatedBuilder(
               animation: rotationAnimation,
               builder: (context, child) {
                 if (rotationAnimation.value > 1.5 && rotationAnimation.value < 1.7) {
-                  cubitHomeView.changeRedCircleColor(AppColors.blue);
+                  cubitHomeView.changeRedCircleColor(
+                    AppColors.blue,
+                  );
                 } else if (rotationAnimation.value < 1.5 &&
                     rotationAnimation.value > 1.2) {
-                  cubitHomeView.changeRedCircleColor(AppColors.red);
+                  cubitHomeView.changeRedCircleColor(
+                    AppColors.red,
+                  );
                 }
                 return Transform.rotate(
-                  angle: parameters?.angle ?? 3,
-                  child: imageCircleBlueWithOpacity(cubitHomeView.colorBlueOrRedCircle),
+                  angle: getAngle(rotationAnimation),
+                  child: imageCircleBlueWithOpacity(
+                    cubitHomeView.colorBlueOrRedCircle,
+                  ),
                 );
               },
             );
           },
-          createRectTween: (begin, end) => CustomRectTween(begin: begin!, end: end!),
+          createRectTween: (begin, end) => CustomRectTween(
+            begin: begin!,
+            end: end!,
+          ),
         );
       },
     );
+  }
+
+  double getAngle(Animation<double> rotationAnimation) {
+    if (parameters?.animatedBuilderChildAngle != null) {
+      return parameters!.animatedBuilderChildAngle!(
+        rotationAnimation.value,
+      );
+    } else {
+      return rotationAnimation.value > 0.7 ? 3 :3;
+    }
   }
 
   Widget imageCircleBlueWithOpacity([Color? color]) {
@@ -66,7 +98,12 @@ class HeroBlueCircleProduct extends StatelessWidget {
         ImagesConstants.ellipseRed,
         height: parameters?.height ?? 65.30.h,
         width: parameters?.height ?? 65.30.w,
-        colorFilter: color != null ? ColorFilter.mode(color, BlendMode.srcIn) : null,
+        colorFilter: color != null
+            ? ColorFilter.mode(
+                color,
+                BlendMode.srcIn,
+              )
+            : null,
       ),
     );
   }

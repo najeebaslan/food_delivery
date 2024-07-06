@@ -96,7 +96,7 @@ class CircleGreenAnimation extends StatelessWidget {
                 return Transform.rotate(
                   angle: onboardingCubit.completedFirstAnimation ? 6.58 : 0,
                   child: SvgPicture.string(
-                    SVGStrings.greenCircleFill,
+                    SVGImageConstants.greenCircleFill,
                     height: 69.33.h,
                     width: 69.33.w,
                     colorFilter: colorFilter,
@@ -143,8 +143,10 @@ class OnboardingGreenSmallCircleWidget extends StatelessWidget {
   final double? width;
   @override
   Widget build(BuildContext context) {
+    double? widthCircle = width != null ? width! * 1.0142857142857142 : null;
     return CustomPaint(
-      size: Size(width ?? 69.33.w, (width ?? 69.33.w * 1.0142857142857142).toDouble()),
+      size: Size(widthCircle ?? 69.33.w,
+          (widthCircle ?? 69.33.w * 1.0142857142857142).toDouble()),
       painter: OnboardingCircleGreenSmallCustomPainter(
         color: color,
       ),

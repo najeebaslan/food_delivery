@@ -12,82 +12,11 @@ class MenuView extends StatelessWidget {
 
   final HomeAnimationCubit homeAnimationCubit;
 
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) {
-      return AnimatedBuilder(
-        animation: homeAnimationCubit.menuAnimationController,
-        builder: (context, child) {
-          return Container(
-            alignment: AlignmentDirectional.centerEnd,
-            height: context.height,
-            width: context.width,
-            color: AppColors.backgroundMenuViewColor,
-            child: Stack(
-              alignment: AlignmentDirectional.centerEnd,
-              clipBehavior: Clip.none,
-              children: [
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Padding(
-                    padding: EdgeInsets.only(
-                      top: 70.h,
-                      right: 24.w,
-                    ),
-                    child: PlatformIconButton(
-                      onPressed: () {
-                        homeAnimationCubit.startOrReverseMenuAnimation();
-                      },
-                      padding: EdgeInsets.zero,
-                      icon: Icon(
-                        Icons.close,
-                        color: AppColors.black,
-                        size: 25,
-                      ),
-                    ),
-                  ),
-                ),
-                Transform.translate(
-                  offset: Offset(0, -constraints.maxHeight / 6.5),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: 35.w,
-                    ),
-                    child: SizedBox(
-                      height: getHeightTitle,
-                      width: 200.0.w,
-                      child: Stack(
-                        alignment: AlignmentDirectional.centerEnd,
-                        children: List.generate(
-                          titles.length,
-                          (index) {
-                            return Positioned(
-                              top: topPositionTitle(index),
-                              child: Text(
-                                titles[index],
-                                textAlign: TextAlign.right,
-                                style: AppTextStyles.font30Black700W,
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          );
-        },
-      );
-    });
-  }
-
   double topPositionTitle(int index) {
     return (homeAnimationCubit.heightTitlesMenuAnimation.value / titles.length) * index;
   }
 
-  double get getHeightTitle {
+  double get heightTitle {
     return homeAnimationCubit.heightTitlesMenuAnimation.value > 0
         ? homeAnimationCubit.heightTitlesMenuAnimation.value
         : 0;
@@ -101,4 +30,76 @@ class MenuView extends StatelessWidget {
     "Support",
     "Logout",
   ];
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return AnimatedBuilder(
+          animation: homeAnimationCubit.menuAnimationController,
+          builder: (context, child) {
+            return Container(
+              alignment: AlignmentDirectional.centerEnd,
+              height: context.height,
+              width: context.width,
+              color: AppColors.backgroundMenuViewColor,
+              child: Stack(
+                alignment: AlignmentDirectional.centerEnd,
+                clipBehavior: Clip.none,
+                children: [
+                  Align(
+                    alignment: Alignment.topRight,
+                    child: Padding(
+                      padding: EdgeInsets.only(
+                        top: 70.h,
+                        right: 24.w,
+                      ),
+                      child: PlatformIconButton(
+                        onPressed: () {
+                          homeAnimationCubit.startOrReverseMenuAnimation();
+                        },
+                        padding: EdgeInsets.zero,
+                        icon: Icon(
+                          Icons.close,
+                          color: AppColors.black,
+                          size: 25,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Transform.translate(
+                    offset: Offset(0, -constraints.maxHeight / 6.5),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 35.w,
+                      ),
+                      child: SizedBox(
+                        height: heightTitle,
+                        width: 200.0.w,
+                        child: Stack(
+                          alignment: AlignmentDirectional.centerEnd,
+                          children: List.generate(
+                            titles.length,
+                            (index) {
+                              return Positioned(
+                                top: topPositionTitle(index),
+                                child: Text(
+                                  titles[index],
+                                  textAlign: TextAlign.right,
+                                  style: AppTextStyles.font30Black700W,
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }
