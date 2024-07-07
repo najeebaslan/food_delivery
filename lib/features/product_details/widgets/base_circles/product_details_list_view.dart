@@ -23,7 +23,10 @@ class ProductDetailsListView extends StatelessWidget {
             Gap(context.isIOS ? 190.h : 150.h),
             ...List.generate(ProductModel.products.length, (index) {
               return GestureDetector(
-                onTap: () => ProductDetailsCubit.get(context).showChooseSizeViewFunc(),
+                onTap: () {
+                  // ProductDetailsCubit.get(context).showChooseSizeViewFunc();
+                  ProductDetailsCubit.get(context).startInitAnimation();
+                },
                 child: ProductDetailsCard(
                   product: ProductModel.products[index],
                   index: index,

@@ -6,27 +6,28 @@ class AdaptiveAppBar extends StatelessWidget
     implements PreferredSizeWidget, ObstructingPreferredSizeWidget {
   const AdaptiveAppBar({
     super.key,
-    this.size,
+    required this.size,
     this.title,
     this.customAppBar,
   });
-  final Size? size;
+  final Size size;
   final Widget? title;
   final Widget? customAppBar;
   @override
   Widget build(BuildContext context) {
+    if (customAppBar != null) return customAppBar!;
     if (context.isIOS) {
-      return customAppBar ??
-          CupertinoNavigationBar(
-            middle: title,
-            padding: EdgeInsetsDirectional.zero,
-          );
+      return CupertinoNavigationBar(
+        middle: title,
+        padding: EdgeInsetsDirectional.zero,
+      );
+    } else {
+      return AppBar(title: title);
     }
-    return customAppBar ?? AppBar(title: title);
   }
 
   @override
-  Size get preferredSize => size ?? const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => size;
 
   @override
   bool shouldFullyObstruct(BuildContext context) => true;
