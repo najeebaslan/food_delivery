@@ -41,21 +41,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
         milliseconds: NumConstants.globalDuration,
       ),
     );
-
+    _productCubit.initAnimations();
   }
 
-  Interval opacityCurve = const Interval(
-    0.20,
-    0.75,
-    curve: Curves.fastOutSlowIn,
-  );
-
-  @override
-  void didChangeDependencies() {
-        _productCubit.initAnimations(context);
-
-    super.didChangeDependencies();
-  }
+  
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
@@ -76,85 +65,81 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                     right: 24.w,
                     left: 24.w,
                   ),
-                  child: SizedBox(
-                    height: 896.h,
-                    width: 414.w,
-                    child: Stack(
-                      clipBehavior: Clip.none,
-                      children: [
-                        Positioned(
-                          top: context.isIOS ? 50.h : 10.h,
-                          left: -70.w,
-                          child: SlideTransition(
-                            position: _productCubit.blueCirclePosition,
-                            child: _blueCircle(),
-                          ),
+                  child: Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      Positioned(
+                        top: context.isIOS ? 50.h : 10.h,
+                        left: -70.w,
+                        child: SlideTransition(
+                          position: _productCubit.blueCirclePosition,
+                          child: _blueCircle(),
                         ),
-                        Positioned(
-                          width: 235.w,
-                          height: 37.h,
-                          top: context.isIOS ? 100.h : 60.h,
-                          left: 0.w,
-                          child: _productCubit.isProductDetailsVisible
-                              ? AnimatedOpacity(
-                                  duration: Duration.zero,
-                                  opacity: _productCubit.titleProductOpacity.value,
-                                  child: ConstrainedBox(
-                                    constraints: BoxConstraints(
-                                      maxWidth: 235.w,
-                                      maxHeight: 37.h,
-                                    ),
-                                    child: Text(
-                                      'Donuts',
-                                      style: AppTextStyles.font30Black700W,
-                                    ),
+                      ),
+                      Positioned(
+                        width: 235.w,
+                        height: 37.h,
+                        top: context.isIOS ? 100.h : 60.h,
+                        left: 0.w,
+                        child: _productCubit.isProductDetailsVisible
+                            ? AnimatedOpacity(
+                                duration: Duration.zero,
+                                opacity: _productCubit.titleProductOpacity.value,
+                                child: ConstrainedBox(
+                                  constraints: BoxConstraints(
+                                    maxWidth: 235.w,
+                                    maxHeight: 37.h,
                                   ),
-                                )
-                              : const SizedBox.shrink(),
-                        ),
-                        Positioned(
-                          top: context.isIOS ? 120.h : 80.h,
-                          height: 48.13.h,
-                          width: 48.13.w,
-                          right: 30.w,
-                          child: _redCircle(),
-                        ),
-                        Positioned(
-                          top: context.isIOS ? 80.h : 40.h,
-                          right: 53.w,
-                          child: _yellowCircle(),
-                        ),
-                        AnimatedCrossFade(
-                          layoutBuilder: (
-                            topChild,
-                            topChildKey,
-                            bottomChild,
-                            bottomChildKey,
-                          ) {
-                            return Stack(
-                              clipBehavior: Clip.none,
-                              children: <Widget>[
-                                Positioned(
-                                  key: bottomChildKey,
-                                  child: bottomChild,
+                                  child: Text(
+                                    'Donuts',
+                                    style: AppTextStyles.font30Black700W,
+                                  ),
                                 ),
-                                Positioned(
-                                  key: topChildKey,
-                                  child: topChild,
-                                ),
-                              ],
-                            );
-                          },
-                          firstChild: const ProductDetailsListView(),
-                          secondChild: const ChooseSizeProductView(),
-                          reverseDuration: const Duration(milliseconds: 300),
-                          duration: const Duration(milliseconds: 1),
-                          crossFadeState: _productCubit.isProductDetailsVisible
-                              ? CrossFadeState.showFirst
-                              : CrossFadeState.showSecond,
-                        ),
-                      ],
-                    ),
+                              )
+                            : const SizedBox.shrink(),
+                      ),
+                      Positioned(
+                        top: context.isIOS ? 120.h : 80.h,
+                        height: 48.13.h,
+                        width: 48.13.w,
+                        right: 30.w,
+                        child: _redCircle(),
+                      ),
+                      Positioned(
+                        top: context.isIOS ? 80.h : 40.h,
+                        right: 53.w,
+                        child: _yellowCircle(),
+                      ),
+                      AnimatedCrossFade(
+                        layoutBuilder: (
+                          topChild,
+                          topChildKey,
+                          bottomChild,
+                          bottomChildKey,
+                        ) {
+                          return Stack(
+                            clipBehavior: Clip.none,
+                            children: <Widget>[
+                              Positioned(
+                                key: bottomChildKey,
+                                child: bottomChild,
+                              ),
+                              Positioned(
+                                key: topChildKey,
+                                child: topChild,
+                              ),
+                            ],
+                          );
+                        },
+                        firstChild: const ProductDetailsListView(),
+                        secondChild: const ChooseSizeProductView(),
+                        reverseDuration: const Duration(milliseconds: 300),
+                        duration: const Duration(milliseconds: 1),
+                        crossFadeState: _productCubit.isProductDetailsVisible
+                            ? CrossFadeState.showFirst
+                            : CrossFadeState.showSecond,
+                      ),
+                    ],
                   ),
                 ),
               ),

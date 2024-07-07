@@ -7,6 +7,7 @@ import 'package:food_delivery/features/home/views/widgets/header_text_field.dart
 
 import '../../../core/constants/assets_constants.dart';
 import '../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_text_styles.dart';
 import '../../../core/widget/adaptive_widget/adaptive_app_bar.dart';
 import '../product_details_cubit/product_details_cubit.dart';
 import 'app_bar_product_details.dart';
@@ -54,26 +55,73 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                 right: 30.w,
                 left: 30.w,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  PlatformIconButton(
-                    onPressed: () {
-                      ProductDetailsCubit.get(context).reverseInitAnimation();
-                    },
-                    icon: Icon(
-                      PlatformIcons(context).back,
-                      color: AppColors.black,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      PlatformIconButton(
+                        onPressed: () {
+                          ProductDetailsCubit.get(context).reverseInitAnimation();
+                        },
+                        icon: Icon(
+                          PlatformIcons(context).back,
+                          color: AppColors.black,
+                        ),
+                      ),
+                      PlatformIconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: SvgPicture.string(
+                          SVGImageConstants.homeIcon,
+                          width: 23.w,
+                          height: 21.h,
+                        ),
+                      ),
+                    ],
+                  ),
+                  AnimatedOpacity(
+                    opacity: ProductDetailsCubit.get(context).textChooseSizeOpacity.value,
+                    duration: Duration.zero,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(left: 35.w),
+                          child: Text(
+                            'Spudnut dounut',
+                            style: AppTextStyles.font40Black700W.copyWith(
+                              height: 0,
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: 24,
+                          height: 3,
+                          margin: EdgeInsets.only(left: 35.w),
+                          decoration: ShapeDecoration(
+                            color: const Color(0xFF4DB066),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            shadows: const [
+                              BoxShadow(
+                                color: Color(0x19000000),
+                                blurRadius: 10,
+                                offset: Offset(0, 10),
+                                spreadRadius: 0,
+                              )
+                            ],
+                          ),
+                        )
+                      ],
                     ),
                   ),
-                  PlatformIconButton(
-                    onPressed: () => Navigator.pop(context),
-                    icon: SvgPicture.string(
-                      SVGImageConstants.homeIcon,
-                      width: 23.w,
-                      height: 21.h,
-                    ),
-                  ),
+                  // This for make ui responsive
+                  // SizedBox(
+                  //   height: 38.h,
+                  //   width: 374.w,
+                  // )
                 ],
               ),
             ),

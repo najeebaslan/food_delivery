@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../../core/styles/app_colors.dart';
 
@@ -36,14 +35,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     curve: Curves.easeInOutBack,
   );
 
-  void initAnimations(BuildContext context) {
+  void initAnimations() {
     // Positions
-    blueCirclePosition = Tween<Offset>(
-      begin: Offset.zero,
-      end: 
-      context.isIOS?
-      const Offset(1.2, -0.65):const Offset(1.2, 0.65),
-    ).animate(curve);
+    blueCirclePosition =
+        Tween<Offset>(begin: Offset.zero, end: const Offset(1.2, -0.65)).animate(curve);
 
     redCirclePosition = Tween<Offset>(
       begin: Offset.zero,
@@ -103,7 +98,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void startInitAnimation() {
     animationController.forward();
- Future.delayed(const Duration(milliseconds: 200), () {
+    Future.delayed(const Duration(milliseconds: 200), () {
       showChooseSizeViewFunc();
     });
   }
