@@ -13,43 +13,7 @@ class ChooseSizeProductView extends StatelessWidget {
       builder: (context, child) {
         return Column(
           children: [
-            AnimatedOpacity(
-              opacity: ProductDetailsCubit.get(context).textChooseSizeOpacity.value,
-              duration: Duration.zero,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.only(left: 35.w),
-                    child: Text(
-                      'Spudnut dounut',
-                      style: AppTextStyles.font40Black700W.copyWith(
-                        height: 0,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    width: 24,
-                    height: 3,
-                    margin: EdgeInsets.only(left: 35.w),
-                    decoration: ShapeDecoration(
-                      color: const Color(0xFF4DB066),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      shadows: const [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          blurRadius: 10,
-                          offset: Offset(0, 10),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ),
+            
           ],
         );
       },
