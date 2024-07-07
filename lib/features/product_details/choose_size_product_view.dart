@@ -5,20 +5,9 @@ class ChooseSizeProductView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return const Stack(
       children: [
-        Container(
-          height: 100,
-          width: 100,
-          color: Colors.blue,
-        ),
-        Container(
-          height: 100,
-          width: 100,
-          color: Colors.blue,
-        ),
+        // _buildAppBar(context),
       ],
     );
   }
