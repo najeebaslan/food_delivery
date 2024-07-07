@@ -69,6 +69,12 @@ class AppTextStyles {
     fontFamily: defaultFontFamily,
     fontWeight: FontWeight.w400,
   );
+  static TextStyle font40Black700W = TextStyle(
+    fontSize: 40.sp,
+    color: AppColors.black,
+    fontFamily: defaultFontFamily,
+    fontWeight: FontWeight.w700,
+  );
   static TextStyle font30Black700W = TextStyle(
     fontSize: 30.sp,
     color: AppColors.black,

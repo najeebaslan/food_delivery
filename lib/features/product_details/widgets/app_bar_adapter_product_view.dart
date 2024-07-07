@@ -1,0 +1,90 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
+import 'package:food_delivery/features/home/views/widgets/header_text_field.dart';
+
+import '../../../core/constants/assets_constants.dart';
+import '../../../core/styles/app_colors.dart';
+import '../../../core/widget/adaptive_widget/adaptive_app_bar.dart';
+import '../product_details_cubit/product_details_cubit.dart';
+import 'app_bar_product_details.dart';
+
+class AppBarAdapterProductView extends AdaptiveAppBar {
+  const AppBarAdapterProductView({
+    super.key,
+    required ProductDetailsCubit productCubit,
+    required super.size,
+  }) : _productCubit = productCubit;
+
+  final ProductDetailsCubit _productCubit;
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveAppBar(
+      size: size,
+      customAppBar: AnimatedBuilder(
+        animation: _productCubit.animationController,
+        builder: (context, child) {
+          return AnimatedCrossFade(
+            firstChild: SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.only(
+                  right: 24.w,
+                  left: 24.w,
+                ),
+                child: Column(
+                  children: [
+                    const AppBarProductDetails(
+                      showIconMenuWithTitleOnly: true,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(right: 12.w),
+                      child: const HeaderTextField(),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            secondChild: Padding(
+              padding: EdgeInsets.only(
+                top: context.mediaQueryOf.padding.top / 1.5,
+                right: 30.w,
+                left: 30.w,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PlatformIconButton(
+                    onPressed: () {
+                      ProductDetailsCubit.get(context).reverseInitAnimation();
+                    },
+                    icon: Icon(
+                      PlatformIcons(context).back,
+                      color: AppColors.black,
+                    ),
+                  ),
+                  PlatformIconButton(
+                    onPressed: () => Navigator.pop(context),
+                    icon: SvgPicture.string(
+                      SVGImageConstants.homeIcon,
+                      width: 23.w,
+                      height: 21.h,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            crossFadeState: _productCubit.isProductDetailsVisible
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            reverseDuration: const Duration(milliseconds: 300),
+            duration: const Duration(milliseconds: 1),
+          );
+        },
+      ),
+    );
+  }
+}
