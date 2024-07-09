@@ -12,11 +12,11 @@ import '../../core/styles/app_text_styles.dart';
 import '../../core/widget/adaptive_widget/adaptive_scaffold.dart';
 import '../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import '../home/views/widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
-import 'choose_size_product_view.dart';
 import 'product_details_cubit/product_details_cubit.dart';
 import 'widgets/app_bar_adapter_product_view.dart';
 import 'widgets/base_circles/hero_blue_circle_product.dart';
-import 'widgets/base_circles/product_details_list_view.dart';
+import 'widgets/choose_size_views/choose_size_product_view.dart';
+import 'widgets/product_details_list_view.dart';
 
 class ProductDetailsView extends StatefulWidget {
   const ProductDetailsView({super.key});
@@ -44,7 +44,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
     _productCubit.initAnimations();
   }
 
-  
+  @override
+  void dispose() {
+    _productCubit.animationController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
@@ -55,11 +60,18 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
             return AdaptiveScaffold(
               backgroundColor: _productCubit.backgroundColorAnimation.value,
               appBar: AppBarAdapterProductView(
-                size: Size.fromHeight(context.isIOS ? 65.h : 115.h),
+                size: Size.fromHeight(
+                  context.isIOS ? 65.h : 115.h,
+                ),
                 productCubit: _productCubit,
               ),
               body: GestureDetector(
-                onTap: () => Navigator.pop(context),
+                onTap: () {
+                  Navigator.pop(context);
+
+                  // if (ProductDetailsCubit.get(context).isProductDetailsVisible) {
+                  // }
+                },
                 child: Padding(
                   padding: EdgeInsets.only(
                     right: 24.w,
@@ -81,22 +93,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                         height: 37.h,
                         top: context.isIOS ? 100.h : 60.h,
                         left: 0.w,
-                        child: _productCubit.isProductDetailsVisible
-                            ? AnimatedOpacity(
-                                duration: Duration.zero,
-                                opacity: _productCubit.titleProductOpacity.value,
-                                child: ConstrainedBox(
-                                  constraints: BoxConstraints(
-                                    maxWidth: 235.w,
-                                    maxHeight: 37.h,
-                                  ),
-                                  child: Text(
-                                    'Donuts',
-                                    style: AppTextStyles.font30Black700W,
-                                  ),
-                                ),
-                              )
-                            : const SizedBox.shrink(),
+                        child: _buildTitleProduct(),
                       ),
                       Positioned(
                         top: context.isIOS ? 120.h : 80.h,
@@ -110,35 +107,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                         right: 53.w,
                         child: _yellowCircle(),
                       ),
-                      AnimatedCrossFade(
-                        layoutBuilder: (
-                          topChild,
-                          topChildKey,
-                          bottomChild,
-                          bottomChildKey,
-                        ) {
-                          return Stack(
-                            clipBehavior: Clip.none,
-                            children: <Widget>[
-                              Positioned(
-                                key: bottomChildKey,
-                                child: bottomChild,
-                              ),
-                              Positioned(
-                                key: topChildKey,
-                                child: topChild,
-                              ),
-                            ],
-                          );
-                        },
-                        firstChild: const ProductDetailsListView(),
-                        secondChild: const ChooseSizeProductView(),
-                        reverseDuration: const Duration(milliseconds: 300),
-                        duration: const Duration(milliseconds: 1),
-                        crossFadeState: _productCubit.isProductDetailsVisible
-                            ? CrossFadeState.showFirst
-                            : CrossFadeState.showSecond,
-                      ),
+                      _buildBodyProductView(),
                     ],
                   ),
                 ),
@@ -148,6 +117,57 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
         );
       },
     );
+  }
+
+  AnimatedCrossFade _buildBodyProductView() {
+    return AnimatedCrossFade(
+      layoutBuilder: (
+        topChild,
+        topChildKey,
+        bottomChild,
+        bottomChildKey,
+      ) {
+        return Stack(
+          clipBehavior: Clip.none,
+          children: <Widget>[
+            Positioned(
+              key: bottomChildKey,
+              child: bottomChild,
+            ),
+            Positioned(
+              key: topChildKey,
+              child: topChild,
+            ),
+          ],
+        );
+      },
+      firstChild: const ProductDetailsListView(),
+      secondChild: const ChooseSizeProductView(),
+      reverseDuration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 1),
+      crossFadeState: _productCubit.isProductDetailsVisible
+          ? CrossFadeState.showFirst
+          : CrossFadeState.showSecond,
+    );
+  }
+
+  Widget _buildTitleProduct() {
+    return _productCubit.isProductDetailsVisible
+        ? AnimatedOpacity(
+            duration: Duration.zero,
+            opacity: _productCubit.titleProductOpacity.value,
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxWidth: 235.w,
+                maxHeight: 37.h,
+              ),
+              child: Text(
+                'Donuts',
+                style: AppTextStyles.font30Black700W,
+              ),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 
   Widget _redCircle() {
