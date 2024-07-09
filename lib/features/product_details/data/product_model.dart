@@ -9,7 +9,7 @@ class ProductModel {
   final Color color;
   final String imageUrl;
 
-  final List<SizeWithPriceProduct> sizeWithPrice;
+  final List<SizeWithPriceProductModel> sizeWithPrice;
   ProductModel({
     required this.title,
     required this.price,
@@ -34,19 +34,19 @@ class ProductModel {
       title: '',
       price: '\$7.50',
       sizeWithPrice: [
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'S',
           price: '\$7.50',
           calories: '200 calories',
           weight: '200 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'M',
           price: '\$10.50',
           calories: '300 calories',
           weight: '300 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'L',
           price: '\$15.50',
           calories: '400 calories',
@@ -61,19 +61,19 @@ class ProductModel {
       color: AppColors.green,
       imageUrl: ImagesConstants.crossDonut,
       sizeWithPrice: [
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'S',
           price: '\$7.30',
           calories: '479 calories',
           weight: '400 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'M',
           price: '\$17.30',
           calories: '879 calories',
           weight: '700 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'L',
           price: '\$27.30',
           calories: '1379 calories',
@@ -87,19 +87,19 @@ class ProductModel {
       color: AppColors.red,
       imageUrl: ImagesConstants.tridonut,
       sizeWithPrice: [
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'S',
           price: '\$3.50',
           calories: '100 calories',
           weight: '100 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'M',
           price: '\$5.50',
           calories: '200 calories',
           weight: '200 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'L',
           price: '\$7.50',
           calories: '300 calories',
@@ -113,19 +113,19 @@ class ProductModel {
       color: AppColors.yellow,
       imageUrl: ImagesConstants.tridonut,
       sizeWithPrice: [
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'S',
           price: '\$20.50',
           calories: '200 calories',
           weight: '200 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'M',
           price: '\$30.50',
           calories: '300 calories',
           weight: '300 gr',
         ),
-        SizeWithPriceProduct(
+        SizeWithPriceProductModel(
           size: 'L',
           price: '\$40.50',
           calories: '400 calories',
@@ -136,20 +136,20 @@ class ProductModel {
   ];
 }
 
-class SizeWithPriceProduct {
+class SizeWithPriceProductModel {
   final String size;
   final String price;
   final String calories;
   final String weight;
-  SizeWithPriceProduct({
+  SizeWithPriceProductModel({
     required this.size,
     required this.price,
     required this.calories,
     required this.weight,
   });
 
-  factory SizeWithPriceProduct.empty() {
-    return SizeWithPriceProduct(
+  factory SizeWithPriceProductModel.empty() {
+    return SizeWithPriceProductModel(
       calories: '',
       price: '',
       size: '',

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gap/gap.dart';
 
-import '../../../core/styles/app_text_styles.dart';
+import '../../../../core/styles/app_text_styles.dart';
 
 class TitleAndSubtitleProduct extends StatelessWidget {
   const TitleAndSubtitleProduct({

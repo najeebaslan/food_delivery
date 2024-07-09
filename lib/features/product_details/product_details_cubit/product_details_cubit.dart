@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/styles/app_colors.dart';
+import '../../../core/utils/custom_curves.dart';
 import '../data/product_model.dart';
 
 part 'product_details_state.dart';
 
 enum ProductDetailsSizeEnum { small, medium, large }
-  
+
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   static ProductDetailsCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -15,6 +16,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
+
   late AnimationController animationController;
   // Circles Positions
   late Animation<Offset> blueCirclePosition;
@@ -33,11 +35,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   // Circles Rotate
   late Animation<double> yellowCircleRotate;
   late Animation backgroundColorAnimation;
+//
+  late Animation<Offset> imageSlideTransition;
 
   bool isProductDetailsVisible = true;
+
   late final curve = CurvedAnimation(
     parent: animationController,
-    curve: Curves.easeInOutBack,
+    curve: easeInOutBackSlow,
+    reverseCurve: easeInOutBackSlow,
   );
 
   void initAnimations() {
@@ -101,6 +107,11 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       begin: AppColors.productDetailsBackground,
       end: AppColors.white,
     ).animate(animationController);
+
+    imageSlideTransition = Tween<Offset>(
+      begin: const Offset(0, 2.5),
+      end: Offset.zero,
+    ).animate(curve);
   }
 
   void startInitAnimation() {
@@ -135,10 +146,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   int get indexProduct => productDetailsSizeEnum?.index ?? 1;
-  SizeWithPriceProduct get detailsProduct {
+  SizeWithPriceProductModel get detailsProduct {
     if (selectedProduct.price.isNotEmpty) {
       return selectedProduct.sizeWithPrice[indexProduct];
     }
-    return SizeWithPriceProduct.empty();
+    return SizeWithPriceProductModel.empty();
   }
 }

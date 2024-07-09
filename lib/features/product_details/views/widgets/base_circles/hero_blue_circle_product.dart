@@ -7,8 +7,8 @@ import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
 
-import '../../../home/blocs/home_cubit/home_cubit.dart';
-import '../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
+import '../../../../home/blocs/home_cubit/home_cubit.dart';
+import '../../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 
 class HeroBlueCircleProduct extends StatelessWidget {
   const HeroBlueCircleProduct(

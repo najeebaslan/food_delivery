@@ -7,7 +7,7 @@ import 'package:food_delivery/core/widget/base_hero_transition.dart';
 import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
 
 import '../../../../../core/constants/hero_tags_constants.dart';
-import '../../../../product_details/widgets/base_circles/hero_blue_circle_product.dart';
+import '../../../../product_details/views/widgets/base_circles/hero_blue_circle_product.dart';
 
 class HeroRedCircleAppBarHomeView extends StatelessWidget {
   const HeroRedCircleAppBarHomeView({super.key, this.parameters});

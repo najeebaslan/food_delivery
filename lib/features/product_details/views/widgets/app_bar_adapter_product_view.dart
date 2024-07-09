@@ -5,11 +5,11 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/features/home/views/widgets/header_text_field.dart';
 
-import '../../../core/constants/assets_constants.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/styles/app_text_styles.dart';
-import '../../../core/widget/adaptive_widget/adaptive_app_bar.dart';
-import '../product_details_cubit/product_details_cubit.dart';
+import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/styles/app_text_styles.dart';
+import '../../../../core/widget/adaptive_widget/adaptive_app_bar.dart';
+import '../../product_details_cubit/product_details_cubit.dart';
 import 'app_bar_product_details.dart';
 
 class AppBarAdapterProductView extends AdaptiveAppBar {
