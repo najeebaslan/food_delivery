@@ -6,16 +6,16 @@ import 'package:food_delivery/core/constants/num_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
 
-import '../../core/constants/assets_constants.dart';
-import '../../core/constants/hero_tags_constants.dart';
-import '../../core/styles/app_text_styles.dart';
-import '../../core/widget/adaptive_widget/adaptive_scaffold.dart';
-import '../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
-import '../home/views/widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
-import 'product_details_cubit/product_details_cubit.dart';
+import '../../../core/constants/assets_constants.dart';
+import '../../../core/constants/hero_tags_constants.dart';
+import '../../../core/styles/app_text_styles.dart';
+import '../../../core/widget/adaptive_widget/adaptive_scaffold.dart';
+import '../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
+import '../../home/views/widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
+import '../product_details_cubit/product_details_cubit.dart';
 import 'widgets/app_bar_adapter_product_view.dart';
 import 'widgets/base_circles/hero_blue_circle_product.dart';
-import 'widgets/choose_size_views/choose_size_product_view.dart';
+import 'choose_size_views/choose_size_product_view.dart';
 import 'widgets/product_details_list_view.dart';
 
 class ProductDetailsView extends StatefulWidget {
@@ -66,12 +66,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                 productCubit: _productCubit,
               ),
               body: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-
-                  // if (ProductDetailsCubit.get(context).isProductDetailsVisible) {
-                  // }
-                },
+                onTap: () => _onBackToHomeView(context),
                 child: Padding(
                   padding: EdgeInsets.only(
                     right: 24.w,
@@ -213,7 +208,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
   Widget _blueCircle() {
     return HeroBlueCircleProduct(
       parameters: HeroRedCircleParameters(
-        showProductDetails: ProductDetailsCubit.get(context).isProductDetailsVisible,
+        showProductDetails: _productCubit.isProductDetailsVisible,
         height: 195.023.h,
         width: 195.023.w,
         angle: 4,
@@ -222,5 +217,11 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
         },
       ),
     );
+  }
+
+  void _onBackToHomeView(BuildContext context) {
+    if (_productCubit.isProductDetailsVisible) {
+      Navigator.pop(context);
+    }
   }
 }

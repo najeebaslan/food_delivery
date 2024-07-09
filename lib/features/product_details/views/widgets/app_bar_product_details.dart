@@ -5,12 +5,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
-import '../../../core/constants/assets_constants.dart';
-import '../../../core/constants/hero_tags_constants.dart';
-import '../../../core/styles/app_text_styles.dart';
-import '../../../core/widget/custom_rect_tween.dart';
-import '../../home/blocs/home_animation_cubit/home_animation_cubit.dart';
-import '../../home/blocs/home_cubit/home_cubit.dart';
+import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/constants/hero_tags_constants.dart';
+import '../../../../core/styles/app_text_styles.dart';
+import '../../../../core/widget/custom_rect_tween.dart';
+import '../../../home/blocs/home_animation_cubit/home_animation_cubit.dart';
+import '../../../home/blocs/home_cubit/home_cubit.dart';
 
 class AppBarProductDetails extends StatefulWidget {
   const AppBarProductDetails({
