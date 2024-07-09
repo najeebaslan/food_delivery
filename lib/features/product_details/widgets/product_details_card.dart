@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 
-import '../../../../core/styles/app_colors.dart';
-import '../../data/product_model.dart';
-import '../title_and_subtitle_product.dart';
+import '../../../core/styles/app_colors.dart';
+import '../data/product_model.dart';
+import 'title_and_subtitle_product.dart';
 
 class ProductDetailsCard extends StatelessWidget {
   const ProductDetailsCard({

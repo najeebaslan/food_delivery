@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/styles/app_colors.dart';
+import '../data/product_model.dart';
 
 part 'product_details_state.dart';
 
+enum ProductDetailsSizeEnum { small, medium, large }
+  
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   static ProductDetailsCubit get(BuildContext context) => BlocProvider.of(context);
 
   ProductDetailsCubit() : super(ProductDetailsInitial());
 
+  ProductModel selectedProduct = ProductModel.empty();
+  ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   late AnimationController animationController;
   // Circles Positions
   late Animation<Offset> blueCirclePosition;
@@ -37,8 +42,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void initAnimations() {
     // Positions
-    blueCirclePosition =
-        Tween<Offset>(begin: Offset.zero, end: const Offset(1.2, -0.65)).animate(curve);
+    blueCirclePosition = Tween<Offset>(
+      begin: Offset.zero,
+      end: const Offset(1.2, -0.65),
+    ).animate(curve);
 
     redCirclePosition = Tween<Offset>(
       begin: Offset.zero,
@@ -46,7 +53,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ).animate(curve);
     yellowCirclePosition = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0.85, -0.9),
+      end: const Offset(0.85, -0.8),
     ).animate(curve);
 
     // Circles Size
@@ -61,10 +68,10 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       end: -0.7,
     ).animate(curve);
 
-    // Opacity Opacity
+    // Circles Opacity
     yellowCircleOpacity = Tween<double>(
       begin: 1,
-      end: 0.2,
+      end: 0.15,
     ).animate(curve);
 
     titleProductOpacity = Tween<double>(
@@ -87,7 +94,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     );
     redCircleOpacity = Tween<double>(
       begin: 1,
-      end: 0.5,
+      end: 0.2,
     ).animate(curve);
 
     backgroundColorAnimation = ColorTween(
@@ -111,8 +118,27 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     });
   }
 
+  void selectedProductFunc(ProductModel product) {
+    selectedProduct = product;
+    productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
+    emit(ProductSelected());
+  }
+
   void showChooseSizeViewFunc() {
     isProductDetailsVisible = !isProductDetailsVisible;
     emit(ProductDetailsVisible());
+  }
+
+  void changeProductSize(ProductDetailsSizeEnum size) {
+    productDetailsSizeEnum = size;
+    emit(ProductDetailsSizeChanged());
+  }
+
+  int get indexProduct => productDetailsSizeEnum?.index ?? 1;
+  SizeWithPriceProduct get detailsProduct {
+    if (selectedProduct.price.isNotEmpty) {
+      return selectedProduct.sizeWithPrice[indexProduct];
+    }
+    return SizeWithPriceProduct.empty();
   }
 }

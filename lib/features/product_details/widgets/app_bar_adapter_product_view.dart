@@ -117,11 +117,6 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                       ],
                     ),
                   ),
-                  // This for make ui responsive
-                  // SizedBox(
-                  //   height: 38.h,
-                  //   width: 374.w,
-                  // )
                 ],
               ),
             ),
