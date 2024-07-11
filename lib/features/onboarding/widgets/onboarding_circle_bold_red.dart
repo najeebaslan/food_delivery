@@ -31,7 +31,7 @@ class OnboardingCircleBoldRed extends StatelessWidget {
               top: onboardingCubit.topPositionedCircleRed,
               left: onboardingCubit.leftPositionedCircleRed,
               duration: const Duration(
-                milliseconds: NumConstants.animationDuration,
+                milliseconds: NumConstants.duration800,
               ),
               child: Transform(
                 alignment: Alignment.center,
@@ -116,7 +116,7 @@ class FirstCircleBoldRedAnimation extends StatelessWidget {
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
       duration: const Duration(
-        milliseconds: NumConstants.animationDuration,
+        milliseconds: NumConstants.duration800,
       ),
     );
   }
@@ -178,7 +178,7 @@ class LastCircleBoldRedAnimation extends StatelessWidget {
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
       duration: const Duration(
-        milliseconds: NumConstants.animationDuration,
+        milliseconds: NumConstants.duration800,
       ),
     );
   }

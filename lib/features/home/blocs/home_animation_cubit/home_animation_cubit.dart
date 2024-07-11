@@ -79,7 +79,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
     positionGreenCircle = Tween<Size>(
       begin: Size(22.w, context.mediaQueryOf.padding.top.h + 8.h),
-      end: Size((context.width*0.58).w, context.height * 0.81),
+      end: Size((context.width * 0.58).w, context.height * 0.81),
     ).animate(curve);
 
     sizeGreenCircle = Tween<Size>(
@@ -156,13 +156,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
 
   void reverseProductDetailsAnimationAndBackToHomeView() {
     hideRedCircleFat = false;
-    productDetailsAnimationController.reverse().then((onValue) {
-      // changePageView(PageViewEnum.empty);
-    });
-
-    // .whenComplete(
-    //       () =>
-    //     );
+    productDetailsAnimationController.reverse();
   }
 
   void changePageView(PageViewEnum page) {
@@ -182,18 +176,3 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     return pageViewEnum == PageViewEnum.menu;
   }
 }
-
-
-
-
-/* 
-old ==== 5885
-
-new ==== 5810
-5610
- 5685
-
- */
-
-
-

@@ -21,3 +21,38 @@ class HomeCubit extends Cubit<HomeState> {
     emit(ChangeRedCircleColor());
   }
 }
+
+
+
+
+
+/* 
+To.Marzeem.203        =====5675
+
+
+
+To.Aljoran.208
+
+to ozoba       5790
+
+ */
+
+
+/// vlan not add it in the router
+/* 
+
+- change channel nanoStation joran and do test speed for it
+- connection 8 nanoStation for any access point 
+- connection ozobah nanoStation for any access point 
+
+
+
+
+
+
+
+
+
+
+
+ */

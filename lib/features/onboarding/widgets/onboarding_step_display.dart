@@ -112,7 +112,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
     return AnimatedSmoothIndicator(
       curve: Curves.easeOut,
       duration: const Duration(
-        milliseconds: NumConstants.animationDuration,
+        milliseconds: NumConstants.duration800,
       ),
       onDotClicked: (index) {
         _changeColors(fromIndex: indexIndicator, toIndex: index);
@@ -140,7 +140,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       width: 300.w,
       child: AnimatedSwitcher(
         duration: const Duration(
-          milliseconds: NumConstants.animationDuration,
+          milliseconds: NumConstants.duration800,
         ),
         transitionBuilder: (child, animation) {
           return FadeTransition(opacity: animation, child: child);
@@ -195,7 +195,7 @@ class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
       onboardingStats.indexIndicator == 0
           ? const Duration(seconds: 2)
           : const Duration(
-              milliseconds: NumConstants.animationDuration * 2,
+              milliseconds: NumConstants.duration800 * 2,
             ),
     );
 

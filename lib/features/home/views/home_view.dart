@@ -33,16 +33,16 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     _homeAnimationCubit.menuAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: NumConstants.globalDuration,
+        milliseconds: NumConstants.duration1350,
       ),
     );
     _homeAnimationCubit.productDetailsAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: NumConstants.fastDuration,
+        milliseconds: NumConstants.duration450,
       ),
       reverseDuration: const Duration(
-        milliseconds: NumConstants.globalDuration,
+        milliseconds: NumConstants.duration1350,
       ),
     );
     _homeAnimationCubit.setupMenuAnimations(context);

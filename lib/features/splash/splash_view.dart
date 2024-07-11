@@ -65,7 +65,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   void navigatorToOnboardingView() {
     Future.delayed(
       const Duration(
-        milliseconds: NumConstants.animationDuration,
+        milliseconds: NumConstants.duration800,
       ),
       () => Navigator.pushNamedAndRemoveUntil(
         context,

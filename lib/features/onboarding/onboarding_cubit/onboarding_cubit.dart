@@ -68,8 +68,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     animationController.addStatusListener(
       (status) async {
         if (status == AnimationStatus.completed) {
-          await Future.delayed(
-              const Duration(milliseconds: NumConstants.animationDuration), () {
+          await Future.delayed(const Duration(milliseconds: NumConstants.duration800),
+              () {
             if (completedFirstAnimation == false) {
               animationController.reset();
               animationController.forward();

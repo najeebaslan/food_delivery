@@ -36,7 +36,7 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
     _animationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: NumConstants.animationDuration - 100,
+        milliseconds: NumConstants.duration800 - 100,
       ),
     );
     initAnimation();
@@ -62,7 +62,7 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
       (status) async {
         if (status == AnimationStatus.completed) {
           await Future.delayed(
-            const Duration(milliseconds: NumConstants.animationDuration),
+            const Duration(milliseconds: NumConstants.duration800),
             () {
               if (completedFirstAnimation == false) {
                 completedFirstAnimation = true;
@@ -98,16 +98,14 @@ class _OnboardingCircleYellowState extends State<OnboardingCircleYellow>
           builder: (context, child) {
             return AnimatedPositioned(
               duration: const Duration(
-                milliseconds: NumConstants.animationDuration,
+                milliseconds: NumConstants.duration800,
               ),
               curve: Curves.easeInOut,
               top: topPositionedCircleYellow,
               left: rightPositionedCircleYellow,
               child: Transform(
                 alignment: Alignment.center,
-                transform:
-                
-                 Matrix4.identity()
+                transform: Matrix4.identity()
                   ..rotateZ(completedFirstAnimation
                       ? -animation.evaluate(_animationController) * 2
                       : animation.evaluate(_animationController)),
