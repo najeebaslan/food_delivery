@@ -30,7 +30,7 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
     onboardingCubit = context.read<OnboardingCubit>();
     onboardingCubit.animationController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: NumConstants.animationDuration - 100),
+      duration: const Duration(milliseconds: NumConstants.duration800 - 100),
     );
     onboardingCubit.initAnimation();
   }

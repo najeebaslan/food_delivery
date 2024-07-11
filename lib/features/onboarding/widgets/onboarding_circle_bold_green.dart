@@ -30,7 +30,7 @@ class OnboardingCircleGreen extends StatelessWidget {
               top: onboardingCubit.topPositionedCircleGreen,
               left: onboardingCubit.leftPositionedCircleGreen,
               duration: const Duration(
-                milliseconds: NumConstants.animationDuration,
+                milliseconds: NumConstants.duration800,
               ),
               child: Transform(
                 alignment: Alignment.center,
@@ -119,7 +119,7 @@ class CircleGreenAnimation extends StatelessWidget {
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,
       duration: const Duration(
-        milliseconds: NumConstants.animationDuration,
+        milliseconds: NumConstants.duration800,
       ),
     );
   }

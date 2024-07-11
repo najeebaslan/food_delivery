@@ -12,7 +12,7 @@ import '../../product_details_cubit/product_details_cubit.dart';
 
 class BodyChooseSizeProductView extends StatelessWidget {
   const BodyChooseSizeProductView({super.key});
-  static List<String> sizesType = ['Small  ', 'Medium', 'Large'];
+  static List<String> sizeTypes = ['Small  ', 'Medium', 'Large'];
 
   @override
   Widget build(BuildContext context) {
@@ -20,7 +20,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
       buildWhen: (previous, current) =>
           current is ProductSelected || current is ProductDetailsSizeChanged,
       builder: (context, state) {
-        final sizeProduct = sizesType[context.read<ProductDetailsCubit>().indexProduct];
+        final sizeProduct = sizeTypes[context.read<ProductDetailsCubit>().indexProduct];
 
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -32,7 +32,6 @@ class BodyChooseSizeProductView extends StatelessWidget {
             Center(
               child: Container(
                 width: 362.w,
-                height: 98.h,
                 padding: EdgeInsets.all(22.h),
                 alignment: Alignment.center,
                 decoration: ShapeDecoration(
@@ -114,8 +113,9 @@ class BodyChooseSizeProductView extends StatelessWidget {
               ),
             ),
             BaseFadeAnimatedSwitcher(
+              durationMs: NumConstants.duration900,
               child: PlatformText(
-                key: ValueKey('${sizeProduct}subtitle'),
+                key: ValueKey(sizeProduct),
                 sizeProduct,
                 textAlign: TextAlign.left,
                 style: AppTextStyles.font20Black300W.copyWith(
@@ -132,6 +132,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
 
   Widget _titleWithAnimatedSwitcher(String title) {
     return BaseFadeAnimatedSwitcher(
+      durationMs: NumConstants.duration900,
       stackAlignment: title.contains('gr') ? Alignment.centerRight : Alignment.centerLeft,
       child: Text(
         textAlign: title.contains('gr') ? TextAlign.right : TextAlign.left,
@@ -155,14 +156,14 @@ class BodyChooseSizeProductView extends StatelessWidget {
             ...List.generate(
               3,
               (index) {
-                final bool isSelected = sizeProduct == sizesType[index][0];
+                final bool isSelected = sizeProduct == sizeTypes[index][0];
                 return GestureDetector(
                   onTap: () => ProductDetailsCubit.get(context).changeProductSize(
                     ProductDetailsSizeEnum.values[index],
                   ),
                   child: AnimatedContainer(
                     duration: const Duration(
-                      milliseconds: NumConstants.animationDuration,
+                      milliseconds: NumConstants.duration900,
                     ),
                     curve: Curves.easeInOutBack,
                     width: isSelected ? 44.w : 28.w,
@@ -171,11 +172,11 @@ class BodyChooseSizeProductView extends StatelessWidget {
                     decoration: ShapeDecoration(
                       color: isSelected ? AppColors.green : AppColors.gray,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40),
+                        borderRadius: BorderRadius.circular(40.r),
                       ),
                     ),
                     child: PlatformText(
-                      sizesType[index][0],
+                      sizeTypes[index][0],
                       textAlign: TextAlign.center,
                       style: AppTextStyles.font14Black300W.copyWith(
                         height: 0,

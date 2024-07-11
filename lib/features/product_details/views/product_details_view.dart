@@ -13,9 +13,9 @@ import '../../../core/widget/adaptive_widget/adaptive_scaffold.dart';
 import '../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import '../../home/views/widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
 import '../product_details_cubit/product_details_cubit.dart';
+import 'choose_size_views/choose_size_product_view.dart';
 import 'widgets/app_bar_adapter_product_view.dart';
 import 'widgets/base_circles/hero_blue_circle_product.dart';
-import 'choose_size_views/choose_size_product_view.dart';
 import 'widgets/product_details_list_view.dart';
 
 class ProductDetailsView extends StatefulWidget {
@@ -35,10 +35,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
     _productCubit.animationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: NumConstants.fastDuration,
+        milliseconds: NumConstants.duration450,
       ),
       reverseDuration: const Duration(
-        milliseconds: NumConstants.globalDuration,
+        milliseconds: NumConstants.duration1350,
       ),
     );
     _productCubit.initAnimations();

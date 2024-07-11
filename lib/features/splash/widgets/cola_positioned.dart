@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../onboarding/onboarding_home_view.dart';
 import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/num_constants.dart';
+import '../../onboarding/onboarding_home_view.dart';
 
 class ColaCircleGreenWithHero extends StatelessWidget {
   const ColaCircleGreenWithHero({
@@ -26,7 +26,7 @@ class ColaCircleGreenWithHero extends StatelessWidget {
   Widget build(BuildContext context) {
     return SlideTransition(
       position: Tween<Offset>(
-        begin:Offset.zero,
+        begin: Offset.zero,
         end: Offset(-1.9, -2.9.h),
       ).animate(curvedAnimationSlider),
       child: Hero(
@@ -49,7 +49,7 @@ class ColaCircleGreenWithHero extends StatelessWidget {
 
               return AnimatedSwitcher(
                 duration: const Duration(
-                  milliseconds: NumConstants.animationDuration,
+                  milliseconds: NumConstants.duration800,
                 ),
                 transitionBuilder: (child, animation) {
                   return FadeTransition(

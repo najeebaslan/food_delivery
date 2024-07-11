@@ -16,6 +16,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
+  double sizeImageChooseSizeProduct = 224.53;
 
   late AnimationController animationController;
   // Circles Positions
@@ -55,7 +56,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
     redCirclePosition = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, 3),
+      end: const Offset(0, 2),
     ).animate(curve);
     yellowCirclePosition = Tween<Offset>(
       begin: Offset.zero,
@@ -109,7 +110,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ).animate(animationController);
 
     imageSlideTransition = Tween<Offset>(
-      begin: const Offset(0, 2.5),
+      begin: const Offset(0, 3),
       end: Offset.zero,
     ).animate(curve);
   }
@@ -126,12 +127,13 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
     Future.delayed(const Duration(milliseconds: 600), () {
       showChooseSizeViewFunc();
+      productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
+      sizeImageChooseSizeProduct = 224.53;
     });
   }
 
   void selectedProductFunc(ProductModel product) {
     selectedProduct = product;
-    productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
     emit(ProductSelected());
   }
 
@@ -142,7 +144,26 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void changeProductSize(ProductDetailsSizeEnum size) {
     productDetailsSizeEnum = size;
+    changeSizeAndPositionImageChooseSize(size);
     emit(ProductDetailsSizeChanged());
+  }
+
+  void changeSizeAndPositionImageChooseSize(ProductDetailsSizeEnum size) {
+    switch (size) {
+      case ProductDetailsSizeEnum.medium:
+        sizeImageChooseSizeProduct = 224.53;
+        break;
+      case ProductDetailsSizeEnum.small:
+        sizeImageChooseSizeProduct = 161.05;
+
+        break;
+      case ProductDetailsSizeEnum.large:
+        sizeImageChooseSizeProduct = 300;
+
+        break;
+      default:
+        sizeImageChooseSizeProduct = 224.53;
+    }
   }
 
   int get indexProduct => productDetailsSizeEnum?.index ?? 1;
