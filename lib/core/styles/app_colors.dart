@@ -16,8 +16,9 @@ class AppColors {
   static Color nearRed = const Color(0xFFEA574F);
   static const Color errorColor = Color(0xFFBD1B1B);
   static Color background = const Color(0xFFFFFFFF);
-  static Color gray =  const Color(0xFF585959);
+  static Color gray = const Color(0xFF585959);
   static Color homeBackground = const Color(0xFFF9FFF6);
   static Color productDetailsBackground = HexColor('#F6F6FF');
   static Color blue = const Color(0xFF4688F0);
+  static Color nearBlue = hexToColor('#3CE8C9');
 }

@@ -7,7 +7,9 @@ part 'home_state.dart';
 enum NavigateTo { menu, productDetails }
 
 class HomeCubit extends Cubit<HomeState> {
+  
   HomeCubit() : super(HomeInitial());
+  static HomeCubit get(BuildContext context) => BlocProvider.of(context);
   NavigateTo? navigateTo;
   Color colorBlueOrRedCircle = AppColors.red;
 
@@ -44,11 +46,6 @@ to ozoba       5790
 - change channel nanoStation joran and do test speed for it
 - connection 8 nanoStation for any access point 
 - connection ozobah nanoStation for any access point 
-
-
-
-
-
 
 
 

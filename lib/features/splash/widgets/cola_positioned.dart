@@ -3,21 +3,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../../core/constants/assets_constants.dart';
+import '../../../core/constants/hero_tags_constants.dart';
 import '../../../core/constants/num_constants.dart';
-import '../../onboarding/onboarding_home_view.dart';
 
 class ColaCircleGreenWithHero extends StatelessWidget {
   const ColaCircleGreenWithHero({
     super.key,
     required this.curvedAnimationSlider,
-    required this.onboardingHeroTags,
+    required this.opacityColaCircle,
     required this.height,
     required this.width,
-    required this.opacityColaCircle,
   });
 
   final CurvedAnimation curvedAnimationSlider;
-  final OnboardingHeroTags onboardingHeroTags;
   final double height;
   final double width;
   final ValueNotifier<double> opacityColaCircle;
@@ -30,7 +28,7 @@ class ColaCircleGreenWithHero extends StatelessWidget {
         end: Offset(-1.9, -2.9.h),
       ).animate(curvedAnimationSlider),
       child: Hero(
-        tag: onboardingHeroTags.colaCircleTag,
+        tag: HeroTagsConstants.colaCircleTagOnboardingView,
         flightShuttleBuilder: (
           flightContext,
           animation,

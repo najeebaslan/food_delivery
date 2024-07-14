@@ -6,5 +6,6 @@ class HeroTagsConstants {
   static const String smallCircleGreenTagHomeViewAppBar = 'SmallCircleGreenTag';
   static const String appBarTag = 'AppBarTag';
   static const String titleAppBarTag = 'TitleAppBarTag';
-  static const String circleRedTagHomeViewAppBar = 'DrinkCircleRedTag';
+  static const String circleRedTagShared = 'DrinkCircleRedTag';
+  static const String colaCircleTagOnboardingView = 'ColaCircleTag';
 }

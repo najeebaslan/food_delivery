@@ -164,15 +164,10 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
     emit(ChangePageView());
   }
 
-  bool get isMenuViewOrEmpty {
-    return pageViewEnum == PageViewEnum.empty || pageViewEnum == PageViewEnum.menu;
-  }
+  bool get isMenuViewOrEmpty =>
+      pageViewEnum == PageViewEnum.empty || pageViewEnum == PageViewEnum.menu;
 
-  bool get isProductView {
-    return pageViewEnum == PageViewEnum.productDetails;
-  }
+  bool get isProductView => pageViewEnum == PageViewEnum.productDetails;
 
-  bool get isMenuView {
-    return pageViewEnum == PageViewEnum.menu;
-  }
+  bool get isMenuView => pageViewEnum == PageViewEnum.menu;
 }

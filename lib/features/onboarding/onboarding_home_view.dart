@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/hero_tags_constants.dart';
 import '../../core/constants/num_constants.dart';
 import 'onboarding_cubit/onboarding_cubit.dart';
 import 'widgets/onboarding_circle_bold_green.dart';
@@ -13,8 +14,7 @@ import 'widgets/onboarding_circle_yellow.dart';
 import 'widgets/onboarding_step_display.dart';
 
 class OnboardingHomeView extends StatefulWidget {
-  const OnboardingHomeView({super.key, required this.onboardingHeroTags});
-  final OnboardingHeroTags onboardingHeroTags;
+  const OnboardingHomeView({super.key});
 
   @override
   State<OnboardingHomeView> createState() => _OnboardingHomeViewState();
@@ -67,23 +67,23 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
             ),
             OnboardingCircleGreen(
               onboardingCubit: onboardingCubit,
-              onboardingHeroTags: widget.onboardingHeroTags.colaCircleTag,
+              onboardingHeroTags: HeroTagsConstants.colaCircleTagOnboardingView,
             ),
             const OnboardingCircleYellow(),
             OnboardingCircleBoldRed(
               onboardingCubit: onboardingCubit,
-              onboardingHeroTags: widget.onboardingHeroTags.drinkTag,
+              onboardingHeroTags: HeroTagsConstants.circleRedTagShared,
             ),
             Positioned(
               bottom: context.isSmallDevice ? 20.h : 120.h,
-              child: OnboardingStepDisplay(
-                redCircleHeroTag: widget.onboardingHeroTags.drinkTag,
-                title: const [
+              child: const OnboardingStepDisplay(
+                redCircleHeroTag: HeroTagsConstants.circleRedTagShared,
+                title: [
                   'Fastest Food delivery',
                   'Good Food for Good Moments',
                   'Good food smile',
                 ],
-                subtitle: const [
+                subtitle: [
                   'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
                   'Taste that best, its on time.',
                   'Want a delicious meal, but no\n time we will deliver it hot and yummy.',
@@ -95,13 +95,4 @@ class _OnboardingHomeViewState extends State<OnboardingHomeView>
       ),
     );
   }
-}
-
-class OnboardingHeroTags {
-  final String drinkTag;
-  final String colaCircleTag;
-  OnboardingHeroTags({
-    required this.drinkTag,
-    required this.colaCircleTag,
-  });
 }

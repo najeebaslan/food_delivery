@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../core/constants/assets_constants.dart';
+import '../../core/constants/hero_tags_constants.dart';
 import '../../core/constants/num_constants.dart';
 import '../../core/router/routes_constants.dart';
 import '../../core/styles/app_colors.dart';
-import '../onboarding/onboarding_home_view.dart';
 import 'widgets/cola_positioned.dart';
 import 'widgets/fast_delivery_positioned.dart';
 
@@ -24,10 +24,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   final _opacityColaCircle = ValueNotifier<double>(0.0);
   final _opacityFastDelivery = ValueNotifier<double>(0.0);
   final isAnimationStarted = ValueNotifier<bool>(false);
-  final onboardingHeroTags = OnboardingHeroTags(
-    drinkTag: 'drinkTag',
-    colaCircleTag: 'colaCircleTag',
-  );
 
   late final Animation<double> _opacityColorCircles = Tween<double>(
     begin: 1.0,
@@ -70,7 +66,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       () => Navigator.pushNamedAndRemoveUntil(
         context,
         AppRoutesConstants.onboardingHomeView,
-        arguments: onboardingHeroTags,
         (route) => false,
       ),
     );
@@ -107,7 +102,6 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   _buildYellowCircle(height, width),
                   ColaCircleGreenWithHero(
                     curvedAnimationSlider: curvedAnimationSlider,
-                    onboardingHeroTags: onboardingHeroTags,
                     height: height,
                     width: width,
                     opacityColaCircle: _opacityColaCircle,
@@ -240,7 +234,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
         end: Offset(-1.5, -1.h),
       ).animate(curvedAnimationSlider),
       child: Hero(
-        tag: onboardingHeroTags.drinkTag,
+        tag: HeroTagsConstants.circleRedTagShared,
         child: SvgPicture.asset(
           ImagesConstants.onboardingCircleRed,
           height: 82.981.h,

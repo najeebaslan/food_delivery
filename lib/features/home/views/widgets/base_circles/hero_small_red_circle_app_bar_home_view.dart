@@ -19,50 +19,56 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
   final double? height;
   final double? width;
   final double? angle;
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        return Hero(
-          tag: HeroTagsConstants.circleRedTagHomeViewAppBar,
-          flightShuttleBuilder: (flightContext, animation, flightDirection,
-              fromHeroContext, toHeroContext) {
-            final rotationAnimation = Tween<double>(
-              begin: 0.0,
-              end: 2.3,
-            ).animate(
-              CurvedAnimation(
-                parent: animation,
-                curve: Curves.easeInOutBack,
-              ),
-            );
-
-            return AnimatedBuilder(
-              animation: animation,
-              child: Transform.rotate(
-                angle: 6,
-                child: _buildImageSmallRedCircle(),
-              ),
-              builder: (context, child) {
-                return Transform.rotate(
-                  angle: rotationAnimation.value,
-                  child: child,
-                );
-              },
-            );
-          },
-          createRectTween: (begin, end) {
-            return CustomRectTween(
-              begin: begin!,
-              end: end!,
-            );
-          },
-          child: Transform.rotate(
-            angle: angle ?? 6,
+        if (HomeCubit.get(context).navigateTo==null) {
+          return Hero(
+            tag: HeroTagsConstants.circleRedTagShared,
             child: _buildImageSmallRedCircle(),
-          ),
-        );
+          );
+        } else {
+          return Hero(
+            tag: HeroTagsConstants.circleRedTagShared,
+            flightShuttleBuilder: (flightContext, animation, flightDirection,
+                fromHeroContext, toHeroContext) {
+              final rotationAnimation = Tween<double>(
+                begin: 0.0,
+                end: 2.3,
+              ).animate(
+                CurvedAnimation(
+                  parent: animation,
+                  curve: Curves.easeInOutBack,
+                ),
+              );
+
+              return AnimatedBuilder(
+                animation: animation,
+                child: Transform.rotate(
+                  angle: 6,
+                  child: _buildImageSmallRedCircle(),
+                ),
+                builder: (context, child) {
+                  return Transform.rotate(
+                    angle: rotationAnimation.value,
+                    child: child,
+                  );
+                },
+              );
+            },
+            createRectTween: (begin, end) {
+              return CustomRectTween(
+                begin: begin!,
+                end: end!,
+              );
+            },
+            child: Transform.rotate(
+              angle: angle ?? 6,
+              child: _buildImageSmallRedCircle(),
+            ),
+          );
+        }
       },
     );
   }
