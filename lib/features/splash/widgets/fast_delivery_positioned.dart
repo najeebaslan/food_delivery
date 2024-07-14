@@ -33,10 +33,12 @@ class FastDeliveryPositioned extends StatelessWidget {
                   width: 114.06.w,
                   height: 84.97.h,
                 ),
-                PlatformText('Fast delivery',
-                    style: AppTextStyles.font40Black400W.copyWith(
-                      height: 0,
-                    )),
+                PlatformText(
+                  'Fast delivery',
+                  style: AppTextStyles.font40Black400W.copyWith(
+                    height: 0,
+                  ),
+                ),
                 PlatformText(
                   'Taste that best, its on time.',
                   style: AppTextStyles.font20Black300W.copyWith(

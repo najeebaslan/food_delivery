@@ -71,9 +71,9 @@ class ChooseSizeProductView extends StatelessWidget {
                           position: productCubit.imageSlideTransition,
                           child: AnimatedContainer(
                             duration: const Duration(
-                              milliseconds: NumConstants.duration900,
+                              milliseconds: NumConstants.duration900-50,
                             ),
-                            curve: easeInOutBackSlow,
+                            curve: easeInOutBackWithFastOutBack,
                             width: productCubit.sizeImageChooseSizeProduct.w,
                             height: productCubit.sizeImageChooseSizeProduct.h,
                             child: Image.asset(

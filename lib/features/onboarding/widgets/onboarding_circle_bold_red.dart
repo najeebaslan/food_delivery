@@ -135,15 +135,14 @@ class LastCircleBoldRedAnimation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedCrossFade(
-      firstChild: Hero(
-        tag: onboardingHeroTags,
-        child: SvgPicture.asset(
-          ImagesConstants.onboardingCircleRed,
-          height: 69.33.h,
-          width: 69.33.w,
-        ),
+      firstChild: SvgPicture.asset(
+        ImagesConstants.onboardingCircleRed,
+        height: 69.33.h,
+        width: 69.33.w,
       ),
-      secondChild: Transform.rotate(
+      secondChild: Hero(
+        tag: onboardingHeroTags,
+        child: Transform.rotate(
           alignment: Alignment.center,
           angle: 6.1,
           child: Stack(
@@ -173,7 +172,9 @@ class LastCircleBoldRedAnimation extends StatelessWidget {
                 },
               ),
             ],
-          )),
+          ),
+        ),
+      ),
       crossFadeState: onboardingCubit.isAnimationHasStarted
           ? CrossFadeState.showSecond
           : CrossFadeState.showFirst,

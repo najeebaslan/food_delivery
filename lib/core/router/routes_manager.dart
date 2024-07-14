@@ -21,13 +21,10 @@ class AppRouter {
       curve: Curves.fastOutSlowIn,
     );
     switch (settings.name) {
-      // --------------- Auth Screen ---------------//
       case AppRoutesConstants.onboardingHomeView:
         return BlocProvider<OnboardingCubit>(
           create: (BuildContext context) => OnboardingCubit(),
-          child: OnboardingHomeView(
-            onboardingHeroTags: settings.arguments as OnboardingHeroTags,
-          ),
+          child: const OnboardingHomeView(),
         ).routeWithFadeTransition();
 
       case AppRoutesConstants.homeView:
@@ -72,16 +69,17 @@ class AppRouter {
           ),
         )),
         body: Center(
-            child: PlatformText(
-          'من فضلك تاكد من صحة المسار الذي تريد الذهاب إليه',
-          style: TextStyle(
-            fontSize: 15.sp,
-            color: AppColors.black,
-            fontFamily: AppTextStyles.defaultFontFamily,
-            fontWeight: FontWeight.bold,
-            overflow: TextOverflow.ellipsis,
+          child: PlatformText(
+            'من فضلك تاكد من صحة المسار الذي تريد الذهاب إليه',
+            style: TextStyle(
+              fontSize: 15.sp,
+              color: AppColors.black,
+              fontFamily: AppTextStyles.defaultFontFamily,
+              fontWeight: FontWeight.bold,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        )),
+        ),
       ),
     );
   }

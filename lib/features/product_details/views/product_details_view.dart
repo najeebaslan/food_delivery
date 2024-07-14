@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
+import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/widget/custom_rect_tween.dart';
 
 import '../../../core/constants/assets_constants.dart';
@@ -26,7 +27,7 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late ProductDetailsCubit _productCubit;
   @override
   void initState() {
@@ -41,12 +42,18 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
         milliseconds: NumConstants.duration1350,
       ),
     );
-    _productCubit.initAnimations();
+    _productCubit.chooseSizeAnimationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: NumConstants.duration900),
+    );
+    _productCubit
+      ..initAnimations()
+      ..initChooseSizeAnimation();
   }
 
   @override
   void dispose() {
-    _productCubit.animationController.dispose();
+    _productCubit.disposeAnimationControllers();
     super.dispose();
   }
 
@@ -55,7 +62,10 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
       builder: (context, state) {
         return AnimatedBuilder(
-          animation: _productCubit.animationController,
+          animation: Listenable.merge([
+            _productCubit.animationController,
+            _productCubit.chooseSizeAnimationController,
+          ]),
           builder: (context, child) {
             return AdaptiveScaffold(
               backgroundColor: _productCubit.backgroundColorAnimation.value,
@@ -92,8 +102,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                       ),
                       Positioned(
                         top: context.isIOS ? 120.h : 80.h,
-                        height: 48.13.h,
-                        width: 48.13.w,
+                        // height: _productCubit.redCircleSize.value.h / 1.5,
+                        // width: _productCubit.redCircleSize.value.w,
                         right: 30.w,
                         child: _redCircle(),
                       ),
@@ -170,10 +180,56 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
       opacity: _productCubit.redCircleOpacity,
       child: SlideTransition(
         position: _productCubit.redCirclePosition,
-        child: HeroSmallRedCircleAppBarHomeView(
-          height: 48.13.h,
-          width: 48.13.w,
-          angle: 2,
+        child: Transform.rotate(
+          angle: _productCubit.rotateRedCircle.value,
+          alignment: Alignment.center,
+          child: AnimatedCrossFade(
+            layoutBuilder: (
+              topChild,
+              topChildKey,
+              bottomChild,
+              bottomChildKey,
+            ) {
+              return Stack(
+                clipBehavior: Clip.none,
+                children: <Widget>[
+                  Positioned(
+                    key: topChildKey,
+                    child: topChild,
+                  ),
+                  Positioned(
+                    key: bottomChildKey,
+                    child: bottomChild,
+                  ),
+                ],
+              );
+            },
+            firstChild: HeroSmallRedCircleAppBarHomeView(
+              height: _productCubit.redCircleSize.value.h,
+              width: _productCubit.redCircleSize.value.w,
+              angle: 2,
+            ),
+            secondChild: Transform.rotate(
+              key: UniqueKey(),
+              angle: 3.2,
+              child: SvgPicture.asset(
+                ImagesConstants.fatBorderCircle,
+                height: _productCubit.redCircleSize.value,
+                width: _productCubit.redCircleSize.value,
+                colorFilter: ColorFilter.mode(
+                  AppColors.nearBlue.withOpacity(0.5),
+                  BlendMode.srcIn,
+                ),
+              ),
+            ),
+            crossFadeState: _productCubit.chooseSizeAnimationController.value <
+                    _productCubit.onCrossFadeRedCircleValue
+                ? CrossFadeState.showFirst
+                : CrossFadeState.showSecond,
+            duration: const Duration(
+              milliseconds: 200,
+            ),
+          ),
         ),
       ),
     );
