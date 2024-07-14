@@ -1,5 +1,3 @@
-import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,6 +9,8 @@ part 'product_details_state.dart';
 
 enum ProductDetailsSizeEnum { small, medium, large }
 
+enum AnimationChooseSizeStatus { started, reverse, init }
+
 class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   static ProductDetailsCubit get(BuildContext context) => BlocProvider.of(context);
 
@@ -19,28 +19,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   double sizeImageChooseSizeProduct = 224.53;
-  double onCrossFadeRedCircleValue = 0.3;
-  late AnimationController animationController;
-  late AnimationController chooseSizeAnimationController;
-  // Circles Positions
-  late Animation<Offset> blueCirclePosition;
-  late Animation<Offset> yellowCirclePosition;
-  late Animation<Offset> redCirclePosition;
+  AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
+  late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize;
 
-  // Circles Opacity
-  late Animation<double> yellowCircleOpacity;
+  late AnimationController animationController;
   late Animation<double> titleProductOpacity;
   late Animation<double> textChooseSizeOpacity;
-  late Animation<double> redCircleOpacity;
-
-  // Circles Size
-  late Animation<double> yellowCircleSize;
-  late Animation<double> redCircleSize;
-
-  // Circles Rotate
-  late Animation<double> rotateRedCircle;
-  late Animation<double> yellowCircleRotate;
-
   late Animation backgroundColorAnimation;
   late Animation<Offset> imageSlideTransition;
 
@@ -53,40 +37,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   );
 
   void initAnimations() {
-    // Positions
-    blueCirclePosition = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(1.2, -0.65),
-    ).animate(curve);
-
-    redCirclePosition = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, 2),
-    ).animate(curve);
-
-    yellowCirclePosition = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.85, -0.8),
-    ).animate(curve);
-
-    // Circles Size
-    yellowCircleSize = Tween<double>(
-      begin: 78.358,
-      end: 116.305,
-    ).animate(curve);
-
-    // Circles Rotate
-    yellowCircleRotate = Tween<double>(
-      begin: 0,
-      end: -0.7,
-    ).animate(curve);
-
-    // Circles Opacity
-    yellowCircleOpacity = Tween<double>(
-      begin: 1,
-      end: 0.15,
-    ).animate(curve);
-
     titleProductOpacity = Tween<double>(
       begin: 1,
       end: 0,
@@ -105,10 +55,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         curve: Curves.fastOutSlowIn,
       ),
     );
-    redCircleOpacity = Tween<double>(
-      begin: 1,
-      end: 0.2,
-    ).animate(curve);
 
     backgroundColorAnimation = ColorTween(
       begin: AppColors.productDetailsBackground,
@@ -121,34 +67,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ).animate(curve);
   }
 
-  void initChooseSizeAnimation() {
-    initSizeRedCircleAnimation(ProductDetailsSizeEnum.medium);
-  }
-
-  initSizeRedCircleAnimation(ProductDetailsSizeEnum oldSize) {
-    bool isFromSmallOrToSmall = oldSize == ProductDetailsSizeEnum.small ||
-        productDetailsSizeEnum == ProductDetailsSizeEnum.small;
-
-    redCircleSize = Tween<double>(
-      begin: 48.13,
-      end: isFromSmallOrToSmall ? 70.204 : 48.13,
-    ).animate(CurvedAnimation(
-      parent: chooseSizeAnimationController,
-      curve: Curves.easeInOutBack,
-    ));
-
-    rotateRedCircle = Tween<double>(
-      begin: 0,
-      end: isFromSmallOrToSmall ? math.pi : 0,
-    ).animate(
-      CurvedAnimation(
-        parent: chooseSizeAnimationController,
-        curve: Curves.easeInOutBack,
-      ),
-    );
-  }
-
   void startInitAnimation() {
+    animationChooseSizeStatus = AnimationChooseSizeStatus.started;
     animationController.forward();
     Future.delayed(const Duration(milliseconds: 200), () {
       showChooseSizeViewFunc();
@@ -156,10 +76,14 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   void reverseInitAnimation() {
+    animationChooseSizeStatus = AnimationChooseSizeStatus.reverse;
+    emit(ChangeStateAnimation());
+
     animationController.reverse();
 
     Future.delayed(const Duration(milliseconds: 600), () {
       showChooseSizeViewFunc();
+
       productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
       sizeImageChooseSizeProduct = 224.53;
     });
@@ -175,15 +99,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(ProductDetailsVisible());
   }
 
-  void changeProductSize(ProductDetailsSizeEnum size) {
-    if (size.index == productDetailsSizeEnum!.index) return;
+  void changeProductSize(ProductDetailsSizeEnum newSize) {
+    if (newSize.index == productDetailsSizeEnum!.index) return;
+    getOldAndCurrentSize = (productDetailsSizeEnum!, newSize);
+    productDetailsSizeEnum = newSize;
 
-    initSizeRedCircleAnimation(size);
-
-    productDetailsSizeEnum = size;
-    changeCrossFadeValue();
-    startOrReverseChooseSizeAnimation();
-    changeSizeAndPositionImageChooseSize(size);
+    changeSizeAndPositionImageChooseSize(newSize);
 
     emit(ProductDetailsSizeChanged());
   }
@@ -198,7 +119,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         break;
       case ProductDetailsSizeEnum.large:
         sizeImageChooseSizeProduct = 300;
-
         break;
       default:
         sizeImageChooseSizeProduct = 224.53;
@@ -206,27 +126,16 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   int get indexProduct => productDetailsSizeEnum?.index ?? 1;
+
   SizeWithPriceProductModel get detailsProduct {
-    if (selectedProduct.price.isNotEmpty) {
-      return selectedProduct.sizeWithPrice[indexProduct];
-    }
-    return SizeWithPriceProductModel.empty();
+    return selectedProduct.price.isNotEmpty
+        ? selectedProduct.sizeWithPrice[indexProduct]
+        : SizeWithPriceProductModel.empty();
   }
 
-  void changeCrossFadeValue() {
-    onCrossFadeRedCircleValue = chooseSizeAnimationController.isCompleted ? 0.5 : 0.3;
-  }
+  bool get isStartChooseSizeAnimation =>
+      animationChooseSizeStatus == AnimationChooseSizeStatus.started;
 
-  void startOrReverseChooseSizeAnimation() {
-    if (chooseSizeAnimationController.isCompleted) {
-      chooseSizeAnimationController.reverse();
-    } else {
-      chooseSizeAnimationController.forward();
-    }
-  }
-
-  void disposeAnimationControllers() {
-    animationController.dispose();
-    chooseSizeAnimationController.dispose();
-  }
+  bool get isReversChooseSizeAnimation =>
+      animationChooseSizeStatus == AnimationChooseSizeStatus.reverse;
 }
