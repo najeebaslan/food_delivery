@@ -6,7 +6,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_text_styles.dart';
-import '../../../../core/widget/animation_slide_transition.dart';
+import '../../../../core/widget/base_animations/animation_slide_transition.dart';
 import '../../../../core/widget/shadow.dart';
 import 'popular_card.dart';
 

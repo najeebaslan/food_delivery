@@ -10,7 +10,7 @@ import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_anim
 
 import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/hero_tags_constants.dart';
-import '../../../core/widget/custom_rect_tween.dart';
+import '../../../core/utils/custom_rect_tween.dart';
 import '../../menu/menu_view.dart';
 import 'widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import 'widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
-import 'package:food_delivery/core/widget/base_hero_transition.dart';
+import 'package:food_delivery/core/widget/base_animations/base_hero_transition.dart';
 import 'package:food_delivery/features/home/blocs/home_cubit/home_cubit.dart';
 
 import '../../../../../core/constants/hero_tags_constants.dart';

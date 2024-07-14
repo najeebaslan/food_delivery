@@ -34,8 +34,8 @@ class FoodDeliveryApp extends StatelessWidget {
             create: (BuildContext context) => HomeAnimationCubit(),
             child: PlatformApp(
               onGenerateRoute: AppRouter.onGenerateRoute,
-              initialRoute: AppRoutesConstants.splashView,
-              // initialRoute: AppRoutesConstants.homeView,
+              // initialRoute: AppRoutesConstants.splashView,
+              initialRoute: AppRoutesConstants.homeView,
               builder: (context, child) => MediaQuery(
                 data: MediaQuery.of(context).copyWith(
                   textScaler: const TextScaler.linear(1),

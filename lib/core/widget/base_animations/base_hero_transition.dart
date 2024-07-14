@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'custom_rect_tween.dart';
+import '../../utils/custom_rect_tween.dart';
 
 class BaseHeroTransition extends StatelessWidget {
   const BaseHeroTransition({

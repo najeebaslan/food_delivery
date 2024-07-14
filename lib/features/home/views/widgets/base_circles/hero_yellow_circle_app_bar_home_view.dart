@@ -4,9 +4,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
-import 'package:food_delivery/core/widget/base_hero_transition.dart';
+import 'package:food_delivery/core/widget/base_animations/base_hero_transition.dart';
 
-import '../../../../../core/widget/custom_rect_tween.dart';
+import '../../../../../core/utils/custom_rect_tween.dart';
 import '../../../blocs/home_cubit/home_cubit.dart';
 
 class HeroYellowCircleAppBarHomeView extends StatelessWidget {
