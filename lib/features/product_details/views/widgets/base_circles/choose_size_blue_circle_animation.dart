@@ -8,22 +8,24 @@ import '../../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home
 import '../../../product_details_cubit/product_details_cubit.dart';
 import 'hero_blue_circle_product.dart';
 
-class BlueCircle extends StatefulWidget {
-  const BlueCircle({super.key});
+class ChooseSizeBlueCircleAnimation extends StatefulWidget {
+  const ChooseSizeBlueCircleAnimation({super.key});
 
   @override
-  State<BlueCircle> createState() => _BlueCircleState();
+  State<ChooseSizeBlueCircleAnimation> createState() =>
+      _ChooseSizeBlueCircleAnimationState();
 }
 
-class _BlueCircleState extends State<BlueCircle> with SingleTickerProviderStateMixin {
+class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _blueCirclePosition;
   late ProductDetailsCubit _productCubit;
 
   late final curve = CurvedAnimation(
     parent: _animationController,
-    curve: easeInOutBackSlow,
-    reverseCurve: easeInOutBackSlow,
+    curve: easeInOutBackSlow30,
+    reverseCurve: easeInOutBackSlow30,
   );
 
   @override

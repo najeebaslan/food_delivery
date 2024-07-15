@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
-import 'package:food_delivery/features/product_details/views/widgets/base_circles/blue_circle.dart';
-import 'package:food_delivery/features/product_details/views/widgets/base_circles/red_circle.dart';
-import 'package:food_delivery/features/product_details/views/widgets/base_circles/yellow_circle.dart';
+import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_blue_circle_animation.dart';
+import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_red_circle_animation.dart';
+import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_yellow_circle_animation.dart';
 
 import '../../../core/styles/app_text_styles.dart';
 import '../../../core/widget/adaptive_widget/adaptive_scaffold.dart';
@@ -75,7 +75,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                       Positioned(
                         top: context.isIOS ? 50.h : 10.h,
                         left: -70.w,
-                        child: const BlueCircle(),
+                        child: const ChooseSizeBlueCircleAnimation(),
                       ),
                       Positioned(
                         width: 235.w,
@@ -87,12 +87,12 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                       Positioned(
                         top: context.isIOS ? 120.h : 80.h,
                         right: 30.w,
-                        child: const RedCircle(),
+                        child: const ChooseSizeRedCircleAnimation(),
                       ),
                       Positioned(
                         top: context.isIOS ? 80.h : 40.h,
                         right: 53.w,
-                        child: const YellowCircle(),
+                        child: const ChooseSizeYellowCircleAnimation(),
                       ),
                       _bodyProductView(),
                     ],
