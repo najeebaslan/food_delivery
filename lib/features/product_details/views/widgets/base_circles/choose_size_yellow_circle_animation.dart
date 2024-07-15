@@ -10,14 +10,16 @@ import '../../../../../core/utils/custom_curves.dart';
 import '../../../../../core/utils/custom_rect_tween.dart';
 import '../../../product_details_cubit/product_details_cubit.dart';
 
-class YellowCircle extends StatefulWidget {
-  const YellowCircle({super.key});
+class ChooseSizeYellowCircleAnimation extends StatefulWidget {
+  const ChooseSizeYellowCircleAnimation({super.key});
 
   @override
-  State<YellowCircle> createState() => _YellowCircleState();
+  State<ChooseSizeYellowCircleAnimation> createState() =>
+      _ChooseSizeYellowCircleAnimationState();
 }
 
-class _YellowCircleState extends State<YellowCircle> with SingleTickerProviderStateMixin {
+class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircleAnimation>
+    with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
   late Animation<Offset> _yellowCirclePosition;
   late Animation<double> _yellowCircleOpacity;
@@ -25,8 +27,8 @@ class _YellowCircleState extends State<YellowCircle> with SingleTickerProviderSt
   late Animation<double> _yellowCircleRotate;
   late final curve = CurvedAnimation(
     parent: _animationController,
-    curve: easeInOutBackSlow,
-    reverseCurve: easeInOutBackSlow,
+    curve: easeInOutBackSlow30,
+    reverseCurve: easeInOutBackSlow30,
   );
   late ProductDetailsCubit _productCubit;
   @override
@@ -34,7 +36,6 @@ class _YellowCircleState extends State<YellowCircle> with SingleTickerProviderSt
     super.initState();
     _productCubit = ProductDetailsCubit.get(context);
     _animationController = AnimationController(
-      
       vsync: this,
       duration: const Duration(
         milliseconds: NumConstants.duration450,
@@ -42,7 +43,6 @@ class _YellowCircleState extends State<YellowCircle> with SingleTickerProviderSt
       reverseDuration: const Duration(
         milliseconds: NumConstants.duration1350,
       ),
-    
     );
     initAnimations();
   }

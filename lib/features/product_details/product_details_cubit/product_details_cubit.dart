@@ -20,7 +20,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   double sizeImageChooseSizeProduct = 224.53;
   AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
-  late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize;
 
   late AnimationController animationController;
   late Animation<double> titleProductOpacity;
@@ -32,8 +31,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   late final curve = CurvedAnimation(
     parent: animationController,
-    curve: easeInOutBackSlow,
-    reverseCurve: easeInOutBackSlow,
+    curve: easeInOutBackSlow30,
+    reverseCurve: easeInOutBackSlow30,
   );
 
   void initAnimations() {
@@ -69,6 +68,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void startInitAnimation() {
     animationChooseSizeStatus = AnimationChooseSizeStatus.started;
+    emit(ChangeStateAnimation());
+
     animationController.forward();
     Future.delayed(const Duration(milliseconds: 200), () {
       showChooseSizeViewFunc();
@@ -101,7 +102,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void changeProductSize(ProductDetailsSizeEnum newSize) {
     if (newSize.index == productDetailsSizeEnum!.index) return;
-    getOldAndCurrentSize = (productDetailsSizeEnum!, newSize);
     productDetailsSizeEnum = newSize;
 
     changeSizeAndPositionImageChooseSize(newSize);
