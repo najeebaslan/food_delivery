@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
+import 'package:food_delivery/features/home/cubit/home_animation_cubit.dart';
 
 import 'core/router/routes_constants.dart';
 import 'core/router/routes_manager.dart';

@@ -8,7 +8,7 @@ import '../../../../../core/constants/hero_tags_constants.dart';
 import '../../../../../core/constants/num_constants.dart';
 import '../../../../../core/utils/custom_curves.dart';
 import '../../../../../core/utils/custom_rect_tween.dart';
-import '../../../product_details_cubit/product_details_cubit.dart';
+import '../../../cubit/product_details_cubit.dart';
 
 class ChooseSizeYellowCircleAnimation extends StatefulWidget {
   const ChooseSizeYellowCircleAnimation({super.key});

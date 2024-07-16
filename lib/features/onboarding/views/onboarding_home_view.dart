@@ -4,10 +4,10 @@ import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
-import '../../core/constants/assets_constants.dart';
-import '../../core/constants/hero_tags_constants.dart';
-import '../../core/constants/num_constants.dart';
-import 'onboarding_cubit/onboarding_cubit.dart';
+import '../../../core/constants/assets_constants.dart';
+import '../../../core/constants/hero_tags_constants.dart';
+import '../../../core/constants/num_constants.dart';
+import '../cubit/onboarding_cubit.dart';
 import 'widgets/onboarding_circle_bold_green.dart';
 import 'widgets/onboarding_circle_bold_red.dart';
 import 'widgets/onboarding_circle_yellow.dart';

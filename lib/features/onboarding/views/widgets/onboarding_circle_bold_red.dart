@@ -3,11 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../core/constants/assets_constants.dart';
-import '../../../core/constants/num_constants.dart';
-import '../../../core/styles/app_colors.dart';
-import '../../../core/widget/custom_painters/onboarding_circle_bold_red_custom_painter.dart';
-import '../onboarding_cubit/onboarding_cubit.dart';
+import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/constants/num_constants.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../../../core/widget/custom_painters/onboarding_circle_bold_red_custom_painter.dart';
+import '../../cubit/onboarding_cubit.dart';
 
 class OnboardingCircleBoldRed extends StatelessWidget {
   const OnboardingCircleBoldRed({

@@ -9,7 +9,7 @@ import 'package:gap/gap.dart';
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/widget/base_animations/base_fade_animated_switcher.dart';
 import '../../../../core/widget/custom_elevated_button.dart';
-import '../../product_details_cubit/product_details_cubit.dart';
+import '../../cubit/product_details_cubit.dart';
 import 'body_choose_size_product_view.dart';
 
 class ChooseSizeProductView extends StatelessWidget {
@@ -36,7 +36,7 @@ class ChooseSizeProductView extends StatelessWidget {
                         position: productCubit.imageSlideTransition,
                         child: AnimatedContainer(
                           duration: const Duration(
-                            milliseconds: 800,
+                            milliseconds: NumConstants.duration900,
                           ),
                           curve: Curves.easeInOutBack,
                           width: productCubit.sizeImageChooseSizeProduct.w,

@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:food_delivery/features/product_details/product_details_cubit/product_details_cubit.dart';
+import 'package:food_delivery/features/product_details/cubit/product_details_cubit.dart';
 import 'package:food_delivery/features/product_details/views/product_details_view.dart';
 import 'package:food_delivery/features/splash/splash_view.dart';
 
 import '../../features/home/views/home_view.dart';
-import '../../features/onboarding/onboarding_cubit/onboarding_cubit.dart';
-import '../../features/onboarding/onboarding_home_view.dart';
+import '../../features/onboarding/cubit/onboarding_cubit.dart';
+import '../../features/onboarding/views/onboarding_home_view.dart';
 import '../styles/app_colors.dart';
 import '../styles/app_text_styles.dart';
 import 'routes_constants.dart';

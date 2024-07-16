@@ -9,7 +9,7 @@ import 'package:food_delivery/features/product_details/views/widgets/base_circle
 
 import '../../../core/styles/app_text_styles.dart';
 import '../../../core/widget/adaptive_widget/adaptive_scaffold.dart';
-import '../product_details_cubit/product_details_cubit.dart';
+import '../cubit/product_details_cubit.dart';
 import 'choose_size_views/choose_size_product_view.dart';
 import 'widgets/app_bar_adapter_product_view.dart';
 import 'widgets/product_details_list_view.dart';

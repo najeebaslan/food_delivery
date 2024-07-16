@@ -8,7 +8,7 @@ import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/utils/custom_rect_tween.dart';
-import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
+import 'package:food_delivery/features/home/cubit/home_animation_cubit.dart';
 
 import '../../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 
@@ -31,7 +31,7 @@ class HeroBlueCircleProduct extends StatelessWidget {
           child: Transform.rotate(
             angle: parameters?.angle ?? 3,
             child: imageCircleBlueWithOpacity(
-              cubitHomeView.colorBlueOrRedCircle,
+              parameters?.color ?? cubitHomeView.colorBlueOrRedCircle,
             ),
           ),
           flightShuttleBuilder: (
@@ -75,7 +75,7 @@ class HeroBlueCircleProduct extends StatelessWidget {
                 return Transform.rotate(
                   angle: getAngle(rotationAnimation),
                   child: imageCircleBlueWithOpacity(
-                    cubitHomeView.colorBlueOrRedCircle,
+                    parameters?.color ?? cubitHomeView.colorBlueOrRedCircle,
                   ),
                 );
               },
