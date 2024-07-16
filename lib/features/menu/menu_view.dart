@@ -5,7 +5,7 @@ import 'package:food_delivery/core/extensions/context_extension.dart';
 
 import '../../core/styles/app_colors.dart';
 import '../../core/styles/app_text_styles.dart';
-import '../home/blocs/home_animation_cubit/home_animation_cubit.dart';
+import '../home/cubit/home_animation_cubit.dart';
 
 class MenuView extends StatelessWidget {
   const MenuView({super.key, required this.homeAnimationCubit});

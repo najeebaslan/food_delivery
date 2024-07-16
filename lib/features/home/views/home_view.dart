@@ -11,7 +11,7 @@ import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/hero_tags_constants.dart';
 import '../../../core/utils/custom_rect_tween.dart';
 import '../../menu/menu_view.dart';
-import '../blocs/home_animation_cubit/home_animation_cubit.dart';
+import '../cubit/home_animation_cubit.dart';
 import 'widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import 'widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
 import 'widgets/home_view_body.dart';

@@ -7,9 +7,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
-import '../../../core/constants/assets_constants.dart';
-import '../../../core/constants/num_constants.dart';
-import '../../../core/styles/app_colors.dart';
+import '../../../../core/constants/assets_constants.dart';
+import '../../../../core/constants/num_constants.dart';
+import '../../../../core/styles/app_colors.dart';
 
 class OnboardingCircleYellow extends StatefulWidget {
   const OnboardingCircleYellow({super.key});

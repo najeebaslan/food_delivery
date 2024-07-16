@@ -9,7 +9,7 @@ import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_text_styles.dart';
 import '../../../../core/widget/adaptive_widget/adaptive_app_bar.dart';
-import '../../product_details_cubit/product_details_cubit.dart';
+import '../../cubit/product_details_cubit.dart';
 import 'app_bar_product_details.dart';
 
 class AppBarAdapterProductView extends AdaptiveAppBar {

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
-import '../../../../core/styles/app_colors.dart';
+import '../../../core/styles/app_colors.dart';
 
 part 'home_animation_state.dart';
 
@@ -181,7 +181,7 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   void changeRedCircleColor(Color value) {
     colorBlueOrRedCircle = value;
     emit(ChangeRedCircleColor());
-  }
+  } 
 
   bool get isMenuViewOrEmpty =>
       pageViewEnum == PageViewEnum.empty || pageViewEnum == PageViewEnum.menu;

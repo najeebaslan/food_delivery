@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/utils/custom_curves.dart';
-import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
+import 'package:food_delivery/features/home/cubit/home_animation_cubit.dart';
 
 import '../../../../../core/utils/custom_rect_tween.dart';
 

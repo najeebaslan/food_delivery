@@ -7,9 +7,9 @@ import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-import '../../../core/constants/num_constants.dart';
-import '../../../core/styles/app_colors.dart';
-import '../onboarding_cubit/onboarding_cubit.dart';
+import '../../../../core/constants/num_constants.dart';
+import '../../../../core/styles/app_colors.dart';
+import '../../cubit/onboarding_cubit.dart';
 
 class OnboardingStepDisplay extends StatefulWidget {
   const OnboardingStepDisplay({

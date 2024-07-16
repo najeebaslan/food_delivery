@@ -147,11 +147,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   @override
   Future<void> close() {
     animationController.dispose();
-    // if (animationChooseSizeStatus==AnimationChooseSizeStatus.reverse && colorBlueOrRedCircle == AppColors.red) {
-    //   changeRedCircleColor(AppColors.blue);
-    // } else if (isProductView && colorBlueOrRedCircle == AppColors.blue) {
-    //   changeRedCircleColor(AppColors.red);
-    // }
     return super.close();
   }
 }

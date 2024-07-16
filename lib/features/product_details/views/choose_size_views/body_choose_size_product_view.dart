@@ -8,7 +8,7 @@ import '../../../../core/constants/num_constants.dart';
 import '../../../../core/styles/app_colors.dart';
 import '../../../../core/styles/app_text_styles.dart';
 import '../../../../core/widget/base_animations/base_fade_animated_switcher.dart';
-import '../../product_details_cubit/product_details_cubit.dart';
+import '../../cubit/product_details_cubit.dart';
 
 class BodyChooseSizeProductView extends StatelessWidget {
   const BodyChooseSizeProductView({super.key});

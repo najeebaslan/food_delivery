@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
-import 'package:food_delivery/features/product_details/product_details_cubit/product_details_cubit.dart';
+import 'package:food_delivery/features/product_details/cubit/product_details_cubit.dart';
 import 'package:food_delivery/features/product_details/views/widgets/product_details_card.dart';
 import 'package:gap/gap.dart';
 
