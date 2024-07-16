@@ -22,25 +22,11 @@ class ChooseSizeRedCircleAnimation extends StatefulWidget {
 
 class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimation>
     with TickerProviderStateMixin {
-  late AnimationController _sizeAndRotateAnimationController;
+  late AnimationController _chooseSizeAnimationController;
   late AnimationController _animationController;
-  late Animation<Offset> _redCirclePosition;
-  late Animation<double> _redCircleOpacity;
-  late Animation<double> _onRotateRedCircleOpacity;
-  late Animation<double> _onRotateBlueCircleOpacity;
-  late Animation<double> _redCircleSize;
-  late Animation<double> _rotateRedCircle;
-
-  late Animation<Offset> _redCirclePositionOnBackToProduct;
-  late Animation<double> _rotateRedCircleOnBackToProduct;
-
   bool isBackToProductDetailsView = false;
-  late final curve = CurvedAnimation(
-    parent: _animationController,
-    curve: Curves.easeInOutBack,
-    reverseCurve: Curves.easeInOutBack,
-  );
   late ProductDetailsCubit _productCubit;
+  Offset positionOffset = const Offset(0.25, 2.2);
   @override
   void initState() {
     super.initState();
@@ -54,81 +40,55 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
         milliseconds: NumConstants.duration1350,
       ),
     );
-    _sizeAndRotateAnimationController = AnimationController(
+    _chooseSizeAnimationController = AnimationController(
       vsync: this,
-      duration: const Duration(
-        milliseconds: 800,
-      ),
-    );
-
-    _redCirclePosition = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0.3, 2),
-    ).animate(curve);
-
-    _redCircleOpacity = Tween<double>(
-      begin: 1,
-      end: 0.2,
-    ).animate(curve);
-    _onRotateRedCircleOpacity = Tween<double>(
-      begin: 1,
-      end: 0.0,
-    ).animate(
-      CurvedAnimation(
-        parent: _sizeAndRotateAnimationController,
-        curve: Curves.easeInOutBack,
-      ),
-    );
-    _onRotateBlueCircleOpacity = Tween<double>(
-      begin: 0.0,
-      end: 0.6,
-    ).animate(
-      CurvedAnimation(
-        parent: _sizeAndRotateAnimationController,
-        curve: Curves.easeInOutBack,
-      ),
-    );
-
-    _redCirclePositionOnBackToProduct = Tween<Offset>(
-      begin: Offset.zero,
-      end: const Offset(0, 2),
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: easeInOutBackSlow35,
-      ),
-    );
-
-    _rotateRedCircleOnBackToProduct = Tween<double>(
-      begin: 0,
-      end: math.pi,
-    ).animate(
-      CurvedAnimation(
-        parent: _animationController,
-        curve: easeInOutBackSlow35,
-      ),
-    );
-
-    _redCircleSize = Tween<double>(
-      begin: 48.13,
-      end: 84.20,
-    ).animate(
-      CurvedAnimation(
-        parent: _sizeAndRotateAnimationController,
-        curve: easeInOutBackSlow40,
-      ),
-    );
-
-    _rotateRedCircle = Tween<double>(
-      begin: 0,
-      end: math.pi,
-    ).animate(
-      CurvedAnimation(
-        parent: _sizeAndRotateAnimationController,
-        curve: easeInOutBackSlow40,
-      ),
+      duration: const Duration(milliseconds: 800),
     );
   }
+
+  Animation<double> get _redCircleRotate =>
+      Tween<double>(begin: 0, end: math.pi).animate(_adaptiveCurve);
+
+  Animation<double> get _redCircleSize =>
+      Tween<double>(begin: 48.13, end: 84.20).animate(_adaptiveCurve);
+
+  Animation<double> get _blueCircleOpacity =>
+      Tween(begin: 0.0, end: 0.6).animate(_adaptiveCurve);
+
+  Animation<double> get _redCircleOpacity =>
+      Tween(begin: 1.0, end: 0.0).animate(_adaptiveCurve);
+
+  Animation<double> get _redCircleOpacityOnComeAndBackToProductView =>
+      Tween<double>(begin: 1, end: 0.2).animate(_defaultCurve);
+
+  Animation<Offset> get _redCircleSlideOnComeAndBackToProductView =>
+      Tween<Offset>(begin: Offset.zero, end: positionOffset).animate(_defaultCurve);
+
+  CurvedAnimation get _defaultCurve =>
+      CurvedAnimation(parent: _animationController, curve: easeInOutBackSlow50);
+
+  CurvedAnimation get _adaptiveCurve {
+    return CurvedAnimation(
+      parent: isBackToProductDetailsView
+          ? _animationController
+          : _chooseSizeAnimationController,
+      curve: easeInOutBackSlow50,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    _chooseSizeAnimationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) =>
+      BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
+        listener: (context, state) => _onBlocListener(state),
+        builder: (context, state) => _redCircle(),
+      );
 
   void _onBlocListener(ProductDetailsState state) {
     if (state is ChangeStateAnimation) {
@@ -139,7 +99,7 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
         _animationController.reverse();
         if (_productCubit.productDetailsSizeEnum == ProductDetailsSizeEnum.small) {
           isBackToProductDetailsView = true;
-          _sizeAndRotateAnimationController.reverse();
+          _chooseSizeAnimationController.reverse();
         }
       }
     }
@@ -149,11 +109,11 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
   }
 
   void _handleSizeAndRotateAnimationOnBackToProductView() {
-    if (!_sizeAndRotateAnimationController.isCompleted &&
+    if (!_chooseSizeAnimationController.isCompleted &&
         _productCubit.productDetailsSizeEnum == ProductDetailsSizeEnum.small) {
-      _sizeAndRotateAnimationController.forward();
+      _chooseSizeAnimationController.forward();
     } else {
-      _sizeAndRotateAnimationController.reverse();
+      _chooseSizeAnimationController.reverse();
     }
   }
 
@@ -161,19 +121,15 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
     return AnimatedBuilder(
       animation: Listenable.merge([
         _animationController,
-        _sizeAndRotateAnimationController,
+        _chooseSizeAnimationController,
       ]),
       builder: (context, child) {
         return FadeTransition(
-          opacity: _redCircleOpacity,
+          opacity: _redCircleOpacityOnComeAndBackToProductView,
           child: SlideTransition(
-            position: isBackToProductDetailsView
-                ? _redCirclePositionOnBackToProduct
-                : _redCirclePosition,
+            position: _redCircleSlideOnComeAndBackToProductView,
             child: Transform.rotate(
-              angle: isBackToProductDetailsView
-                  ? _rotateRedCircleOnBackToProduct.value
-                  : _rotateRedCircle.value,
+              angle: _redCircleRotate.value,
               alignment: Alignment.center,
               child: SizedBox(
                 height: _redCircleSize.value.h,
@@ -182,31 +138,23 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
                   alignment: Alignment.center,
                   children: [
                     HeroSmallRedCircleAppBarHomeView(
-                      height: _redCircleSize.value.h,
-                      width: _redCircleSize.value.w,
                       angle: 2.38,
                       enableEffectRotate: false,
+                      height: _redCircleSize.value.h,
+                      width: _redCircleSize.value.w,
                       color: AppColors.red.withOpacity(
-                        _onRotateRedCircleOpacity.value > 1
-                            ? 1
-                            : _onRotateRedCircleOpacity.value < 0
-                                ? 0
-                                : _onRotateRedCircleOpacity.value,
+                        _redCircleOpacity.value.clamp(0.0, 1.0),
                       ),
                     ),
                     Transform.rotate(
                       angle: 3.2,
                       child: SvgPicture.asset(
                         ImagesConstants.fatBorderCircle,
-                        height: _redCircleSize.value,
-                        width: _redCircleSize.value,
+                        width: _redCircleSize.value.w,
+                        height: _redCircleSize.value.h,
                         colorFilter: ColorFilter.mode(
                           AppColors.nearBlue.withOpacity(
-                            _onRotateBlueCircleOpacity.value > 0.6
-                                ? 0.6
-                                : _onRotateBlueCircleOpacity.value < 0
-                                    ? 0
-                                    : _onRotateBlueCircleOpacity.value,
+                            _blueCircleOpacity.value.clamp(0.0, 0.6),
                           ),
                           BlendMode.srcIn,
                         ),
@@ -219,21 +167,6 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
           ),
         );
       },
-    );
-  }
-
-  @override
-  void dispose() {
-    _animationController.dispose();
-    _sizeAndRotateAnimationController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
-      listener: (context, state) => _onBlocListener(state),
-      builder: (context, state) => _redCircle(),
     );
   }
 }

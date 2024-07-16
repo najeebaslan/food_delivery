@@ -24,8 +24,8 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
 
   late final curve = CurvedAnimation(
     parent: _animationController,
-    curve: easeInOutBackSlow30,
-    reverseCurve: easeInOutBackSlow30,
+    curve: easeInOutBackSlow50,
+    reverseCurve: easeInOutBackSlow50,
   );
 
   @override
