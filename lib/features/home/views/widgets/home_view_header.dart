@@ -8,8 +8,8 @@ import 'package:gap/gap.dart';
 
 import '../../../../core/constants/assets_constants.dart';
 import '../../../../core/styles/app_colors.dart';
-import '../../blocs/home_animation_cubit/home_animation_cubit.dart';
 import '../../../product_details/views/widgets/app_bar_product_details.dart';
+import '../../blocs/home_animation_cubit/home_animation_cubit.dart';
 import 'header_text_field.dart';
 
 class HomeViewHeader extends StatefulWidget {

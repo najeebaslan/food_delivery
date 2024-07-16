@@ -15,6 +15,7 @@ class ImagesConstants {
   static const ketchupIsometric = '${_baseImages}ketchup_Isometric.png';
   static const ellipseGreen = '${_baseImages}ellipse_green.svg';
   static const friesBlue = '${_baseImages}fries_blue.svg';
+  static const homeFillRedCircle = '${_baseImages}home_fill_red_circle.svg';
   static const fatBorderCircle = '${_baseImages}fat_border_circle.svg';
   static const ellipseYellow = '${_baseImages}ellipse_yellow.svg';
   static const ellipseRed = '${_baseImages}ellipse_red.svg';

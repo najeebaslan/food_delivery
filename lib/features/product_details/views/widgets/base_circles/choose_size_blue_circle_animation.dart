@@ -51,11 +51,9 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
   Widget build(BuildContext context) {
     return BlocConsumer<ProductDetailsCubit, ProductDetailsState>(
       listener: (context, state) {
-        if (_productCubit.animationChooseSizeStatus ==
-            AnimationChooseSizeStatus.started) {
+        if (_productCubit.isStartChooseSizeAnimation) {
           _animationController.forward();
-        } else if (_productCubit.animationChooseSizeStatus ==
-            AnimationChooseSizeStatus.reverse) {
+        } else if (_productCubit.isReversChooseSizeAnimation) {
           _animationController.reverse();
         }
       },

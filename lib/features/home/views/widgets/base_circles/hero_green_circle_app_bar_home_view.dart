@@ -58,10 +58,6 @@ class HeroGreenCircleAppBarHomeView extends StatelessWidget {
       width: heroWidgetWidth ?? 32.25.w,
       height: heroWidgetWidth ?? 32.h,
     );
-    // OnboardingGreenSmallCircleWidget(
-    //   width: heroWidgetWidth ?? 32.25.w,
-    //   color: AppColors.green.withOpacity(0.2),
-    // );
   }
 
   double getAngle(Animation<double> rotationAnimation) {

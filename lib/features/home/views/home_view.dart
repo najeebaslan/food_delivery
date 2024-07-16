@@ -6,12 +6,12 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
-import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 import '../../../core/constants/assets_constants.dart';
 import '../../../core/constants/hero_tags_constants.dart';
 import '../../../core/utils/custom_rect_tween.dart';
 import '../../menu/menu_view.dart';
+import '../blocs/home_animation_cubit/home_animation_cubit.dart';
 import 'widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import 'widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
 import 'widgets/home_view_body.dart';
@@ -71,12 +71,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           const HomeViewHeader(),
           // Red Circle Bold
           Positioned(
-            top: context.mediaQueryOf.padding.top.h + 5.h,
+            top: context.mediaQueryOf.padding.top.h + 3.h,
             left: 22.w,
             child: HeroSmallRedCircleAppBarHomeView(
               height: 32.28.h,
               width: 32.28.w,
-              angle: 6,
+              angle: 6.3,
             ),
           ),
           // Menu View

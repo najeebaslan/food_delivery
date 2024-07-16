@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
+import 'package:food_delivery/core/utils/custom_curves.dart';
 
-import '../../../../../core/constants/assets_constants.dart';
 import '../../../../../core/utils/custom_rect_tween.dart';
 import '../../../blocs/home_cubit/home_cubit.dart';
 
@@ -13,17 +14,21 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
     super.key,
     this.height,
     this.width,
-    this.angle,
+    this.color,
+    required this.angle,
+    this.enableEffectRotate = true,
   });
 
   final double? height;
   final double? width;
-  final double? angle;
+  final double angle;
+  final Color? color;
+  final bool enableEffectRotate;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(
       builder: (context, state) {
-        if (HomeCubit.get(context).navigateTo==null) {
+        if (HomeCubit.get(context).navigateTo == null) {
           return Hero(
             tag: HeroTagsConstants.circleRedTagShared,
             child: _buildImageSmallRedCircle(),
@@ -35,20 +40,19 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
                 fromHeroContext, toHeroContext) {
               final rotationAnimation = Tween<double>(
                 begin: 0.0,
-                end: 2.3,
+                end: 2.38,
               ).animate(
                 CurvedAnimation(
                   parent: animation,
-                  curve: Curves.easeInOutBack,
+                  curve: enableEffectRotate == false
+                      ? easeInOutBackSlow10
+                      : Curves.easeInOutBack,
                 ),
               );
 
               return AnimatedBuilder(
                 animation: animation,
-                child: Transform.rotate(
-                  angle: 6,
-                  child: _buildImageSmallRedCircle(),
-                ),
+                child: _buildImageSmallRedCircle(),
                 builder: (context, child) {
                   return Transform.rotate(
                     angle: rotationAnimation.value,
@@ -64,7 +68,7 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
               );
             },
             child: Transform.rotate(
-              angle: angle ?? 6,
+              angle: angle,
               child: _buildImageSmallRedCircle(),
             ),
           );
@@ -75,9 +79,15 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
 
   SvgPicture _buildImageSmallRedCircle() {
     return SvgPicture.asset(
-      ImagesConstants.ellipseRed,
+      ImagesConstants.homeFillRedCircle,
       height: height ?? 32.28.h,
       width: width ?? 32.28.w,
+      colorFilter: color != null
+          ? ColorFilter.mode(
+              color!,
+              BlendMode.srcIn,
+            )
+          : null,
     );
   }
 }

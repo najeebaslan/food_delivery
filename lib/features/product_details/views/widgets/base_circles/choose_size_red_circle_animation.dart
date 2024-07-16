@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery/core/styles/app_colors.dart';
 
 import '../../../../../core/constants/assets_constants.dart';
 import '../../../../../core/constants/num_constants.dart';
-import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/utils/custom_curves.dart';
 import '../../../../home/views/widgets/base_circles/hero_small_red_circle_app_bar_home_view.dart';
 import '../../../product_details_cubit/product_details_cubit.dart';
@@ -26,6 +26,8 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
   late AnimationController _animationController;
   late Animation<Offset> _redCirclePosition;
   late Animation<double> _redCircleOpacity;
+  late Animation<double> _onRotateRedCircleOpacity;
+  late Animation<double> _onRotateBlueCircleOpacity;
   late Animation<double> _redCircleSize;
   late Animation<double> _rotateRedCircle;
 
@@ -55,19 +57,37 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
     _sizeAndRotateAnimationController = AnimationController(
       vsync: this,
       duration: const Duration(
-        milliseconds: NumConstants.duration900,
+        milliseconds: 800,
       ),
     );
 
     _redCirclePosition = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0, 2),
+      end: const Offset(0.3, 2),
     ).animate(curve);
 
     _redCircleOpacity = Tween<double>(
       begin: 1,
       end: 0.2,
     ).animate(curve);
+    _onRotateRedCircleOpacity = Tween<double>(
+      begin: 1,
+      end: 0.0,
+    ).animate(
+      CurvedAnimation(
+        parent: _sizeAndRotateAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
+    _onRotateBlueCircleOpacity = Tween<double>(
+      begin: 0.0,
+      end: 0.6,
+    ).animate(
+      CurvedAnimation(
+        parent: _sizeAndRotateAnimationController,
+        curve: Curves.easeInOutBack,
+      ),
+    );
 
     _redCirclePositionOnBackToProduct = Tween<Offset>(
       begin: Offset.zero,
@@ -89,18 +109,13 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
       ),
     );
 
-    _initSizeRedCircleAnimationOnBackToProductView();
-  }
-
-  _initSizeRedCircleAnimationOnBackToProductView() {
     _redCircleSize = Tween<double>(
       begin: 48.13,
-      end: 70.204,
+      end: 84.20,
     ).animate(
       CurvedAnimation(
         parent: _sizeAndRotateAnimationController,
-        curve: Curves.easeInOutBack,
-        reverseCurve: Curves.easeInOutBack,
+        curve: easeInOutBackSlow40,
       ),
     );
 
@@ -110,7 +125,7 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
     ).animate(
       CurvedAnimation(
         parent: _sizeAndRotateAnimationController,
-        curve: easeInOutBackSlow35,
+        curve: easeInOutBackSlow40,
       ),
     );
   }
@@ -160,27 +175,44 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
                   ? _rotateRedCircleOnBackToProduct.value
                   : _rotateRedCircle.value,
               alignment: Alignment.center,
-              child: AnimatedCrossFade(
-                firstChild: HeroSmallRedCircleAppBarHomeView(
-                  height: _redCircleSize.value.h,
-                  width: _redCircleSize.value.w,
-                  angle: 2,
-                ),
-                secondChild: Transform.rotate(
-                  angle: 3.2,
-                  child: SvgPicture.asset(
-                    ImagesConstants.fatBorderCircle,
-                    height: _redCircleSize.value,
-                    width: _redCircleSize.value,
-                    colorFilter: ColorFilter.mode(
-                      AppColors.nearBlue.withOpacity(0.5),
-                      BlendMode.srcIn,
+              child: SizedBox(
+                height: _redCircleSize.value.h,
+                width: _redCircleSize.value.w,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    HeroSmallRedCircleAppBarHomeView(
+                      height: _redCircleSize.value.h,
+                      width: _redCircleSize.value.w,
+                      angle: 2.38,
+                      enableEffectRotate: false,
+                      color: AppColors.red.withOpacity(
+                        _onRotateRedCircleOpacity.value > 1
+                            ? 1
+                            : _onRotateRedCircleOpacity.value < 0
+                                ? 0
+                                : _onRotateRedCircleOpacity.value,
+                      ),
                     ),
-                  ),
-                ),
-                crossFadeState: _getCrossFadeStates(),
-                duration: const Duration(
-                  milliseconds: 200,
+                    Transform.rotate(
+                      angle: 3.2,
+                      child: SvgPicture.asset(
+                        ImagesConstants.fatBorderCircle,
+                        height: _redCircleSize.value,
+                        width: _redCircleSize.value,
+                        colorFilter: ColorFilter.mode(
+                          AppColors.nearBlue.withOpacity(
+                            _onRotateBlueCircleOpacity.value > 0.6
+                                ? 0.6
+                                : _onRotateBlueCircleOpacity.value < 0
+                                    ? 0
+                                    : _onRotateBlueCircleOpacity.value,
+                          ),
+                          BlendMode.srcIn,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -188,16 +220,6 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
         );
       },
     );
-  }
-
-  CrossFadeState _getCrossFadeStates() {
-    if (_sizeAndRotateAnimationController.isCompleted &&
-        _sizeAndRotateAnimationController.value < 0.6) {
-      return CrossFadeState.showFirst;
-    } else if (_sizeAndRotateAnimationController.value < 0.4) {
-      return CrossFadeState.showFirst;
-    }
-    return CrossFadeState.showSecond;
   }
 
   @override
