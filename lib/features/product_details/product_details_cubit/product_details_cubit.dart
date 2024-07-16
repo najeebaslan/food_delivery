@@ -20,6 +20,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   double sizeImageChooseSizeProduct = 220;
   AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
+  late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize =
+      (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
 
   late AnimationController animationController;
   late Animation<double> titleProductOpacity;
@@ -29,12 +31,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   bool isProductDetailsVisible = true;
 
-  late final curve = CurvedAnimation(
-    parent: animationController,
-    curve: easeInOutBackSlow30,
-    reverseCurve: easeInOutBackSlow30,
-  );
-
   void initAnimations() {
     titleProductOpacity = Tween<double>(
       begin: 1,
@@ -42,7 +38,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ).animate(
       CurvedAnimation(
         parent: animationController,
-        curve: Curves.fastOutSlowIn,
+        curve: Curves.easeInOutBack,
       ),
     );
     textChooseSizeOpacity = Tween<double>(
@@ -51,7 +47,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ).animate(
       CurvedAnimation(
         parent: animationController,
-        curve: Curves.fastOutSlowIn,
+        curve: Curves.easeInOutBack,
       ),
     );
 
@@ -63,7 +59,13 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     imageSlideTransition = Tween<Offset>(
       begin: const Offset(0, 3),
       end: Offset.zero,
-    ).animate(curve);
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: easeInOutBackSlow30,
+        reverseCurve: easeInOutBackSlow30,
+      ),
+    );
   }
 
   void startInitAnimation() {
@@ -87,6 +89,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
       productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
       sizeImageChooseSizeProduct = 220;
+      getOldAndCurrentSize =
+          (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
     });
   }
 
@@ -102,6 +106,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void changeProductSize(ProductDetailsSizeEnum newSize) {
     if (newSize.index == productDetailsSizeEnum!.index) return;
+    getOldAndCurrentSize = (productDetailsSizeEnum!, newSize);
     productDetailsSizeEnum = newSize;
 
     changeSizeAndPositionImageChooseSize(newSize);
@@ -138,4 +143,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   bool get isReversChooseSizeAnimation =>
       animationChooseSizeStatus == AnimationChooseSizeStatus.reverse;
+
+  @override
+  Future<void> close() {
+    animationController.dispose();
+    // if (animationChooseSizeStatus==AnimationChooseSizeStatus.reverse && colorBlueOrRedCircle == AppColors.red) {
+    //   changeRedCircleColor(AppColors.blue);
+    // } else if (isProductView && colorBlueOrRedCircle == AppColors.blue) {
+    //   changeRedCircleColor(AppColors.red);
+    // }
+    return super.close();
+  }
 }

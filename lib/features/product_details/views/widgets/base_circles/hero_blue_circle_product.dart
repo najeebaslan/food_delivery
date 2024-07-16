@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -6,8 +8,8 @@ import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/utils/custom_rect_tween.dart';
+import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
-import '../../../../home/blocs/home_cubit/home_cubit.dart';
 import '../../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 
 class HeroBlueCircleProduct extends StatelessWidget {
@@ -18,11 +20,11 @@ class HeroBlueCircleProduct extends StatelessWidget {
   final String? tag;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
       buildWhen: (previous, current) =>
           current is NavigateToView || current is ChangeRedCircleColor,
       builder: (context, state) {
-        final cubitHomeView = BlocProvider.of<HomeCubit>(context);
+        final cubitHomeView = BlocProvider.of<HomeAnimationCubit>(context);
 
         return Hero(
           tag: tag ?? HeroTagsConstants.bigCircleRedTagHomeViewAppBar,
@@ -52,14 +54,22 @@ class HeroBlueCircleProduct extends StatelessWidget {
             return AnimatedBuilder(
               animation: rotationAnimation,
               builder: (context, child) {
-                if (rotationAnimation.value > 1.5 && rotationAnimation.value < 1.7) {
+                if (rotationAnimation.isDismissed) {
                   cubitHomeView.changeRedCircleColor(
                     AppColors.blue,
                   );
-                } else if (rotationAnimation.value < 1.5 &&
+                  log('isDismissed blue circle');
+                }
+
+                if (rotationAnimation.value.clamp(0, 2.3) > 1.5 &&
+                    rotationAnimation.value.clamp(0, 2.3) <= 1.7) {
+                  cubitHomeView.changeRedCircleColor(
+                    parameters?.color ?? AppColors.blue,
+                  );
+                } else if (rotationAnimation.value.clamp(0, 2.3) < 1.5 &&
                     rotationAnimation.value > 1.2) {
                   cubitHomeView.changeRedCircleColor(
-                    AppColors.red,
+                    parameters?.color ?? AppColors.red,
                   );
                 }
                 return Transform.rotate(
@@ -86,7 +96,7 @@ class HeroBlueCircleProduct extends StatelessWidget {
         rotationAnimation.value,
       );
     } else {
-      return rotationAnimation.value > 0.7 ? 3 :3;
+      return rotationAnimation.value > 0.7 ? 3 : 3;
     }
   }
 

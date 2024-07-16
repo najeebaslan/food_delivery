@@ -22,7 +22,7 @@ class ProductDetailsView extends StatefulWidget {
 }
 
 class _ProductDetailsViewState extends State<ProductDetailsView>
-    with TickerProviderStateMixin {
+    with SingleTickerProviderStateMixin {
   late ProductDetailsCubit _productCubit;
   @override
   void initState() {
@@ -39,12 +39,6 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
     );
 
     _productCubit.initAnimations();
-  }
-
-  @override
-  void dispose() {
-    _productCubit.animationController.dispose();
-    super.dispose();
   }
 
   @override
@@ -142,7 +136,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
     return _productCubit.isProductDetailsVisible
         ? AnimatedOpacity(
             duration: Duration.zero,
-            opacity: _productCubit.titleProductOpacity.value,
+            opacity: _productCubit.titleProductOpacity.value.clamp(0.0, 1.0),
             child: ConstrainedBox(
               constraints: BoxConstraints(
                 maxWidth: 235.w,

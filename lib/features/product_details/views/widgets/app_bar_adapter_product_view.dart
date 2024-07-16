@@ -81,7 +81,10 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                     ],
                   ),
                   AnimatedOpacity(
-                    opacity: ProductDetailsCubit.get(context).textChooseSizeOpacity.value,
+                    opacity: ProductDetailsCubit.get(context)
+                        .textChooseSizeOpacity
+                        .value
+                        .clamp(0.0, 1.0),
                     duration: Duration.zero,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
