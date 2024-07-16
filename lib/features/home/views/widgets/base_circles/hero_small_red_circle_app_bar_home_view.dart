@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/utils/custom_curves.dart';
+import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 import '../../../../../core/utils/custom_rect_tween.dart';
-import '../../../blocs/home_cubit/home_cubit.dart';
 
 class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
   const HeroSmallRedCircleAppBarHomeView({
@@ -26,9 +26,10 @@ class HeroSmallRedCircleAppBarHomeView extends StatelessWidget {
   final bool enableEffectRotate;
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
+      buildWhen: (previous, current) => current is NavigateToView,
       builder: (context, state) {
-        if (HomeCubit.get(context).navigateTo == null) {
+        if (HomeAnimationCubit.get(context).navigateTo == null) {
           return Hero(
             tag: HeroTagsConstants.circleRedTagShared,
             child: _buildImageSmallRedCircle(),

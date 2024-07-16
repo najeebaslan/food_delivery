@@ -3,12 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
 
+import '../../../../core/styles/app_colors.dart';
+
 part 'home_animation_state.dart';
 
 enum PageViewEnum { menu, productDetails, empty }
 
+enum NavigateTo { menu, productDetails }
+
 class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   HomeAnimationCubit() : super(HomeAnimationInitial());
+  static HomeAnimationCubit get(BuildContext context) => BlocProvider.of(context);
+
+  NavigateTo? navigateTo;
+  Color colorBlueOrRedCircle = AppColors.red;
+
   PageViewEnum pageViewEnum = PageViewEnum.empty;
   late AnimationController menuAnimationController;
   late AnimationController productDetailsAnimationController;
@@ -162,6 +171,16 @@ class HomeAnimationCubit extends Cubit<HomeAnimationState> {
   void changePageView(PageViewEnum page) {
     pageViewEnum = page;
     emit(ChangePageView());
+  }
+
+  void navigateToView(NavigateTo to) {
+    navigateTo = to;
+    emit(NavigateToView());
+  }
+
+  void changeRedCircleColor(Color value) {
+    colorBlueOrRedCircle = value;
+    emit(ChangeRedCircleColor());
   }
 
   bool get isMenuViewOrEmpty =>

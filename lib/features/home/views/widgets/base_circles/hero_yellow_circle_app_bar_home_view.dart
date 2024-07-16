@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery/core/constants/assets_constants.dart';
 import 'package:food_delivery/core/constants/hero_tags_constants.dart';
 import 'package:food_delivery/core/widget/base_animations/base_hero_transition.dart';
+import 'package:food_delivery/features/home/blocs/home_animation_cubit/home_animation_cubit.dart';
 
 import '../../../../../core/utils/custom_rect_tween.dart';
-import '../../../blocs/home_cubit/home_cubit.dart';
 
 class HeroYellowCircleAppBarHomeView extends StatelessWidget {
   const HeroYellowCircleAppBarHomeView({
@@ -30,11 +30,11 @@ class HeroYellowCircleAppBarHomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(
+    return BlocBuilder<HomeAnimationCubit, HomeAnimationState>(
       buildWhen: (previous, current) =>
           current is NavigateToView || current is ChangeRedCircleColor,
       builder: (context, state) {
-        if (context.read<HomeCubit>().navigateTo == NavigateTo.productDetails) {
+        if (context.read<HomeAnimationCubit>().navigateTo == NavigateTo.productDetails) {
           return Hero(
             transitionOnUserGestures: true,
             tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
