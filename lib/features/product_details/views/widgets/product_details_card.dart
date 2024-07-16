@@ -24,7 +24,7 @@ class ProductDetailsCard extends StatelessWidget {
       alignment: Alignment.bottomCenter,
       children: [
         Container(
-          alignment: _isOdd(index) ? Alignment.centerRight : Alignment.centerLeft,
+          alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
           width: 362.w,
           height: 154.h,
           margin: EdgeInsets.only(
@@ -58,16 +58,16 @@ class ProductDetailsCard extends StatelessWidget {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  right: _isOdd(index) ? 10.w : 0,
-                  left: _isOdd(index) ? 0 : 0.w,
+                  right: index.isOdd ? 10.w : 0,
+                  left: index.isOdd ? 0 : 0.w,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment:
-                      _isOdd(index) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+                      index.isOdd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
                     TitleAndSubtitleProduct(
-                      isOdd: _isOdd(index),
+                      isOdd: index.isOdd,
                       index: index,
                       title: product.title,
                       color: product.color,
@@ -81,11 +81,11 @@ class ProductDetailsCard extends StatelessWidget {
                         ),
                         child: Padding(
                           padding: EdgeInsets.only(
-                            right: !_isOdd(index) ? 15.w : 0,
+                            right: index.isEven ? 15.w : 0,
                           ),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: _isOdd(index)
+                            mainAxisAlignment: index.isOdd
                                 ? MainAxisAlignment.end
                                 : MainAxisAlignment.spaceBetween,
                             children: [
@@ -97,7 +97,7 @@ class ProductDetailsCard extends StatelessWidget {
                                 ),
                               ),
                               Gap(15.w),
-                              if (index != 1 && !_isOdd(index)) const Spacer(),
+                              if (index != 1 && index.isEven) const Spacer(),
                               _addIconButton(context)
                             ],
                           ),
@@ -111,29 +111,43 @@ class ProductDetailsCard extends StatelessWidget {
           ),
         ),
         Positioned(
-          top: _isOdd(index) ? -10.h : -19.h,
-          width: 130.w,
-          height: 130.w,
-          right: _isOdd(index) ? null : -12.w,
-          left: _isOdd(index) ? 0.w : null,
-          child: _buildImageProduct(),
+          top: _getTopOffset(),
+          width: _getWidthHeight().w,
+          height: _getWidthHeight().h,
+          right: _getRightOffset(),
+          left: index.isOdd ? 0.w : null,
+          child: _buildImageProduct(index > 1 ? 110 : 130),
         ),
       ],
     );
   }
 
-  SizedBox _buildImageProduct() {
-    return SizedBox(
-      width: 130.w,
-      height: 130.w,
-      child: FittedBox(
-        fit: BoxFit.cover,
-        alignment: Alignment.center,
+  double? _getRightOffset() {
+    if (index.isEven) return index > 1 ? 0 : -12.w;
+    return null;
+  }
+
+  double _getWidthHeight() => index > 1 ? 110 : 130;
+
+  double _getTopOffset() {
+    if (index.isOdd) {
+      return -10.h;
+    } else if (index > 1) {
+      return -10.h;
+    } else {
+      return -19.h;
+    }
+  }
+
+  Widget _buildImageProduct(double size) {
+    return Transform.translate(
+      offset: index == 3 ? Offset(8.w, -7.h) : Offset.zero,
+      child: Transform.rotate(
+        angle: index > 1 ? 0.2 : 0,
         child: Image.asset(
           product.imageUrl,
-          width: 130.w,
-          height: 130.w,
-          fit: BoxFit.cover,
+          width: size.w,
+          height: size.h,
         ),
       ),
     );
@@ -162,6 +176,4 @@ class ProductDetailsCard extends StatelessWidget {
       ),
     );
   }
-
-  bool _isOdd(int index) => index % 2 != 0;
 }

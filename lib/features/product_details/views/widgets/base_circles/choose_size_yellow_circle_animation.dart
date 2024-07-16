@@ -27,8 +27,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
   late Animation<double> _yellowCircleRotate;
   late final curve = CurvedAnimation(
     parent: _animationController,
-    curve: easeInOutBackSlow30,
-    reverseCurve: easeInOutBackSlow30,
+    curve: easeInOutBackSlow50,
   );
   late ProductDetailsCubit _productCubit;
   @override

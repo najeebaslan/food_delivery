@@ -118,7 +118,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         sizeImageChooseSizeProduct = 161.05;
         break;
       case ProductDetailsSizeEnum.large:
-        sizeImageChooseSizeProduct = 290;
+        sizeImageChooseSizeProduct = 278;
         break;
       default:
         sizeImageChooseSizeProduct = 220;
