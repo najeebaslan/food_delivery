@@ -6,14 +6,14 @@ class CustomRectTween extends Tween<Rect> {
   CustomRectTween({
     required Rect begin,
     required Rect end,
-    this.tension = 1.7,
+    this.tension = 2.3,
   }) : super(begin: begin, end: end);
 
   final double tension;
 
   @override
   Rect lerp(double t) {
-    double easeInOutBackValue = easeInOutBack(t, tension: tension);
+    double easeInOutBackValue = easeInOutBack(t, tension);
 
     double animatedX = ui.lerpDouble(begin!.left, end!.left, easeInOutBackValue)!;
     double animatedY = ui.lerpDouble(begin!.top, end!.top, easeInOutBackValue)!;
@@ -35,7 +35,7 @@ class CustomRectTween extends Tween<Rect> {
 /// to the final position, creating an "easing-out" effect.
 ///
 /// The [tension] parameter controls the amount of "back" movement.
-double easeInOutBack(double t, {double tension = 1.7}) {
+double easeInOutBack(double t, double tension) {
   // Normalize the input value to be between 0 and 2
   double normalizedT = t * 2;
 
@@ -49,4 +49,3 @@ double easeInOutBack(double t, {double tension = 1.7}) {
     return (normalizedT * normalizedT * ((tension + 1) * normalizedT + tension) + 2) / 2;
   }
 }
-

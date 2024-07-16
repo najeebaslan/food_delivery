@@ -30,11 +30,6 @@ class AppBarProductDetails extends StatefulWidget {
 
 class _AppBarProductDetailsState extends State<AppBarProductDetails> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Row(
       children: [

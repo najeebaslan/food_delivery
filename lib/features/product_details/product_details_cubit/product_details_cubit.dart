@@ -18,7 +18,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
-  double sizeImageChooseSizeProduct = 224.53;
+  double sizeImageChooseSizeProduct = 220;
   AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
 
   late AnimationController animationController;
@@ -86,7 +86,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       showChooseSizeViewFunc();
 
       productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
-      sizeImageChooseSizeProduct = 224.53;
+      sizeImageChooseSizeProduct = 220;
     });
   }
 
@@ -112,16 +112,16 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   void changeSizeAndPositionImageChooseSize(ProductDetailsSizeEnum size) {
     switch (size) {
       case ProductDetailsSizeEnum.medium:
-        sizeImageChooseSizeProduct = 224.53;
+        sizeImageChooseSizeProduct = 220;
         break;
       case ProductDetailsSizeEnum.small:
         sizeImageChooseSizeProduct = 161.05;
         break;
       case ProductDetailsSizeEnum.large:
-        sizeImageChooseSizeProduct = 300;
+        sizeImageChooseSizeProduct = 290;
         break;
       default:
-        sizeImageChooseSizeProduct = 224.53;
+        sizeImageChooseSizeProduct = 220;
     }
   }
 
