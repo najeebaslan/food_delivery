@@ -52,8 +52,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _homeAnimationCubit.menuAnimationController.dispose();
     _homeAnimationCubit.productDetailsAnimationController.dispose();
+    _homeAnimationCubit.menuAnimationController.dispose();
     super.dispose();
   }
 

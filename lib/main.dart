@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -23,7 +25,12 @@ Future<void> main() async {
   ]);
   await cacheSvgImagesSplashView();
 
-  runApp(const FoodDeliveryApp());
+  runApp(
+    DevicePreview(
+      enabled: false, // Set it to true to enable DevicePreview
+      builder: (context) => const FoodDeliveryApp(), // Wrap your app
+    ),
+  );
 }
 
 Future<void> cacheSvgImagesSplashView() async {
@@ -44,5 +51,3 @@ Future<void> cacheSvgImagesSplashView() async {
     );
   }
 }
-
-

@@ -63,33 +63,37 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                     right: 24.w,
                     left: 24.w,
                   ),
-                  child: Stack(
-                    clipBehavior: Clip.none,
-                    children: [
-                      Positioned(
-                        top: context.isIOS ? 50.h : 10.h,
-                        left: -70.w,
-                        child: const ChooseSizeBlueCircleAnimation(),
-                      ),
-                      Positioned(
-                        width: 235.w,
-                        height: 37.h,
-                        top: context.isIOS ? 100.h : 60.h,
-                        left: 0.w,
-                        child: _titleProduct(),
-                      ),
-                      Positioned(
-                        top: context.isIOS ? 120.h : 80.h,
-                        right: 30.w,
-                        child: const ChooseSizeRedCircleAnimation(),
-                      ),
-                      Positioned(
-                        top: context.isIOS ? 80.h : 40.h,
-                        right: 53.w,
-                        child: const ChooseSizeYellowCircleAnimation(),
-                      ),
-                      _bodyProductView(),
-                    ],
+                  child: SizedBox(
+                    height: context.height,
+                    width: context.width,
+                    child: Stack(
+                      clipBehavior: Clip.none,
+                      children: [
+                        Positioned(
+                          top: context.isIOS ? 50.h : 10.h,
+                          left: -70.w,
+                          child: const ChooseSizeBlueCircleAnimation(),
+                        ),
+                        Positioned(
+                          width: 235.w,
+                          height: 37.h,
+                          top: context.isIOS ? 100.h : 60.h,
+                          left: 0.w,
+                          child: _titleProduct(),
+                        ),
+                        Positioned(
+                          top: context.isIOS ? 120.h : 80.h,
+                          right: 30.w,
+                          child: const ChooseSizeRedCircleAnimation(),
+                        ),
+                        Positioned(
+                          top: context.isIOS ? 80.h : 40.h,
+                          right: 53.w,
+                          child: const ChooseSizeYellowCircleAnimation(),
+                        ),
+                        _bodyProductView(),
+                      ],
+                    ),
                   ),
                 ),
               ),

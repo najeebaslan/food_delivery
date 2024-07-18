@@ -68,6 +68,7 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                         icon: Icon(
                           PlatformIcons(context).back,
                           color: AppColors.black,
+                          size: 21.w,
                         ),
                       ),
                       PlatformIconButton(
@@ -90,7 +91,7 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(left: 35.w),
+                          padding: EdgeInsets.only(left: 25.w),
                           child: Text(
                             'Spudnut dounut',
                             style: AppTextStyles.font40Black700W.copyWith(
@@ -101,7 +102,7 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                         Container(
                           width: 24,
                           height: 3,
-                          margin: EdgeInsets.only(left: 35.w),
+                          margin: EdgeInsets.only(left: 28.w),
                           decoration: ShapeDecoration(
                             color: const Color(0xFF4DB066),
                             shape: RoundedRectangleBorder(
