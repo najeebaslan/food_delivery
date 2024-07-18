@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
+import 'package:food_delivery/core/extensions/context_extension.dart';
 import 'package:food_delivery/core/styles/app_colors.dart';
 import 'package:food_delivery/core/styles/app_text_styles.dart';
 import 'package:gap/gap.dart';
@@ -26,12 +27,13 @@ class ChooseSizeProductView extends StatelessWidget {
                   current is ProductSelected || current is ProductDetailsSizeChanged,
               builder: (context, state) {
                 final productCubit = BlocProvider.of<ProductDetailsCubit>(context);
+                bool isSmallDeviceX = context.height < 650.0;
 
                 return Stack(
                   alignment: Alignment.center,
                   children: [
                     Transform.translate(
-                      offset: Offset(0, -100.h),
+                      offset: Offset(0, isSmallDeviceX ? -120.h : -100.h),
                       child: SlideTransition(
                         position: productCubit.imageSlideTransition,
                         child: AnimatedContainer(
@@ -39,7 +41,9 @@ class ChooseSizeProductView extends StatelessWidget {
                             milliseconds: NumConstants.duration900,
                           ),
                           curve: Curves.easeInOutBack,
-                          width: productCubit.sizeImageChooseSizeProduct.w,
+                          width: isSmallDeviceX
+                              ? (productCubit.sizeImageChooseSizeProduct.w * 0.7)
+                              : productCubit.sizeImageChooseSizeProduct.w,
                           height: productCubit.sizeImageChooseSizeProduct.h,
                           child: Image.asset(
                             key: ValueKey(productCubit.indexProduct),
@@ -51,7 +55,7 @@ class ChooseSizeProductView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Gap(65.h),
+                        Gap(isSmallDeviceX ? constraints.maxHeight * 0.01 : 65.h),
                         Padding(
                           padding: EdgeInsets.only(left: 40.w),
                           child: BaseFadeAnimatedSwitcher(
@@ -66,7 +70,9 @@ class ChooseSizeProductView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Gap(constraints.maxHeight / 2.4), // make ui responsive
+                        Flexible(
+                          child: Gap(constraints.maxHeight / 2.4),
+                        ),
                         const BodyChooseSizeProductView(),
                         Center(
                           child: CustomElevatedButton(

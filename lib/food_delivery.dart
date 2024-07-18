@@ -41,6 +41,7 @@ class FoodDeliveryApp extends StatelessWidget {
             ),
             title: 'Food Delivery App',
             debugShowCheckedModeBanner: false,
+            
             cupertino: (_, __) {
               return CupertinoAppData(
                 theme: CupertinoThemeData(
