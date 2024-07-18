@@ -155,6 +155,11 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   bool get isReversChooseSizeAnimation =>
       animationChooseSizeStatus == AnimationChooseSizeStatus.reverse;
 
+void changeGetOldAndCurrentSizeToMedium() {
+    getOldAndCurrentSize = (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
+    // emit(ProductDetailsSizeChanged());
+
+  }
   @override
   Future<void> close() {
     animationController.dispose();
