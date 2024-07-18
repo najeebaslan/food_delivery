@@ -16,9 +16,9 @@ class ColaCircleGreenWithHero extends StatelessWidget {
   });
 
   final CurvedAnimation curvedAnimationSlider;
+  final ValueNotifier<double> opacityColaCircle;
   final double height;
   final double width;
-  final ValueNotifier<double> opacityColaCircle;
 
   @override
   Widget build(BuildContext context) {

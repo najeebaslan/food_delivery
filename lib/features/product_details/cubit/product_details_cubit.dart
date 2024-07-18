@@ -19,6 +19,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   double sizeImageChooseSizeProduct = 220;
+  List<ProductDetailsSizeEnum> historySizeList = [
+    ProductDetailsSizeEnum.medium,
+  ];
   AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
   late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize =
       (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
@@ -106,6 +109,14 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
   void changeProductSize(ProductDetailsSizeEnum newSize) {
     if (newSize.index == productDetailsSizeEnum!.index) return;
+    ProductDetailsSizeEnum firstOut = historySizeList.first;
+
+    historySizeList.clear();
+    historySizeList.addAll([
+      productDetailsSizeEnum!,
+      newSize,
+      firstOut,
+    ]);
     getOldAndCurrentSize = (productDetailsSizeEnum!, newSize);
     productDetailsSizeEnum = newSize;
 
