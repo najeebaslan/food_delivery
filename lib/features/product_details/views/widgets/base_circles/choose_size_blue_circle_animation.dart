@@ -8,7 +8,9 @@ import '../../../../../core/constants/assets_constants.dart';
 import '../../../../../core/constants/num_constants.dart';
 import '../../../../../core/styles/app_colors.dart';
 import '../../../../../core/utils/custom_curves.dart';
+import '../../../../home/views/widgets/base_circles/hero_red_circle_app_bar_home_view.dart';
 import '../../../cubit/product_details_cubit.dart';
+import 'hero_blue_circle_product.dart';
 
 class ChooseSizeBlueCircleAnimation extends StatefulWidget {
   const ChooseSizeBlueCircleAnimation({super.key});
@@ -22,7 +24,6 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
     with TickerProviderStateMixin {
   late AnimationController _animationController;
   late AnimationController _chooseSizeAnimationController;
-  late AnimationController _colorAnimationController;
   late ProductDetailsCubit _productCubit;
   late Animation<double> _rotateAnimation;
 
@@ -46,17 +47,18 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
         milliseconds: NumConstants.duration900,
       ),
     );
-    _colorAnimationController = AnimationController(
-      vsync: this,
-      duration: const Duration(
-        milliseconds: NumConstants.duration900,
-      ),
-    );
 
     _rotateAnimation = Tween<double>(
       begin: 0,
       end: -2.1,
     ).animate(_adaptiveCurve);
+  }
+
+  @override
+  void dispose() {
+    _chooseSizeAnimationController.dispose();
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,7 +72,6 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
               animation: Listenable.merge([
                 _animationController,
                 _chooseSizeAnimationController,
-                _colorAnimationController,
               ]),
               builder: (context, child) {
                 return SlideTransition(
@@ -101,19 +102,35 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
   void handelAnimationController(ProductDetailsState state) async {
     if (_productCubit.isStartChooseSizeAnimation) {
       isBackToProductDetailsView = false;
+      _rotateAnimation = Tween<double>(
+        begin: 0,
+        end: -2.1,
+      ).animate(_adaptiveCurve);
       await _animationController.forward();
     } else if (_productCubit.isReversChooseSizeAnimation) {
-      await _animationController.reverse();
+      if (_chooseSizeAnimationController.isCompleted &&
+          _productCubit.productDetailsSizeEnum != ProductDetailsSizeEnum.medium) {
+        if (_productCubit.productDetailsSizeEnum != ProductDetailsSizeEnum.small) {
+          _rotateAnimation = Tween<double>(
+            begin: 0,
+            end: -1.7,
+          ).animate(defaultCurve);
+        } else {
+          _rotateAnimation = Tween<double>(
+            begin: 0,
+            end: -2.1,
+          ).animate(defaultCurve);
+        }
 
-      if (_chooseSizeAnimationController.isCompleted) {
-        await _chooseSizeAnimationController.reverse();
-        // _chooseSizeAnimationController.reset();
+        _chooseSizeAnimationController.reverse();
+        _animationController.reverse().whenCompleteOrCancel(() {
+          isBackToProductDetailsView = true;
+        });
+      } else {
+        _animationController.reverse().whenCompleteOrCancel(() {
+          isBackToProductDetailsView = true;
+        });
       }
-      // _chooseSizeAnimationController.reset();
-      // if (_productCubit.productDetailsSizeEnum == ProductDetailsSizeEnum.small) {
-      //   isBackToProductDetailsView = true;
-      //   _chooseSizeAnimationController.reverse();
-      // }
     }
   }
 
@@ -121,16 +138,13 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
     final historySizeList = _productCubit.historySizeList;
     final lastSize = historySizeList.isNotEmpty ? historySizeList.last : null;
 
-    if (isChangeCircleFromLargeToSmall) {
-      if (lastSize == ProductDetailsSizeEnum.small) {
-        // Do nothing
-      } else {
+    if (isChangeCircleFromLargeToSmall && lastSize != ProductDetailsSizeEnum.small) {
+      if (lastSize != ProductDetailsSizeEnum.small) {
         _rotateAnimation = Tween<double>(begin: -2.1, end: -1.3).animate(_adaptiveCurve);
       }
     } else if (isChangeCircleFromLargeToMedium) {
-      if (lastSize == ProductDetailsSizeEnum.medium) {
-        _rotateAnimation = Tween<double>(begin: -1.3, end: 0).animate(_adaptiveCurve);
-      } else if (lastSize == ProductDetailsSizeEnum.small) {
+      if (lastSize == ProductDetailsSizeEnum.medium ||
+          lastSize == ProductDetailsSizeEnum.small) {
         _rotateAnimation = Tween<double>(begin: -1.3, end: 0).animate(_adaptiveCurve);
       } else {
         _rotateAnimation = Tween<double>(begin: 0, end: -1.3).animate(_adaptiveCurve);
@@ -152,62 +166,32 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
         _rotateAnimation = Tween<double>(begin: 0, end: -2.1).animate(_adaptiveCurve);
       }
     } else if (isChangeCircleFromSmallToLarge) {
-      if (lastSize == ProductDetailsSizeEnum.large) {
-        // Do nothing
-      } else {
+      if (lastSize != ProductDetailsSizeEnum.large) {
         _rotateAnimation = Tween<double>(begin: -1.3, end: -2.1).animate(_adaptiveCurve);
       }
     }
 
     if (!_chooseSizeAnimationController.isCompleted) {
       _chooseSizeAnimationController.forward();
-      _colorAnimationController.forward();
     } else {
       _chooseSizeAnimationController.reverse();
-      _colorAnimationController.reverse();
     }
   }
 
   List<Widget> listWidget([double? colorOpacity]) => [
-        Transform.rotate(
-          angle: 4,
-          child: Opacity(
-            opacity: 0.10,
-            child: SvgPicture.asset(
-              ImagesConstants.ellipseRed,
-              width: 195.02.w,
-              height: 195.02.h,
-              colorFilter: ColorFilter.mode(
-                AppColors.blue.withOpacity(
-                  0.9,
-                  // colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
-                ),
-                // isChangeCircleFromMediumToMedium
-                //     ? AppColors.blue
-                //     : AppColors.blue.withOpacity(
-                //         colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
-                //       ),
-                BlendMode.srcIn,
-              ),
-            ),
+        HeroBlueCircleProduct(
+          parameters: HeroRedCircleParameters(
+            showProductDetails: _productCubit.isProductDetailsVisible,
+            width: 195.02.w,
+            height: 195.02.h,
+            angle: 4,
+            color: isChangeCircleFromMediumToMedium
+                ? AppColors.blue
+                : AppColors.blue.withOpacity(
+                    colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
+                  ),
           ),
         ),
-        // HeroBlueCircleProduct(
-        //   parameters: HeroRedCircleParameters(
-        //     showProductDetails: _productCubit.isProductDetailsVisible,
-        //     width: 195.02.w,
-        //     height: 195.02.h,
-        //     angle: 4,
-        //     color: isChangeCircleFromMediumToMedium
-        //         ? AppColors.blue
-        //         : AppColors.blue.withOpacity(
-        //             colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
-        //           ),
-        //     animatedBuilderChildAngle: (animationValue) {
-        //       return animationValue > 1 ? 4 : 3;
-        //     },
-        //   ),
-        // ),
         Transform.rotate(
           angle: 2,
           child: SvgPicture.asset(
@@ -242,70 +226,41 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
         )
       ];
   Widget blueCircle() {
+    final historySizeList = _productCubit.historySizeList;
+
+    final lastSize = historySizeList.isNotEmpty ? historySizeList.last : null;
+
     return Stack(
       alignment: Alignment.center,
       children: [
-        listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-        //   if (isChangeCircleFromMediumToSmall) ...[
-        //     listWidget()[1],
-        //     listWidget(circleOpacity.value.clamp(0.0, 1.0))[0]
-        //   ] else if (isChangeCircleFromLargeToSmall) ...[
-        //     listWidget(
-        //       circleOpacity.value.clamp(0.0, 1.0),
-        //     )[2],
-        //     listWidget()[1],
-        //   ] else if (isChangeCircleFromSmallToLarge) ...[
-        //     listWidget()[1],
-        //     listWidget(
-        //       circleOpacity.value.clamp(0.0, 1.0),
-        //     )[2],
-        //   ] else if (isChangeCircleFromMediumToLarge) ...[
-        //     listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-        //     listWidget()[2],
-        //   ] else if (isChangeCircleFromLargeToMedium) ...[
-        //     listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-        //     listWidget()[2],
-        //   ] else if (isChangeCircleFromSmallToMedium) ...[
-        //     listWidget()[1],
-        //     listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-        //   ] else if (isChangeCircleFromMediumToMedium)
-        //     listWidget()[0],
+        if (isChangeCircleFromMediumToSmall) ...[
+          listWidget()[1],
+          listWidget(circleOpacity.value.clamp(0.0, 1.0))[0]
+        ] else if (isChangeCircleFromSmallToMedium) ...[
+          listWidget(circleOpacity.value.clamp(0.0, 1.0))[1],
+          listWidget()[0],
+        ] else if (isChangeCircleFromMediumToLarge) ...[
+          listWidget()[2],
+          listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
+        ] else if (isChangeCircleFromLargeToMedium) ...[
+          listWidget(circleOpacity.value.clamp(0.0, 1.0))[2],
+          listWidget()[0],
+        ] else if (isChangeCircleFromLargeToSmall) ...[
+          listWidget()[2],
+          listWidget(circleOpacity.value.clamp(0.0, 1.0))[1],
+        ] else if (isChangeCircleFromSmallToLarge) ...[
+          if (lastSize == ProductDetailsSizeEnum.medium) ...[
+            listWidget()[1],
+            listWidget(circleOpacity.value.clamp(0.0, 1.0))[2],
+          ] else ...[
+            listWidget(circleOpacity.value.clamp(0.0, 1.0))[1],
+            listWidget()[2],
+          ]
+        ] else
+          listWidget()[0],
       ],
     );
   }
-  // Widget blueCircle() {
-  //   final oldAndCurrentSize = _productCubit.getOldAndCurrentSize;
-  //   // final isChangeCircleFromSmallToLarge = _productCubit.isChangeCircleFromSmallToLarge;
-  //   final widgets = listWidget();
-
-  //   return Stack(
-  //     alignment: Alignment.center,
-  //     children: [
-  //       if (isChangeCircleFromMediumToSmall) ...[
-  //         widgets[1],
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[0]
-  //       ] else if (isChangeCircleFromLargeToSmall) ...[
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[2],
-  //         widgets[1]
-  //       ] else if (isChangeCircleFromSmallToLarge) ...[
-  //         widgets[1],
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[2],
-  //       ] else if (isChangeCircleFromMediumToLarge) ...[
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-  //         widgets[2]
-  //       ] else if (isChangeCircleFromLargeToMedium) ...[
-  //         widgets[2],
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-  //       ] else if (isChangeCircleFromSmallToMedium) ...[
-  //         widgets[1],
-  //         listWidget(circleOpacity.value.clamp(0.0, 1.0))[0],
-  //       ] else if (oldAndCurrentSize ==
-  //           (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium)) ...[
-  //         widgets[0]
-  //       ],
-  //     ],
-  //   );
-  // }
 
   bool get isChangeCircleFromSmallToLarge {
     return _productCubit.getOldAndCurrentSize ==
@@ -343,15 +298,15 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
   }
 
   Animation<double> get greenCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurveChangeColor);
+      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurve);
   Animation<double> get circleOpacity =>
-      Tween(begin: 1.0, end: 0.0).animate(_adaptiveCurveChangeColor);
+      Tween(begin: 1.0, end: 0.0).animate(_adaptiveCurve);
 
   Animation<double> get yellowCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurveChangeColor);
+      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurve);
 
   Animation<double> get blueCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurveChangeColor);
+      Tween(begin: 0.0, end: 1.0).animate(_adaptiveCurve);
 
   Animation<Offset> get _blueCircleSlide {
     return Tween<Offset>(
@@ -373,25 +328,4 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
       curve: easeInOutBackSlow50,
     );
   }
-
-  CurvedAnimation get _adaptiveCurveChangeColor {
-    return CurvedAnimation(
-      parent:
-          isBackToProductDetailsView ? _animationController : _colorAnimationController,
-      curve: easeInOutBackSlow50,
-    );
-  }
 }
-
-extension WidgetExtension on Widget {
-  Widget opacity(double value) {
-    return Opacity(opacity: value, child: this);
-  }
-}
-/* 
-3
-7
-
-
-
- */
