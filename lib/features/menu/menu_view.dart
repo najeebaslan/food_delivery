@@ -17,9 +17,8 @@ class MenuView extends StatelessWidget {
   }
 
   double get heightTitle {
-    return homeAnimationCubit.heightTitlesMenuAnimation.value > 0
-        ? homeAnimationCubit.heightTitlesMenuAnimation.value
-        : 0;
+    return homeAnimationCubit.heightTitlesMenuAnimation.value
+        .clamp(0.0, homeAnimationCubit.heightTitlesMenuAnimation.value);
   }
 
   static const List<String> titles = [
@@ -82,10 +81,17 @@ class MenuView extends StatelessWidget {
                             (index) {
                               return Positioned(
                                 top: topPositionTitle(index),
-                                child: Text(
-                                  titles[index],
-                                  textAlign: TextAlign.right,
-                                  style: AppTextStyles.font30Black700W,
+                                child: PlatformTextButton(
+                                  color: Colors.transparent,
+                                  padding: EdgeInsets.zero,
+                                  child: PlatformText(
+                                    titles[index],
+                                    textAlign: TextAlign.right,
+                                    style: AppTextStyles.font30Black700W,
+                                  ),
+                                  onPressed: () {
+                                    homeAnimationCubit.startOrReverseMenuAnimation();
+                                  },
                                 ),
                               );
                             },

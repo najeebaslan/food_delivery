@@ -3,8 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery/core/constants/num_constants.dart';
 import 'package:food_delivery/core/extensions/context_extension.dart';
-import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_blue_circle_animation.dart';
-import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_red_circle_animation.dart';
 import 'package:food_delivery/features/product_details/views/widgets/base_circles/choose_size_yellow_circle_animation.dart';
 
 import '../../../core/styles/app_text_styles.dart';
@@ -12,6 +10,8 @@ import '../../../core/widget/adaptive_widget/adaptive_scaffold.dart';
 import '../cubit/product_details_cubit.dart';
 import 'choose_size_views/choose_size_product_view.dart';
 import 'widgets/app_bar_adapter_product_view.dart';
+import 'widgets/base_circles/choose_size_blue_circle_animation.dart';
+import 'widgets/base_circles/choose_size_red_circle_animation.dart';
 import 'widgets/product_details_list_view.dart';
 
 class ProductDetailsView extends StatefulWidget {
@@ -68,6 +68,7 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                     width: context.width,
                     child: Stack(
                       clipBehavior: Clip.none,
+                      alignment: AlignmentDirectional.topEnd,
                       children: [
                         Positioned(
                           top: context.isIOS ? 50.h : 10.h,
@@ -87,8 +88,8 @@ class _ProductDetailsViewState extends State<ProductDetailsView>
                           child: const ChooseSizeRedCircleAnimation(),
                         ),
                         Positioned(
-                          top: context.isIOS ? 80.h : 40.h,
-                          right: 53.w,
+                          top: context.isIOS ? 90.h : 50.h,
+                          right: _productCubit.yellowCirclePositionRight.value.w,
                           child: const ChooseSizeYellowCircleAnimation(),
                         ),
                         _bodyProductView(),
