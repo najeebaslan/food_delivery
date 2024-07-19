@@ -29,6 +29,8 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   late AnimationController animationController;
   late Animation<double> titleProductOpacity;
   late Animation<double> textChooseSizeOpacity;
+  late Animation<double> yellowCirclePositionRight;
+
   late Animation backgroundColorAnimation;
   late Animation<Offset> imageSlideTransition;
 
@@ -53,6 +55,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
         curve: Curves.easeInOutBack,
       ),
     );
+    yellowCirclePositionRight = Tween<double>(
+      begin: 53,
+      end: -40,
+    ).animate(
+      CurvedAnimation(
+        parent: animationController,
+        curve: easeInOutBackSlow50,
+      ),
+    );
 
     backgroundColorAnimation = ColorTween(
       begin: AppColors.productDetailsBackground,
@@ -66,7 +77,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       CurvedAnimation(
         parent: animationController,
         curve: easeInOutBackSlow30,
-        reverseCurve: easeInOutBackSlow30,
       ),
     );
   }

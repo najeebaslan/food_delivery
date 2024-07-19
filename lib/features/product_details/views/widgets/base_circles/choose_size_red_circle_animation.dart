@@ -26,6 +26,7 @@ class _ChooseSizeRedCircleAnimationState extends State<ChooseSizeRedCircleAnimat
   late AnimationController _animationController;
   bool isBackToProductDetailsView = false;
   late ProductDetailsCubit _productCubit;
+  
   @override
   void initState() {
     super.initState();

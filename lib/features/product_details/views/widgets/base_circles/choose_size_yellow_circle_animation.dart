@@ -23,15 +23,12 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
   late AnimationController _animationController;
   late AnimationController _chooseSizeAnimationController;
   late Animation<Offset> _yellowCirclePosition;
+
   late Animation<double> _yellowCircleOpacity;
   late Animation<double> _yellowCircleSize;
   late Animation<double> _yellowCircleRotate;
   bool isBackToProductDetailsView = false;
 
-  late final curve = CurvedAnimation(
-    parent: _animationController,
-    curve: easeInOutBackSlow50,
-  );
   late ProductDetailsCubit _productCubit;
   @override
   void initState() {
@@ -53,29 +50,29 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
       ),
     );
 
-    initAnimations();
+    _initializeAnimations();
   }
 
-  void initAnimations() {
+  void _initializeAnimations() {
     _yellowCirclePosition = Tween<Offset>(
       begin: Offset.zero,
-      end: const Offset(0.85, -0.8),
-    ).animate(curve);
+      end: const Offset(0.0, -0.95),
+    ).animate(_defaultCurve);
 
     _yellowCircleSize = Tween<double>(
       begin: 78.358,
       end: 116.305,
-    ).animate(curve);
+    ).animate(_defaultCurve);
 
     _yellowCircleRotate = Tween<double>(
       begin: 0,
       end: -0.7,
-    ).animate(curve);
+    ).animate(_defaultCurve);
 
     _yellowCircleOpacity = Tween<double>(
       begin: 1,
       end: 0.15,
-    ).animate(curve);
+    ).animate(_defaultCurve);
   }
 
   void _handleChooseSizeAnimationController() {
@@ -85,7 +82,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
     if (_productCubit.isChangeCircleFromLargeToSmall) {
       if (lastSize != ProductDetailsSizeEnum.small) {
         _yellowCircleRotate = Tween<double>(
-          begin: -2.1,
+          begin: -2,
           end: -1.3,
         ).animate(_adaptiveCurve);
       }
@@ -109,7 +106,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
         end: 116.305,
       ).animate(_adaptiveCurve);
       _yellowCircleRotate = Tween<double>(
-        begin: -3.1,
+        begin: -3.3,
         end: -0.7,
       ).animate(_adaptiveCurve);
       _chooseSizeAnimationController.reset();
@@ -130,19 +127,19 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
       if (lastSize == ProductDetailsSizeEnum.large) {
         _yellowCircleRotate = Tween<double>(
           begin: -0.7,
-          end: -2.1,
+          end: -2,
         ).animate(_adaptiveCurve);
       } else {
         _yellowCircleRotate = Tween<double>(
           begin: -0.7,
-          end: -3.1,
+          end: -3.4,
         ).animate(_adaptiveCurve);
       }
     } else if (_productCubit.isChangeCircleFromSmallToLarge) {
       if (lastSize != ProductDetailsSizeEnum.large) {
         _yellowCircleRotate = Tween<double>(
           begin: -1.3,
-          end: -2.1,
+          end: -2,
         ).animate(_adaptiveCurve);
       }
     }
@@ -205,8 +202,8 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
     if (_chooseSizeAnimationController.isCompleted &&
         _productCubit.productDetailsSizeEnum != ProductDetailsSizeEnum.medium) {
       _productCubit.productDetailsSizeEnum == ProductDetailsSizeEnum.small
-          ? reversAnimationWhenSizeIsSmall()
-          : reversAnimationWhenSizeIsNotSmall();
+          ? _reversAnimationWhenSizeIsSmall()
+          : _reversAnimationWhenSizeIsNotSmall();
     } else {
       _animationController
           .reverse()
@@ -214,22 +211,22 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
     }
   }
 
-  void reversAnimationWhenSizeIsSmall() {
+  void _reversAnimationWhenSizeIsSmall() {
     _yellowCircleRotate = Tween<double>(
       begin: 0,
-      end: -2.1,
-    ).animate(defaultCurve);
+      end: -2,
+    ).animate(_defaultCurve);
     _chooseSizeAnimationController.reverse();
     _animationController
         .reverse()
         .whenCompleteOrCancel(() => isBackToProductDetailsView = true);
   }
 
-  void reversAnimationWhenSizeIsNotSmall() {
+  void _reversAnimationWhenSizeIsNotSmall() {
     _yellowCircleRotate = Tween<double>(
       begin: 0,
       end: -1.5,
-    ).animate(defaultCurve);
+    ).animate(_defaultCurve);
     _chooseSizeAnimationController.reverse();
     _animationController
         .reverse()
@@ -247,6 +244,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
       },
       child: Transform.rotate(
         angle: _yellowCircleRotate.value,
+        origin: Offset(-4.w, 0),
         child: SvgPicture.string(
           SVGImageConstants.yellowCircle,
           height: _yellowCircleSize.value.h,
@@ -265,7 +263,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
     );
   }
 
-  CurvedAnimation get defaultCurve => CurvedAnimation(
+  CurvedAnimation get _defaultCurve => CurvedAnimation(
         parent: _animationController,
         curve: easeInOutBackSlow50,
       );

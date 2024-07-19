@@ -45,7 +45,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
 
     _rotateAnimation = Tween<double>(
       begin: 0,
-      end: -2.1,
+      end: -2,
     ).animate(_adaptiveCurve);
   }
 
@@ -100,7 +100,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
       isBackToProductDetailsView = false;
       _rotateAnimation = Tween<double>(
         begin: 0,
-        end: -2.1,
+        end: -2,
       ).animate(_adaptiveCurve);
       await _animationController.forward();
     } else if (_productCubit.isReversChooseSizeAnimation) {
@@ -109,11 +109,10 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
   }
 
   void _handleReversAnimationController() async {
-    if (_chooseSizeAnimationController.isCompleted &&
-        _productCubit.productDetailsSizeEnum != ProductDetailsSizeEnum.medium) {
+    if (_isCompletedAnimationAndIsMediumSize) {
       _productCubit.productDetailsSizeEnum == ProductDetailsSizeEnum.small
-          ? reversAnimationWhenSizeIsSmall()
-          : reversAnimationWhenSizeIsNotSmall();
+          ? _reversAnimationWhenSizeIsSmall()
+          : _reversAnimationWhenSizeIsNotSmall();
     } else {
       _animationController
           .reverse()
@@ -121,10 +120,14 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
     }
   }
 
-  void reversAnimationWhenSizeIsSmall() {
+  bool get _isCompletedAnimationAndIsMediumSize =>
+      _chooseSizeAnimationController.isCompleted &&
+      _productCubit.productDetailsSizeEnum != ProductDetailsSizeEnum.medium;
+
+  void _reversAnimationWhenSizeIsSmall() {
     _rotateAnimation = Tween<double>(
       begin: 0,
-      end: -2.1,
+      end: -2,
     ).animate(defaultCurve);
     _chooseSizeAnimationController.reverse();
     _animationController
@@ -132,7 +135,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
         .whenCompleteOrCancel(() => isBackToProductDetailsView = true);
   }
 
-  void reversAnimationWhenSizeIsNotSmall() {
+  void _reversAnimationWhenSizeIsNotSmall() {
     _rotateAnimation = Tween<double>(
       begin: 0,
       end: -1.5,
@@ -150,7 +153,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
     if (_productCubit.isChangeCircleFromLargeToSmall &&
         lastSize != ProductDetailsSizeEnum.small) {
       if (lastSize != ProductDetailsSizeEnum.small) {
-        _rotateAnimation = Tween<double>(begin: -2.1, end: -1.3).animate(_adaptiveCurve);
+        _rotateAnimation = Tween<double>(begin: -2, end: -1.3).animate(_adaptiveCurve);
       }
     } else if (_productCubit.isChangeCircleFromLargeToMedium) {
       if (lastSize == ProductDetailsSizeEnum.medium ||
@@ -161,7 +164,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
       }
       _chooseSizeAnimationController.reset();
     } else if (_productCubit.isChangeCircleFromSmallToMedium) {
-      _rotateAnimation = Tween<double>(begin: -2.1, end: 0).animate(_adaptiveCurve);
+      _rotateAnimation = Tween<double>(begin: -2, end: 0).animate(_adaptiveCurve);
       _chooseSizeAnimationController.reset();
     } else if (_productCubit.isChangeCircleFromMediumToLarge) {
       _chooseSizeAnimationController.reset();
@@ -171,13 +174,13 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
       _chooseSizeAnimationController.reset();
 
       if (lastSize == ProductDetailsSizeEnum.large) {
-        _rotateAnimation = Tween<double>(begin: 0, end: -2.1).animate(_adaptiveCurve);
+        _rotateAnimation = Tween<double>(begin: 0, end: -2).animate(_adaptiveCurve);
       } else {
-        _rotateAnimation = Tween<double>(begin: 0, end: -2.1).animate(_adaptiveCurve);
+        _rotateAnimation = Tween<double>(begin: 0, end: -2).animate(_adaptiveCurve);
       }
     } else if (_productCubit.isChangeCircleFromSmallToLarge) {
       if (lastSize != ProductDetailsSizeEnum.large) {
-        _rotateAnimation = Tween<double>(begin: -1.3, end: -2.1).animate(_adaptiveCurve);
+        _rotateAnimation = Tween<double>(begin: -1.3, end: -2).animate(_adaptiveCurve);
       }
     }
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_platform_widgets/flutter_platform_widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -63,12 +64,11 @@ class AppBarAdapterProductView extends AdaptiveAppBar {
                     children: [
                       PlatformIconButton(
                         onPressed: () {
-                          ProductDetailsCubit.get(context).reverseInitAnimation();
+                          context.read<ProductDetailsCubit>().reverseInitAnimation();
                         },
                         icon: Icon(
                           PlatformIcons(context).back,
                           color: AppColors.black,
-                          size: 21.w,
                         ),
                       ),
                       PlatformIconButton(
