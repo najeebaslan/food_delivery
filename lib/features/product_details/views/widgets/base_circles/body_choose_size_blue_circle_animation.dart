@@ -13,22 +13,8 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
     super.key,
     required this.productCubit,
     required this.adaptiveCurve,
-    required this.isChangeCircleFromMediumToSmall,
-    required this.isChangeCircleFromMediumToMedium,
-    required this.isChangeCircleFromSmallToMedium,
-    required this.isChangeCircleFromMediumToLarge,
-    required this.isChangeCircleFromLargeToMedium,
-    required this.isChangeCircleFromLargeToSmall,
-    required this.isChangeCircleFromSmallToLarge,
   });
   final ProductDetailsCubit productCubit;
-  final bool isChangeCircleFromMediumToSmall;
-  final bool isChangeCircleFromMediumToMedium;
-  final bool isChangeCircleFromSmallToMedium;
-  final bool isChangeCircleFromMediumToLarge;
-  final bool isChangeCircleFromLargeToMedium;
-  final bool isChangeCircleFromLargeToSmall;
-  final bool isChangeCircleFromSmallToLarge;
 
   final CurvedAnimation adaptiveCurve;
   @override
@@ -40,32 +26,32 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
     return Stack(
       alignment: Alignment.center,
       children: [
-        if (isChangeCircleFromMediumToSmall) ...[
+        if (productCubit.isChangeCircleFromMediumToSmall) ...[
           _greenCircleWidget(),
           _blueCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           )
-        ] else if (isChangeCircleFromSmallToMedium) ...[
+        ] else if (productCubit.isChangeCircleFromSmallToMedium) ...[
           _greenCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           ),
           _blueCircleWidget(),
-        ] else if (isChangeCircleFromMediumToLarge) ...[
+        ] else if (productCubit.isChangeCircleFromMediumToLarge) ...[
           _yellowCircleWidget(),
           _blueCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           ),
-        ] else if (isChangeCircleFromLargeToMedium) ...[
+        ] else if (productCubit.isChangeCircleFromLargeToMedium) ...[
           _yellowCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           ),
           _blueCircleWidget(),
-        ] else if (isChangeCircleFromLargeToSmall) ...[
+        ] else if (productCubit.isChangeCircleFromLargeToSmall) ...[
           _yellowCircleWidget(),
           _greenCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           ),
-        ] else if (isChangeCircleFromSmallToLarge) ...[
+        ] else if (productCubit.isChangeCircleFromSmallToLarge) ...[
           if (lastSize == ProductDetailsSizeEnum.medium) ...[
             _greenCircleWidget(),
             _yellowCircleWidget(
@@ -124,7 +110,7 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
         width: 195.02.w,
         height: 195.02.h,
         angle: 4,
-        color: isChangeCircleFromMediumToMedium
+        color: productCubit.isChangeCircleFromMediumToMedium
             ? AppColors.blue
             : AppColors.blue.withOpacity(
                 colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),

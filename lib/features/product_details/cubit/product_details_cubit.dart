@@ -155,11 +155,45 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   bool get isReversChooseSizeAnimation =>
       animationChooseSizeStatus == AnimationChooseSizeStatus.reverse;
 
-void changeGetOldAndCurrentSizeToMedium() {
+  void changeGetOldAndCurrentSizeToMedium() {
     getOldAndCurrentSize = (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
-    // emit(ProductDetailsSizeChanged());
-
   }
+
+  bool get isChangeCircleFromSmallToLarge {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.large);
+  }
+
+  bool get isChangeCircleFromSmallToMedium {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.medium);
+  }
+
+  bool get isChangeCircleFromLargeToSmall {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.small);
+  }
+
+  bool get isChangeCircleFromLargeToMedium {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.medium);
+  }
+
+  bool get isChangeCircleFromMediumToSmall {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.small);
+  }
+
+  bool get isChangeCircleFromMediumToLarge {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.large);
+  }
+
+  bool get isChangeCircleFromMediumToMedium {
+    return getOldAndCurrentSize ==
+        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
+  }
+
   @override
   Future<void> close() {
     animationController.dispose();
