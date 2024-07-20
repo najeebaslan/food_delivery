@@ -28,7 +28,9 @@ class AppRouter {
         ).routeWithFadeTransition();
 
       case AppRoutesConstants.homeView:
-        return const HomeView().routeWithFadeTransition(transitionDuration: 300);
+        return const HomeView().routeWithFadeTransition(
+          transitionDuration: 300,
+        );
 
       case AppRoutesConstants.splashView:
         return const SplashView().routeWithFadeTransition();
@@ -57,17 +59,17 @@ class AppRouter {
     return MaterialPageRoute(
       builder: (_) => PlatformScaffold(
         appBar: PlatformAppBar(
-            title: PlatformText(
-          'مسار غير معروف',
-          style: TextStyle(
-            fontSize: 15.sp,
-            color: AppColors.black.withOpacity(0.7),
-            fontFamily: AppTextStyles.defaultFontFamily,
-            fontWeight: FontWeight.w300,
-            overflow: TextOverflow.ellipsis,
-            //
+          title: PlatformText(
+            'مسار غير معروف',
+            style: TextStyle(
+              fontSize: 15.sp,
+              color: AppColors.black.withOpacity(0.7),
+              fontFamily: AppTextStyles.defaultFontFamily,
+              fontWeight: FontWeight.w300,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
-        )),
+        ),
         body: Center(
           child: PlatformText(
             'من فضلك تاكد من صحة المسار الذي تريد الذهاب إليه',
@@ -92,9 +94,12 @@ extension AnimationPageRouter on Widget {
   }) {
     return PageRouteBuilder(
       fullscreenDialog: true,
-      transitionDuration: Duration(milliseconds: transitionDuration ?? 1500),
+      transitionDuration: Duration(
+        milliseconds: transitionDuration ?? 1500,
+      ),
       reverseTransitionDuration: Duration(
-          milliseconds: (reverseTransitionDuration ?? transitionDuration) ?? 1500),
+        milliseconds: (reverseTransitionDuration ?? transitionDuration) ?? 1500,
+      ),
       pageBuilder: (context, animation, secondaryAnimation) {
         return FadeTransition(opacity: animation, child: this);
       },
@@ -107,9 +112,12 @@ extension AnimationPageRouter on Widget {
     int? reverseTransitionDuration,
   }) {
     return PageRouteBuilder<void>(
-      transitionDuration: Duration(milliseconds: transitionDuration ?? 2000),
-      reverseTransitionDuration:
-          Duration(milliseconds: reverseTransitionDuration ?? 2000),
+      transitionDuration: Duration(
+        milliseconds: transitionDuration ?? 2000,
+      ),
+      reverseTransitionDuration: Duration(
+        milliseconds: reverseTransitionDuration ?? 2000,
+      ),
       pageBuilder: (context, animation, secondaryAnimation) {
         return AnimatedBuilder(
           animation: animation,

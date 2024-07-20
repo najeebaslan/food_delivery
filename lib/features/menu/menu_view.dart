@@ -17,8 +17,9 @@ class MenuView extends StatelessWidget {
   }
 
   double get heightTitle {
-    return homeAnimationCubit.heightTitlesMenuAnimation.value
-        .clamp(0.0, homeAnimationCubit.heightTitlesMenuAnimation.value);
+    return homeAnimationCubit.heightTitlesMenuAnimation.value < 0
+        ? 0
+        : homeAnimationCubit.heightTitlesMenuAnimation.value;
   }
 
   static const List<String> titles = [
