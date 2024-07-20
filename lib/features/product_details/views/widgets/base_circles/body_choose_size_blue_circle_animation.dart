@@ -47,21 +47,24 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
           ),
           _blueCircleWidget(),
         ] else if (productCubit.isChangeCircleFromLargeToSmall) ...[
-          _yellowCircleWidget(),
-          _greenCircleWidget(
+          _yellowCircleWidget(
             circleOpacity.value.clamp(0.0, 1.0),
           ),
+          _greenCircleWidget(),
         ] else if (productCubit.isChangeCircleFromSmallToLarge) ...[
           if (lastSize == ProductDetailsSizeEnum.medium) ...[
             _greenCircleWidget(),
             _yellowCircleWidget(
               circleOpacity.value.clamp(0.0, 1.0),
             ),
+          ] else if (lastSize == ProductDetailsSizeEnum.small) ...[
+            _greenCircleWidget(),
+            _yellowCircleWidget(),
           ] else ...[
-            _greenCircleWidget(
+            _yellowCircleWidget(
               circleOpacity.value.clamp(0.0, 1.0),
             ),
-            _yellowCircleWidget(),
+            _greenCircleWidget(),
           ]
         ] else
           _blueCircleWidget(),
