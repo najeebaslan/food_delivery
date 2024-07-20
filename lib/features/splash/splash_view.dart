@@ -23,14 +23,14 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
   late final AnimationController animationController;
   final _opacityColaCircle = ValueNotifier<double>(0.0);
   final _opacityFastDelivery = ValueNotifier<double>(0.0);
-  final isAnimationStarted = ValueNotifier<bool>(false);
+  final _isAnimationStarted = ValueNotifier<bool>(false);
 
   late final Animation<double> _opacityColorCircles = Tween<double>(
     begin: 1.0,
     end: 0.5,
-  ).animate(curvedAnimationSlider);
+  ).animate(_curvedAnimationSlider);
 
-  late final curvedAnimationSlider = CurvedAnimation(
+  late final _curvedAnimationSlider = CurvedAnimation(
     parent: animationController,
     curve: Curves.easeInOut,
   );
@@ -47,7 +47,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
 
   void startAnimation() {
     _opacityColaCircle.value = 0.9;
-    isAnimationStarted.value = true;
+    _isAnimationStarted.value = true;
     animationController.forward().whenComplete(
           navigatorToOnboardingView,
         );
@@ -101,7 +101,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
                   ),
                   _buildYellowCircle(height, width),
                   ColaCircleGreenWithHero(
-                    curvedAnimationSlider: curvedAnimationSlider,
+                    curvedAnimationSlider: _curvedAnimationSlider,
                     height: height,
                     width: width,
                     opacityColaCircle: _opacityColaCircle,
@@ -154,7 +154,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
           context.isSmallDevice ? -0.90.w : -0.69.w,
           context.isSmallDevice ? -1.26.h : -0.95.h,
         ),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Image.asset(
         ImagesConstants.colaIsometric,
         height: height / 4,
@@ -168,7 +168,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
         end: Offset(-0.15.w, -1.6.h),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Image.asset(
         ImagesConstants.friesFront,
         height: 200.31.h,
@@ -179,32 +179,32 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
 
   Widget _buildImageSweetGreenCircle(double height, double width) {
     return ValueListenableBuilder(
-      valueListenable: isAnimationStarted,
-      builder: (context, value, child) {
-        return value
-            ? Positioned(
-                bottom: context.isSmallDevice ? 0 : null,
-                left: context.isSmallDevice ? 0 : null,
-                child: AnimatedOpacity(
-                  duration: const Duration(milliseconds: 300),
-                  opacity: 1.0,
-                  child: SlideTransition(
-                    position: Tween<Offset>(
-                      begin: const Offset(0.0, 0.0),
-                      end: Offset(
-                        context.isSmallDevice ? -0.70.w : -0.58.w,
-                        context.isSmallDevice ? 1.75.h : 1.68.h,
-                      ),
-                    ).animate(curvedAnimationSlider),
-                    child: Image.asset(
-                      ImagesConstants.tridonut,
-                      height: context.isSmallDevice ? 155.3.h : 180.31.h,
-                      width: context.isSmallDevice ? 155.3.w : 180.31.w,
-                    ),
-                  ),
+      valueListenable: _isAnimationStarted,
+      builder: (context, alreadyStarted, child) {
+        if (!alreadyStarted) return const SizedBox.shrink();
+
+        return Positioned(
+          bottom: context.isSmallDevice ? 0 : null,
+          left: context.isSmallDevice ? 0 : null,
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 300),
+            opacity: 1.0,
+            child: SlideTransition(
+              position: Tween<Offset>(
+                begin: const Offset(0.0, 0.0),
+                end: Offset(
+                  context.isSmallDevice ? -0.70.w : -0.58.w,
+                  context.isSmallDevice ? 1.75.h : 1.68.h,
                 ),
-              )
-            : const SizedBox.shrink();
+              ).animate(_curvedAnimationSlider),
+              child: Image.asset(
+                ImagesConstants.tridonut,
+                height: context.isSmallDevice ? 155.3.h : 180.31.h,
+                width: context.isSmallDevice ? 155.3.w : 180.31.w,
+              ),
+            ),
+          ),
+        );
       },
     );
   }
@@ -214,7 +214,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
         end: Offset(-0.69, -0.4.h),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Transform.translate(
         offset: Offset(10.w, 0),
         child: Image.asset(
@@ -232,7 +232,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
       position: Tween<Offset>(
         begin: const Offset(0.0, 0.0),
         end: Offset(-1.5, -1.h),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Hero(
         tag: HeroTagsConstants.circleRedTagShared,
         child: SvgPicture.asset(
@@ -250,26 +250,27 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
 
   AnimatedBuilder _buildFriesBlueCircle(double height, double width) {
     return AnimatedBuilder(
-        animation: animationController,
-        builder: (context, child) {
-          return SlideTransition(
-            position: Tween<Offset>(
-              begin: const Offset(0.0, 0.0),
-              end: Offset(-0.3, -2.7.h),
-            ).animate(curvedAnimationSlider),
-            child: SvgPicture.asset(
-              ImagesConstants.friesBlue,
-              height: 121.76.h,
-              width: 121.76.w,
-              colorFilter: ColorFilter.mode(
-                AppColors.blue.withOpacity(
-                  _opacityColorCircles.value,
-                ),
-                BlendMode.srcIn,
+      animation: animationController,
+      builder: (context, child) {
+        return SlideTransition(
+          position: Tween<Offset>(
+            begin: const Offset(0.0, 0.0),
+            end: Offset(-0.3, -2.7.h),
+          ).animate(_curvedAnimationSlider),
+          child: SvgPicture.asset(
+            ImagesConstants.friesBlue,
+            height: 121.76.h,
+            width: 121.76.w,
+            colorFilter: ColorFilter.mode(
+              AppColors.blue.withOpacity(
+                _opacityColorCircles.value,
               ),
+              BlendMode.srcIn,
             ),
-          );
-        });
+          ),
+        );
+      },
+    );
   }
 
   Positioned _buildSweetGreenCircle() {
@@ -280,7 +281,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
         position: Tween<Offset>(
           begin: const Offset(0.0, 0.0),
           end: Offset(-0.8.w, 2.2.h),
-        ).animate(curvedAnimationSlider),
+        ).animate(_curvedAnimationSlider),
         child: Transform.scale(
           scaleX: 1,
           scaleY: 1.02,
@@ -313,7 +314,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
           context.isSmallDevice ? 0.76.w : 0.58.w,
           context.isSmallDevice ? 1.4.h : 1.12.h,
         ),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Transform.translate(
         offset: Offset(0, context.isSmallDevice ? -3.h : -10.h),
         child: Image.asset(
@@ -337,7 +338,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
               context.isSmallDevice ? 1.3.w : 0.87.w,
               context.isSmallDevice ? 2.45.h : 1.80.h,
             ),
-          ).animate(curvedAnimationSlider),
+          ).animate(_curvedAnimationSlider),
           child: Transform.scale(
             scaleX: 0.99,
             scaleY: 1,
@@ -366,7 +367,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
           context.isSmallDevice ? 1.4.w : 0.85.w,
           context.isSmallDevice ? -1.39.h : -1.65.h,
         ),
-      ).animate(curvedAnimationSlider),
+      ).animate(_curvedAnimationSlider),
       child: Image.asset(
         ImagesConstants.hotDogIsometric,
         height: context.isSmallDevice ? 130.h : 142.h,
@@ -383,7 +384,7 @@ class _SplashViewState extends State<SplashView> with SingleTickerProviderStateM
           position: Tween<Offset>(
             begin: const Offset(0.0, 0.0),
             end: Offset(context.isSmallDevice ? 1.6.w : 0.8.w, -1.5.h),
-          ).animate(curvedAnimationSlider),
+          ).animate(_curvedAnimationSlider),
           child: SvgPicture.asset(
             ImagesConstants.ellipseYellow,
             height: height / 6.2,

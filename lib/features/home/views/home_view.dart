@@ -45,15 +45,17 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         milliseconds: NumConstants.duration1350,
       ),
     );
-    _homeAnimationCubit.setupMenuAnimations(context);
-    _homeAnimationCubit.setupProductDetailsAnimations(context);
+    _homeAnimationCubit
+      ..setupMenuAnimations(context)
+      ..setupProductDetailsAnimations(context);
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    _homeAnimationCubit.productDetailsAnimationController.dispose();
-    _homeAnimationCubit.menuAnimationController.dispose();
+    _homeAnimationCubit
+      ..productDetailsAnimationController.dispose()
+      ..menuAnimationController.dispose();
     super.dispose();
   }
 
@@ -66,6 +68,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       body: Stack(
         clipBehavior: Clip.none,
         children: [
+          
           const HomeViewBody(),
 
           const HomeViewHeader(),
@@ -108,8 +111,14 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 top: _homeAnimationCubit.positionRedCircleFat.value.height.h,
                 child: Transform.rotate(
                   angle: _homeAnimationCubit.rotationRedCircleFat.value,
-                  child: _buildRedCircleFat(
-                    size: _homeAnimationCubit.sizeRedCircleFat.value,
+                  child: HeroRedCircleAppBarHomeView(
+                    parameters: HeroRedCircleParameters(
+                      height: _homeAnimationCubit.sizeRedCircleFat.value.h,
+                      width: _homeAnimationCubit.sizeRedCircleFat.value.h,
+                      animatedBuilderChildAngle: (animationValue) {
+                        return animationValue > 1 ? 4 : 3;
+                      },
+                    ),
                   ),
                 ),
               );
@@ -155,35 +164,24 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 top: _homeAnimationCubit.positionYellowCircle.value.height.h,
                 duration: Duration.zero,
                 child: Transform.rotate(
-                    angle: -_homeAnimationCubit.rotationYellowCircle.value,
-                    alignment: Alignment.center,
-                    child: Hero(
-                      tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
-                      createRectTween: (begin, end) {
-                        return CustomRectTween(begin: begin!, end: end!);
-                      },
-                      child: SvgPicture.string(
-                        SVGImageConstants.yellowCircle,
-                        height: _homeAnimationCubit.sizeYellowCircle.value.h,
-                        width: _homeAnimationCubit.sizeYellowCircle.value.w,
-                      ),
-                    )),
+                  angle: -_homeAnimationCubit.rotationYellowCircle.value,
+                  alignment: Alignment.center,
+                  child: Hero(
+                    tag: HeroTagsConstants.circleYellowTagHomeViewAppBar,
+                    createRectTween: (begin, end) {
+                      return CustomRectTween(begin: begin!, end: end!);
+                    },
+                    child: SvgPicture.string(
+                      SVGImageConstants.yellowCircle,
+                      height: _homeAnimationCubit.sizeYellowCircle.value.h,
+                      width: _homeAnimationCubit.sizeYellowCircle.value.w,
+                    ),
+                  ),
+                ),
               );
             },
           ),
         ],
-      ),
-    );
-  }
-
-  HeroRedCircleAppBarHomeView _buildRedCircleFat({required double size}) {
-    return HeroRedCircleAppBarHomeView(
-      parameters: HeroRedCircleParameters(
-        height: size.h,
-        width: size.h,
-        animatedBuilderChildAngle: (animationValue) {
-          return animationValue > 1 ? 4 : 3;
-        },
       ),
     );
   }
