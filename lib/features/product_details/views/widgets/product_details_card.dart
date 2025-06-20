@@ -9,11 +9,7 @@ import '../../data/product_model.dart';
 import 'title_and_subtitle_product.dart';
 
 class ProductDetailsCard extends StatelessWidget {
-  const ProductDetailsCard({
-    super.key,
-    required this.product,
-    required this.index,
-  });
+  const ProductDetailsCard({super.key, required this.product, required this.index});
   final ProductModel product;
   final int index;
 
@@ -27,20 +23,12 @@ class ProductDetailsCard extends StatelessWidget {
           alignment: index.isOdd ? Alignment.centerRight : Alignment.centerLeft,
           width: 362.w,
           height: 154.h,
-          margin: EdgeInsets.only(
-            bottom: 24.h,
-          ),
-          padding: EdgeInsets.only(
-            left: 15.w,
-            bottom: 11.h,
-          ),
+          margin: EdgeInsets.only(bottom: 24.h),
+          padding: EdgeInsets.only(left: 15.w, bottom: 11.h),
           decoration: ShapeDecoration(
             color: Colors.white,
             shape: RoundedRectangleBorder(
-              side: BorderSide(
-                width: 1,
-                color: product.color,
-              ),
+              side: BorderSide(width: 1, color: product.color),
               borderRadius: BorderRadius.circular(20.r),
             ),
             shadows: [
@@ -49,7 +37,7 @@ class ProductDetailsCard extends StatelessWidget {
                 blurRadius: 10,
                 offset: Offset(0, 10.h),
                 spreadRadius: 0,
-              )
+              ),
             ],
           ),
           child: Stack(
@@ -66,28 +54,26 @@ class ProductDetailsCard extends StatelessWidget {
                   crossAxisAlignment:
                       index.isOdd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
                   children: [
+                    // Gap(24.h),
                     TitleAndSubtitleProduct(
                       isOdd: index.isOdd,
                       index: index,
                       title: product.title,
                       color: product.color,
                     ),
-                    Gap(24.h),
+                    Flexible(child: Gap(24.h)),
                     Flexible(
                       flex: 0,
                       child: ConstrainedBox(
-                        constraints: BoxConstraints(
-                          maxHeight: 28.h,
-                        ),
+                        constraints: BoxConstraints(maxHeight: 28.h),
                         child: Padding(
-                          padding: EdgeInsets.only(
-                            right: index.isEven ? 15.w : 0,
-                          ),
+                          padding: EdgeInsets.only(right: index.isEven ? 15.w : 0),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: index.isOdd
-                                ? MainAxisAlignment.end
-                                : MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment:
+                                index.isOdd
+                                    ? MainAxisAlignment.end
+                                    : MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 product.price,
@@ -98,12 +84,12 @@ class ProductDetailsCard extends StatelessWidget {
                               ),
                               Gap(15.w),
                               if (index != 1 && index.isEven) const Spacer(),
-                              _addIconButton(context)
+                              _addIconButton(context),
                             ],
                           ),
                         ),
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -144,11 +130,7 @@ class ProductDetailsCard extends StatelessWidget {
       offset: index == 3 ? Offset(8.w, -7.h) : Offset.zero,
       child: Transform.rotate(
         angle: index > 1 ? 0.2 : 0,
-        child: Image.asset(
-          product.imageUrl,
-          width: size.w,
-          height: size.h,
-        ),
+        child: Image.asset(product.imageUrl, width: size.w, height: size.h),
       ),
     );
   }
@@ -160,19 +142,11 @@ class ProductDetailsCard extends StatelessWidget {
       alignment: Alignment.center,
       decoration: ShapeDecoration(
         color: const Color(0xFF4DB066),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(
-            40.r,
-          ),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.r)),
       ),
       child: PlatformIconButton(
         padding: EdgeInsets.zero,
-        icon: Icon(
-          PlatformIcons(context).add,
-          color: AppColors.white,
-          size: 15.sp,
-        ),
+        icon: Icon(PlatformIcons(context).add, color: AppColors.white, size: 15.sp),
       ),
     );
   }

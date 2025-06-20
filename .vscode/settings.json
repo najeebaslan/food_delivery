@@ -4,5 +4,6 @@
         "cupertino",
         "Roboto",
         "screenutil"
-    ]
+    ],
+    "editor.fontSize": 12
 }

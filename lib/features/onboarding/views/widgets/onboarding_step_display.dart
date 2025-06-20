@@ -29,7 +29,7 @@ class OnboardingStepDisplay extends StatefulWidget {
 class _OnboardingStepDisplayState extends State<OnboardingStepDisplay>
     with SingleTickerProviderStateMixin {
   late AnimationController _animationController;
-  late Animation _colorTween;
+  late Animation<Color?> _colorTween;
   int indexIndicator = 0;
   @override
   void initState() {

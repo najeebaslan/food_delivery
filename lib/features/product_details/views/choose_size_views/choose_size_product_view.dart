@@ -23,8 +23,9 @@ class ChooseSizeProductView extends StatelessWidget {
         return LayoutBuilder(
           builder: (context, constraints) {
             return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-              buildWhen: (previous, current) =>
-                  current is ProductSelected || current is ProductDetailsSizeChanged,
+              buildWhen:
+                  (previous, current) =>
+                      current is ProductSelected || current is ProductDetailsSizeChanged,
               builder: (context, state) {
                 final productCubit = BlocProvider.of<ProductDetailsCubit>(context);
                 bool isSmallDeviceX = context.height < 650.0;
@@ -37,13 +38,12 @@ class ChooseSizeProductView extends StatelessWidget {
                       child: SlideTransition(
                         position: productCubit.imageSlideTransition,
                         child: AnimatedContainer(
-                          duration: const Duration(
-                            milliseconds: NumConstants.duration900,
-                          ),
+                          duration: const Duration(milliseconds: NumConstants.duration900),
                           curve: Curves.easeInOutBack,
-                          width: isSmallDeviceX
-                              ? (productCubit.sizeImageChooseSizeProduct.w * 0.7)
-                              : productCubit.sizeImageChooseSizeProduct.w,
+                          width:
+                              isSmallDeviceX
+                                  ? (productCubit.sizeImageChooseSizeProduct.w * 0.7)
+                                  : productCubit.sizeImageChooseSizeProduct.w,
                           height: productCubit.sizeImageChooseSizeProduct.h,
                           child: Image.asset(
                             key: ValueKey(productCubit.indexProduct),
@@ -70,9 +70,7 @@ class ChooseSizeProductView extends StatelessWidget {
                             ),
                           ),
                         ),
-                        Flexible(
-                          child: Gap(constraints.maxHeight / 2.4),
-                        ),
+                        Flexible(child: Gap(constraints.maxHeight / 2.4)),
                         const BodyChooseSizeProductView(),
                         Center(
                           child: CustomElevatedButton(

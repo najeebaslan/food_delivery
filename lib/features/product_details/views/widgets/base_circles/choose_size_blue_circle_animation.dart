@@ -150,8 +150,7 @@ class _ChooseSizeBlueCircleAnimationState extends State<ChooseSizeBlueCircleAnim
     final historySizeList = _productCubit.historySizeList;
     final lastSize = historySizeList.isNotEmpty ? historySizeList.last : null;
 
-    if (_productCubit.isChangeCircleFromLargeToSmall &&
-        lastSize != ProductDetailsSizeEnum.small) {
+    if (_productCubit.isChangeCircleFromLargeToSmall) {
       if (lastSize != ProductDetailsSizeEnum.small) {
         _rotateAnimation = Tween<double>(begin: -2, end: -1.3).animate(_adaptiveCurve);
       }

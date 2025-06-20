@@ -19,12 +19,12 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductModel selectedProduct = ProductModel.empty();
   ProductDetailsSizeEnum? productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
   double sizeImageChooseSizeProduct = 220;
-  List<ProductDetailsSizeEnum> historySizeList = [
-    ProductDetailsSizeEnum.medium,
-  ];
+  List<ProductDetailsSizeEnum> historySizeList = [ProductDetailsSizeEnum.medium];
   AnimationChooseSizeStatus animationChooseSizeStatus = AnimationChooseSizeStatus.init;
-  late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize =
-      (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
+  late (ProductDetailsSizeEnum, ProductDetailsSizeEnum) getOldAndCurrentSize = (
+    ProductDetailsSizeEnum.medium,
+    ProductDetailsSizeEnum.medium,
+  );
 
   late AnimationController animationController;
   late Animation<double> titleProductOpacity;
@@ -40,30 +40,15 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     titleProductOpacity = Tween<double>(
       begin: 1,
       end: 0,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOutBack,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOutBack));
     textChooseSizeOpacity = Tween<double>(
       begin: 0,
       end: 1,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: Curves.easeInOutBack,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: Curves.easeInOutBack));
     yellowCirclePositionRight = Tween<double>(
       begin: 53,
       end: -40,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: easeInOutBackSlow50,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: easeInOutBackSlow50));
 
     backgroundColorAnimation = ColorTween(
       begin: AppColors.productDetailsBackground,
@@ -73,12 +58,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     imageSlideTransition = Tween<Offset>(
       begin: const Offset(0, 3),
       end: Offset.zero,
-    ).animate(
-      CurvedAnimation(
-        parent: animationController,
-        curve: easeInOutBackSlow30,
-      ),
-    );
+    ).animate(CurvedAnimation(parent: animationController, curve: easeInOutBackSlow30));
   }
 
   void startInitAnimation() {
@@ -102,8 +82,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
 
       productDetailsSizeEnum = ProductDetailsSizeEnum.medium;
       sizeImageChooseSizeProduct = 220;
-      getOldAndCurrentSize =
-          (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
+      getOldAndCurrentSize = (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
     });
   }
 
@@ -122,11 +101,7 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     ProductDetailsSizeEnum firstOut = historySizeList.first;
 
     historySizeList.clear();
-    historySizeList.addAll([
-      productDetailsSizeEnum!,
-      newSize,
-      firstOut,
-    ]);
+    historySizeList.addAll([productDetailsSizeEnum!, newSize, firstOut]);
     getOldAndCurrentSize = (productDetailsSizeEnum!, newSize);
     productDetailsSizeEnum = newSize;
 
@@ -146,8 +121,6 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
       case ProductDetailsSizeEnum.large:
         sizeImageChooseSizeProduct = 278;
         break;
-      default:
-        sizeImageChooseSizeProduct = 220;
     }
   }
 
@@ -170,38 +143,31 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   bool get isChangeCircleFromSmallToLarge {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.large);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.large);
   }
 
   bool get isChangeCircleFromSmallToMedium {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.medium);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.small, ProductDetailsSizeEnum.medium);
   }
 
   bool get isChangeCircleFromLargeToSmall {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.small);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.small);
   }
 
   bool get isChangeCircleFromLargeToMedium {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.medium);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.large, ProductDetailsSizeEnum.medium);
   }
 
   bool get isChangeCircleFromMediumToSmall {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.small);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.small);
   }
 
   bool get isChangeCircleFromMediumToLarge {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.large);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.large);
   }
 
   bool get isChangeCircleFromMediumToMedium {
-    return getOldAndCurrentSize ==
-        (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
+    return getOldAndCurrentSize == (ProductDetailsSizeEnum.medium, ProductDetailsSizeEnum.medium);
   }
 
   @override
