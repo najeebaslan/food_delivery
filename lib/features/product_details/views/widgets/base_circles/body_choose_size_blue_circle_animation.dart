@@ -28,44 +28,30 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
       children: [
         if (productCubit.isChangeCircleFromMediumToSmall) ...[
           _greenCircleWidget(),
-          _blueCircleWidget(
-            circleOpacity.value.clamp(0.0, 1.0),
-          )
+          _blueCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
         ] else if (productCubit.isChangeCircleFromSmallToMedium) ...[
-          _greenCircleWidget(
-            circleOpacity.value.clamp(0.0, 1.0),
-          ),
+          _greenCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
           _blueCircleWidget(),
         ] else if (productCubit.isChangeCircleFromMediumToLarge) ...[
           _yellowCircleWidget(),
-          _blueCircleWidget(
-            circleOpacity.value.clamp(0.0, 1.0),
-          ),
+          _blueCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
         ] else if (productCubit.isChangeCircleFromLargeToMedium) ...[
-          _yellowCircleWidget(
-            circleOpacity.value.clamp(0.0, 1.0),
-          ),
+          _yellowCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
           _blueCircleWidget(),
         ] else if (productCubit.isChangeCircleFromLargeToSmall) ...[
-          _yellowCircleWidget(
-            circleOpacity.value.clamp(0.0, 1.0),
-          ),
+          _yellowCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
           _greenCircleWidget(),
         ] else if (productCubit.isChangeCircleFromSmallToLarge) ...[
           if (lastSize == ProductDetailsSizeEnum.medium) ...[
             _greenCircleWidget(),
-            _yellowCircleWidget(
-              circleOpacity.value.clamp(0.0, 1.0),
-            ),
+            _yellowCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
           ] else if (lastSize == ProductDetailsSizeEnum.small) ...[
             _greenCircleWidget(),
             _yellowCircleWidget(),
           ] else ...[
-            _yellowCircleWidget(
-              circleOpacity.value.clamp(0.0, 1.0),
-            ),
+            _yellowCircleWidget(circleOpacity.value.clamp(0.0, 1.0)),
             _greenCircleWidget(),
-          ]
+          ],
         ] else
           _blueCircleWidget(),
       ],
@@ -80,9 +66,7 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
         width: 190.02.w,
         height: 193.02.h,
         colorFilter: ColorFilter.mode(
-          AppColors.yellow.withOpacity(
-            colorOpacity ?? yellowCircleOpacity.value.clamp(0.0, 1.0),
-          ),
+          AppColors.yellow.withOpacity(colorOpacity ?? yellowCircleOpacity.value.clamp(0.0, 1.0)),
           BlendMode.srcIn,
         ),
       ),
@@ -97,9 +81,7 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
         width: 189.02.w,
         height: 189.02.h,
         colorFilter: ColorFilter.mode(
-          AppColors.green.withOpacity(
-            colorOpacity ?? greenCircleOpacity.value.clamp(0.0, 1.0),
-          ),
+          AppColors.green.withOpacity(colorOpacity ?? greenCircleOpacity.value.clamp(0.0, 1.0)),
           BlendMode.srcIn,
         ),
       ),
@@ -113,23 +95,20 @@ class BodyChooseSizeBlueCircleAnimation extends StatelessWidget {
         width: 195.02.w,
         height: 195.02.h,
         angle: 4,
-        color: productCubit.isChangeCircleFromMediumToMedium
-            ? AppColors.blue
-            : AppColors.blue.withOpacity(
-                colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
-              ),
+        color:
+            productCubit.isChangeCircleFromMediumToMedium
+                ? AppColors.blue
+                : AppColors.blue.withOpacity(
+                  colorOpacity ?? blueCircleOpacity.value.clamp(0.0, 1.0),
+                ),
       ),
     );
   }
 
-  Animation<double> get greenCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
-  Animation<double> get circleOpacity =>
-      Tween(begin: 1.0, end: 0.0).animate(adaptiveCurve);
+  Animation<double> get greenCircleOpacity => Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
+  Animation<double> get circleOpacity => Tween(begin: 1.0, end: 0.0).animate(adaptiveCurve);
 
-  Animation<double> get yellowCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
+  Animation<double> get yellowCircleOpacity => Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
 
-  Animation<double> get blueCircleOpacity =>
-      Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
+  Animation<double> get blueCircleOpacity => Tween(begin: 0.0, end: 1.0).animate(adaptiveCurve);
 }

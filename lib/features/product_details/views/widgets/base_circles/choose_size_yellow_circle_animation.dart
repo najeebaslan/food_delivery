@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -149,7 +147,7 @@ class _ChooseSizeYellowCircleAnimationState extends State<ChooseSizeYellowCircle
         end: 116.305,
       ).animate(_adaptiveCurve);
     }
-   
+
     if (!_chooseSizeAnimationController.isCompleted) {
       _chooseSizeAnimationController.forward();
     } else {

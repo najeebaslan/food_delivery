@@ -29,10 +29,11 @@ class FoodDeliveryApp extends StatelessWidget {
       builder: (context, child) {
         return BlocProvider<HomeAnimationCubit>(
           create: (BuildContext context) => HomeAnimationCubit(),
-          child: PlatformApp(
+          child:
+           PlatformApp(
             onGenerateRoute: AppRouter.onGenerateRoute,
-            // initialRoute: AppRoutesConstants.splashView,
-            initialRoute: AppRoutesConstants.homeView,
+            initialRoute: AppRoutesConstants.splashView,
+            // initialRoute: AppRoutesConstants.homeView,
             builder: (context, child) => MediaQuery(
               data: MediaQuery.of(context).copyWith(
                 textScaler: const TextScaler.linear(1),
@@ -41,7 +42,7 @@ class FoodDeliveryApp extends StatelessWidget {
             ),
             title: 'Food Delivery App',
             debugShowCheckedModeBanner: false,
-            
+
             cupertino: (_, __) {
               return CupertinoAppData(
                 theme: CupertinoThemeData(

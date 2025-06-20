@@ -24,16 +24,11 @@ class TitleAndSubtitleProduct extends StatelessWidget {
       crossAxisAlignment: isOdd ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 140.w,
-            maxHeight: 28.h,
-          ),
+          constraints: BoxConstraints(maxWidth: 140.w, maxHeight: 28.h),
           child: AutoSizeText(
             title,
             textAlign: isOdd ? TextAlign.left : TextAlign.right,
-            style: AppTextStyles.font30Black400W.copyWith(
-              height: 0,
-            ),
+            style: AppTextStyles.font30Black400W.copyWith(height: 0),
           ),
         ),
         if (index != 0)
@@ -43,37 +38,30 @@ class TitleAndSubtitleProduct extends StatelessWidget {
             margin: EdgeInsets.symmetric(vertical: 2.h),
             decoration: ShapeDecoration(
               color: color,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
               shadows: const [
                 BoxShadow(
                   color: Color(0x19000000),
                   blurRadius: 10,
                   offset: Offset(0, 10),
                   spreadRadius: 0,
-                )
+                ),
               ],
             ),
           )
         else
           Gap(50.h),
         ConstrainedBox(
-          constraints: BoxConstraints(
-            maxWidth: 232.w,
-            maxHeight: 32.h,
-          ),
+          constraints: BoxConstraints(maxWidth: 232.w, maxHeight: 32.h),
           child: AutoSizeText(
             'Want a delicious meal, but no \ntime we will deliver it hot and yummy.',
             textAlign: isOdd ? TextAlign.right : TextAlign.left,
             textDirection: TextDirection.ltr,
             maxLines: 2,
             overflow: TextOverflow.ellipsis,
-            style: AppTextStyles.font14Black400W.copyWith(
-              height: 0,
-            ),
+            style: AppTextStyles.font14Black400W.copyWith(height: 0),
           ),
-        )
+        ),
       ],
     );
   }

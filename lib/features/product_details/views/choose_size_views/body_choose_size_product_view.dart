@@ -17,8 +17,8 @@ class BodyChooseSizeProductView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProductDetailsCubit, ProductDetailsState>(
-      buildWhen: (previous, current) =>
-          current is ProductSelected || current is ProductDetailsSizeChanged,
+      buildWhen:
+          (previous, current) => current is ProductSelected || current is ProductDetailsSizeChanged,
       builder: (context, state) {
         final sizeProduct = sizeTypes[context.read<ProductDetailsCubit>().indexProduct];
 
@@ -37,10 +37,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
-                    side: const BorderSide(
-                      width: 1,
-                      color: Color(0xA04DB066),
-                    ),
+                    side: const BorderSide(width: 1, color: Color(0xA04DB066)),
                     borderRadius: BorderRadius.circular(20.r),
                   ),
                   shadows: const [
@@ -49,7 +46,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
                       blurRadius: 10,
                       offset: Offset(0, 10),
                       spreadRadius: 0,
-                    )
+                    ),
                   ],
                 ),
                 child: Column(
@@ -57,18 +54,11 @@ class BodyChooseSizeProductView extends StatelessWidget {
                     OverflowBar(
                       alignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          'Calories',
-                          style: AppTextStyles.font14Black400W.copyWith(
-                            height: 0,
-                          ),
-                        ),
+                        Text('Calories', style: AppTextStyles.font14Black400W.copyWith(height: 0)),
                         Text(
                           'Weight',
                           textAlign: TextAlign.left,
-                          style: AppTextStyles.font14Black400W.copyWith(
-                            height: 0,
-                          ),
+                          style: AppTextStyles.font14Black400W.copyWith(height: 0),
                         ),
                       ],
                     ),
@@ -107,10 +97,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
             Text(
               'Choose size -',
               textAlign: TextAlign.left,
-              style: AppTextStyles.font20Black300W.copyWith(
-                height: 0,
-                fontStyle: FontStyle.italic,
-              ),
+              style: AppTextStyles.font20Black300W.copyWith(height: 0, fontStyle: FontStyle.italic),
             ),
             BaseFadeAnimatedSwitcher(
               durationMs: NumConstants.duration900,
@@ -138,9 +125,7 @@ class BodyChooseSizeProductView extends StatelessWidget {
         textAlign: title.contains('gr') ? TextAlign.right : TextAlign.left,
         key: ValueKey(title),
         title,
-        style: AppTextStyles.font20Black500W.copyWith(
-          height: 0,
-        ),
+        style: AppTextStyles.font20Black500W.copyWith(height: 0),
       ),
     );
   }
@@ -153,41 +138,35 @@ class BodyChooseSizeProductView extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ...List.generate(
-              3,
-              (index) {
-                final bool isSelected = sizeProduct == sizeTypes[index][0];
-                return GestureDetector(
-                  onTap: () => ProductDetailsCubit.get(context).changeProductSize(
-                    ProductDetailsSizeEnum.values[index],
+            ...List.generate(3, (index) {
+              final bool isSelected = sizeProduct == sizeTypes[index][0];
+              return GestureDetector(
+                onTap:
+                    () => ProductDetailsCubit.get(
+                      context,
+                    ).changeProductSize(ProductDetailsSizeEnum.values[index]),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: NumConstants.duration900),
+                  curve: Curves.easeInOutBack,
+                  width: isSelected ? 44.w : 28.w,
+                  height: isSelected ? 37.71 : 24.h,
+                  alignment: Alignment.center,
+                  decoration: ShapeDecoration(
+                    color: isSelected ? AppColors.green : AppColors.gray,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40.r)),
                   ),
-                  child: AnimatedContainer(
-                    duration: const Duration(
-                      milliseconds: NumConstants.duration900,
-                    ),
-                    curve: Curves.easeInOutBack,
-                    width: isSelected ? 44.w : 28.w,
-                    height: isSelected ? 37.71 : 24.h,
-                    alignment: Alignment.center,
-                    decoration: ShapeDecoration(
-                      color: isSelected ? AppColors.green : AppColors.gray,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(40.r),
-                      ),
-                    ),
-                    child: PlatformText(
-                      sizeTypes[index][0],
-                      textAlign: TextAlign.center,
-                      style: AppTextStyles.font14Black300W.copyWith(
-                        height: 0,
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.white,
-                      ),
+                  child: PlatformText(
+                    sizeTypes[index][0],
+                    textAlign: TextAlign.center,
+                    style: AppTextStyles.font14Black300W.copyWith(
+                      height: 0,
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.white,
                     ),
                   ),
-                );
-              },
-            )
+                ),
+              );
+            }),
           ],
         ),
       ),
