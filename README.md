@@ -1,4 +1,4 @@
-# Food Delivery App
+# Food Delivery UI KIT
 
 https://github.com/user-attachments/assets/be64141a-d75c-4726-91f7-db765e76d6f8
 
